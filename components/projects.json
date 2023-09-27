@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Flask",
+        "time": "2023",
+        "logo": "/logo_flask.png",
+        "text": "A Flask-based website with a PostgreSQL database for the presidential elections of a physics professors' commission.",
+        "largeText" : [
+            "Flask is a Python web framework that allows developers to quickly and easily create web applications. Flask is considered a micro-framework, which means that it is designed to be lightweight and flexible, and does not include unnecessary additional components.",
+            "Flask provides the basic tools for creating web applications, such as URL routing, cookie management, support for Jinja2 templates, and more. Although Flask is considered a beginner-level framework, it is highly scalable and extensible, and is used by developers of all levels of experience to create web applications from simple to complex."
+            
+        ],
+        "technologies": [
+            {
+                "name": "python",
+                "logo": "/logo_python.png"
+            }
+        ],
+        "github": "https://github.com/Mauro-js/test_python_flask"
+    },
+    {
+        "name": "Meteor",
+        "time": "2022",
+        "logo": "/logo_meteor.png",
+        "text": "This website is intended for stock management in a store, which allows control of the database of product brands, types, quantities, and sales history, all in a MongoDB database.",
+        "largeText" : [
+            "Meteor is an open-source web and mobile development platform that uses JavaScript on both the client and server sides, with a real-time data system and a wide range of open-source packages and libraries to facilitate integration with other web technologies and services."
+        ],
+        "technologies": [
+            {
+                "name": "JavaScript",
+                "logo": "/logo_javascript.png"
+            },
+            {
+                "name": "Node",
+                "logo": "/logo_node.png"
+            }
+        ],
+        "github": "https://github.com/Mauro-js/Meteor_practices"
+    },
+    {
+        "name": "Tailwind",
+        "time": "2022",
+        "logo": "/tailwind-logo.png",
+        "text": "This is a news website, created with Next.js, with the addition of a cache for cases where the user has poor network connectivity.",
+        "largeText" : [
+            "Tailwind CSS is an open-source UI design framework for the quick and easy creation of custom designs for websites and web applications. The focus of Tailwind CSS is to provide a large number of pre-built and highly configurable utility classes that can be applied directly in HTML to design web pages without having to write custom CSS.",
+            "This makes it easy to create highly customized and responsive designs, resulting in a smoother and enhanced user experience. Additionally, Tailwind CSS also includes a range of useful development tools and features, such as a default color palette, tools for creating shadows, animation effects, and more."
+        ],
+        "technologies": [
+            {
+                "name": "JavaScript",
+                "logo": "/logo_javascript.png"
+            },
+            {
+                "name": "NextJs",
+                "logo": "/logo_next.png"
+            },
+            {
+                "name": "Node",
+                "logo": "/logo_node.png"
+            }
+        ],
+        "github": "https://github.com/Mauro-js/tailwind"
+    }
+]

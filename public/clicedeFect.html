@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    .clickable-box {
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .clickable-box.clicked {
+        background-color: red;
+        transform: scale(1.2);
+    }
+</style>
+</head>
+<body>
+    <div class="clickable-box" onclick="this.classList.toggle('clicked')">Haz clic aquí</div>
+</body>
+</html>

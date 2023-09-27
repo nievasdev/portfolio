@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cambio de Contenido con Detención y Letras Finales</title>
+<style>
+  .content-box {
+    text-align: center;
+    margin: 50px;
+  }
+
+  .changing-content {
+    font-size: 24px;
+    display: inline-block;
+  }
+
+  .changing-content span {
+    display: inline-block;
+    width: 20px; /* Ancho fijo para cada letra */
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="content-box">
+    <p class="changing-content">
+      <span>T</span><span>e</span><span>x</span><span>t</span><span>M</span>
+      <span>I</span><span>n</span><span>i</span><span>c</span><span>a</span><span>a</span><span>l</span>
+    </p>
+  </div>
+
+  <script>
+    const changingContent = document.querySelector('.changing-content');
+    const spanElements = changingContent.querySelectorAll('span');
+    const lettersLists = [
+      'ABCDE',
+      '12345',
+      'XYZ',
+      'abcde',
+      '67890',
+      '-',
+      'N',
+      'i',
+      'e',
+      'v',
+      'a',
+      's'
+    ];
+
+    const desiredEndLetters = [
+      'M',
+      'a',
+      'u',
+      'r',
+      'o',
+      '',
+      '',
+      '',
+      '',
+      'v',
+      'a',
+      's'
+    ];
+
+    const currentIndexes = Array.from({ length: spanElements.length }, () => 0);
+
+    function changeContent() {
+      let shouldStop = true;
+
+      spanElements.forEach((span, index) => {
+        const letters = lettersLists[index % lettersLists.length];
+        if (currentIndexes[index] < letters.length) {
+          const desiredEndLetter = desiredEndLetters[index];
+          if (currentIndexes[index] === letters.length - 1 && desiredEndLetter) {
+            span.textContent = desiredEndLetter;
+          } else {
+            span.textContent = letters[currentIndexes[index]];
+          }
+          currentIndexes[index]++;
+          shouldStop = false;
+        }
+      });
+
+      if (shouldStop) {
+        clearInterval(intervalId);
+      }
+    }
+
+    const intervalId = setInterval(changeContent, 200); // Cambia cada 0.1 segundos
+  </script>
+</body>
+</html>

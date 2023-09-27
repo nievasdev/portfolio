@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #222831;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #1D1D1F;
+}
+
+main {
+    background-color: #1D1D1F;
+}
+
+.minibackdrop {
+    backdrop-filter: brightness(.1);
+}
+
+.minibackdrop2 {
+    backdrop-filter: brightness(.7);
+}
+
+.button-hover:hover {
+    transform: scale(1.1);
+    /* Escala el 10% más grande */
+    transition: transform 0.2s ease;
+    /* Agrega una transición suave */
+
+}
+
+@keyframes shadow-drop-center {
+    0% {
+        box-shadow: 0 0 0 0 transparent
+    }
+
+    100% {
+        box-shadow: 0 0 5px 0 rgba(255, 255, 255, .15)
+    }
+}
+
+.highlight-text {
+    transition: font-size 0.3s ease-in-out;
+}
+
+.highlight-text:hover {
+    font-size: 5.2em;
+    cursor: pointer;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, .4);
+    animation: textShadow 2s linear both
+}
+
+
+.blur-in {
+    animation: blur-in 0.8s linear both
+}
+
+@keyframes blur-in {
+    0% {
+        filter: blur(12px);
+        opacity: 0;
+        height: 0;
+    }
+
+    100% {
+        filter: blur(0);
+        height: inherit;
+        opacity: 1;
+    }
+}
+
+.scale-up-center {
+    animation: scale-up-center 0.4s;
+}
+
+@keyframes scale-up-center {
+    0% {
+        transform: scale(.2)
+    }
+
+    100% {
+        transform: scale(1)
+    }
+}
+
+.scale-up-top {
+    animation: scale-up-top 0.4s;
+}
+
+@keyframes scale-up-top {
+    0% {
+        transform: scale(.2);
+        transform-origin: center top
+    }
+
+    100% {
+        transform: scale(1);
+        transform-origin: center top
+    }
+}
+
+.rotate-horizontal-center {
+    animation: rotate-horizontal-center 1s
+}
+
+@keyframes rotate-horizontal-center {
+    0% {
+        transform: rotateX(0)
+    }
+
+    100% {
+        transform: rotateX(-360deg)
+    }
+}
+
+
+
+
+
+.scale-up-top {
+    animation: scale-up-top 0.2s;
+}
+
+@keyframes scale-up-top {
+    0% {
+        transform: scale(.5);
+        transform-origin: center top
+    }
+
+    100% {
+        transform: scale(1);
+        transform-origin: center top
+    }
+}
+
+.grid_card {
+    display: flex;
+    flex-wrap: wrap;
+    /* Permite que las imágenes se envuelvan a la siguiente línea */
+    justify-content: center;
+    max-width: 1000px;
+    width: 100%;
+    /* Ocupar el ancho completo del contenedor */
+    margin: 0 auto;
+    /* Centrar el contenido horizontalmente */
+}
+
+
+.disaper {
+    animation: disaper 0.5s;
+}
+
+@keyframes disaper {
+
+    0% {
+        opacity: 0
+    }
+    99% {
+        opacity: 0
+    }
+    100% {
+        opacity: 1
+    }
+}
