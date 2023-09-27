@@ -14,7 +14,7 @@ import { siteConfig } from "../config/site";
 import NextLink from "next/link";
 import clsx from "clsx";
 
-import { ThemeSwitch } from "./theme-switch";
+//import { ThemeSwitch } from "./theme-switch";
 import {
 	GithubIcon,
 } from "./icons";
@@ -46,7 +46,7 @@ export const Navbar = () => {
 	return (
 		<NextUINavbar maxWidth="2xl" position="sticky" className="backdrop-blur-sm bg-transparent">
 			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-				<div className="hidden lg:flex gap-4 justify-start ml-2">
+				<div className="hidden sm:flex gap-4 justify-start ml-2">
 					{siteConfig.navItems.map((item) => (
 						<NavbarItem key={item.href}>
 							<NextLink
