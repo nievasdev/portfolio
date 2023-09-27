@@ -25,56 +25,47 @@ const Slider = ({ projects }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderIntervalRef = useRef(null);
 
-  if (projects.length === 0) return null;
-
-  const items = projects.map((project) => {
-    return (
-      <div key={project.title} className='pt-5 text-center justify-center'>
-        <p className='text-2xl'>{project.title}</p>
-        <br />
-        <p className='px-2 py-1 ml-5 mr-5 h-fit font-mono font-normal inline-block bg-default/40 text-default-foreground text-small rounded-small'>
-          {project.text}
-        </p>
-      </div>
-    );
-  });
-
-  const startSliderInterval = () => {
-    sliderIntervalRef.current = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex === items.length - 1 ? 0 : prevIndex + 1));
-    }, 7000); // Change to the desired slide interval (in milliseconds)
-  };
-
   const prevSlide = () => {
     clearInterval(sliderIntervalRef.current);
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? items.length - 1 : prevIndex - 1));
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? projects.length - 1 : prevIndex - 1));
   };
 
   const nextSlide = () => {
     clearInterval(sliderIntervalRef.current);
-    setCurrentIndex((prevIndex) => (prevIndex === items.length - 1 ? 0 : prevIndex + 1));
+    setCurrentIndex((prevIndex) => (prevIndex === projects.length - 1 ? 0 : prevIndex + 1));
   };
 
   useEffect(() => {
+    const startSliderInterval = () => {
+      sliderIntervalRef.current = setInterval(() => {
+        setCurrentIndex((prevIndex) => (prevIndex === projects.length - 1 ? 0 : prevIndex + 1));
+      }, 7000);
+    };
+
     startSliderInterval();
 
     return () => {
       clearInterval(sliderIntervalRef.current);
     };
-  }, [items.length]);
+  }, [projects.length]);
+
+  if (projects.length === 0) return null;
+
+  const items = projects.map((project, index) => {
+    return (
+      <div key={index} className={`transition-opacity duration-300 ${index === currentIndex ? 'opacity-100' : 'opacity-0 pointer-events-none hidden'}`}>
+        <div className='pt-5 text-center justify-center'>
+          <p className='text-2xl'>{project.title}</p>
+          <br />
+          <p className='px-2 py-1 ml-5 mr-5 h-fit font-mono font-normal inline-block bg-default/40 text-default-foreground text-small rounded-small'>{project.text}</p>
+        </div>
+      </div>
+    );
+  });
 
   return (
     <div className='relative justify-center mb-5 pb-5 minibackdrop2 pl-10 pr-10 mb-20'>
-      {items.map((item, index) => (
-        <div
-          key={index}
-          className={`transition-opacity duration-300 ${
-            index === currentIndex ? 'opacity-100' : 'opacity-0 pointer-events-none hidden'
-          }`}
-        >
-          {item}
-        </div>
-      ))}
+      {items}
 
       <button
         className='absolute backdrop-brightness-50 minibackdrop top-1/2 left-2 transform -translate-y-1/2 h-full text-white p-2'
