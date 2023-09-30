@@ -64,16 +64,10 @@ export default function IndexPage() {
     const [width, setWidth] = useState(700);
     const [less, setLess] = useState(700);
 
-    const worksRef = useRef(null);
-    const projectsRef = useRef(null);
-    const meRef = useRef(null);
-    const homeRef = useRef(null);
-
     const scrollToSection = (section) => {
 
         const targetElement = document.getElementById(section); // Obtiene el elemento de destino por su ID
 
-        console.log(section);
         if (targetElement) {
             window.scrollTo({
                 top: targetElement.offsetTop, // Desplaza a la parte superior del elemento

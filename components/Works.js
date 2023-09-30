@@ -9,7 +9,7 @@ import {
 } from '@nextui-org/react';
 import Link from 'next/link'
 
-const worksjson = require('./works.json');
+const worksjson = require('../public/works.json');
 
 export default function Works() {
 

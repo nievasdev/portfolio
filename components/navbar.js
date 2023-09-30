@@ -26,6 +26,8 @@ export const Navbar = () => {
 	function handleScrollToSection(e, sectionId) {
 		e.preventDefault(); // Evita el comportamiento de enlace predeterminado
 
+		if(sectionId === "blogRef") router.replace('/blog');
+		if(router.pathname === "/blog" && sectionId === "blogRef") return null;
 
 		if (router.pathname === '/') {
 		const targetElement = document.getElementById(sectionId); // Obtiene el elemento de destino por su ID

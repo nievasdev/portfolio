@@ -83,7 +83,7 @@ const Slider = ({ projects }) => {
   );
 };
 
-const workJson = require('../../components/works.json');
+const workJson = require('../../public/works.json');
 
 export default function SelectedWork() {
   const router = useRouter();

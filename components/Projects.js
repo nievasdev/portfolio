@@ -2,7 +2,7 @@
 import { Button } from "@nextui-org/react";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
 import { Link } from "@nextui-org/react";
-const projectsJson = require("./projects.json");
+const projectsJson = require("../public/projects.json");
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 import {
     GithubIcon,
