@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Octokit } from '@octokit/core';
-
+import timeCalculator from "./timeCalculator";
 import { Card, CardHeader, CardBody, CardFooter, Divider, Image } from "@nextui-org/react";
 
 const technologies = [
@@ -43,25 +43,12 @@ export default function MeSection() {
             })
             .then((response) => {
                 setUserData(response.data);
-                // Calcular la diferencia de tiempo
-                const currentDate = new Date();
-                const targetDate = new Date('2017-04-04');
-                const timeDiff = currentDate - targetDate;
-
-                // Calcular años, meses y días
-                const years = Math.floor(timeDiff / (365 * 24 * 60 * 60 * 1000));
-                const months = Math.floor(
-                    (timeDiff % (365 * 24 * 60 * 60 * 1000)) / (30 * 24 * 60 * 60 * 1000)
-                );
-                const days = Math.floor(
-                    (timeDiff % (30 * 24 * 60 * 60 * 1000)) / (24 * 60 * 60 * 1000)
-                );
-
-                setTimeDifference({ years, months, days });
             })
             .catch((error) => {
                 console.error('Error fetching GitHub data:', error);
             });
+
+        setTimeDifference(timeCalculator());
     }, []);
 
     return (
@@ -73,9 +60,9 @@ export default function MeSection() {
             </p>
             <div className='grid grid-cols-1 grid-rows-2 xl:grid-cols-2 mt-10' >
                 <p>
-                    { timeDifference !== null && "I have experience working for various companies and different work methodologies. I've been studying programming on my own since I was 12 years old, and I'm currently pursuing a degree in computer engineering. I have " + timeDifference.years  + " years of experience, and what I excel at the most is JavaScript, React, Next.js, Node, and Python. I'm aiming to be a sought-after engineer for the biggest companies in the world within the next 10 years."}
+                    {timeDifference !== null && "Experienced in diverse corporate environments and work methodologies, I began self-studying programming at 12 and am now pursuing a degree in computer engineering. Boasting " + timeDifference.years + " years of expertise, my strengths lie in JavaScript, React, Next.js, Node, and Python. My goal is to become a highly sought-after engineer for global industry leaders within the next decade."}
                 </p>
-                <div  className='p-2 grid_card'>
+                <div className='p-2 grid_card'>
                     {userData && (
                         <Card className="bg-spacial-2 w-[150px] m-5">
                             <CardHeader className="gap-3">

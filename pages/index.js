@@ -6,18 +6,24 @@ import Works from '../components/Works';
 import Projects from '../components/Projects';
 import MeSection from '../components/MeSection';
 import { Divider } from "@nextui-org/react";
+import timeCalculator from '../components/timeCalculator';
 
 const responsiveButton = 'text-sm sm:text-base md:text-xl md:w-30 md:h-18 lg:text-2xl lg:w-34 lg:h-18 xl:text-2xl xl:w-38 xl:h-12 2xl:text-2xl 2xl:w-40 2xl:h-14 button-hover'
 
 const Me = ({ backdrop }) => {
+    const [years, setYears] = useState(0);
     let classMe = "flex flex-col z-40 place-items-center text-center scale-up-top backdrop-blur-sm p-3 rounded-lg";
     classMe += backdrop ? " minibackdrop" : "";
+
+    useEffect(() => {
+        setYears(timeCalculator().years);
+    }, [])
 
     return (
         <div className={classMe} >
             <ChangingContentAnimation />
-            <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-5xl font-sans rotate-horizontal-center ">
-                Developer
+            <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-4xl font-sans rotate-horizontal-center ">
+                Developer { years !== 0 && "+" + years + " years"}
             </p>
         </div>
     );
