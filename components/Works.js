@@ -14,11 +14,11 @@ const worksjson = require('../public/works.json');
 export default function Works() {
 
   return (
-    <div className="text-center pt-44 sm:pt-8 bg-spacial-2 w-full disaper">
+    <section className="text-center pt-44 sm:pt-8 bg-spacial-2 w-full disaper">
       <p className="text-5xl sm:text-5xl md:text-7xl lg:text-7xl xl:text-7xl 2xl:text-7xl font-sans font-black text-ellipsis z-40 group">
         Works
       </p>
-      <div className="grid grid-cols-1 grid-rows-2 xl:grid-cols-2 place-items-center content-center mt-10 h-full">
+      <div className="grid grid-cols-1 grid-rows-2 xl:grid-cols-2 place-items-center content-center mt-10 h-full mx-auto place-items-center m-2 md:w-3/4">
         {worksjson.map((work) => (
           <div key={work.name} className="p-5 h-full">
             <Card className="h-full max-w-[100%] bg-spacial-2">
@@ -61,6 +61,6 @@ export default function Works() {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

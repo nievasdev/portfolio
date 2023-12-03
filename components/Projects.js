@@ -79,7 +79,7 @@ export default function Projects() {
                 >
                     Projects
                 </p>
-                <div className='grid grid-cols-1 grid-rows-2 xl:grid-cols-2 place-items-center content-center mt-10 h-full w-full disaper' >
+                <div className='grid grid-cols-1 grid-rows-2 xl:grid-cols-2 place-items-center content-center mt-10 h-full w-full disaper mx-auto place-items-center m-2 md:w-3/4' >
                     {
                         projectsJson.map(project => {
                             return (

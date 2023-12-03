@@ -8,7 +8,7 @@ import MeSection from '../components/MeSection';
 import { Divider } from "@nextui-org/react";
 import timeCalculator from '../components/timeCalculator';
 
-const responsiveButton = 'text-sm sm:text-base md:text-xl md:w-30 md:h-18 lg:text-2xl lg:w-34 lg:h-18 xl:text-2xl xl:w-38 xl:h-12 2xl:text-2xl 2xl:w-40 2xl:h-14 button-hover'
+const responsiveButton = 'text-sm sm:text-base md:text-xl md:w-32 md:h-18 lg:text-2xl lg:w-34 lg:h-18 xl:text-2xl xl:w-38 xl:h-12 2xl:text-2xl 2xl:w-40 2xl:h-14 button-hover'
 
 const Me = ({ backdrop }) => {
     const [years, setYears] = useState(0);
@@ -118,10 +118,10 @@ export default function IndexPage() {
     }, []);
 
     return (
-        <>
+        <div className='justify-items-center'>
             <Divider className='hidden' id="homeRef" />
             <div className="h-full relative">
-                <section  className="grid gap-2 mx-auto place-items-center m-2">
+                <section  className="grid gap-2 mx-auto place-items-center m-2 w-3/4">
                     <div className={smallScreen ? classNameText + " absolute" : classNameText}>
                         <Me backdrop={smallScreen} />
                         <div className="z-10 text-center mt-16">
@@ -156,6 +156,6 @@ export default function IndexPage() {
                 <Divider id="projectsRef" className='disaper' />
                 <Projects  className='disaper' />
             </div>
-        </>
+        </ div>
     );
 }

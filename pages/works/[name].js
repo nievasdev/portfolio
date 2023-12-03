@@ -94,7 +94,7 @@ export default function SelectedWork() {
   return (
     <>
       {workSelected && (
-        <div key={workSelected.name} className='sm:ml-10 sm:mr-10 pt-10 items-center place-content-center pb-5'>
+        <div key={workSelected.name} className='pt-10 items-center place-content-center pb-5 mx-auto place-items-center m-2 md:w-3/4'>
           <div className='flex flex-col gap-1 text-5xl text-center'>
             {workSelected.name} <p className='italic text-2xl'>{workSelected.time}</p>
           </div>
