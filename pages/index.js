@@ -23,7 +23,7 @@ const Me = ({ backdrop }) => {
         <div className={classMe} >
             <ChangingContentAnimation />
             <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-4xl font-sans rotate-horizontal-center ">
-                Developer { years !== 0 && "+" + years + " years"}
+                Developer {years !== 0 && "+" + years + " years"}
             </p>
         </div>
     );
@@ -89,7 +89,7 @@ export default function IndexPage() {
         const hash = window.location.hash; // Obtén la parte después de '#'
         const idHash = hash.substring(1);
 
-        if(idHash) {
+        if (idHash) {
             scrollToSection(idHash);
             //window.history.replaceState(null, null, window.location.pathname);
         }
@@ -118,10 +118,10 @@ export default function IndexPage() {
     }, []);
 
     return (
-        <div className='justify-items-center'>
+        <>
             <Divider className='hidden' id="homeRef" />
             <div className="h-full relative">
-                <section  className="grid gap-2 mx-auto place-items-center m-2 w-3/4">
+                <section className="grid gap-2 mx-auto place-items-center m-2 w-3/4">
                     <div className={smallScreen ? classNameText + " absolute" : classNameText}>
                         <Me backdrop={smallScreen} />
                         <div className="z-10 text-center mt-16">
@@ -149,13 +149,13 @@ export default function IndexPage() {
                         />
                     </div>
                 </section>
-                <Divider id="meRef" className='disaper'/>
+                <Divider id="meRef" className='disaper' />
                 <MeSection />
                 <Divider id="worksRef" className='disaper' />
                 <Works className='disaper' />
                 <Divider id="projectsRef" className='disaper' />
-                <Projects  className='disaper' />
+                <Projects className='disaper' />
             </div>
-        </ div>
+        </>
     );
 }

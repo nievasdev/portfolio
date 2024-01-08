@@ -10,7 +10,9 @@ export default function App({ Component, pageProps }) {
 		<NextUIProvider>
 			<NextThemesProvider>
 				<DefaultLayout>
-					<Component {...pageProps} />
+					<div className='justify-items-center'>
+						<Component {...pageProps} />
+					</div>
 				</DefaultLayout>
 			</NextThemesProvider>
 		</NextUIProvider>
