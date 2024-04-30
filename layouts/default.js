@@ -5,9 +5,9 @@ export default function DefaultLayout({
 	children,
 }) {
 	return (
-		<div className="relative flex flex-col h-screen">
+		<div className="relative flex flex-col h-screen text-white">
 			<Head />
-			<main className="px-6 flex-grow place-content-center ">
+			<main className="px-6 flex-grow place-content-center text-white">
 				<Navbar />
 				{children}
 			</main>

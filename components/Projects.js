@@ -72,24 +72,24 @@ export default function Projects() {
                     }
                 </ModalContent>
             </Modal>
-            <div className='text-center pt-44 sm:pt-8 w-full disaper'>
+            <div className='text-center pt-44 sm:pt-8 w-full disaper text-white'>
                 <p
-                    className="text-5xl sm:text-5xl md:text-7xl lg:text-7xl xl:text-7xl 2xl:text-7xl font-sans font-black text-ellipsis z-40 group "
+                    className="text-white text-5xl sm:text-5xl md:text-7xl lg:text-7xl xl:text-7xl 2xl:text-7xl font-sans font-black text-ellipsis z-40 group "
 
                 >
                     Projects
                 </p>
-                <div className='grid grid-cols-1 grid-rows-2 xl:grid-cols-2 place-items-center content-center mt-10 h-full w-full disaper mx-auto place-items-center m-2 md:w-3/4' >
+                <div className='text-white grid grid-cols-1 grid-rows-2 xl:grid-cols-2 place-items-center content-center mt-10 h-full w-full disaper mx-auto place-items-center m-2 md:w-3/4' >
                     {
                         projectsJson.map(project => {
                             return (
-                                <div key={project.name} className="p-5 h-full">
+                                <div key={project.name} className="p-5 h-full text-white">
                                     <Card className="h-full bg-spacial-2 w-full disaper" >
                                         <CardHeader className="gap-3">
                                             <div className="flex justify-between items-center w-full">
                                                 <div className="flex items-center">
-                                                    <p className="text-xl">{project.name}</p>
-                                                    <p className="text-small ml-5 text-default-800">{project.time}</p>
+                                                    <p className="text-xl text-white">{project.name}</p>
+                                                    <p className="text-small ml-5 text-default-800 text-white">{project.time}</p>
                                                 </div>
                                                 <Link isExternal href={project.github}>
                                                     <GithubIcon className="text-default-500" />
@@ -103,7 +103,7 @@ export default function Projects() {
                                                 src={project.logo}
                                                 width={150}
                                             />
-                                            <p className="mt-5 sm:ml-5 sm:mt-0">
+                                            <p className="mt-5 sm:ml-5 sm:mt-0 text-white">
                                                 {project.text}
                                             </p>
                                         </CardBody>

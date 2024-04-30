@@ -66,25 +66,25 @@ export default function MeSection() {
                         <div className='md:p-2 grid_card'>
                             {userData && (
                                 <Card className="bg-spacial-2 w-[150px] m-5">
-                                    <CardHeader className="gap-3">
+                                    <CardHeader className="gap-3 text-white">
                                         <div className="flex place-items-center w-full">
                                             <p className="text-xl">Public Repos</p>
                                         </div>
                                     </CardHeader>
                                     <Divider />
-                                    <CardBody className="grid place-items-center sm:grid-flow-col text-2xl">
+                                    <CardBody className="grid place-items-center sm:grid-flow-col text-2xl text-white">
                                         {userData.public_repos}
                                     </CardBody>
                                 </Card>
                             )}
                             <Card className="bg-spacial-2 w-max-[400px] m-5">
                                 <CardHeader className="gap-3">
-                                    <div className="flex place-items-center w-full">
+                                    <div className="flex place-items-center w-full text-white">
                                         <p className="text-xl">Experience</p>
                                     </div>
                                 </CardHeader>
                                 <Divider />
-                                <CardBody className="grid place-items-center sm:grid-flow-col text-2xl">
+                                <CardBody className="grid place-items-center sm:grid-flow-col text-2xl text-white">
                                     {timeDifference !== null && <p>
                                         {timeDifference.years} Years, {timeDifference.months} Months and {timeDifference.days} days
                                     </p>}
