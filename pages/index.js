@@ -22,8 +22,8 @@ const Me = ({ backdrop }) => {
     return (
         <div className={classMe} >
             <ChangingContentAnimation />
-            <p className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-4xl font-sans rotate-horizontal-center ">
-                Developer {years !== 0 && "+" + years + " years"}
+            <p className="text-lg sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-3xl font-sans rotate-horizontal-center ">
+                Full Stack Developer {years !== 0 && "+" + years + " years"}
             </p>
         </div>
     );
