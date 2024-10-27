@@ -17,7 +17,8 @@ import clsx from "clsx";
 //import { ThemeSwitch } from "./theme-switch";
 import {
 	GithubIcon,
-	LinkedingLogo
+	LinkedingLogo,
+	HomeIcon
 } from "./icons";
 
 
@@ -61,7 +62,7 @@ export const Navbar = () => {
 								color="foreground"
 								href={item.href}
 							>
-								{item.label}
+								{item.label === "Home" ? <HomeIcon className="text-default-500" /> : item.label}
 							</NextLink>
 						</NavbarItem>
 					))}
@@ -93,8 +94,8 @@ export const Navbar = () => {
 
 			<NavbarMenu>
 				<div className="mx-4 mt-2 flex flex-col gap-2 backdrop-blur-sm text-white">
-					{siteConfig.navMenuItems.map((item, index) => (
-						<NavbarMenuItem key={`${item}-${index}`}>
+					{siteConfig.navMenuItems.map((item, index) => {
+						return <NavbarMenuItem key={`${item}-${index}`}>
 							<NextLink
 								onClick={(e) => handleScrollToSection(e, item.id)}
 								href={item.href}
@@ -102,7 +103,7 @@ export const Navbar = () => {
 								{item.label}
 							</NextLink>
 						</NavbarMenuItem>
-					))}
+})}
 				</div>
 			</NavbarMenu>
 		</NextUINavbar>
