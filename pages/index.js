@@ -149,12 +149,12 @@ export default function IndexPage() {
                         />
                     </div>
                 </section>
-                <Divider id="meRef" className='disaper' />
-                <MeSection />
                 <Divider id="worksRef" className='disaper' />
                 <Works className='disaper' />
                 <Divider id="projectsRef" className='disaper' />
                 <Projects className='disaper' />
+                <Divider id="meRef" className='disaper' />
+                <MeSection />
             </div>
         </>
     );
