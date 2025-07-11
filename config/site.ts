@@ -42,7 +42,7 @@ export const siteConfig = {
 		}
 	],
 	links: {
-		github: "https://github.com/Mauro-js",
-		linkeding: "https://www.linkedin.com/in/mauro-nievas-11b0bb11b/",
-	},
+               github: "https://github.com/Mauro-js",
+               linkedin: "https://www.linkedin.com/in/mauro-nievas-11b0bb11b/",
+       },
 };
