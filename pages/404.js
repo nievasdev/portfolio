@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Button } from '@nextui-org/react';
 
 export default function Custom404() {
   return (
@@ -8,10 +7,8 @@ export default function Custom404() {
         404 - Page Not Found
       </h1>
       <p className="mb-8 text-lg">Oops! The page you are looking for does not exist.</p>
-      <Link href="/" passHref>
-        <Button color="primary" variant="solid">
-          Go back home
-        </Button>
+      <Link href="/" className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+        Go back home
       </Link>
     </div>
   );
