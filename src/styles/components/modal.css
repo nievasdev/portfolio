@@ -1,0 +1,175 @@
+/* Modal Component Styles */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-index-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  animation: var(--animation-backdrop);
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: var(--color-spacial-2);
+  color: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  animation: var(--animation-modal);
+}
+
+/* Modal Sizes */
+.modal-sm {
+  max-width: 384px;
+}
+
+.modal-md {
+  max-width: 512px;
+}
+
+.modal-lg {
+  max-width: 768px;
+}
+
+.modal-xl {
+  max-width: 1024px;
+}
+
+.modal-2xl {
+  max-width: 1280px;
+}
+
+.modal-4xl {
+  max-width: 1536px;
+}
+
+.modal-full {
+  max-width: 95vw;
+  max-height: 95vh;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-6);
+  border-bottom: 1px solid rgba(0, 173, 181, 0.2);
+}
+
+.modal-title {
+  color: white;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.modal-header .modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: var(--spacing-5);
+}
+
+/* Modal Body */
+.modal-body {
+  padding: var(--spacing-6);
+  padding-top: var(--spacing-6);
+}
+
+.modal-body .modal-description {
+  color: rgba(238, 238, 238, 0.9);
+  margin-bottom: var(--spacing-4);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+}
+
+.modal-body .modal-text {
+  color: rgba(238, 238, 238, 0.8);
+  margin-bottom: var(--spacing-3);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Modal Footer */
+.modal-footer {
+  padding: var(--spacing-6);
+  padding-top: 0;
+}
+
+/* Modal Technologies Section */
+.modal-technologies {
+  margin-top: var(--spacing-6);
+}
+
+.modal-technologies .technologies-title {
+  color: white;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-3);
+  font-size: var(--font-size-xl);
+}
+
+.modal-technologies .technologies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+}
+
+.modal-technologies .technology-item {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-spacial-1);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4) var(--spacing-4);
+}
+
+.modal-technologies .technology-item img {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+  margin-right: var(--spacing-3);
+  transition: transform var(--transition-slow);
+}
+
+.modal-technologies .technology-item:hover img {
+  transform: scale(1.1);
+}
+
+.modal-technologies .technology-item span {
+  color: var(--color-spacial-4);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Close Button */
+.modal-close {
+  position: absolute;
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--color-spacial-4);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+  background-color: rgba(238, 238, 238, 0.1);
+  color: white;
+}
+
+.modal-close:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-spacial-3);
+}

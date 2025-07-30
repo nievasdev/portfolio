@@ -1,0 +1,101 @@
+/* Image Component Styles */
+
+.img {
+  max-width: 100%;
+  height: auto;
+}
+
+.img-cover {
+  object-fit: cover;
+}
+
+.img-contain {
+  object-fit: contain;
+}
+
+.img-fill {
+  object-fit: fill;
+}
+
+.img-scale-down {
+  object-fit: scale-down;
+}
+
+/* Image Sizes */
+.img-xs {
+  width: 1rem;
+  height: 1rem;
+}
+
+.img-sm {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.img-md {
+  width: 2rem;
+  height: 2rem;
+}
+
+.img-lg {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.img-xl {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.img-2xl {
+  width: 3rem;
+  height: 3rem;
+}
+
+.img-card {
+  width: 9rem;
+  height: 9rem;
+}
+
+.img-company-large {
+  max-width: 12.5rem;
+  max-height: 12.5rem;
+}
+
+/* Image Border Radius */
+.img-rounded-none {
+  border-radius: 0;
+}
+
+.img-rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+.img-rounded-md {
+  border-radius: var(--radius-md);
+}
+
+.img-rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.img-rounded-xl {
+  border-radius: var(--radius-xl);
+}
+
+.img-rounded-2xl {
+  border-radius: var(--radius-2xl);
+}
+
+.img-rounded-full {
+  border-radius: 50%;
+}
+
+/* Image Effects */
+.img-hover-scale {
+  transition: transform var(--transition-slow);
+}
+
+.img-hover-scale:hover {
+  transform: scale(1.1);
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Meteor",
+  "time": "2022",
+  "logo": "/logo_meteor.png",
+  "text": "This website is intended for stock management in a store, which allows control of the database of product brands, types, quantities, and sales history, all in a MongoDB database.",
+  "largeText": [
+    "Meteor is an open-source web and mobile development platform that uses JavaScript on both the client and server sides, with a real-time data system and a wide range of open-source packages and libraries to facilitate integration with other web technologies and services."
+  ],
+  "technologies": [
+    {
+      "name": "JavaScript",
+      "logo": "/logo_javascript.png"
+    },
+    {
+      "name": "Node",
+      "logo": "/logo_node.png"
+    }
+  ],
+  "github": "https://github.com/Mauro-js/Meteor_practices"
+}

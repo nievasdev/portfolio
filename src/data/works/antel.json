@@ -1,0 +1,24 @@
+{
+  "name": "Antel",
+  "time": "2022 - Current",
+  "logo": "/logo_ancel.png",
+  "text": "I have grown in knowledge of test automation, managing large-scale systems, implementing error handling best practices, and developing solutions for large infrastructures.",
+  "technologies": [
+    {
+      "name": "JavaScript",
+      "logo": "/logo_javascript.png"
+    },
+    {
+      "name": "React",
+      "logo": "/logo_react.png"
+    },
+    {
+      "name": "NextJs",
+      "logo": "/logo_next.png"
+    },
+    {
+      "name": "Node",
+      "logo": "/logo_node.png"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+/* Responsive Layout Utilities */
+
+/* Flexbox Utilities */
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+/* Alignment */
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Positioning */
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.static {
+  position: static;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.top-full {
+  top: 100%;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+/* Z-Index */
+.z-40 {
+  z-index: var(--z-index-navbar);
+}
+
+.z-50 {
+  z-index: var(--z-index-modal);
+}
+
+/* Responsive Visibility */
+.hidden {
+  display: none;
+}
+
+.sm-hidden {
+  display: initial;
+}
+
+.sm-flex {
+  display: initial;
+}
+
+@media (min-width: 640px) {
+  .sm-hidden {
+    display: none;
+  }
+  
+  .sm-flex {
+    display: flex;
+  }
+}

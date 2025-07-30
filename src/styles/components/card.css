@@ -1,0 +1,125 @@
+/* Card Component Styles */
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(0, 173, 181, 0.2);
+  background-color: var(--color-spacial-2);
+  color: white;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-slow);
+  overflow: hidden;
+}
+
+.card:hover {
+  background-color: var(--color-spacial-1);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  padding-bottom: var(--spacing-2);
+}
+
+.card-header .card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.card-body {
+  flex: 1;
+  padding: var(--spacing-4);
+  padding-top: var(--spacing-4);
+}
+
+.card-footer {
+  padding: var(--spacing-4);
+  padding-top: 0;
+}
+
+/* Card Content Layout */
+.card-content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-4);
+}
+
+.card-content .card-image {
+  flex-shrink: 0;
+}
+
+.card-content .card-text {
+  flex: 1;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-actions .card-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+  flex: 1;
+}
+
+.card-actions .card-buttons {
+  display: flex;
+  gap: var(--spacing-2);
+  margin-left: var(--spacing-4);
+}
+
+/* Technology Icons */
+.tech-icon {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-2);
+  transition: all var(--transition-slow);
+  cursor: pointer;
+  border-radius: var(--radius-lg);
+}
+
+.tech-icon:hover {
+  transform: scale(1.1);
+}
+
+.tech-icon img {
+  width: 2.25rem;
+  height: 2.25rem;
+  transition: transform var(--transition-slow);
+}
+
+.tech-icon:hover img {
+  transform: scale(1.1);
+}
+
+/* Divider */
+.card-divider {
+  border: none;
+  height: 1px;
+  background-color: rgba(0, 173, 181, 0.2);
+  margin: 0;
+}
+
+/* Card Variants */
+.card-compact {
+  padding: var(--spacing-3);
+}
+
+.card-bordered {
+  border-width: 2px;
+}
+
+.card-shadow {
+  box-shadow: var(--shadow-lg);
+}

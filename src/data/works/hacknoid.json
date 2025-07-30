@@ -1,0 +1,24 @@
+{
+  "name": "Hacknoid",
+  "time": "2018 - 2021",
+  "logo": "/logo_hacknoid.png",
+  "text": "I gained knowledge of code structure, developed a backend with Django, carried out a large-scale migration of the frontend from Zend PHP to React, led a small team of juniors, developed small pentesting tools, and participated in pentesting projects.",
+  "technologies": [
+    {
+      "name": "python",
+      "logo": "/logo_python.png"
+    },
+    {
+      "name": "JavaScript",
+      "logo": "/logo_javascript.png"
+    },
+    {
+      "name": "React",
+      "logo": "/logo_react.png"
+    },
+    {
+      "name": "Node",
+      "logo": "/logo_node.png"
+    }
+  ]
+}

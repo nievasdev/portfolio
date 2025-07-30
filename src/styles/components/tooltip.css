@@ -1,0 +1,105 @@
+/* Tooltip Component Styles */
+
+.tooltip {
+  position: fixed;
+  z-index: var(--z-index-tooltip);
+  padding: var(--spacing-3) var(--spacing-3);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  background-color: var(--color-spacial-1);
+  border: 1px solid rgba(0, 173, 181, 0.3);
+  color: var(--color-spacial-4);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+  animation: var(--animation-fade-in);
+  display: inline-block;
+}
+
+/* Tooltip Arrow */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--color-spacial-1);
+  border: 1px solid rgba(0, 173, 181, 0.3);
+  transform: rotate(45deg);
+}
+
+/* Tooltip Positioning */
+.tooltip-top {
+  transform: translateX(-50%) translateY(-100%);
+  margin-top: -0.5rem;
+}
+
+.tooltip-top::after {
+  bottom: -0.25rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-top: none;
+  border-left: none;
+}
+
+.tooltip-bottom {
+  transform: translateX(-50%);
+  margin-top: 0.5rem;
+}
+
+.tooltip-bottom::after {
+  top: -0.25rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  border-bottom: none;
+  border-right: none;
+}
+
+.tooltip-left {
+  transform: translateX(-100%) translateY(-50%);
+  margin-left: -0.5rem;
+}
+
+.tooltip-left::after {
+  right: -0.25rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  border-left: none;
+  border-bottom: none;
+}
+
+.tooltip-right {
+  transform: translateY(-50%);
+  margin-left: 0.5rem;
+}
+
+.tooltip-right::after {
+  left: -0.25rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  border-right: none;
+  border-top: none;
+}
+
+/* Tooltip Variants */
+.tooltip-dark {
+  background-color: var(--color-spacial-0);
+  color: white;
+  border-color: var(--color-spacial-3);
+}
+
+.tooltip-light {
+  background-color: white;
+  color: var(--color-spacial-1);
+  border-color: var(--color-spacial-3);
+}
+
+/* Tooltip States */
+.tooltip-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tooltip-visible {
+  opacity: 1;
+}

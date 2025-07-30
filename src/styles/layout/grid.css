@@ -1,0 +1,110 @@
+/* 3-Column Grid Layout System */
+
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  min-height: 100vh;
+  gap: var(--spacing-5);
+  padding-left: var(--spacing-5);
+  padding-right: var(--spacing-5);
+  padding-top: var(--spacing-6);
+  margin: 0 auto;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+}
+
+.column-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-spacial-5);
+  z-index: var(--z-index-navbar);
+  margin-bottom: var(--spacing-4);
+  text-align: center;
+}
+
+.column-content {
+  width: 100%;
+}
+
+.works-column,
+.projects-column {
+  border-right: 1px solid rgba(0, 173, 181, 0.1);
+}
+
+.center-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.me-section {
+  background-color: var(--color-spacial-2);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-3);
+}
+
+.name-animation {
+  margin-bottom: var(--spacing-4);
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1536px) and (min-width: 1024px) {
+  .home-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--spacing-6);
+    padding-left: var(--spacing-6);
+    padding-right: var(--spacing-6);
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .home-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--spacing-4);
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+}
+
+@media (max-width: 768px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+
+  .works-column,
+  .projects-column {
+    border-right: none;
+  }
+
+  .column-header {
+    position: relative;
+  }
+}
+
+@media (max-width: 1400px) {
+  .works-column .flex-shrink-0,
+  .projects-column .flex-shrink-0 {
+    display: none;
+  }
+}
+
+@media (max-width: 1201px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1200px) {
+  .home-grid {
+    padding-left: var(--spacing-4);
+    padding-right: var(--spacing-4);
+  }
+}

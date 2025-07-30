@@ -1,24 +1,92 @@
-# Next.js & NextUI Template
+# Portfolio Next.js
 
-This is a template for creating applications using Next.js 13 (pages directory) and NextUI (v2).
+Portfolio personal migrado de Astro a Next.js 15 con todas las funcionalidades originales.
 
-## Technologies Used
+## 🚀 Características
 
-- [Next.js 13](https://nextjs.org/docs/getting-started)
-- [NextUI](https://nextui.org)
-- [Tailwind CSS](https://tailwindcss.com)
-- [Tailwind Variants](https://tailwind-variants.org)
-- [TypeScript](https://www.typescriptlang.org)
-- [Framer Motion](https://www.framer.com/motion)
-- [next-themes](https://github.com/pacocoursey/next-themes)
+- **Next.js 15** con App Router
+- **TypeScript** completo
+- **Tailwind CSS** con tema personalizado "spacial"
+- **Custom UI Library** (reemplaza NextUI)
+- **Responsive Design** completo
+- **Animaciones suaves** con CSS y Framer Motion
+- **GitHub API** integración en tiempo real
+- **Dark theme** por defecto
+- **Layout de 3 columnas** idéntico al original
 
-## How to Use
+## 🛠️ Tecnologías
 
-To create a new project based on this template using `create-next-app`, run the following command:
+- Next.js 15.4.4
+- React 19
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- next-themes
+- @octokit/core
+
+## 📦 Instalación
 
 ```bash
-npx create-next-app -e https://github.com/nextui-org/next-pages-template
-```
-## License
+# Usar Node.js 20+
+nvm use 20.0.0
 
-Licensed under the [MIT license](https://github.com/nextui-org/next-pages-template/blob/main/LICENSE).
+# Instalar dependencias
+npm install
+
+# Ejecutar en desarrollo
+npm run dev
+
+# Build para producción
+npm run build
+
+# Iniciar servidor de producción
+npm start
+```
+
+## 🌐 Desarrollo
+
+El servidor de desarrollo corre en: http://localhost:3000
+
+## 📁 Estructura
+
+```
+src/
+├── app/                 # App Router de Next.js
+├── components/          # Componentes React
+│   ├── ui/             # Biblioteca UI personalizada
+│   ├── icons.tsx       # Iconos SVG
+│   └── ...
+├── hooks/              # Custom hooks
+├── lib/                # Utilidades y datos
+├── providers/          # Providers de contexto
+├── types/              # Definiciones TypeScript
+└── styles/             # Estilos globales
+```
+
+## 🎨 Componentes Principales
+
+- **Navbar** - Navegación con menú móvil
+- **ChangingContentAnimation** - Animación del nombre
+- **MeSectionCompact** - Información personal
+- **WorksColumn** - Experiencia laboral
+- **ProjectsColumn** - Proyectos personales
+- **UI Library** - Componentes reutilizables
+
+## 🚀 Deployment
+
+El proyecto está optimizado para deployment en Vercel, Netlify o cualquier plataforma que soporte Next.js.
+
+## 📱 Responsive
+
+- **Desktop**: Grid de 3 columnas
+- **Tablet**: Layout adaptativo  
+- **Mobile**: Columna única con menú hamburguesa
+
+## 🎯 Migración Completada
+
+✅ Todas las funcionalidades del portfolio original en Astro han sido migradas exitosamente a Next.js
+✅ Diseño idéntico y responsive
+✅ Componentes UI personalizados funcionando
+✅ Animaciones y transiciones preservadas
+✅ GitHub API integrado
+✅ Build y desarrollo funcionando correctamente

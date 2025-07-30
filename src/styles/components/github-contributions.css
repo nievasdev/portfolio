@@ -1,0 +1,232 @@
+/* GitHubContributions Component Styles */
+
+.github-contributions {
+  width: 100%;
+  margin-bottom: var(--spacing-4);
+}
+
+.contributions-header {
+  margin-bottom: var(--spacing-3);
+}
+
+.contributions-wrapper {
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-4);
+  overflow: hidden;
+  transition: var(--transition-normal);
+}
+
+/* No hover effect needed without background */
+
+/* Contributions Calendar Grid */
+.contributions-calendar {
+  position: relative;
+  padding: 20px 0 10px 25px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* Month Labels */
+.month-labels {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  right: 0;
+  height: 15px;
+}
+
+.month-label {
+  position: absolute;
+  font-size: 9px;
+  color: var(--color-spacial-4);
+  font-weight: 400;
+  opacity: 0.7;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+/* Day Labels */
+.day-labels {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: 20px;
+}
+
+.day-label {
+  position: absolute;
+  font-size: 9px;
+  color: var(--color-spacial-4);
+  font-weight: 400;
+  text-align: right;
+  width: 15px;
+  opacity: 0.7;
+}
+
+/* Contributions Grid */
+.contributions-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  margin-top: 5px;
+}
+
+.contribution-week {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.contribution-day {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(238, 238, 238, 0.1);
+  transition: all 0.1s ease-in-out;
+}
+
+.contribution-day.clickable {
+  cursor: pointer;
+}
+
+.contribution-day.clickable:hover {
+  transform: scale(1.1);
+  border: 1px solid var(--color-spacial-3);
+  box-shadow: 0 0 4px rgba(0, 173, 181, 0.3);
+}
+
+.contribution-day.clickable:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 2px rgba(0, 173, 181, 0.6);
+}
+
+/* Legend */
+.contributions-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: 15px;
+  font-size: 11px;
+  color: var(--color-spacial-4);
+}
+
+.legend-text {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+.legend-squares {
+  display: flex;
+  gap: 2px;
+  margin: 0 4px;
+}
+
+.legend-square {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(238, 238, 238, 0.1);
+}
+
+/* Loading and Error States */
+.contributions-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  background-color: var(--color-spacial-2);
+  border-radius: var(--radius-md);
+  color: var(--color-spacial-4);
+  font-size: var(--font-size-sm);
+  opacity: 0.7;
+}
+
+.contributions-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .contributions-wrapper {
+    padding: var(--spacing-3);
+  }
+  
+  .contributions-calendar {
+    padding: 15px 0 8px 20px;
+  }
+  
+  .contribution-day {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .legend-square {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .month-label,
+  .day-label,
+  .legend-text {
+    font-size: 9px;
+  }
+  
+  .day-labels {
+    width: 15px;
+  }
+  
+  .month-labels {
+    left: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contributions-wrapper {
+    padding: var(--spacing-2);
+  }
+  
+  .contributions-calendar {
+    padding: 12px 0 6px 15px;
+  }
+  
+  .contributions-grid {
+    gap: 2px;
+  }
+  
+  .contribution-week {
+    gap: 2px;
+  }
+  
+  .contribution-day {
+    width: 7px;
+    height: 7px;
+  }
+  
+  .legend-square {
+    width: 7px;
+    height: 7px;
+  }
+  
+  .month-label,
+  .day-label,
+  .legend-text {
+    font-size: 8px;
+  }
+  
+  .day-labels {
+    width: 12px;
+  }
+  
+  .month-labels {
+    left: 15px;
+  }
+}
