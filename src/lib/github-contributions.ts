@@ -47,8 +47,8 @@ const GITHUB_GRAPHQL_QUERY = `
 export async function fetchGitHubContributions(username: string): Promise<ContributionsData | null> {
   try {
     // Try to get GitHub token from environment variable
-    const githubToken = process.env.NEXT_PUBLIC_GITHUB_TOKEN || process.env.GITHUB_TOKEN;
-    
+    const githubToken = process.env.NEXT_PRIVATE_GITHUB_TOKEN || process.env.GITHUB_TOKEN;
+
     const octokit = new Octokit({
       auth: githubToken
     });
@@ -84,7 +84,7 @@ export async function fetchGitHubContributions(username: string): Promise<Contri
 
     console.log('Generating realistic contributions based on user profile');
     return generateRealisticContributions(userResponse.data);
-    
+
   } catch (error) {
     console.error('Error fetching GitHub contributions:', error);
     return null;
@@ -96,30 +96,30 @@ function generateRealisticContributions(userData: any): ContributionsData {
   const weeks: ContributionWeek[] = [];
   const today = new Date();
   const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
-  
+
   // Start from the first Sunday of the year ago
   const startDate = new Date(oneYearAgo);
   startDate.setDate(startDate.getDate() - startDate.getDay());
-  
+
   // Use user's creation date and public repos to influence pattern
   const userCreated = new Date(userData.created_at);
   const isActiveUser = userData.public_repos > 5;
   const contributionMultiplier = Math.min(userData.public_repos / 10, 2);
-  
+
   for (let weekIndex = 0; weekIndex < 53; weekIndex++) {
     const week: ContributionWeek = {
       contributionDays: [],
       firstDay: ''
     };
-    
+
     for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
       const currentDate = new Date(startDate);
       currentDate.setDate(startDate.getDate() + (weekIndex * 7) + dayIndex);
-      
+
       if (weekIndex === 0 && dayIndex === 0) {
         week.firstDay = currentDate.toISOString().split('T')[0];
       }
-      
+
       // Don't show contributions before user was created
       if (currentDate < userCreated) {
         week.contributionDays.push({
@@ -130,20 +130,20 @@ function generateRealisticContributions(userData: any): ContributionsData {
         });
         continue;
       }
-      
+
       // Generate more realistic patterns
       let contributionCount = 0;
       let color = '#161b22';
-      
+
       // Weekdays are more likely to have contributions
       const isWeekday = dayIndex >= 1 && dayIndex <= 5;
       const baseChance = isWeekday ? 0.6 : 0.3;
       const adjustedChance = baseChance * (isActiveUser ? 1.2 : 0.8);
-      
+
       const random = Math.random();
       if (random < adjustedChance) {
         contributionCount = Math.floor(Math.random() * 15 * contributionMultiplier) + 1;
-        
+
         // Color based on contribution intensity
         if (contributionCount >= 1 && contributionCount <= 3) {
           color = '#0e4429';
@@ -155,7 +155,7 @@ function generateRealisticContributions(userData: any): ContributionsData {
           color = '#39d353';
         }
       }
-      
+
       week.contributionDays.push({
         date: currentDate.toISOString().split('T')[0],
         contributionCount,
@@ -163,13 +163,13 @@ function generateRealisticContributions(userData: any): ContributionsData {
         weekday: dayIndex
       });
     }
-    
+
     weeks.push(week);
   }
-  
+
   return {
     contributionCalendar: {
-      totalContributions: weeks.reduce((total, week) => 
+      totalContributions: weeks.reduce((total, week) =>
         total + week.contributionDays.reduce((weekTotal, day) => weekTotal + day.contributionCount, 0), 0
       ),
       weeks: weeks.slice(0, 52),
@@ -183,30 +183,30 @@ export function generateFallbackContributions(): ContributionsData {
   const weeks: ContributionWeek[] = [];
   const today = new Date();
   const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
-  
+
   // Start from the first Sunday of the year
   const startDate = new Date(oneYearAgo);
   startDate.setDate(startDate.getDate() - startDate.getDay());
-  
+
   for (let weekIndex = 0; weekIndex < 53; weekIndex++) {
     const week: ContributionWeek = {
       contributionDays: [],
       firstDay: ''
     };
-    
+
     for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
       const currentDate = new Date(startDate);
       currentDate.setDate(startDate.getDate() + (weekIndex * 7) + dayIndex);
-      
+
       if (weekIndex === 0 && dayIndex === 0) {
         week.firstDay = currentDate.toISOString().split('T')[0];
       }
-      
+
       // Generate semi-random contribution count
       const random = Math.random();
       let contributionCount = 0;
       let color = '#161b22'; // No contributions
-      
+
       if (random > 0.7) {
         contributionCount = Math.floor(Math.random() * 10) + 1;
         if (contributionCount >= 1 && contributionCount <= 2) {
@@ -219,7 +219,7 @@ export function generateFallbackContributions(): ContributionsData {
           color = '#39d353';
         }
       }
-      
+
       week.contributionDays.push({
         date: currentDate.toISOString().split('T')[0],
         contributionCount,
@@ -227,13 +227,13 @@ export function generateFallbackContributions(): ContributionsData {
         weekday: dayIndex
       });
     }
-    
+
     weeks.push(week);
   }
-  
+
   return {
     contributionCalendar: {
-      totalContributions: weeks.reduce((total, week) => 
+      totalContributions: weeks.reduce((total, week) =>
         total + week.contributionDays.reduce((weekTotal, day) => weekTotal + day.contributionCount, 0), 0
       ),
       weeks: weeks.slice(0, 52), // GitHub shows 52 weeks
