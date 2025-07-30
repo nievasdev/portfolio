@@ -56,7 +56,7 @@ export default function GitHubContributions({ username, className = '' }: GitHub
     };
 
     const generateMonthLabels = () => {
-        if (!contributionsData?.contributionCalendar.weeks.length) return [];
+        if (!contributionsData?.contributionCalendar?.weeks?.length) return [];
         
         const MIN_DISTANCE_MONTH_LABELS = 2;
         
@@ -159,9 +159,9 @@ export default function GitHubContributions({ username, className = '' }: GitHub
                     
                     {/* Contribution grid */}
                     <div className="contributions-grid">
-                        {contributionsData.contributionCalendar.weeks.map((week, weekIndex) => (
+                        {contributionsData.contributionCalendar.weeks?.map((week, weekIndex) => (
                             <div key={weekIndex} className="contribution-week">
-                                {week.contributionDays.map((day, dayIndex) => (
+                                {week.contributionDays?.map((day, dayIndex) => (
                                     <Tooltip
                                         key={`${weekIndex}-${dayIndex}`}
                                         content={
@@ -197,9 +197,9 @@ export default function GitHubContributions({ username, className = '' }: GitHub
                                             onClick={() => handleDayClick(day.date)}
                                         />
                                     </Tooltip>
-                                ))}
+                                )) || []}
                             </div>
-                        ))}
+                        )) || []}
                     </div>
                     
                     {/* Legend */}

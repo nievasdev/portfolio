@@ -1,11 +1,12 @@
 import { Octokit } from '@octokit/core';
 
-// GitHub API client
-const octokit = new Octokit();
+// Private GitHub API client factory - encapsulated within module
+const createGitHubClient = () => new Octokit();
 
 // Get user repositories count
 export async function getGitHubReposCount(username: string = 'maurocardena'): Promise<number> {
   try {
+    const octokit = createGitHubClient();
     const response = await octokit.request('GET /users/{username}', {
       username,
       headers: {
@@ -23,6 +24,7 @@ export async function getGitHubReposCount(username: string = 'maurocardena'): Pr
 // Get user profile data
 export async function getGitHubProfile(username: string = 'maurocardena') {
   try {
+    const octokit = createGitHubClient();
     const response = await octokit.request('GET /users/{username}', {
       username,
       headers: {

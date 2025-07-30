@@ -1,4 +1,5 @@
-import { Octokit } from '@octokit/core';
+// Client-side fetch function for GitHub contributions
+// Removed direct Node.js imports to avoid browser execution
 
 export interface ContributionDay {
   date: string;
@@ -22,161 +23,36 @@ export interface ContributionsData {
   contributionCalendar: ContributionCalendar;
 }
 
-const GITHUB_GRAPHQL_QUERY = `
-  query($username: String!) {
-    user(login: $username) {
-      contributionsCollection {
-        contributionCalendar {
-          totalContributions
-          colors
-          weeks {
-            contributionDays {
-              date
-              contributionCount
-              color
-              weekday
-            }
-            firstDay
-          }
-        }
-      }
-    }
-  }
-`;
-
+/**
+ * Fetch GitHub contributions using server-side API route
+ * This avoids client-side execution of Node.js modules
+ */
 export async function fetchGitHubContributions(username: string): Promise<ContributionsData | null> {
   try {
-    // Try to get GitHub token from environment variable
-    const githubToken = process.env.NEXT_PRIVATE_GITHUB_TOKEN || process.env.GITHUB_TOKEN;
-
-    const octokit = new Octokit({
-      auth: githubToken
-    });
-
-    // If we have a token, try to fetch real contributions data
-    if (githubToken) {
-      try {
-        const response = await octokit.request('POST /graphql', {
-          query: GITHUB_GRAPHQL_QUERY,
-          variables: {
-            username: username
-          }
-        });
-
-        if (response.data?.data?.user?.contributionsCollection) {
-          console.log('Successfully fetched real GitHub contributions');
-          return response.data.data.user.contributionsCollection;
-        }
-      } catch (graphqlError) {
-        console.log('GraphQL API failed, falling back to realistic simulation');
-      }
+    const response = await fetch(`/api/github/contributions?username=${encodeURIComponent(username)}`);
+    
+    if (!response.ok) {
+      console.error('Failed to fetch contributions from API route:', response.status);
+      return generateFallbackContributions();
     }
 
-    // Fallback: Get public user data and generate realistic contributions
-    const userResponse = await octokit.request('GET /users/{username}', {
-      username: username
-    });
-
-    if (!userResponse.data) {
-      console.log('User not found');
-      return null;
+    const data = await response.json();
+    
+    if (data.error) {
+      console.error('API route returned error:', data.error);
+      return generateFallbackContributions();
     }
 
-    console.log('Generating realistic contributions based on user profile');
-    return generateRealisticContributions(userResponse.data);
+    console.log('Successfully fetched GitHub contributions from API route');
+    return data;
 
   } catch (error) {
     console.error('Error fetching GitHub contributions:', error);
-    return null;
+    return generateFallbackContributions();
   }
 }
 
-// Generate more realistic contributions based on user profile
-function generateRealisticContributions(userData: any): ContributionsData {
-  const weeks: ContributionWeek[] = [];
-  const today = new Date();
-  const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
-
-  // Start from the first Sunday of the year ago
-  const startDate = new Date(oneYearAgo);
-  startDate.setDate(startDate.getDate() - startDate.getDay());
-
-  // Use user's creation date and public repos to influence pattern
-  const userCreated = new Date(userData.created_at);
-  const isActiveUser = userData.public_repos > 5;
-  const contributionMultiplier = Math.min(userData.public_repos / 10, 2);
-
-  for (let weekIndex = 0; weekIndex < 53; weekIndex++) {
-    const week: ContributionWeek = {
-      contributionDays: [],
-      firstDay: ''
-    };
-
-    for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
-      const currentDate = new Date(startDate);
-      currentDate.setDate(startDate.getDate() + (weekIndex * 7) + dayIndex);
-
-      if (weekIndex === 0 && dayIndex === 0) {
-        week.firstDay = currentDate.toISOString().split('T')[0];
-      }
-
-      // Don't show contributions before user was created
-      if (currentDate < userCreated) {
-        week.contributionDays.push({
-          date: currentDate.toISOString().split('T')[0],
-          contributionCount: 0,
-          color: '#161b22',
-          weekday: dayIndex
-        });
-        continue;
-      }
-
-      // Generate more realistic patterns
-      let contributionCount = 0;
-      let color = '#161b22';
-
-      // Weekdays are more likely to have contributions
-      const isWeekday = dayIndex >= 1 && dayIndex <= 5;
-      const baseChance = isWeekday ? 0.6 : 0.3;
-      const adjustedChance = baseChance * (isActiveUser ? 1.2 : 0.8);
-
-      const random = Math.random();
-      if (random < adjustedChance) {
-        contributionCount = Math.floor(Math.random() * 15 * contributionMultiplier) + 1;
-
-        // Color based on contribution intensity
-        if (contributionCount >= 1 && contributionCount <= 3) {
-          color = '#0e4429';
-        } else if (contributionCount >= 4 && contributionCount <= 8) {
-          color = '#006d32';
-        } else if (contributionCount >= 9 && contributionCount <= 15) {
-          color = '#26a641';
-        } else {
-          color = '#39d353';
-        }
-      }
-
-      week.contributionDays.push({
-        date: currentDate.toISOString().split('T')[0],
-        contributionCount,
-        color,
-        weekday: dayIndex
-      });
-    }
-
-    weeks.push(week);
-  }
-
-  return {
-    contributionCalendar: {
-      totalContributions: weeks.reduce((total, week) =>
-        total + week.contributionDays.reduce((weekTotal, day) => weekTotal + day.contributionCount, 0), 0
-      ),
-      weeks: weeks.slice(0, 52),
-      colors: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
-    }
-  };
-}
+// Client-side fallback - removed server-side logic
 
 // Generate fallback data for when API is unavailable
 export function generateFallbackContributions(): ContributionsData {

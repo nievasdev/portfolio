@@ -3,8 +3,8 @@ import { Work, Project, Blog } from '@/types';
 // Since we can't use fs on the client side, we'll import the data directly
 // This is a temporary solution - in production you'd want to use API routes or static generation
 
-// Works data with complete detailed information
-const works: Work[] = [
+// Private works data - not exported, only accessible through getWorks()
+const worksData: Work[] = [
   {
     name: "Antel",
     time: "2022 - Current",
@@ -122,7 +122,8 @@ const works: Work[] = [
   }
 ];
 
-const projects: Project[] = [
+// Private projects data - not exported, only accessible through getProjects()
+const projectsData: Project[] = [
   {
     name: "Meteor",
     time: "2022",
@@ -155,12 +156,12 @@ const projects: Project[] = [
 
 // Get all works data
 export async function getWorks(): Promise<Work[]> {
-  return works;
+  return worksData;
 }
 
 // Get all projects data  
 export async function getProjects(): Promise<Project[]> {
-  return projects;
+  return projectsData;
 }
 
 // Get all blog data (for future use)
