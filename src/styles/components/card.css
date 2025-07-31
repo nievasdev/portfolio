@@ -34,8 +34,9 @@
 
 .card-body {
   flex: 1;
-  padding: var(--spacing-4);
-  padding-top: var(--spacing-4);
+  padding: var(--spacing-3);
+  padding-top: var(--spacing-3);
+  padding-right: var(--spacing-4);
 }
 
 .card-footer {
@@ -48,7 +49,7 @@
   display: flex;
   align-items: flex-start;
   gap: var(--spacing-4);
-  margin-bottom: var(--spacing-4);
+  margin-bottom: var(--spacing-3);
 }
 
 .card-content .card-image {
@@ -122,4 +123,36 @@
 
 .card-shadow {
   box-shadow: var(--shadow-lg);
+}
+
+/* Fixed Width Cards - General */
+.card-fixed {
+  width: 520px;
+  min-width: 520px;
+  max-width: 520px;
+  height: 220px;
+  min-height: 220px;
+  max-height: 220px;
+}
+
+@media (max-width: 1400px) {
+  .card-fixed {
+    width: 450px;
+    min-width: 450px;
+    max-width: 450px;
+    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .card-fixed {
+    width: 100%;
+    min-width: auto;
+    max-width: none;
+    height: auto;
+    min-height: auto;
+    max-height: none;
+  }
 }

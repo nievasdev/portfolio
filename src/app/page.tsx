@@ -14,9 +14,9 @@ export default async function Home() {
       {/* 3 Column Grid Layout */}
       <div className="home-grid">
         {/* Left Column - Works */}
-        <div className="column works-column" id="works">
+        <div className="column column-fixed" id="works">
           <div className="column-header">
-            <h2 className="text-4xl font-bold text-white mb-2">Works</h2>
+            <h2 className="text-4xl font-bold text-white mb-6">Works</h2>
           </div>
           <div className="column-content">
             <WorksColumn worksData={works} />
@@ -37,7 +37,7 @@ export default async function Home() {
         </div>
 
         {/* Right Column - Projects */}
-        <div className="column projects-column" id="projects">
+        <div className="column column-fixed" id="projects">
           <div className="column-header">
             <h2 className="text-4xl font-bold text-white mb-6">Projects</h2>
           </div>

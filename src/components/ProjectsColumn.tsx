@@ -76,9 +76,9 @@ export default function ProjectsColumn({ projectsData }: ProjectsColumnProps) {
         </ModalContent>
       </Modal>
       
-      <div className="space-y-4">
+      <div className="space-y-2">
         {projectsData?.map(project => (
-          <Card key={project.name}>
+          <Card key={project.name} className="card-fixed">
             <CardHeader>
               <div className="card-title">
                 <h3 className="text-2xl font-semibold text-white">{project.name}</h3>

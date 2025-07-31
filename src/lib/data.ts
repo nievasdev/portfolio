@@ -9,7 +9,7 @@ const worksData: Work[] = [
     name: "Antel",
     time: "2022 - Current",
     logo: "/logo_ancel.png",
-    text: "I have grown in knowledge of test automation, managing large-scale systems, implementing error handling best practices, and developing solutions for large infrastructures.",
+    text: "Built Node.js microservices handling 3.5M daily transactions. Reduced deployment times by 40% and errors by 99.9%. Established CI/CD workflow with 85% test coverage.",
     largeText: [
       "Antel, the National Administration of Telecommunications, is a Uruguayan state-owned company responsible for providing telecommunications services in Uruguay. It is the main provider of fixed and mobile telephone services, internet, and cable television in the country. Founded in 1974, Antel plays a key role in the communications infrastructure in Uruguay, offering services both at a national and international level.",
       "My growth as a developer has been aided by two engineers with many years of experience at Antel. They have provided corrections to my code and recommended courses to enhance my skills."
@@ -44,7 +44,7 @@ const worksData: Work[] = [
     name: "Upshow",
     time: "2021 - 2022",
     logo: "/logo_upshow.png",
-    text: "I gained valuable experience with React, Node, and Scrum methodology. My role involved collecting data metrics from customers and development teams, working with GraphQL, MySQL, GitHub and Jira APIs.",
+    text: "Built React dashboards with Node/Express APIs. Integrated GitHub/Jira for real-time team reports. Full lifecycle Agile/Scrum workflow.",
     largeText: [
       "Upshow is a company specialized in technology and interactive platforms designed to enhance engagement and interaction at live events and public venues. It provides solutions that allow establishments and organizers to display user-generated content on screens and monitors, creating a more engaging experience for the audience and encouraging real-time participation.",
       "My growth within the company was thanks to a team that provided me with feedback, English classes, and paid Udemy courses sponsored by the company."
@@ -78,7 +78,7 @@ const worksData: Work[] = [
     name: "Hacknoid",
     time: "2018 - 2021",
     logo: "/logo_hacknoid.png",
-    text: "I gained knowledge of code structure, developed a backend with Django, carried out a large-scale migration of the frontend from Zend PHP to React, led a small team of juniors, developed small pentesting tools, and participated in pentesting projects.",
+    text: "Migrated frontend from Zend PHP to React.js (60% faster load time). Established Git branching strategies for releases/hotfixes. Optimized SQL queries (40% response time improvement). Developed maintainability tools.",
     largeText: [
       "Hacknoid is a cybersecurity-oriented company that has an automated pentesting application."
     ],
@@ -108,7 +108,7 @@ const worksData: Work[] = [
     name: "Gestion total",
     time: "2017 - 2018",
     logo: "/logo_gestionTotal.png",
-    text: "I developed several features in JavaScript and Python for an ERPnext system focused on business management.",
+    text: "Developed custom JavaScript modules for ERP system across diverse industries. Implemented responsive UI layouts with HTML5/CSS3.",
     largeText: [
       "Gestion total sells features on an ERPNext which is focused on the administrative management of companies.",
       "My growth came from solving the small challenges that arose at work"

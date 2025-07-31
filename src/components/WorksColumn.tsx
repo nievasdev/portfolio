@@ -214,7 +214,7 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
       {/* Works List */}
       <div className="space-y-2">
         {worksData?.map((work) => (
-          <Card key={work.name}>
+          <Card key={work.name} className="card-fixed">
             <CardHeader>
               <div className="card-title">
                 <h3 className="text-2xl font-semibold text-white">{work.name}</h3>
