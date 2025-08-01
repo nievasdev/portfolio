@@ -2,7 +2,7 @@
 
 .home-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 560px 1fr 560px;
   min-height: 100vh;
   gap: var(--spacing-5);
   padding-left: var(--spacing-5);
@@ -10,6 +10,7 @@
   padding-top: var(--spacing-6);
   margin: 0 auto;
   align-items: start;
+  max-width: 1400px;
 }
 
 .column {
@@ -85,10 +86,11 @@
 /* Responsive Design */
 @media (max-width: 1536px) and (min-width: 1024px) {
   .home-grid {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 480px 1fr 480px;
     gap: var(--spacing-6);
     padding-left: var(--spacing-6);
     padding-right: var(--spacing-6);
+    max-width: 1200px;
   }
 }
 
@@ -98,6 +100,7 @@
     gap: var(--spacing-4);
     padding-left: var(--spacing-4);
     padding-right: var(--spacing-4);
+    max-width: 100%;
   }
 }
 

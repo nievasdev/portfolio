@@ -235,10 +235,6 @@ p.changing-content {
     font-size: 3rem !important;
   }
 
-  .column {
-    padding: var(--spacing-5);
-  }
-
   .column h2 {
     font-size: 2.75rem !important;
   }
