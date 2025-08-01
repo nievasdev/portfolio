@@ -37,10 +37,6 @@ body {
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 
-body {
-  /* Padding removed - using only home-grid padding to avoid double padding */
-}
-
 /* Scrollbar Styling - Minimalist Design */
 
 /* Global scrollbar styling */
@@ -88,36 +84,6 @@ body {
 
 .column::-webkit-scrollbar-thumb:hover {
   background: var(--color-spacial-3);
-}
-
-/* Card Hover Effects */
-.works-column > .column-content > div > div,
-.projects-column > .column-content > div > div {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  min-height: 200px;
-}
-
-.works-column > .column-content > div > div:hover,
-.projects-column > .column-content > div > div:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 173, 181, 0.1);
-}
-
-/* Card Body Spacing */
-.works-column .card-body,
-.projects-column .card-body {
-  padding: var(--spacing-6);
-}
-
-/* Technologies and Button Row */
-.works-column .flex.justify-between.items-center {
-  align-items: flex-start;
-  gap: var(--spacing-4);
-}
-
-.works-column .flex.flex-wrap.gap-2.flex-1 {
-  min-height: 2.5rem;
-  align-content: flex-start;
 }
 
 /* Technology Logos Sizing */
@@ -188,7 +154,6 @@ p.changing-content {
   .home-grid {
     grid-template-columns: 1fr 1fr 1fr;
   }
-
 
   .name-animation {
     font-size: 3rem;
@@ -279,7 +244,7 @@ p.changing-content {
   .name-animation {
     font-size: 1.75rem;
   }
-
+}
   .name-animation p {
     font-size: 1.75rem !important;
   }
@@ -307,91 +272,6 @@ p.changing-content {
     font-size: 0.9rem !important;
   }
 
-  /* Smaller logos on mobile */
-  .works-column .img-card,
-  .projects-column .img-card {
-    width: 8rem !important;
-    height: 8rem !important;
-  }
-
-  .works-column > .column-content > div > div,
-  .projects-column > .column-content > div > div {
-    min-height: 320px;
-  }
-}
-
-/* Medium screens logo adjustment */
-@media (max-width: 1024px) and (min-width: 769px) {
-  .works-column .img-card,
-  .projects-column .img-card {
-    width: 10rem !important;
-    height: 10rem !important;
-  }
-}
-
-/* Layout Adjustments for Different Screen Sizes */
-
-/* Large screens - horizontal layout */
-@media (min-width: 1201px) {
-  .works-column .card-content,
-  .projects-column .card-content {
-    flex-direction: row !important;
-    align-items: flex-start !important;
-  }
-
-  .works-column .card-text,
-  .projects-column .card-text {
-    text-align: left;
-    align-items: center;
-  }
-}
-
-/* Small screens - stack vertically */
-@media (max-width: 1200px) {
-  .works-column .card-content,
-  .projects-column .card-content {
-    flex-direction: column !important;
-    align-items: center !important;
-  }
-
-  .works-column .card-text,
-  .projects-column .card-text {
-    text-align: center;
-    margin-top: var(--spacing-4);
-    align-items: center;
-  }
-
-  .works-column .card-image,
-  .projects-column .card-image {
-    margin-bottom: var(--spacing-4);
-  }
-
-  /* Stack button below technologies on smaller screens */
-  .works-column .card-actions {
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: var(--spacing-4);
-  }
-
-  .works-column .card-technologies {
-    justify-content: center;
-  }
-}
-
-/* Medium screens - adjust gap */
-@media (min-width: 1201px) and (max-width: 1400px) {
-  .works-column .card-actions {
-    gap: 0.75rem;
-  }
-}
-
-/* Very large screens - extra spacing */
-@media (min-width: 1400px) {
-  .works-column .card-content,
-  .projects-column .card-content {
-    gap: var(--spacing-8);
-  }
-}
 
 /* Gifs Section */
 .gifs-section {

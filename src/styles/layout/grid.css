@@ -2,7 +2,7 @@
 
 .home-grid {
   display: grid;
-  grid-template-columns: 560px 1fr 560px;
+  grid-template-columns: 1fr 2fr 1fr;
   min-height: 100vh;
   gap: var(--spacing-5);
   padding-left: var(--spacing-5);
@@ -10,7 +10,7 @@
   padding-top: var(--spacing-6);
   margin: 0 auto;
   align-items: start;
-  max-width: 1400px;
+  width: 100%;
 }
 
 .column {
@@ -34,35 +34,17 @@
 
 /* Fixed Width Side Columns */
 .column-fixed {
-  width: 560px;
-  min-width: 560px;
   max-width: 560px;
   border-right: 1px solid rgba(0, 173, 181, 0.1);
 }
 
-.column-fixed:first-child {
-  /* padding-left removed - using grid padding instead */
-}
-
 .column-fixed:last-child {
   border-right: 1px solid rgba(0, 173, 181, 0.1);
-  /* padding-right removed - using grid padding instead */
 }
 
 @media (max-width: 1400px) {
   .column-fixed {
-    width: 480px;
-    min-width: 480px;
     max-width: 480px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .column-fixed {
-    width: 100%;
-    min-width: auto;
-    max-width: none;
-    border-right: none;
   }
 }
 
@@ -86,7 +68,7 @@
 /* Responsive Design */
 @media (max-width: 1536px) and (min-width: 1024px) {
   .home-grid {
-    grid-template-columns: 480px 1fr 480px;
+    grid-template-columns: 1fr 2fr 1fr;
     gap: var(--spacing-6);
     padding-left: var(--spacing-6);
     padding-right: var(--spacing-6);
