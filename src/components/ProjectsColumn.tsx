@@ -49,12 +49,12 @@ export default function ProjectsColumn({ projectsData }: ProjectsColumnProps) {
                     {text}
                   </p>
                 ))}
-                
+
                 <div className="modal-technologies">
                   <h4 className="technologies-title">Technologies Used:</h4>
                   <div className="technologies-list">
                     {selectedProject.technologies?.map(tech => (
-                      <div 
+                      <div
                         key={tech.name + "-" + selectedProject.name}
                         className="technology-item"
                       >
@@ -75,10 +75,10 @@ export default function ProjectsColumn({ projectsData }: ProjectsColumnProps) {
           )}
         </ModalContent>
       </Modal>
-      
+
       <div className="space-y-2">
         {projectsData?.map(project => (
-          <Card key={project.name} className="card-fixed">
+          <Card key={project.name}>
             <CardHeader>
               <div className="card-title">
                 <h3 className="text-2xl font-semibold text-white">{project.name}</h3>

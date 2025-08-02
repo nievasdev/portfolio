@@ -131,14 +131,14 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
                       <div className="overflow-hidden">
                         <div
                           className="flex transition-transform duration-300 ease-in-out"
-                          style={{ 
+                          style={{
                             transform: `translateX(-${currentProjectIndex * 50}%)`,
                             width: `${selectedWork.projects.length * 50}%`
                           }}
                         >
                           {selectedWork.projects.map((project, index) => (
-                            <div 
-                              key={index} 
+                            <div
+                              key={index}
                               className="project-item bg-spacial-2 rounded-lg p-6 border border-spacial-3/20 flex-shrink-0"
                               style={{ width: `${100 / selectedWork.projects.length * 2}%` }}
                             >
@@ -214,7 +214,7 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
       {/* Works List */}
       <div className="space-y-2">
         {worksData?.map((work) => (
-          <Card key={work.name} className="card-fixed">
+          <Card key={work.name} >
             <CardHeader>
               <div className="card-title">
                 <h3 className="text-2xl font-semibold text-white">{work.name}</h3>
