@@ -2,6 +2,7 @@
 
 /* Import all CSS modules */
 @import './variables.css';
+@import './responsive-typography.css';
 @import './utilities/typography.css';
 @import './utilities/spacing.css';
 @import './utilities/colors.css';
