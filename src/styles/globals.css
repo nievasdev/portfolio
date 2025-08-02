@@ -151,9 +151,6 @@ p.changing-content {
 
 /* Large Screens (1920px+) */
 @media (min-width: 1920px) {
-  .home-grid {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
 
   .name-animation {
     font-size: 3rem;
