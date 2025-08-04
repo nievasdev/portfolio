@@ -11,7 +11,7 @@ const technologies = [
         "logo": "/logo_javascript.png"
     },
     {
-        "name": "python",
+        "name": "Python",
         "logo": "/logo_python.png"
     },
     {
@@ -30,6 +30,7 @@ const technologies = [
 
 export default function MeSectionCompact() {
     const [userData, setUserData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
 
     useEffect(() => {
@@ -44,9 +45,11 @@ export default function MeSectionCompact() {
             })
             .then((response) => {
                 setUserData(response.data);
+                setIsLoading(false);
             })
             .catch((error) => {
                 console.error('Error fetching GitHub data:', error);
+                setIsLoading(false);
             });
 
     }, []);
@@ -68,7 +71,11 @@ export default function MeSectionCompact() {
                 <Card className="bg-spacial-1">
                     <CardBody className="text-center p-3 md:p-4 lg:p-6">
                         <div className="text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white">
-                            {userData ? userData.public_repos : '15+'}
+                            {isLoading ? (
+                                <div className="animate-pulse bg-spacial-4-30 rounded h-8 w-12 mx-auto"></div>
+                            ) : (
+                                userData ? userData.public_repos : '15+'
+                            )}
                         </div>
                         <div className="text-sm md:text-base lg:text-lg text-spacial-4-70 font-medium">Public Repos</div>
                     </CardBody>
