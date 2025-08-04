@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { Octokit } from '@octokit/core';
-import timeCalculator from "./timeCalculator";
 import { Card, CardHeader, CardBody } from "./ui";
 import GitHubContributions from "./GitHubContributions";
 
@@ -31,7 +30,7 @@ const technologies = [
 
 export default function MeSectionCompact() {
     const [userData, setUserData] = useState(null);
-    const [timeDifference, setTimeDifference] = useState(null);
+
 
     useEffect(() => {
         const octokit = new Octokit();
@@ -50,26 +49,20 @@ export default function MeSectionCompact() {
                 console.error('Error fetching GitHub data:', error);
             });
 
-        setTimeDifference(timeCalculator());
     }, []);
 
     return (
-        <div className="me-section-compact space-y-2 w-full">
-            {/* Title */}
-            <p className="text-lg md:text-xl lg:text-2xl text-center text-spacial-4-90 font-medium">
-                {timeDifference !== null && `Full Stack Developer +${timeDifference.years} years`}
-            </p>
-            
+        <div className="me-section-compact space-y-2 w-full me-section">
             {/* Professional Description */}
             <div className="p-3 md:p-4 lg:p-5 bg-spacial-1 rounded-lg">
                 <p className="text-center text-sm md:text-base lg:text-lg text-spacial-4-90 font-medium leading-relaxed">
-                    Full‑Stack developer delivering mission‑critical software across telecom, cybersecurity, and SaaS. 
-                    Deep JavaScript/TypeScript expertise with a strong focus on Node.js (APIs, microservices, performance) and React/Next.js on the frontend. 
-                    Experienced with REST APIs, Jest‑based testing, Git, and CI/CD. 
+                    Full‑Stack developer delivering mission‑critical software across telecom, cybersecurity, and SaaS.
+                    Deep JavaScript/TypeScript expertise with a strong focus on Node.js (APIs, microservices, performance) and React/Next.js on the frontend.
+                    Experienced with REST APIs, Jest‑based testing, Git, and CI/CD.
                     Proactive, hands‑on, and relentless about performance and code quality.
                 </p>
             </div>
-            
+
             {/* Stats and Technologies */}
             <div className="grid grid-cols-2 gap-3 md:gap-4 lg:gap-6">
                 <Card className="bg-spacial-1">
@@ -85,10 +78,10 @@ export default function MeSectionCompact() {
                         <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-2">Technologies</h3>
                         <div className="flex justify-center flex-wrap gap-1 md:gap-2">
                             {technologies.map((tech) => (
-                                <img 
+                                <img
                                     key={tech.name}
-                                    src={tech.logo} 
-                                    alt={tech.name} 
+                                    src={tech.logo}
+                                    alt={tech.name}
                                     className="w-6 h-6 md:w-8 md:h-8 lg:w-10 lg:h-10 img-contain hover-scale transition-transform cursor-pointer"
                                     title={tech.name}
                                 />

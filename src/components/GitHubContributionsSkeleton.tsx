@@ -97,23 +97,6 @@ export default function GitHubContributionsSkeleton({ className = '' }: GitHubCo
                         {generateSkeletonGrid()}
                     </div>
                     
-                    {/* Skeleton Legend */}
-                    <div className="contributions-legend-skeleton">
-                        <span className="legend-text-skeleton">
-                            <span className="skeleton-text">Less</span>
-                        </span>
-                        <div className="legend-squares-skeleton">
-                            {[0, 1, 2, 3, 4].map((_, index) => (
-                                <div
-                                    key={index}
-                                    className={`legend-square-skeleton skeleton-level-${index}`}
-                                />
-                            ))}
-                        </div>
-                        <span className="legend-text-skeleton">
-                            <span className="skeleton-text">More</span>
-                        </span>
-                    </div>
                 </div>
             </div>
         </div>

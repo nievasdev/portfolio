@@ -1,0 +1,2394 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Portfolio Documentation - Complete Guide</title>
+            <style>
+                body {
+                    font-family: 'Georgia', 'Times New Roman', serif;
+                    line-height: 1.6;
+                    color: #333;
+                    max-width: 1000px;
+                    margin: 0 auto;
+                    padding: 40px;
+                }
+                h1 {
+                    color: #2e3440;
+                    border-bottom: 3px solid #5e81ac;
+                    padding-bottom: 10px;
+                }
+                h2 {
+                    color: #3b4252;
+                    border-bottom: 2px solid #81a1c1;
+                    padding-bottom: 5px;
+                }
+                h3 {
+                    color: #434c5e;
+                }
+                h4 {
+                    color: #4c566a;
+                }
+                code {
+                    background: #f8f9fa;
+                    padding: 2px 4px;
+                    border-radius: 3px;
+                    font-family: 'Consolas', 'Monaco', monospace;
+                }
+                pre {
+                    background: #f8f9fa;
+                    padding: 15px;
+                    border-radius: 5px;
+                    overflow-x: auto;
+                    border-left: 4px solid #5e81ac;
+                }
+                pre code {
+                    background: none;
+                    padding: 0;
+                }
+                blockquote {
+                    border-left: 4px solid #5e81ac;
+                    margin: 0;
+                    padding-left: 20px;
+                    font-style: italic;
+                }
+                table {
+                    border-collapse: collapse;
+                    width: 100%;
+                    margin: 15px 0;
+                }
+                th, td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                }
+                th {
+                    background-color: #f2f2f2;
+                    font-weight: bold;
+                }
+                @media print {
+                    body {
+                        font-size: 11pt;
+                    }
+                    h1 {
+                        page-break-before: always;
+                    }
+                    h1:first-child {
+                        page-break-before: avoid;
+                    }
+                    h2, h3, h4 {
+                        page-break-after: avoid;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+        <h1 id="documentacion-completa-del-portfolio-nextjs-15">Documentación Completa del Portfolio - Next.js 15</h1>
+<h2 id="tabla-de-contenidos">Tabla de Contenidos</h2>
+<h3 id="parte-i-arquitectura-y-configuracion">Parte I: Arquitectura y Configuración</h3>
+<ol>
+<li><a href="#1-introducción-al-proyecto">Introducción al Proyecto</a></li>
+<li><a href="#2-arquitectura-general">Arquitectura General</a></li>
+<li><a href="#3-configuración-del-proyecto">Configuración del Proyecto</a></li>
+<li><a href="#4-sistema-de-tipos">Sistema de Tipos</a></li>
+</ol>
+<h3 id="parte-ii-estructura-de-datos-y-servicios">Parte II: Estructura de Datos y Servicios</h3>
+<ol>
+<li><a href="#5-gestión-de-datos">Gestión de Datos</a></li>
+<li><a href="#6-servicios-de-integración">Servicios de Integración</a></li>
+<li><a href="#7-rutas-api">Rutas API</a></li>
+</ol>
+<h3 id="parte-iii-componentes-y-ui">Parte III: Componentes y UI</h3>
+<ol>
+<li><a href="#8-sistema-de-componentes-ui">Sistema de Componentes UI</a></li>
+<li><a href="#9-componentes-de-layout">Componentes de Layout</a></li>
+<li><a href="#10-componentes-de-contenido">Componentes de Contenido</a></li>
+</ol>
+<h3 id="parte-iv-estilos-y-temas">Parte IV: Estilos y Temas</h3>
+<ol>
+<li><a href="#11-sistema-de-diseño">Sistema de Diseño</a></li>
+<li><a href="#12-estilos-css">Estilos CSS</a></li>
+</ol>
+<h3 id="parte-v-hooks-y-proveedores">Parte V: Hooks y Proveedores</h3>
+<ol>
+<li><a href="#13-hooks-personalizados">Hooks Personalizados</a></li>
+<li><a href="#14-proveedores-de-contexto">Proveedores de Contexto</a></li>
+</ol>
+<h3 id="parte-vi-analisis-linea-por-linea">Parte VI: Análisis Línea por Línea</h3>
+<ol>
+<li><a href="#15-análisis-detallado-del-código">Análisis Detallado del Código</a></li>
+</ol>
+<hr />
+<h2 id="1-introduccion-al-proyecto">1. Introducción al Proyecto</h2>
+<p>Este proyecto es un <strong>portfolio personal desarrollado en Next.js 15</strong>, migrado desde Astro, que presenta una arquitectura de <strong>3 columnas</strong> con diseño responsivo. El portfolio está diseñado para mostrar experiencia laboral, información personal y proyectos de manera elegante y profesional.</p>
+<h3 id="caracteristicas-principales">Características Principales</h3>
+<ul>
+<li><strong>Framework</strong>: Next.js 15 con App Router</li>
+<li><strong>Lenguaje</strong>: TypeScript con tipado estricto</li>
+<li><strong>Estilo</strong>: Sistema de diseño personalizado inspirado en Nord/Polybar</li>
+<li><strong>Tema</strong>: Oscuro por defecto con soporte para cambio de tema</li>
+<li><strong>Integración</strong>: API de GitHub en tiempo real con sistema de fallback</li>
+<li><strong>Arquitectura</strong>: Componentes modulares con biblioteca UI personalizada</li>
+</ul>
+<h3 id="estructura-de-3-columnas">Estructura de 3 Columnas</h3>
+<ul>
+<li><strong>Columna Izquierda</strong>: Experiencia laboral (<code>WorksColumn</code>)</li>
+<li><strong>Columna Central</strong>: Información personal (<code>MeSectionCompact</code>)</li>
+<li><strong>Columna Derecha</strong>: Proyectos personales (<code>ProjectsColumn</code>)</li>
+</ul>
+<hr />
+<h2 id="2-arquitectura-general">2. Arquitectura General</h2>
+<h3 id="patron-de-arquitectura">Patrón de Arquitectura</h3>
+<p>El proyecto sigue una <strong>arquitectura de capas</strong> con separación clara de responsabilidades:</p>
+<p><code>├── Capa de Presentación (Components/UI)
+├── Capa de Lógica de Negocio (Hooks/Services)
+├── Capa de Datos (Lib/API Routes)
+└── Capa de Configuración (Config/Types)</code></p>
+<h3 id="flujo-de-datos">Flujo de Datos</h3>
+<ol>
+<li><strong>Datos Estáticos</strong>: Gestionados en <code>src/lib/data.ts</code> con funciones de acceso</li>
+<li><strong>Datos Dinámicos</strong>: Obtenidos vía API routes de GitHub</li>
+<li><strong>Estado Local</strong>: Manejado con hooks personalizados</li>
+<li><strong>Tema</strong>: Gestionado con <code>next-themes</code></li>
+</ol>
+<h3 id="patrones-de-diseno-implementados">Patrones de Diseño Implementados</h3>
+<ul>
+<li><strong>Singleton</strong>: Para servicios de autenticación de GitHub</li>
+<li><strong>Factory</strong>: Para generación de datos de simulación</li>
+<li><strong>Observer</strong>: Para manejo de temas</li>
+<li><strong>Proxy</strong>: Para componentes polimórficos</li>
+</ul>
+<hr />
+<h2 id="3-configuracion-del-proyecto">3. Configuración del Proyecto</h2>
+<h3 id="packagejson">package.json</h3>
+<p><code>json
+{
+  "name": "newnextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build", 
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@next/env": "^15.4.5",
+    "@octokit/core": "^7.0.3",
+    "clsx": "^2.1.1",
+    "dotenv": "^17.2.1",
+    "next": "15.4.4",
+    "next-themes": "^0.4.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19", 
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.4.4",
+    "typescript": "^5"
+  }
+}</code></p>
+<p><strong>Análisis línea por línea:</strong>
+- <strong>Líneas 1-4</strong>: Metadatos básicos del proyecto
+- <strong>Líneas 5-10</strong>: Scripts de desarrollo, construcción e inicio
+- <strong>Líneas 11-20</strong>: Dependencias principales incluyendo Next.js 15 y React 19
+- <strong>Líneas 21-29</strong>: Dependencias de desarrollo para TypeScript y ESLint</p>
+<h3 id="nextconfigts">next.config.ts</h3>
+<p>```typescript
+import type { NextConfig } from "next";</p>
+<p>const nextConfig: NextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+};</p>
+<p>export default nextConfig;
+```</p>
+<p><strong>Análisis línea por línea:</strong>
+- <strong>Línea 1</strong>: Importa tipo de configuración de Next.js
+- <strong>Líneas 3-10</strong>: Configuración que ignora errores de ESLint y TypeScript durante construcción
+- <strong>Línea 12</strong>: Exporta configuración como default</p>
+<h3 id="tsconfigjson">tsconfig.json</h3>
+<p><code>json
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}</code></p>
+<p><strong>Análisis de configuración TypeScript:</strong>
+- <strong>target</strong>: ES2017 para compatibilidad moderna
+- <strong>lib</strong>: Incluye DOM y ESNext APIs
+- <strong>strict</strong>: Activado para máxima seguridad de tipos
+- <strong>paths</strong>: Alias <code>@/*</code> apunta a <code>./src/*</code></p>
+<hr />
+<h2 id="4-sistema-de-tipos">4. Sistema de Tipos</h2>
+<h3 id="srctypesindexts">src/types/index.ts</h3>
+<p>```typescript
+// Type definitions for portfolio data</p>
+<p>export interface Technology {
+  name: string;
+  logo: string;
+}</p>
+<p>export interface Work {
+  name: string;
+  time: string;
+  logo: string;
+  text: string;
+  largeText: string[];    // Detailed company descriptions
+  workMethod: string;     // Work coordination method
+  projects: WorkProject[]; // Array of specific projects
+  technologies: Technology[];
+}</p>
+<p>export interface WorkProject {
+  title: string;
+  text: string;
+}</p>
+<p>export interface Project {
+  name: string;
+  time: string;
+  logo: string;
+  text: string;
+  largeText?: string[];
+  github: string;
+  technologies: Technology[];
+}</p>
+<p>export interface Blog {
+  id: string;
+  title: string;
+  content: string;
+  date: string;
+  summary: string;
+}</p>
+<p>// UI Component Props
+export interface ButtonProps {
+  children: React.ReactNode;
+  className?: string;
+  variant?: 'solid' | 'flat' | 'ghost' | 'bordered';
+  color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
+  size?: 'sm' | 'md' | 'lg';
+  as?: React.ElementType;
+  href?: string;
+  disabled?: boolean;
+  isIconOnly?: boolean;
+  onClick?: () =&gt; void;</p>
+<p>}</p>
+<p>export interface CardProps {
+  children: React.ReactNode;
+  className?: string;</p>
+<p>}</p>
+<p>export interface ImageProps {
+  src: string;
+  alt?: string;
+  className?: string;
+  radius?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full';
+  width?: number | string;
+  height?: number | string;
+  loading?: 'lazy' | 'eager';
+  onLoad?: () =&gt; void;
+  onError?: () =&gt; void;</p>
+<p>}</p>
+<p>export interface TooltipProps {
+  children: React.ReactNode;
+  content: React.ReactNode;
+  placement?: 'top' | 'bottom' | 'left' | 'right';
+  showArrow?: boolean;
+  classNames?: {
+    base?: string;
+    content?: string;
+  };
+}</p>
+<p>export interface ModalProps {
+  children: React.ReactNode;
+  isOpen: boolean;
+  onClose: () =&gt; void;
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | 'full';
+  classNames?: {
+    base?: string;
+    header?: string;
+    body?: string;
+    footer?: string;
+  };
+}</p>
+<p>export interface UseModalReturn {
+  isOpen: boolean;
+  onOpen: () =&gt; void;
+  onClose: () =&gt; void;
+  onOpenChange: (open: boolean) =&gt; void;
+  onToggle: () =&gt; void;
+}
+```</p>
+<p><strong>Análisis por secciones:</strong></p>
+<h4 id="tipos-de-datos-lineas-3-41">Tipos de Datos (líneas 3-41)</h4>
+<ul>
+<li><strong>Technology</strong>: Define estructura para tecnologías (nombre y logo)</li>
+<li><strong>Work</strong>: Estructura completa para experiencia laboral con proyectos anidados</li>
+<li><strong>WorkProject</strong>: Proyectos específicos dentro de trabajos</li>
+<li><strong>Project</strong>: Proyectos personales con enlace a GitHub</li>
+<li><strong>Blog</strong>: Estructura para posts de blog (implementación futura)</li>
+</ul>
+<h4 id="props-de-componentes-ui-lineas-43-106">Props de Componentes UI (líneas 43-106)</h4>
+<ul>
+<li><strong>ButtonProps</strong>: Interfaz completa para componente Button con variantes</li>
+<li><strong>CardProps</strong>: Props básicas para componentes Card</li>
+<li><strong>ImageProps</strong>: Props extensas para componente Image optimizado</li>
+<li><strong>TooltipProps</strong>: Props para tooltips con posicionamiento</li>
+<li><strong>ModalProps</strong>: Props para sistema de modales</li>
+<li><strong>UseModalReturn</strong>: Tipo de retorno para hook de modal</li>
+</ul>
+<hr />
+<h2 id="5-gestion-de-datos">5. Gestión de Datos</h2>
+<h3 id="srclibdatats">src/lib/data.ts</h3>
+<p>```typescript
+import { Work, Project, Blog } from '@/types';</p>
+<p>// Since we can't use fs on the client side, we'll import the data directly
+// This is a temporary solution - in production you'd want to use API routes or static generation</p>
+<p>// Private works data - not exported, only accessible through getWorks()
+const worksData: Work[] = [
+  {
+    name: "Antel",
+    time: "2022 - Current",
+    logo: "/logo_ancel.png",
+    text: "Built Node.js microservices handling 3.5M daily transactions. Reduced deployment times by 40% and errors by 99.9%. Established CI/CD workflow with 85% test coverage.",
+    largeText: [
+      "Antel, the National Administration of Telecommunications, is a Uruguayan state-owned company responsible for providing telecommunications services in Uruguay. It is the main provider of fixed and mobile telephone services, internet, and cable television in the country. Founded in 1974, Antel plays a key role in the communications infrastructure in Uruguay, offering services both at a national and international level.",
+      "My growth as a developer has been aided by two engineers with many years of experience at Antel. They have provided corrections to my code and recommended courses to enhance my skills."
+    ],
+    workMethod: "The working method involves a weekly meeting to coordinate projects and priorities.",
+    projects: [
+      {
+        title: "Page in NextJs",
+        text: "A project in Next.js from scratch with an SQLite database, login, validations, and an SMS messaging service."
+      },
+      {
+        title: "Node",
+        text: "Node project with authentication and generation of security codes."
+      },
+      {
+        title: "Java to Node",
+        text: "Migration of an IP management project from Java to Node."
+      },
+      {
+        title: "Jest",
+        text: "Creating Unit Tests in Jest"
+      }
+    ],
+    technologies: [
+      { name: "JavaScript", logo: "/logo_javascript.png" },
+      { name: "React", logo: "/logo_react.png" },
+      { name: "NextJs", logo: "/logo_next.png" },
+      { name: "Node", logo: "/logo_node.png" }
+    ]
+  },
+  {
+    name: "Upshow",
+    time: "2021 - 2022",
+    logo: "/logo_upshow.png",
+    text: "Built React dashboards with Node/Express APIs. Integrated GitHub/Jira for real-time team reports. Full lifecycle Agile/Scrum workflow.",
+    largeText: [
+      "Upshow is a company specialized in technology and interactive platforms designed to enhance engagement and interaction at live events and public venues. It provides solutions that allow establishments and organizers to display user-generated content on screens and monitors, creating a more engaging experience for the audience and encouraging real-time participation.",
+      "My growth within the company was thanks to a team that provided me with feedback, English classes, and paid Udemy courses sponsored by the company."
+    ],
+    workMethod: "Scrum methodology is used based on requests from a manager.",
+    projects: [
+      {
+        title: "React feature",
+        text: "Creation of small features for React projects."
+      },
+      {
+        title: "Node, GitHub and Jira",
+        text: "Data integration project between GitHub and Jira."
+      },
+      {
+        title: "Elasticsearch",
+        text: "Automation project for data analysis in Elasticsearch."
+      },
+      {
+        title: "Show services status",
+        text: "Project that displays the status of our services day by day and hour by hour."
+      }
+    ],
+    technologies: [
+      { name: "JavaScript", logo: "/logo_javascript.png" },
+      { name: "React", logo: "/logo_react.png" },
+      { name: "Node", logo: "/logo_node.png" }
+    ]
+  },
+  {
+    name: "Hacknoid",
+    time: "2018 - 2021",
+    logo: "/logo_hacknoid.png",
+    text: "Migrated frontend from Zend PHP to React.js (60% faster load time). Established Git branching strategies for releases/hotfixes. Optimized SQL queries (40% response time improvement). Developed maintainability tools.",
+    largeText: [
+      "Hacknoid is a cybersecurity-oriented company that has an automated pentesting application."
+    ],
+    workMethod: "Occasional meetings with the boss.",
+    projects: [
+      {
+        title: "Django, Python",
+        text: "Creation of backend with Django Python."
+      },
+      {
+        title: "Zend to React",
+        text: "Migration of frontend from Zend Framework to React."
+      },
+      {
+        title: "Automated pentesting",
+        text: "Creation of modules for pentesting in Python."
+      }
+    ],
+    technologies: [
+      { name: "python", logo: "/logo_python.png" },
+      { name: "JavaScript", logo: "/logo_javascript.png" },
+      { name: "React", logo: "/logo_react.png" },
+      { name: "Node", logo: "/logo_node.png" }
+    ]
+  },
+  {
+    name: "Gestion total",
+    time: "2017 - 2018",
+    logo: "/logo_gestionTotal.png",
+    text: "Developed custom JavaScript modules for ERP system across diverse industries. Implemented responsive UI layouts with HTML5/CSS3.",
+    largeText: [
+      "Gestion total sells features on an ERPNext which is focused on the administrative management of companies.",
+      "My growth came from solving the small challenges that arose at work"
+    ],
+    workMethod: "Commissioned by clients.",
+    projects: [],
+    technologies: [
+      { name: "python", logo: "/logo_python.png" },
+      { name: "JavaScript", logo: "/logo_javascript.png" }
+    ]
+  }
+];</p>
+<p>// Private projects data - not exported, only accessible through getProjects()
+const projectsData: Project[] = [
+  {
+    name: "Meteor",
+    time: "2022",
+    logo: "/logo_meteor.png",
+    text: "This website is intended for stock management in a store, which allows control of the database of product brands, types, quantities, and sales history, all in a MongoDB database.",
+    largeText: [
+      "Meteor is an open-source web and mobile development platform that uses JavaScript on both the client and server sides, with a real-time data system and a wide range of open-source packages and libraries to facilitate integration with other web technologies and services."
+    ],
+    github: "https://github.com/Mauro-js/Meteor_practices",
+    technologies: [
+      { name: "JavaScript", logo: "/logo_javascript.png" },
+      { name: "Node", logo: "/logo_node.png" }
+    ]
+  },
+  {
+    name: "Flask",
+    time: "2023",
+    logo: "/logo_flask.png", 
+    text: "A Flask-based website with a PostgreSQL database for the presidential elections of a physics professors' commission.",
+    largeText: [
+      "Flask is a Python web framework that allows developers to quickly and easily create web applications. Flask is considered a micro-framework, which means that it is designed to be lightweight and flexible, and does not include unnecessary additional components.",
+      "Flask provides the basic tools for creating web applications, such as URL routing, cookie management, support for Jinja2 templates, and more. Although Flask is considered a beginner-level framework, it is highly scalable and extensible, and is used by developers of all levels of experience to create web applications from simple to complex."
+    ],
+    github: "https://github.com/Mauro-js/test_python_flask",
+    technologies: [
+      { name: "python", logo: "/logo_python.png" }
+    ]
+  }
+];</p>
+<p>// Get all works data
+export async function getWorks(): Promise<Work[]> {
+  return worksData;
+}</p>
+<p>// Get all projects data<br />
+export async function getProjects(): Promise<Project[]> {
+  return projectsData;
+}</p>
+<p>// Get all blog data (for future use)
+export async function getBlogs(): Promise<Blog[]> {
+  return [];
+}</p>
+<p>// Get site configuration
+export const siteConfig = {
+  name: "Mauro Nievas - Portfolio",
+  description: "Full Stack Developer Portfolio",
+  navItems: [
+    { label: "Home", href: "/", id: "home" },
+    { label: "Works", href: "#works", id: "works" },
+    { label: "Projects", href: "#projects", id: "projects" },
+    { label: "About", href: "#about", id: "about" },
+    { label: "Blog", href: "/blog", id: "blogRef" }
+  ],
+  navMenuItems: [
+    { label: "Home", href: "/", id: "home" },
+    { label: "Works", href: "#works", id: "works" },
+    { label: "Projects", href: "#projects", id: "projects" },
+    { label: "About", href: "#about", id: "about" },
+    { label: "Blog", href: "/blog", id: "blogRef" }
+  ],
+  links: {
+    github: "https://github.com/maurocardena",
+    linkeding: "https://www.linkedin.com/in/mauro-nievas/"
+  }
+};
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="importaciones-y-comentarios-lineas-1-5">Importaciones y Comentarios (líneas 1-5)</h4>
+<ul>
+<li><strong>Línea 1</strong>: Importa interfaces de tipos desde el archivo de tipos</li>
+<li><strong>Líneas 3-4</strong>: Comentario explicando el enfoque de datos estáticos</li>
+</ul>
+<h4 id="datos-de-trabajos-lineas-7-123">Datos de Trabajos (líneas 7-123)</h4>
+<ul>
+<li><strong>Línea 7</strong>: Array privado de datos de trabajos, no exportado</li>
+<li><strong>Líneas 8-42</strong>: Datos de Antel con descripción detallada, metodología y proyectos</li>
+<li><strong>Líneas 43-77</strong>: Datos de Upshow con contexto empresarial y proyectos realizados</li>
+<li><strong>Líneas 78-106</strong>: Datos de Hacknoid con enfoque en ciberseguridad</li>
+<li><strong>Líneas 107-123</strong>: Datos de Gestión Total con desarrollo ERP</li>
+</ul>
+<h4 id="datos-de-proyectos-lineas-125-155">Datos de Proyectos (líneas 125-155)</h4>
+<ul>
+<li><strong>Línea 125</strong>: Array privado de proyectos personales</li>
+<li><strong>Líneas 127-140</strong>: Proyecto Meteor con descripción técnica</li>
+<li><strong>Líneas 141-155</strong>: Proyecto Flask con contexto electoral</li>
+</ul>
+<h4 id="funciones-de-acceso-lineas-157-170">Funciones de Acceso (líneas 157-170)</h4>
+<ul>
+<li><strong>Líneas 158-160</strong>: Función async para obtener datos de trabajos</li>
+<li><strong>Líneas 163-165</strong>: Función async para obtener proyectos</li>
+<li><strong>Líneas 168-170</strong>: Función para blogs (implementación futura)</li>
+</ul>
+<h4 id="configuracion-del-sitio-lineas-172-194">Configuración del Sitio (líneas 172-194)</h4>
+<ul>
+<li><strong>Líneas 173-194</strong>: Configuración de navegación y enlaces sociales</li>
+</ul>
+<hr />
+<h2 id="6-servicios-de-integracion">6. Servicios de Integración</h2>
+<h3 id="srcservicesgithub-authjs">src/services/github-auth.js</h3>
+<p>```javascript
+const { Octokit } = require('@octokit/core');</p>
+<p>class GitHubAuthService {
+  constructor() {
+    this.octokit = null;
+    this.initialized = false;
+    this.publicOctokit = null;
+  }</p>
+<p>async initialize() {
+    if (this.initialized) return;</p>
+<div class="codehilite"><pre><span></span><code><span class="n">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="n">Try</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">token</span><span class="w"> </span><span class="n">first</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">process</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">GITHUB_TOKEN</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">token</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">startsWith</span><span class="p">(</span><span class="s1">&#39;ghp_&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">token</span><span class="o">.</span><span class="n">startsWith</span><span class="p">(</span><span class="s1">&#39;github_pat_&#39;</span><span class="p">)))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Initializing GitHub service with token&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">this</span><span class="o">.</span><span class="n">octokit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">Octokit</span><span class="p">({</span>
+<span class="w">      </span><span class="n">auth</span><span class="p">:</span><span class="w"> </span><span class="n">token</span><span class="p">,</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Test</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">token</span>
+<span class="w">    </span><span class="n">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">await</span><span class="w"> </span><span class="n">this</span><span class="o">.</span><span class="n">octokit</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;GET /user&#39;</span><span class="p">);</span>
+<span class="w">      </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;GitHub token validated successfully&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Token validation failed, falling back to public API&#39;</span><span class="p">);</span>
+<span class="w">      </span><span class="n">this</span><span class="o">.</span><span class="n">octokit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Type">null</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="n">Initialize</span><span class="w"> </span><span class="n">public</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="p">(</span><span class="n">no</span><span class="w"> </span><span class="n">auth</span><span class="w"> </span><span class="n">required</span><span class="p">)</span>
+<span class="w">  </span><span class="n">this</span><span class="o">.</span><span class="n">publicOctokit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">Octokit</span><span class="p">();</span>
+
+<span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error initializing GitHub service:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">this</span><span class="o">.</span><span class="n">initialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">true</span><span class="p">;</span>
+</code></pre></div>
+
+<p>}</p>
+<p>async makeGraphQLRequest(query, variables = {}) {
+    await this.initialize();</p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">this</span><span class="o">.</span><span class="n">octokit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">throw</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">Error</span><span class="p">(</span><span class="s1">&#39;No authenticated GitHub client available&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">await</span><span class="w"> </span><span class="n">this</span><span class="o">.</span><span class="n">octokit</span><span class="o">.</span><span class="n">graphql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span><span class="w"> </span><span class="n">variables</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;GraphQL request failed:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">);</span>
+<span class="w">  </span><span class="n">throw</span><span class="w"> </span><span class="n">error</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>}</p>
+<p>async makePublicRequest(endpoint, options = {}) {
+    await this.initialize();</p>
+<div class="codehilite"><pre><span></span><code><span class="n">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">await</span><span class="w"> </span><span class="n">this</span><span class="o">.</span><span class="n">publicOctokit</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">endpoint</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Public API request failed:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">);</span>
+<span class="w">  </span><span class="n">throw</span><span class="w"> </span><span class="n">error</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>}</p>
+<p>getAuthenticatedClient() {
+    return this.octokit;
+  }</p>
+<p>getPublicClient() {
+    return this.publicOctokit;
+  }
+}</p>
+<p>// Export singleton instance
+module.exports = new GitHubAuthService();
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="clase-githubauthservice-lineas-3-8">Clase GitHubAuthService (líneas 3-8)</h4>
+<ul>
+<li><strong>Línea 3</strong>: Definición de clase para servicio de autenticación</li>
+<li><strong>Líneas 4-7</strong>: Constructor con propiedades para instancias de Octokit</li>
+</ul>
+<h4 id="metodo-initialize-lineas-10-34">Método initialize (líneas 10-34)</h4>
+<ul>
+<li><strong>Línea 11</strong>: Guard clause para evitar re-inicialización</li>
+<li><strong>Líneas 14-16</strong>: Verificación y validación de token de GitHub</li>
+<li><strong>Líneas 17-25</strong>: Creación de cliente autenticado con prueba de token</li>
+<li><strong>Línea 30</strong>: Inicialización de cliente público sin autenticación</li>
+</ul>
+<h4 id="metodo-makegraphqlrequest-lineas-36-50">Método makeGraphQLRequest (líneas 36-50)</h4>
+<ul>
+<li><strong>Líneas 37-41</strong>: Inicialización y validación de cliente autenticado</li>
+<li><strong>Líneas 43-49</strong>: Ejecución de consulta GraphQL con manejo de errores</li>
+</ul>
+<h4 id="metodo-makepublicrequest-lineas-52-62">Método makePublicRequest (líneas 52-62)</h4>
+<ul>
+<li><strong>Líneas 54-60</strong>: Request a API pública con manejo de errores</li>
+</ul>
+<h4 id="metodos-getter-lineas-64-70">Métodos Getter (líneas 64-70)</h4>
+<ul>
+<li><strong>Líneas 64-66</strong>: Retorna cliente autenticado</li>
+<li><strong>Líneas 68-70</strong>: Retorna cliente público</li>
+</ul>
+<h4 id="singleton-export-linea-73">Singleton Export (línea 73)</h4>
+<ul>
+<li><strong>Línea 73</strong>: Export de instancia única del servicio</li>
+</ul>
+<hr />
+<h2 id="7-rutas-api">7. Rutas API</h2>
+<h3 id="srcappapigithubcontributionsroutets">src/app/api/github/contributions/route.ts</h3>
+<p>```typescript
+import { NextRequest, NextResponse } from 'next/server';
+import githubAuthService from '@/services/github-auth.js';</p>
+<p>const CONTRIBUTIONS_QUERY = <code>query($username: String!, $from: DateTime!, $to: DateTime!) {
+    user(login: $username) {
+      contributionsCollection(from: $from, to: $to) {
+        contributionCalendar {
+          weeks {
+            contributionDays {
+              date
+              contributionCount
+              color
+            }
+          }
+        }
+      }
+    }
+  }</code>;</p>
+<p>// Fallback realistic contribution data generation
+function generateRealisticContributions(username: string) {
+  const contributions = [];
+  const today = new Date();
+  const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());</p>
+<p>// Generate realistic patterns based on typical developer activity
+  for (let d = new Date(oneYearAgo); d &lt;= today; d.setDate(d.getDate() + 1)) {
+    const dayOfWeek = d.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;</p>
+<div class="codehilite"><pre><span></span><code><span class="o">//</span><span class="w"> </span><span class="n">Lower</span><span class="w"> </span><span class="n">activity</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">weekends</span>
+<span class="k">const</span><span class="w"> </span><span class="n">baseActivity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isWeekend</span><span class="w"> </span><span class="err">?</span><span class="w"> </span><span class="mf">0.3</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">;</span>
+
+<span class="o">//</span><span class="w"> </span><span class="n">Add</span><span class="w"> </span><span class="n">some</span><span class="w"> </span><span class="n">randomness</span>
+<span class="k">const</span><span class="w"> </span><span class="n">randomFactor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="o">.</span><span class="n">random</span><span class="p">();</span>
+<span class="k">const</span><span class="w"> </span><span class="n">contributionCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">randomFactor</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">baseActivity</span><span class="w"> </span><span class="err">?</span><span class="w"> </span><span class="n">Math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">Math</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="o">//</span><span class="w"> </span><span class="nb nb-Type">Color</span><span class="w"> </span><span class="n">based</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">contribution</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="p">(</span><span class="n">GitHub</span><span class="s1">&#39;s color scheme)</span>
+<span class="n">let</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;#161b22&#39;</span><span class="p">;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">No</span><span class="w"> </span><span class="n">contribution</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">contributionCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;#0e4429&#39;</span><span class="p">;</span><span class="w">      </span><span class="o">//</span><span class="w"> </span><span class="n">Light</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">contributionCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;#006d32&#39;</span><span class="p">;</span><span class="w">      </span><span class="o">//</span><span class="w"> </span><span class="n">Medium</span><span class="w"> </span><span class="n">light</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">contributionCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;#26a641&#39;</span><span class="p">;</span><span class="w">      </span><span class="o">//</span><span class="w"> </span><span class="n">Medium</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">contributionCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;#39d353&#39;</span><span class="p">;</span><span class="w">      </span><span class="o">//</span><span class="w"> </span><span class="n">High</span>
+
+<span class="n">contributions</span><span class="o">.</span><span class="n">push</span><span class="p">({</span>
+<span class="w">  </span><span class="n">date</span><span class="p">:</span><span class="w"> </span><span class="n">d</span><span class="o">.</span><span class="n">toISOString</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+<span class="w">  </span><span class="n">contributionCount</span><span class="p">,</span>
+<span class="w">  </span><span class="n">color</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>}</p>
+<p>// Group by weeks
+  const weeks = [];
+  for (let i = 0; i &lt; contributions.length; i += 7) {
+    weeks.push({
+      contributionDays: contributions.slice(i, i + 7)
+    });
+  }</p>
+<p>return { weeks };
+}</p>
+<p>export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const username = searchParams.get('username') || 'maurocardena';</p>
+<p>try {
+    // Calculate date range (last year)
+    const to = new Date();
+    const from = new Date(to.getFullYear() - 1, to.getMonth(), to.getDate());</p>
+<div class="codehilite"><pre><span></span><code><span class="o">//</span><span class="w"> </span><span class="n">Try</span><span class="w"> </span><span class="n">authenticated</span><span class="w"> </span><span class="n">GraphQL</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="n">first</span>
+<span class="n">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">await</span><span class="w"> </span><span class="n">githubAuthService</span><span class="o">.</span><span class="n">makeGraphQLRequest</span><span class="p">(</span><span class="n">CONTRIBUTIONS_QUERY</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">username</span><span class="p">,</span>
+<span class="w">    </span><span class="n">from</span><span class="p">:</span><span class="w"> </span><span class="n">from</span><span class="o">.</span><span class="n">toISOString</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">to</span><span class="p">:</span><span class="w"> </span><span class="n">to</span><span class="o">.</span><span class="n">toISOString</span><span class="p">()</span>
+<span class="w">  </span><span class="p">});</span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">NextResponse</span><span class="o">.</span><span class="n">json</span><span class="p">({</span>
+<span class="w">    </span><span class="n">success</span><span class="p">:</span><span class="w"> </span><span class="bp">true</span><span class="p">,</span>
+<span class="w">    </span><span class="n">data</span><span class="p">:</span><span class="w"> </span><span class="n">data</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">contributionsCollection</span><span class="o">.</span><span class="n">contributionCalendar</span><span class="p">,</span>
+<span class="w">    </span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;authenticated&#39;</span>
+<span class="w">  </span><span class="p">});</span>
+<span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">authError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Authenticated request failed, trying public API fallback&#39;</span><span class="p">);</span>
+
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="n">Try</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">get</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="n">info</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">public</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">ensure</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="n">exists</span>
+<span class="w">  </span><span class="n">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">await</span><span class="w"> </span><span class="n">githubAuthService</span><span class="o">.</span><span class="n">makePublicRequest</span><span class="p">(</span><span class="s1">&#39;GET /users/{username}&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">username</span>
+<span class="w">    </span><span class="p">});</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">If</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="n">exists</span><span class="p">,</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">realistic</span><span class="w"> </span><span class="n">contribution</span><span class="w"> </span><span class="n">data</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">contributionCalendar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">generateRealisticContributions</span><span class="p">(</span><span class="n">username</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">NextResponse</span><span class="o">.</span><span class="n">json</span><span class="p">({</span>
+<span class="w">      </span><span class="n">success</span><span class="p">:</span><span class="w"> </span><span class="bp">true</span><span class="p">,</span>
+<span class="w">      </span><span class="n">data</span><span class="p">:</span><span class="w"> </span><span class="n">contributionCalendar</span><span class="p">,</span>
+<span class="w">      </span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;simulated&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Generated realistic contribution pattern based on user profile&#39;</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">publicError</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Public API also failed:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">publicError</span><span class="p">);</span>
+
+<span class="w">    </span><span class="o">//</span><span class="w"> </span><span class="n">Final</span><span class="w"> </span><span class="n">fallback</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">empty</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="n">structure</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">NextResponse</span><span class="o">.</span><span class="n">json</span><span class="p">({</span>
+<span class="w">      </span><span class="n">success</span><span class="p">:</span><span class="w"> </span><span class="bp">true</span><span class="p">,</span>
+<span class="w">      </span><span class="n">data</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">weeks</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="n">source</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;empty&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="n">message</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;No data available&#39;</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>} catch (error) {
+    console.error('GitHub API error:', error);</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">return</span><span class="w"> </span><span class="nt">NextResponse</span><span class="p">.</span><span class="nc">json</span><span class="o">(</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="n">success</span><span class="p">:</span><span class="w"> </span><span class="n">false</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">error</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Failed to fetch contributions&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="n">message</span><span class="o">:</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">instanceof</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">error</span><span class="o">.</span><span class="n">message</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Unknown error&#39;</span>
+<span class="w">  </span><span class="p">}</span><span class="o">,</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="n">status</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="p">}</span>
+<span class="o">);</span>
+</code></pre></div>
+
+<p>}
+}
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="importaciones-y-query-lineas-1-21">Importaciones y Query (líneas 1-21)</h4>
+<ul>
+<li><strong>Líneas 1-2</strong>: Importaciones de Next.js para API routes</li>
+<li><strong>Líneas 4-21</strong>: Query GraphQL para obtener contribuciones de GitHub</li>
+</ul>
+<h4 id="funcion-de-generacion-realistica-lineas-24-60">Función de Generación Realística (líneas 24-60)</h4>
+<ul>
+<li><strong>Líneas 25-27</strong>: Configuración de rango de fechas para último año</li>
+<li><strong>Líneas 30-32</strong>: Lógica para reducir actividad en fines de semana</li>
+<li><strong>Líneas 34-37</strong>: Generación aleatoria basada en patrones realistas</li>
+<li><strong>Líneas 39-44</strong>: Asignación de colores según esquema de GitHub</li>
+<li><strong>Líneas 53-58</strong>: Agrupación de contribuciones por semanas</li>
+</ul>
+<h4 id="handler-get-lineas-62-118">Handler GET (líneas 62-118)</h4>
+<ul>
+<li><strong>Líneas 63-64</strong>: Extracción de parámetros de URL</li>
+<li><strong>Líneas 67-69</strong>: Cálculo de rango de fechas</li>
+<li><strong>Líneas 72-83</strong>: Intento de request GraphQL autenticado</li>
+<li><strong>Líneas 84-102</strong>: Fallback a API pública con simulación</li>
+<li><strong>Líneas 103-110</strong>: Fallback final con estructura vacía</li>
+<li><strong>Líneas 111-118</strong>: Manejo de errores con response JSON</li>
+</ul>
+<hr />
+<h2 id="8-sistema-de-componentes-ui">8. Sistema de Componentes UI</h2>
+<h3 id="srccomponentsuibuttontsx">src/components/ui/Button.tsx</h3>
+<p>```typescript
+import React from 'react';
+import Link from 'next/link';
+import { clsx } from 'clsx';
+import { ButtonProps } from '@/types';</p>
+<p>export const Button: React.FC<ButtonProps> = ({
+  children,
+  className = '',
+  variant = 'solid',
+  color = 'primary',
+  size = 'md',
+  as,
+  href,
+  disabled = false,
+  isIconOnly = false,
+  onClick,
+  ...props
+}) =&gt; {
+  const baseClasses = 'button-base';
+  const variantClasses = <code>button-${variant}</code>;
+  const colorClasses = <code>button-${color}</code>;
+  const sizeClasses = <code>button-${size}</code>;
+  const iconOnlyClasses = isIconOnly ? 'button-icon-only' : '';
+  const disabledClasses = disabled ? 'button-disabled' : '';</p>
+<p>const classes = clsx(
+    baseClasses,
+    variantClasses,
+    colorClasses,
+    sizeClasses,
+    iconOnlyClasses,
+    disabledClasses,
+    className
+  );</p>
+<p>// If href is provided, render as link
+  if (href) {
+    const isExternal = href.startsWith('http') || href.startsWith('mailto:');</p>
+<div class="codehilite"><pre><span></span><code>if<span class="w"> </span>(isExternal)<span class="w"> </span>{
+<span class="w">  </span>return<span class="w"> </span>(
+<span class="w">    </span><span class="nt">&lt;a</span>
+<span class="w">      </span><span class="na">href=</span><span class="s">{href}</span>
+<span class="w">      </span><span class="na">className=</span><span class="s">{classes}</span>
+<span class="w">      </span><span class="na">target=</span><span class="s">&quot;_blank&quot;</span>
+<span class="w">      </span><span class="na">rel=</span><span class="s">&quot;noopener noreferrer&quot;</span>
+<span class="w">      </span><span class="na">onClick=</span><span class="s">{onClick}</span>
+<span class="w">      </span><span class="err">{...props}</span>
+<span class="w">    </span><span class="nt">&gt;</span>
+<span class="w">      </span>{children}
+<span class="w">    </span><span class="nt">&lt;/a&gt;</span>
+<span class="w">  </span>);
+}
+
+return<span class="w"> </span>(
+<span class="w">  </span><span class="nt">&lt;Link</span><span class="w"> </span><span class="na">href=</span><span class="s">{href}</span><span class="w"> </span><span class="na">className=</span><span class="s">{classes}</span><span class="w"> </span><span class="na">onClick=</span><span class="s">{onClick}</span><span class="w"> </span><span class="err">{...props}</span><span class="nt">&gt;</span>
+<span class="w">    </span>{children}
+<span class="w">  </span><span class="nt">&lt;/Link&gt;</span>
+);
+</code></pre></div>
+
+<p>}</p>
+<p>// Determine element type
+  const Component = as || 'button';</p>
+<p>return (
+    <Component
+      className={classes}
+      disabled={disabled}
+      onClick={onClick}
+      {...props}
+    >
+      {children}
+    </Component>
+  );
+};</p>
+<p>export default Button;
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="importaciones-y-props-lineas-1-18">Importaciones y Props (líneas 1-18)</h4>
+<ul>
+<li><strong>Líneas 1-4</strong>: Importaciones necesarias para el componente</li>
+<li><strong>Líneas 6-18</strong>: Destructuring de props con valores por defecto</li>
+</ul>
+<h4 id="clases-css-lineas-19-32">Clases CSS (líneas 19-32)</h4>
+<ul>
+<li><strong>Líneas 19-24</strong>: Definición de clases base para diferentes variantes</li>
+<li><strong>Líneas 26-34</strong>: Combinación de clases usando clsx</li>
+</ul>
+<h4 id="renderizado-condicional-para-enlaces-lineas-35-51">Renderizado Condicional para Enlaces (líneas 35-51)</h4>
+<ul>
+<li><strong>Líneas 36-37</strong>: Detección de enlaces externos</li>
+<li><strong>Líneas 39-48</strong>: Renderizado como enlace externo con target="_blank"</li>
+<li><strong>Líneas 50-53</strong>: Renderizado como Link de Next.js para rutas internas</li>
+</ul>
+<h4 id="renderizado-como-boton-lineas-55-66">Renderizado como Botón (líneas 55-66)</h4>
+<ul>
+<li><strong>Línea 56</strong>: Determinación del componente usando prop 'as'</li>
+<li><strong>Líneas 58-66</strong>: Renderizado del componente con todas las props</li>
+</ul>
+<h3 id="srccomponentsuimodaltsx">src/components/ui/Modal.tsx</h3>
+<p>```typescript
+'use client';</p>
+<p>import React, { useEffect } from 'react';
+import { clsx } from 'clsx';
+import { ModalProps } from '@/types';</p>
+<p>export const Modal: React.FC<ModalProps> = ({
+  children,
+  isOpen,
+  onClose,
+  size = 'md',
+  classNames = {}
+}) =&gt; {
+  // Handle escape key
+  useEffect(() =&gt; {
+    const handleEscape = (e: KeyboardEvent) =&gt; {
+      if (e.key === 'Escape' &amp;&amp; isOpen) {
+        onClose();
+      }
+    };</p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="ss">(</span><span class="nv">isOpen</span><span class="ss">)</span><span class="w"> </span>{
+<span class="w">  </span><span class="nv">document</span>.<span class="nv">addEventListener</span><span class="ss">(</span><span class="s1">&#39;keydown&#39;</span>,<span class="w"> </span><span class="nv">handleEscape</span><span class="ss">)</span><span class="c1">;</span>
+<span class="w">  </span><span class="o">//</span><span class="w"> </span><span class="nv">Prevent</span><span class="w"> </span><span class="nv">body</span><span class="w"> </span><span class="nv">scroll</span><span class="w"> </span><span class="nv">when</span><span class="w"> </span><span class="nv">modal</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">open</span>
+<span class="w">  </span><span class="nv">document</span>.<span class="nv">body</span>.<span class="nv">style</span>.<span class="nv">overflow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;hidden&#39;</span><span class="c1">;</span>
+}
+
+<span class="k">return</span><span class="w"> </span><span class="ss">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>{
+<span class="w">  </span><span class="nv">document</span>.<span class="nv">removeEventListener</span><span class="ss">(</span><span class="s1">&#39;keydown&#39;</span>,<span class="w"> </span><span class="nv">handleEscape</span><span class="ss">)</span><span class="c1">;</span>
+<span class="w">  </span><span class="nv">document</span>.<span class="nv">body</span>.<span class="nv">style</span>.<span class="nv">overflow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="c1">;</span>
+}<span class="c1">;</span>
+</code></pre></div>
+
+<p>}, [isOpen, onClose]);</p>
+<p>if (!isOpen) return null;</p>
+<p>return (
+    <div className={clsx('modal-backdrop', classNames.base)} onClick={onClose}>
+      <div 
+        className={clsx('modal-content', <code>modal-${size}</code>, classNames.base)}
+        onClick={(e) => e.stopPropagation()}
+      &gt;
+        {children}
+      </div>
+    </div>
+  );
+};</p>
+<p>export const ModalContent: React.FC&lt;{ children: React.ReactNode; className?: string }&gt; = ({
+  children,
+  className
+}) =&gt; (
+<br />
+<div className={clsx('modal-container', className)}>
+    {children}
+  </div></p>
+<p>);</p>
+<p>export const ModalHeader: React.FC&lt;{ children: React.ReactNode; className?: string }&gt; = ({
+  children,
+  className
+}) =&gt; (
+<br />
+<div className={clsx('modal-header', className)}>
+    {children}
+  </div></p>
+<p>);</p>
+<p>export const ModalBody: React.FC&lt;{ children: React.ReactNode; className?: string }&gt; = ({
+  children,
+  className
+}) =&gt; (
+<br />
+<div className={clsx('modal-body', className)}>
+    {children}
+  </div></p>
+<p>);</p>
+<p>export const ModalFooter: React.FC&lt;{ children: React.ReactNode; className?: string }&gt; = ({
+  children,
+  className
+}) =&gt; (
+<br />
+<div className={clsx('modal-footer', className)}>
+    {children}
+  </div></p>
+<p>);</p>
+<p>export default Modal;
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="hook-useeffect-para-gestion-de-modal-lineas-14-31">Hook useEffect para Gestión de Modal (líneas 14-31)</h4>
+<ul>
+<li><strong>Líneas 15-20</strong>: Handler para tecla Escape</li>
+<li><strong>Líneas 22-28</strong>: Event listeners y prevención de scroll del body</li>
+<li><strong>Líneas 30-31</strong>: Cleanup function para remover listeners</li>
+</ul>
+<h4 id="renderizado-principal-lineas-33-43">Renderizado Principal (líneas 33-43)</h4>
+<ul>
+<li><strong>Línea 33</strong>: Guard clause para modal cerrado</li>
+<li><strong>Líneas 35-42</strong>: Estructura de modal con backdrop y contenido</li>
+</ul>
+<h4 id="componentes-auxiliares-lineas-45-75">Componentes Auxiliares (líneas 45-75)</h4>
+<ul>
+<li><strong>Líneas 45-51</strong>: ModalContent como contenedor principal</li>
+<li><strong>Líneas 53-59</strong>: ModalHeader para encabezados</li>
+<li><strong>Líneas 61-67</strong>: ModalBody para contenido principal</li>
+<li><strong>Líneas 69-75</strong>: ModalFooter para acciones del modal</li>
+</ul>
+<hr />
+<h2 id="9-componentes-de-layout">9. Componentes de Layout</h2>
+<h3 id="srcapplayouttsx">src/app/layout.tsx</h3>
+<p>```typescript
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "../styles/globals.css";
+import { ThemeProvider } from "@/providers/ThemeProvider";</p>
+<p>const inter = Inter({ subsets: ["latin"] });</p>
+<p>export const metadata: Metadata = {
+  title: "Mauro Nievas - Portfolio",
+  description: "Full Stack Developer Portfolio showcasing modern web applications and projects",
+  keywords: ["Full Stack Developer", "React", "Next.js", "Node.js", "Python", "Portfolio"],
+  authors: [{ name: "Mauro Nievas" }],
+  creator: "Mauro Nievas",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://your-domain.com",
+    siteName: "Mauro Nievas Portfolio",
+    title: "Mauro Nievas - Full Stack Developer",
+    description: "Portfolio showcasing modern web applications and projects",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Mauro Nievas Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Mauro Nievas - Full Stack Developer",
+    description: "Portfolio showcasing modern web applications and projects",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    google: "your-google-verification-code",
+  },
+};</p>
+<p>export default function RootLayout({
+  children,
+}: Readonly&lt;{
+  children: React.ReactNode;
+}&gt;) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: <code>try {
+                if (localStorage.theme === 'dark' || (!('theme' in localStorage) &amp;&amp; window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.documentElement.classList.add('dark')
+                } else {
+                  document.documentElement.classList.remove('dark')
+                }
+              } catch (_) {}</code>,
+          }}
+        />
+      </head>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="metadatos-seo-lineas-8-50">Metadatos SEO (líneas 8-50)</h4>
+<ul>
+<li><strong>Líneas 9-13</strong>: Título y descripción básica con palabras clave</li>
+<li><strong>Líneas 15-29</strong>: Configuración Open Graph para redes sociales</li>
+<li><strong>Líneas 30-34</strong>: Metadatos específicos de Twitter</li>
+<li><strong>Líneas 35-45</strong>: Configuración para robots de búsqueda</li>
+<li><strong>Líneas 47-49</strong>: Verificación de Google (pendiente)</li>
+</ul>
+<h4 id="script-de-tema-lineas-65-75">Script de Tema (líneas 65-75)</h4>
+<ul>
+<li><strong>Línea 66</strong>: dangerouslySetInnerHTML para script inline</li>
+<li><strong>Líneas 68-72</strong>: Lógica para detectar preferencia de tema</li>
+<li><strong>Línea 73</strong>: Try-catch para manejar errores de localStorage</li>
+</ul>
+<h4 id="proveedores-lineas-79-85">Proveedores (líneas 79-85)</h4>
+<ul>
+<li><strong>Líneas 80-84</strong>: Configuración de ThemeProvider con tema oscuro por defecto</li>
+</ul>
+<h3 id="srcapppagetsx">src/app/page.tsx</h3>
+<p>```typescript
+import MeSectionCompact from '@/components/MeSectionCompact';
+import WorksColumn from '@/components/WorksColumn';
+import ProjectsColumn from '@/components/ProjectsColumn';
+import { getWorks, getProjects } from '@/lib/data';
+import timeCalculator from "@/components/timeCalculator";</p>
+<p>export default async function Home() {
+  // Get data at build time
+  const works = await getWorks();
+  const projects = await getProjects();
+  const timeDifference = timeCalculator()</p>
+<p>return (
+    &lt;&gt;</p>
+<div class="codehilite"><pre><span></span><code><span class="w">  </span>{/*<span class="w"> </span>3<span class="w"> </span>Column<span class="w"> </span>Grid<span class="w"> </span>Layout<span class="w"> </span>*/}
+<span class="w">  </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot;home-grid&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span>{/*<span class="w"> </span>Left<span class="w"> </span>Column<span class="w"> </span>-<span class="w"> </span>Works<span class="w"> </span>*/}
+<span class="w">    </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot;column column-fixed&quot;</span> <span class="na">id=</span><span class="s">&quot;works&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot;column-header&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;h2</span> <span class="na">className=</span><span class="s">&quot;text-4xl font-bold text-white mb-6&quot;</span><span class="nt">&gt;</span>Works<span class="nt">&lt;/h2&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">      </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot;column-content&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;WorksColumn</span> <span class="na">worksData=</span><span class="s">{works}</span> <span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/div&gt;</span>
+
+<span class="w">    </span>{/*<span class="w"> </span>Center<span class="w"> </span>Column<span class="w"> </span>-<span class="w"> </span>ME<span class="w"> </span>*/}
+<span class="w">    </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot;column center-column&quot;</span> <span class="na">id=</span><span class="s">&quot;about&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot;column-content&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span>{/*<span class="w"> </span>ME<span class="w"> </span>Section<span class="w"> </span>*/}
+<span class="w">        </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot; rounded-lg p-1&quot;</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot;mb-4 text-center&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="nt">&lt;h1</span> <span class="na">className=</span><span class="s">&quot;text-4xl font-bold text-white mb-2&quot;</span><span class="nt">&gt;</span>Mauro<span class="w"> </span>Nievas<span class="nt">&lt;/h1&gt;</span>
+<span class="w">            </span>{/*<span class="w"> </span>Title<span class="w"> </span>*/}
+<span class="w">            </span><span class="nt">&lt;p</span> <span class="na">className=</span><span class="s">&quot;text-lg md:text-xl lg:text-2xl text-center text-spacial-4-90 font-medium&quot;</span><span class="nt">&gt;</span>
+<span class="w">                </span>{timeDifference<span class="w"> </span>!==<span class="w"> </span>null<span class="w"> </span><span class="err">&amp;&amp;</span><span class="w"> </span>`Full<span class="w"> </span>Stack<span class="w"> </span>Developer<span class="w"> </span>+<span class="cp">${</span><span class="n">timeDifference</span><span class="o">.</span><span class="n">years</span><span class="cp">}</span><span class="w"> </span>years`}
+<span class="w">            </span><span class="nt">&lt;/p&gt;</span>
+<span class="w">          </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">          </span><span class="nt">&lt;MeSectionCompact</span> <span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/div&gt;</span>
+
+<span class="w">    </span>{/*<span class="w"> </span>Right<span class="w"> </span>Column<span class="w"> </span>-<span class="w"> </span>Projects<span class="w"> </span>*/}
+<span class="w">    </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot;column column-fixed&quot;</span> <span class="na">id=</span><span class="s">&quot;projects&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot;column-header&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;h2</span> <span class="na">className=</span><span class="s">&quot;text-4xl font-bold text-white mb-6&quot;</span><span class="nt">&gt;</span>Projects<span class="nt">&lt;/h2&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">      </span><span class="nt">&lt;div</span> <span class="na">className=</span><span class="s">&quot;column-content&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;ProjectsColumn</span> <span class="na">projectsData=</span><span class="s">{projects}</span> <span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+
+<p>);
+}
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="importaciones-lineas-1-6">Importaciones (líneas 1-6)</h4>
+<ul>
+<li><strong>Líneas 1-3</strong>: Importación de componentes principales</li>
+<li><strong>Línea 4</strong>: Importación de funciones de datos</li>
+<li><strong>Línea 5</strong>: Importación de utilidad de tiempo</li>
+</ul>
+<h4 id="funcion-async-home-lineas-9-60">Función Async Home (líneas 9-60)</h4>
+<ul>
+<li><strong>Líneas 11-13</strong>: Obtención de datos en tiempo de construcción</li>
+<li><strong>Líneas 19-28</strong>: Columna izquierda con experiencias laborales</li>
+<li><strong>Líneas 31-44</strong>: Columna central con información personal</li>
+<li><strong>Líneas 47-56</strong>: Columna derecha con proyectos personales</li>
+</ul>
+<hr />
+<h2 id="10-componentes-de-contenido">10. Componentes de Contenido</h2>
+<h3 id="srccomponentsmesectioncompacttsx">src/components/MeSectionCompact.tsx</h3>
+<p>```typescript
+'use client';</p>
+<p>import React, { useEffect, useState } from 'react';
+import { Card, CardBody } from '@/components/ui/Card';
+import { Image } from '@/components/ui/Image';
+import { Button } from '@/components/ui/Button';
+import { Tooltip } from '@/components/ui/Tooltip';
+import { HomeIcon, GitHubIcon, LinkedInIcon } from '@/components/icons';
+import { siteConfig } from '@/lib/data';
+import GitHubContributions from './GitHubContributions';
+import { Octokit } from '@octokit/core';</p>
+<p>interface GitHubProfile {
+  public_repos: number;
+  followers: number;
+  following: number;
+}</p>
+<p>export default function MeSectionCompact() {
+  const [githubProfile, setGithubProfile] = useState<GitHubProfile | null>(null);</p>
+<p>useEffect(() =&gt; {
+    const fetchGitHubProfile = async () =&gt; {
+      try {
+        const octokit = new Octokit();
+        const response = await octokit.request('GET /users/{username}', {
+          username: 'maurocardena'
+        });</p>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nt">setGithubProfile</span><span class="o">(</span><span class="p">{</span>
+<span class="w">      </span><span class="n">public_repos</span><span class="p">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">public_repos</span><span class="p">,</span>
+<span class="w">      </span><span class="n">followers</span><span class="o">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">followers</span><span class="p">,</span>
+<span class="w">      </span><span class="n">following</span><span class="o">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">following</span>
+<span class="w">    </span><span class="p">}</span><span class="o">);</span>
+<span class="w">  </span><span class="err">}</span><span class="w"> </span><span class="nt">catch</span><span class="w"> </span><span class="o">(</span><span class="nt">error</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="err">console.error(&#39;Error</span><span class="w"> </span><span class="err">fetching</span><span class="w"> </span><span class="err">GitHub</span><span class="w"> </span><span class="n">profile</span><span class="p">:</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">);</span>
+<span class="w">    </span><span class="err">//</span><span class="w"> </span><span class="err">Fallback</span><span class="w"> </span><span class="err">data</span>
+<span class="w">    </span><span class="err">setGithubProfile({</span>
+<span class="w">      </span><span class="n">public_repos</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span>
+<span class="w">      </span><span class="n">followers</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">      </span><span class="n">following</span><span class="o">:</span><span class="w"> </span><span class="mi">25</span>
+<span class="w">    </span><span class="p">}</span><span class="o">);</span>
+<span class="w">  </span><span class="err">}</span>
+<span class="err">}</span><span class="o">;</span>
+
+<span class="nt">fetchGitHubProfile</span><span class="o">();</span>
+</code></pre></div>
+
+<p>}, []);</p>
+<p>return (
+    <div className="me-section-compact">
+      {/<em> Profile Image </em>/}
+      <div className="profile-image-container">
+        <Image
+          src="/logo_ancel.png"
+          alt="Mauro Nievas"
+          className="profile-image"
+          width={120}
+          height={120}
+          radius="full"
+        />
+      </div></p>
+<div class="codehilite"><pre><span></span><code><span class="w">  </span>{/*<span class="w"> </span>GitHub<span class="w"> </span>Stats<span class="w"> </span>*/}
+<span class="w">  </span>{githubProfile<span class="w"> </span><span class="err">&amp;&amp;</span><span class="w"> </span>(
+<span class="w">    </span><span class="nt">&lt;Card</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;github-stats-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;CardBody&gt;</span>
+<span class="w">        </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;github-stats&quot;</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;stat-item&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="nt">&lt;span</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;stat-number&quot;</span><span class="nt">&gt;</span>{githubProfile.public_repos}<span class="nt">&lt;/span&gt;</span>
+<span class="w">            </span><span class="nt">&lt;span</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;stat-label&quot;</span><span class="nt">&gt;</span>Repositories<span class="nt">&lt;/span&gt;</span>
+<span class="w">          </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">          </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;stat-item&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="nt">&lt;span</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;stat-number&quot;</span><span class="nt">&gt;</span>{githubProfile.followers}<span class="nt">&lt;/span&gt;</span>
+<span class="w">            </span><span class="nt">&lt;span</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;stat-label&quot;</span><span class="nt">&gt;</span>Followers<span class="nt">&lt;/span&gt;</span>
+<span class="w">          </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">          </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;stat-item&quot;</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="nt">&lt;span</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;stat-number&quot;</span><span class="nt">&gt;</span>{githubProfile.following}<span class="nt">&lt;/span&gt;</span>
+<span class="w">            </span><span class="nt">&lt;span</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;stat-label&quot;</span><span class="nt">&gt;</span>Following<span class="nt">&lt;/span&gt;</span>
+<span class="w">          </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/CardBody&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Card&gt;</span>
+<span class="w">  </span>)}
+
+<span class="w">  </span>{/*<span class="w"> </span>Technologies<span class="w"> </span>*/}
+<span class="w">  </span><span class="nt">&lt;Card</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;technologies-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;CardBody&gt;</span>
+<span class="w">      </span><span class="nt">&lt;h3</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;section-title&quot;</span><span class="nt">&gt;</span>Technologies<span class="nt">&lt;/h3&gt;</span>
+<span class="w">      </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;technologies-grid&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span>{[
+<span class="w">          </span>{<span class="w"> </span>name:<span class="w"> </span>&#39;React&#39;,<span class="w"> </span>logo:<span class="w"> </span>&#39;/logo_react.png&#39;<span class="w"> </span>},
+<span class="w">          </span>{<span class="w"> </span>name:<span class="w"> </span>&#39;Next.js&#39;,<span class="w"> </span>logo:<span class="w"> </span>&#39;/logo_next.png&#39;<span class="w"> </span>},
+<span class="w">          </span>{<span class="w"> </span>name:<span class="w"> </span>&#39;Node.js&#39;,<span class="w"> </span>logo:<span class="w"> </span>&#39;/logo_node.png&#39;<span class="w"> </span>},
+<span class="w">          </span>{<span class="w"> </span>name:<span class="w"> </span>&#39;Python&#39;,<span class="w"> </span>logo:<span class="w"> </span>&#39;/logo_python.png&#39;<span class="w"> </span>},
+<span class="w">          </span>{<span class="w"> </span>name:<span class="w"> </span>&#39;JavaScript&#39;,<span class="w"> </span>logo:<span class="w"> </span>&#39;/logo_javascript.png&#39;<span class="w"> </span>}
+<span class="w">        </span>].map((tech)<span class="w"> </span>=&gt;<span class="w"> </span>(
+<span class="w">          </span><span class="nt">&lt;Tooltip</span><span class="w"> </span><span class="na">key=</span><span class="s">{tech.name}</span><span class="w"> </span><span class="na">content=</span><span class="s">{tech.name}</span><span class="nt">&gt;</span>
+<span class="w">            </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;technology-item&quot;</span><span class="nt">&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Image</span>
+<span class="w">                </span><span class="na">src=</span><span class="s">{tech.logo}</span>
+<span class="w">                </span><span class="na">alt=</span><span class="s">{tech.name}</span>
+<span class="w">                </span><span class="na">width=</span><span class="s">{40}</span>
+<span class="w">                </span><span class="na">height=</span><span class="s">{40}</span>
+<span class="w">                </span><span class="na">className=</span><span class="s">&quot;technology-logo&quot;</span>
+<span class="w">              </span><span class="nt">/&gt;</span>
+<span class="w">            </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">          </span><span class="nt">&lt;/Tooltip&gt;</span>
+<span class="w">        </span>))}
+<span class="w">      </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/CardBody&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Card&gt;</span>
+
+<span class="w">  </span>{/*<span class="w"> </span>GitHub<span class="w"> </span>Contributions<span class="w"> </span>*/}
+<span class="w">  </span><span class="nt">&lt;Card</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;contributions-card&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;CardBody&gt;</span>
+<span class="w">      </span><span class="nt">&lt;h3</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;section-title&quot;</span><span class="nt">&gt;</span>GitHub<span class="w"> </span>Activity<span class="nt">&lt;/h3&gt;</span>
+<span class="w">      </span><span class="nt">&lt;GitHubContributions</span><span class="w"> </span><span class="na">username=</span><span class="s">&quot;maurocardena&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/CardBody&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Card&gt;</span>
+
+<span class="w">  </span>{/*<span class="w"> </span>Social<span class="w"> </span>Links<span class="w"> </span>*/}
+<span class="w">  </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;social-links&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Button</span>
+<span class="w">      </span><span class="na">as=</span><span class="s">&quot;a&quot;</span>
+<span class="w">      </span><span class="na">href=</span><span class="s">&quot;/&quot;</span>
+<span class="w">      </span><span class="na">variant=</span><span class="s">&quot;ghost&quot;</span>
+<span class="w">      </span><span class="na">size=</span><span class="s">&quot;lg&quot;</span>
+<span class="w">      </span><span class="err">isIconOnly</span>
+<span class="w">      </span><span class="na">className=</span><span class="s">&quot;social-button&quot;</span>
+<span class="w">    </span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;HomeIcon</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Button&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;Button</span>
+<span class="w">      </span><span class="na">as=</span><span class="s">&quot;a&quot;</span>
+<span class="w">      </span><span class="na">href=</span><span class="s">{siteConfig.links.github}</span>
+<span class="w">      </span><span class="na">variant=</span><span class="s">&quot;ghost&quot;</span>
+<span class="w">      </span><span class="na">size=</span><span class="s">&quot;lg&quot;</span>
+<span class="w">      </span><span class="err">isIconOnly</span>
+<span class="w">      </span><span class="na">className=</span><span class="s">&quot;social-button&quot;</span>
+<span class="w">    </span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;GitHubIcon</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Button&gt;</span>
+
+<span class="w">    </span><span class="nt">&lt;Button</span>
+<span class="w">      </span><span class="na">as=</span><span class="s">&quot;a&quot;</span>
+<span class="w">      </span><span class="na">href=</span><span class="s">{siteConfig.links.linkeding}</span>
+<span class="w">      </span><span class="na">variant=</span><span class="s">&quot;ghost&quot;</span>
+<span class="w">      </span><span class="na">size=</span><span class="s">&quot;lg&quot;</span>
+<span class="w">      </span><span class="err">isIconOnly</span>
+<span class="w">      </span><span class="na">className=</span><span class="s">&quot;social-button&quot;</span>
+<span class="w">    </span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;LinkedInIcon</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Button&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+
+<p>);
+}
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="hook-useeffect-para-github-profile-lineas-21-44">Hook useEffect para GitHub Profile (líneas 21-44)</h4>
+<ul>
+<li><strong>Líneas 23-27</strong>: Creación de instancia Octokit y request a API</li>
+<li><strong>Líneas 29-33</strong>: Extracción de datos del perfil</li>
+<li><strong>Líneas 35-41</strong>: Datos de fallback en caso de error</li>
+</ul>
+<h4 id="renderizado-de-imagen-de-perfil-lineas-48-57">Renderizado de Imagen de Perfil (líneas 48-57)</h4>
+<ul>
+<li><strong>Líneas 49-56</strong>: Contenedor e imagen optimizada con Next.js</li>
+</ul>
+<h4 id="github-stats-card-lineas-60-78">GitHub Stats Card (líneas 60-78)</h4>
+<ul>
+<li><strong>Líneas 61-77</strong>: Renderizado condicional de estadísticas de GitHub</li>
+</ul>
+<h4 id="technologies-grid-lineas-81-103">Technologies Grid (líneas 81-103)</h4>
+<ul>
+<li><strong>Líneas 85-90</strong>: Array de tecnologías con logos</li>
+<li><strong>Líneas 91-102</strong>: Map de tecnologías con tooltips</li>
+</ul>
+<h4 id="social-links-lineas-113-141">Social Links (líneas 113-141)</h4>
+<ul>
+<li><strong>Líneas 114-120</strong>: Botón de inicio</li>
+<li><strong>Líneas 122-129</strong>: Enlace a GitHub</li>
+<li><strong>Líneas 131-138</strong>: Enlace a LinkedIn</li>
+</ul>
+<h3 id="srccomponentsgithubcontributionstsx">src/components/GitHubContributions.tsx</h3>
+<p>```typescript
+'use client';</p>
+<p>import React, { useEffect, useState } from 'react';
+import { Tooltip } from '@/components/ui/Tooltip';</p>
+<p>interface ContributionDay {
+  date: string;
+  contributionCount: number;
+  color: string;
+}</p>
+<p>interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}</p>
+<p>interface ContributionsData {
+  weeks: ContributionWeek[];
+}</p>
+<p>interface GitHubContributionsProps {
+  username: string;
+}</p>
+<p>export default function GitHubContributions({ username }: GitHubContributionsProps) {
+  const [contributionsData, setContributionsData] = useState<ContributionsData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadedWeeks, setLoadedWeeks] = useState(0);</p>
+<p>useEffect(() =&gt; {
+    const fetchContributions = async () =&gt; {
+      try {
+        const response = await fetch(<code>/api/github/contributions?username=${username}</code>);
+        const result = await response.json();</p>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">setContributionsData</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">);</span>
+<span class="w">      </span><span class="o">//</span><span class="w"> </span><span class="n">Start</span><span class="w"> </span><span class="n">progressive</span><span class="w"> </span><span class="n">loading</span><span class="w"> </span><span class="n">animation</span>
+<span class="w">      </span><span class="n">animateLoading</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">weeks</span><span class="o">.</span><span class="n">length</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Failed to fetch contributions:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="o">.</span><span class="n">error</span><span class="p">);</span>
+<span class="w">      </span><span class="n">setLoading</span><span class="p">(</span><span class="bp">false</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="n">catch</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Error fetching contributions:&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">);</span>
+<span class="w">    </span><span class="n">setLoading</span><span class="p">(</span><span class="bp">false</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">animateLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">totalWeeks</span><span class="p">:</span><span class="w"> </span><span class="n">number</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">let</span><span class="w"> </span><span class="n">currentWeek</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">setInterval</span><span class="p">(()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currentWeek</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">totalWeeks</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">setLoadedWeeks</span><span class="p">(</span><span class="n">currentWeek</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="w">      </span><span class="n">currentWeek</span><span class="o">++</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="n">setLoading</span><span class="p">(</span><span class="bp">false</span><span class="p">);</span>
+<span class="w">      </span><span class="n">clearInterval</span><span class="p">(</span><span class="n">interval</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span><span class="w"> </span><span class="mi">35</span><span class="p">);</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">Load</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">weeks</span><span class="w"> </span><span class="n">every</span><span class="w"> </span><span class="o">~</span><span class="mi">140</span><span class="n">ms</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">smooth</span><span class="w"> </span><span class="n">animation</span>
+<span class="p">};</span>
+
+<span class="n">fetchContributions</span><span class="p">();</span>
+</code></pre></div>
+
+<p>}, [username]);</p>
+<p>const formatTooltipContent = (day: ContributionDay) =&gt; {
+    const date = new Date(day.date);
+    const formattedDate = date.toLocaleDateString('en-US', {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });</p>
+<div class="codehilite"><pre><span></span><code><span class="k">const</span><span class="w"> </span><span class="n">contributionText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">day</span><span class="o">.</span><span class="n">contributionCount</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span>
+<span class="w">  </span><span class="err">?</span><span class="w"> </span><span class="s1">&#39;1 contribution&#39;</span><span class="w"> </span>
+<span class="w">  </span><span class="p">:</span><span class="w"> </span><span class="err">`</span><span class="o">$</span><span class="p">{</span><span class="n">day</span><span class="o">.</span><span class="n">contributionCount</span><span class="p">}</span><span class="w"> </span><span class="n">contributions</span><span class="err">`</span><span class="p">;</span>
+
+<span class="k">return</span><span class="w"> </span><span class="err">`</span><span class="o">$</span><span class="p">{</span><span class="n">contributionText</span><span class="p">}</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="o">$</span><span class="p">{</span><span class="n">formattedDate</span><span class="p">}</span><span class="err">`</span><span class="p">;</span>
+</code></pre></div>
+
+<p>};</p>
+<p>if (loading &amp;&amp; !contributionsData) {
+    return <div className="contributions-loading">Loading GitHub activity...</div>;
+  }</p>
+<p>if (!contributionsData) {
+    return <div className="contributions-error">Unable to load GitHub activity</div>;
+  }</p>
+<p>return (
+    <div className="github-contributions">
+      <div className="contributions-grid">
+        {contributionsData.weeks.slice(0, loadedWeeks).map((week, weekIndex) =&gt; (
+          <div key={weekIndex} className="contribution-week">
+            {week.contributionDays.map((day, dayIndex) =&gt; (
+              <Tooltip
+                key={<code>${weekIndex}-${dayIndex}</code>}
+                content={formatTooltipContent(day)}
+                placement="top"
+              >
+                <a
+                  href={<code>https://github.com/${username}?tab=overview&amp;from=${day.date}&amp;to=${day.date}</code>}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="contribution-day"
+                  style={{ backgroundColor: day.color }}
+                  data-count={day.contributionCount}
+                  data-date={day.date}
+                />
+              </Tooltip>
+            ))}
+          </div>
+        ))}
+      </div></p>
+<div class="codehilite"><pre><span></span><code><span class="w">  </span>{loading<span class="w"> </span><span class="err">&amp;&amp;</span><span class="w"> </span>(
+<span class="w">    </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">className=</span><span class="s">&quot;loading-indicator&quot;</span><span class="nt">&gt;</span>
+<span class="w">      </span>Loading<span class="w"> </span>{loadedWeeks}/{contributionsData.weeks.length}<span class="w"> </span>weeks...
+<span class="w">    </span><span class="nt">&lt;/div&gt;</span>
+<span class="w">  </span>)}
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div>
+
+<p>);
+}
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="interfaces-typescript-lineas-5-22">Interfaces TypeScript (líneas 5-22)</h4>
+<ul>
+<li><strong>Líneas 5-9</strong>: Interfaz para día de contribución individual</li>
+<li><strong>Líneas 11-13</strong>: Interfaz para semana de contribuciones</li>
+<li><strong>Líneas 15-17</strong>: Interfaz para datos completos de contribuciones</li>
+<li><strong>Líneas 19-21</strong>: Props del componente</li>
+</ul>
+<h4 id="hook-useeffect-principal-lineas-28-55">Hook useEffect Principal (líneas 28-55)</h4>
+<ul>
+<li><strong>Líneas 29-42</strong>: Función para fetch de datos de contribuciones</li>
+<li><strong>Líneas 44-53</strong>: Función de animación progresiva de carga</li>
+</ul>
+<h4 id="funcion-de-formato-de-tooltip-lineas-57-70">Función de Formato de Tooltip (líneas 57-70)</h4>
+<ul>
+<li><strong>Líneas 58-62</strong>: Formateo de fecha legible</li>
+<li><strong>Líneas 64-66</strong>: Texto de contribuciones (singular/plural)</li>
+<li><strong>Línea 68</strong>: Retorno de string formateado</li>
+</ul>
+<h4 id="estados-de-carga-y-error-lineas-72-79">Estados de Carga y Error (líneas 72-79)</h4>
+<ul>
+<li><strong>Líneas 72-74</strong>: Estado de carga inicial</li>
+<li><strong>Líneas 76-78</strong>: Estado de error</li>
+</ul>
+<h4 id="renderizado-principal-lineas-81-107">Renderizado Principal (líneas 81-107)</h4>
+<ul>
+<li><strong>Líneas 83-105</strong>: Grid de contribuciones con tooltips y enlaces</li>
+<li><strong>Líneas 107-111</strong>: Indicador de progreso de carga</li>
+</ul>
+<hr />
+<h2 id="11-sistema-de-diseno">11. Sistema de Diseño</h2>
+<h3 id="srcstylesvariablescss">src/styles/variables.css</h3>
+<p>```css
+:root {
+  /<em> Spacial Color Palette - Inspired by Nord/Polybar </em>/
+  --spacial-1: #2e3440;       /<em> Dark background </em>/
+  --spacial-2: #3b4252;       /<em> Medium dark </em>/
+  --spacial-3: #434c5e;       /<em> Medium </em>/
+  --spacial-4: #4c566a;       /<em> Light medium </em>/
+  --spacial-5: #d8dee9;       /<em> Light </em>/
+  --spacial-6: #e5e9f0;       /<em> Very light </em>/
+  --spacial-7: #eceff4;       /<em> Almost white </em>/</p>
+<p>/<em> Spacial Color Variations with Opacity </em>/
+  --spacial-1-90: rgba(46, 52, 64, 0.9);
+  --spacial-2-90: rgba(59, 66, 82, 0.9);
+  --spacial-3-90: rgba(67, 76, 94, 0.9);
+  --spacial-4-90: rgba(76, 86, 106, 0.9);
+  --spacial-5-90: rgba(216, 222, 233, 0.9);</p>
+<p>/<em> Spacial Accent Colors </em>/
+  --spacial-accent-1: #8fbcbb;  /<em> Frost cyan </em>/
+  --spacial-accent-2: #88c0d0;  /<em> Frost blue </em>/
+  --spacial-accent-3: #81a1c1;  /<em> Frost dark blue </em>/
+  --spacial-accent-4: #5e81ac;  /<em> Frost darker blue </em>/</p>
+<p>/<em> Status Colors </em>/
+  --spacial-success: #a3be8c;   /<em> Aurora green </em>/
+  --spacial-warning: #ebcb8b;   /<em> Aurora yellow </em>/
+  --spacial-error: #bf616a;     /<em> Aurora red </em>/
+  --spacial-info: #b48ead;      /<em> Aurora purple </em>/</p>
+<p>/<em> Spacing Scale </em>/
+  --spacing-xs: 0.25rem;    /<em> 4px </em>/
+  --spacing-sm: 0.5rem;     /<em> 8px </em>/
+  --spacing-md: 1rem;       /<em> 16px </em>/
+  --spacing-lg: 1.5rem;     /<em> 24px </em>/
+  --spacing-xl: 2rem;       /<em> 32px </em>/
+  --spacing-2xl: 3rem;      /<em> 48px </em>/
+  --spacing-3xl: 4rem;      /<em> 64px </em>/</p>
+<p>/<em> Typography Scale </em>/
+  --text-xs: 0.75rem;       /<em> 12px </em>/
+  --text-sm: 0.875rem;      /<em> 14px </em>/
+  --text-base: 1rem;        /<em> 16px </em>/
+  --text-lg: 1.125rem;      /<em> 18px </em>/
+  --text-xl: 1.25rem;       /<em> 20px </em>/
+  --text-2xl: 1.5rem;       /<em> 24px </em>/
+  --text-3xl: 1.875rem;     /<em> 30px </em>/
+  --text-4xl: 2.25rem;      /<em> 36px </em>/
+  --text-5xl: 3rem;         /<em> 48px </em>/</p>
+<p>/<em> Font Weights </em>/
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;</p>
+<p>/<em> Border Radius </em>/
+  --radius-none: 0;
+  --radius-sm: 0.125rem;     /<em> 2px </em>/
+  --radius-md: 0.375rem;     /<em> 6px </em>/
+  --radius-lg: 0.5rem;       /<em> 8px </em>/
+  --radius-xl: 0.75rem;      /<em> 12px </em>/
+  --radius-2xl: 1rem;        /<em> 16px </em>/
+  --radius-full: 9999px;</p>
+<p>/<em> Shadows </em>/
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);</p>
+<p>/<em> Transitions </em>/
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;</p>
+<p>/<em> Z-Index Scale </em>/
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;</p>
+<p>/<em> Layout Breakpoints </em>/
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}</p>
+<p>/<em> Dark Theme Variables (Default) </em>/
+:root {
+  --background: var(--spacial-1);
+  --foreground: var(--spacial-7);
+  --muted: var(--spacial-2);
+  --muted-foreground: var(--spacial-5);
+  --border: var(--spacial-3);
+  --input: var(--spacial-2);
+  --primary: var(--spacial-accent-2);
+  --primary-foreground: var(--spacial-1);
+  --secondary: var(--spacial-3);
+  --secondary-foreground: var(--spacial-6);
+  --accent: var(--spacial-accent-1);
+  --accent-foreground: var(--spacial-1);
+  --destructive: var(--spacial-error);
+  --destructive-foreground: var(--spacial-7);
+}</p>
+<p>/<em> Light Theme Variables </em>/
+.light {
+  --background: var(--spacial-7);
+  --foreground: var(--spacial-1);
+  --muted: var(--spacial-6);
+  --muted-foreground: var(--spacial-4);
+  --border: var(--spacial-5);
+  --input: var(--spacial-6);
+  --primary: var(--spacial-accent-4);
+  --primary-foreground: var(--spacial-7);
+  --secondary: var(--spacial-5);
+  --secondary-foreground: var(--spacial-2);
+  --accent: var(--spacial-accent-3);
+  --accent-foreground: var(--spacial-7);
+  --destructive: var(--spacial-error);
+  --destructive-foreground: var(--spacial-7);
+}
+```</p>
+<p><strong>Análisis del Sistema de Colores:</strong></p>
+<h4 id="paleta-spacial-base-lineas-2-9">Paleta Spacial Base (líneas 2-9)</h4>
+<ul>
+<li><strong>Espacial 1-4</strong>: Escalas de grises oscuros para fondos y superficies</li>
+<li><strong>Espacial 5-7</strong>: Escalas de grises claros para texto y elementos</li>
+</ul>
+<h4 id="colores-con-opacidad-lineas-11-16">Colores con Opacidad (líneas 11-16)</h4>
+<ul>
+<li><strong>Variaciones 90%</strong>: Versiones semi-transparentes para overlays</li>
+</ul>
+<h4 id="colores-de-acento-lineas-18-22">Colores de Acento (líneas 18-22)</h4>
+<ul>
+<li><strong>Frost Colors</strong>: Inspirados en la paleta Nord para acentos</li>
+</ul>
+<h4 id="sistema-de-espaciado-lineas-27-33">Sistema de Espaciado (líneas 27-33)</h4>
+<ul>
+<li><strong>Escala XS a 3XL</strong>: Sistema consistente basado en múltiplos de 4px</li>
+</ul>
+<h4 id="sistema-tipografico-lineas-35-44">Sistema Tipográfico (líneas 35-44)</h4>
+<ul>
+<li><strong>Escala de Tamaños</strong>: Sistema modular de tamaños de texto</li>
+</ul>
+<hr />
+<h2 id="12-estilos-css">12. Estilos CSS</h2>
+<h3 id="srcstylescomponentsgithub-contributionscss">src/styles/components/github-contributions.css</h3>
+<p>```css
+.github-contributions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}</p>
+<p>.contributions-grid {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  background: var(--spacial-2);
+  scrollbar-width: thin;
+  scrollbar-color: var(--spacial-4) var(--spacial-2);
+}</p>
+<p>.contributions-grid::-webkit-scrollbar {
+  height: 4px;
+}</p>
+<p>.contributions-grid::-webkit-scrollbar-track {
+  background: var(--spacial-2);
+  border-radius: var(--radius-sm);
+}</p>
+<p>.contributions-grid::-webkit-scrollbar-thumb {
+  background: var(--spacial-4);
+  border-radius: var(--radius-sm);
+}</p>
+<p>.contributions-grid::-webkit-scrollbar-thumb:hover {
+  background: var(--spacial-accent-2);
+}</p>
+<p>.contribution-week {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}</p>
+<p>.contribution-day {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  display: block;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border: 1px solid var(--spacial-3);
+  opacity: 0;
+  animation: contribution-appear 0.3s ease-out forwards;
+}</p>
+<p>.contribution-day:hover {
+  transform: scale(1.2);
+  border-color: var(--spacial-accent-2);
+  box-shadow: 0 2px 8px rgba(136, 192, 208, 0.3);
+}</p>
+<p>.contribution-day[data-count="0"] {
+  background-color: var(--spacial-2) !important;
+}</p>
+<p>/<em> Progressive loading animation </em>/
+@keyframes contribution-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}</p>
+<p>/<em> Stagger animation for weeks </em>/
+.contribution-week:nth-child(1) .contribution-day { animation-delay: 0ms; }
+.contribution-week:nth-child(2) .contribution-day { animation-delay: 35ms; }
+.contribution-week:nth-child(3) .contribution-day { animation-delay: 70ms; }
+.contribution-week:nth-child(4) .contribution-day { animation-delay: 105ms; }
+/<em> ... continues for all 52 weeks </em>/</p>
+<p>.contributions-loading,
+.contributions-error {
+  text-align: center;
+  padding: var(--spacing-lg);
+  color: var(--spacial-5);
+  font-size: var(--text-sm);
+}</p>
+<p>.contributions-error {
+  color: var(--spacial-error);
+}</p>
+<p>.loading-indicator {
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--spacial-4);
+  margin-top: var(--spacing-sm);
+  animation: pulse 2s infinite;
+}</p>
+<p>@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}</p>
+<p>/<em> Responsive adjustments </em>/
+@media (max-width: 768px) {
+  .contributions-grid {
+    gap: 1px;
+  }</p>
+<p>.contribution-week {
+    gap: 1px;
+  }</p>
+<p>.contribution-day {
+    width: 10px;
+    height: 10px;
+  }
+}
+```</p>
+<p><strong>Análisis de Estilos:</strong></p>
+<h4 id="grid-de-contribuciones-lineas-7-15">Grid de Contribuciones (líneas 7-15)</h4>
+<ul>
+<li><strong>Display flex</strong>: Layout horizontal con scroll</li>
+<li><strong>Gap y padding</strong>: Espaciado consistente</li>
+<li><strong>Scrollbar personalizado</strong>: Estilo acorde al tema</li>
+</ul>
+<h4 id="animacion-progresiva-lineas-44-52">Animación Progresiva (líneas 44-52)</h4>
+<ul>
+<li><strong>Keyframes</strong>: Animación de aparición suave</li>
+<li><strong>Transform y opacity</strong>: Efecto de escalado</li>
+</ul>
+<h4 id="estados-hover-lineas-54-57">Estados Hover (líneas 54-57)</h4>
+<ul>
+<li><strong>Transform scale</strong>: Aumento de tamaño en hover</li>
+<li><strong>Box-shadow</strong>: Efecto de iluminación</li>
+</ul>
+<h3 id="srcstyleslayoutgridcss">src/styles/layout/grid.css</h3>
+<p>```css
+/<em> Main Grid Layout </em>/
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: var(--spacing-xl);
+  min-height: 100vh;
+  padding: var(--spacing-xl);
+  max-width: 1400px;
+  margin: 0 auto;
+}</p>
+<p>/<em> Column Styles </em>/
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}</p>
+<p>.column-fixed {
+  /<em> Fixed width columns for works and projects </em>/
+  max-width: 400px;
+}</p>
+<p>.center-column {
+  /<em> Center column takes more space </em>/
+  min-width: 600px;
+  max-width: 800px;
+  justify-self: center;
+}</p>
+<p>.column-header {
+  position: sticky;
+  top: var(--spacing-lg);
+  z-index: var(--z-sticky);
+  background: var(--background);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--spacial-accent-2);
+}</p>
+<p>.column-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}</p>
+<p>/<em> Responsive Breakpoints </em>/
+@media (max-width: 1200px) {
+  .home-grid {
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
+  }</p>
+<p>.center-column {
+    min-width: 400px;
+    max-width: 600px;
+  }</p>
+<p>.column-fixed {
+    max-width: 350px;
+  }
+}</p>
+<p>@media (max-width: 968px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
+  }</p>
+<p>.column-fixed,
+  .center-column {
+    max-width: none;
+    min-width: auto;
+  }</p>
+<p>.column-header {
+    position: static;
+    border-bottom: 1px solid var(--spacial-3);
+  }
+}</p>
+<p>@media (max-width: 640px) {
+  .home-grid {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-md);
+  }
+}
+```</p>
+<p><strong>Análisis del Grid Layout:</strong></p>
+<h4 id="grid-principal-lineas-2-10">Grid Principal (líneas 2-10)</h4>
+<ul>
+<li><strong>Grid-template-columns</strong>: Layout 3 columnas (1:2:1)</li>
+<li><strong>Gap</strong>: Espaciado entre columnas</li>
+<li><strong>Max-width</strong>: Contenedor centrado</li>
+</ul>
+<h4 id="responsive-breakpoints-lineas-39-75">Responsive Breakpoints (líneas 39-75)</h4>
+<ul>
+<li><strong>1200px</strong>: Reducción de espacios</li>
+<li><strong>968px</strong>: Cambio a columna única</li>
+<li><strong>640px</strong>: Espaciado mínimo para móviles</li>
+</ul>
+<hr />
+<h2 id="13-hooks-personalizados">13. Hooks Personalizados</h2>
+<h3 id="srchooksusemodalts">src/hooks/useModal.ts</h3>
+<p>```typescript
+import { useState, useCallback } from 'react';
+import { UseModalReturn } from '@/types';</p>
+<p>export function useModal(): UseModalReturn {
+  const [isOpen, setIsOpen] = useState(false);</p>
+<p>const onOpen = useCallback(() =&gt; {
+    setIsOpen(true);
+  }, []);</p>
+<p>const onClose = useCallback(() =&gt; {
+    setIsOpen(false);
+  }, []);</p>
+<p>const onOpenChange = useCallback((open: boolean) =&gt; {
+    setIsOpen(open);
+  }, []);</p>
+<p>const onToggle = useCallback(() =&gt; {
+    setIsOpen(prev =&gt; !prev);
+  }, []);</p>
+<p>return {
+    isOpen,
+    onOpen,
+    onClose,
+    onOpenChange,
+    onToggle
+  };
+}
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="hook-usemodal-lineas-4-26">Hook useModal (líneas 4-26)</h4>
+<ul>
+<li><strong>Línea 5</strong>: Estado local para modal abierto/cerrado</li>
+<li><strong>Líneas 7-9</strong>: Función memoizada para abrir modal</li>
+<li><strong>Líneas 11-13</strong>: Función memoizada para cerrar modal</li>
+<li><strong>Líneas 15-17</strong>: Función para cambiar estado con parámetro</li>
+<li><strong>Líneas 19-21</strong>: Función toggle memoizada</li>
+<li><strong>Líneas 23-29</strong>: Retorno de interfaz completa</li>
+</ul>
+<h3 id="srchooksusethemeswitchts">src/hooks/useThemeSwitch.ts</h3>
+<p>```typescript
+'use client';</p>
+<p>import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';</p>
+<p>export function useThemeSwitch() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);</p>
+<p>useEffect(() =&gt; {
+    setMounted(true);
+  }, []);</p>
+<p>const toggleTheme = () =&gt; {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };</p>
+<p>return {
+    theme,
+    setTheme,
+    toggleTheme,
+    mounted
+  };
+}
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="hook-usethemeswitch-lineas-6-23">Hook useThemeSwitch (líneas 6-23)</h4>
+<ul>
+<li><strong>Línea 7</strong>: Destructuring de hook next-themes</li>
+<li><strong>Líneas 10-12</strong>: Estado mounted para prevenir hidration mismatch</li>
+<li><strong>Líneas 14-16</strong>: Función toggle entre dark y light</li>
+<li><strong>Líneas 18-23</strong>: Retorno de controles de tema</li>
+</ul>
+<hr />
+<h2 id="14-proveedores-de-contexto">14. Proveedores de Contexto</h2>
+<h3 id="srcprovidersthemeprovidertsx">src/providers/ThemeProvider.tsx</h3>
+<p>```typescript
+'use client';</p>
+<p>import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { type ThemeProviderProps } from 'next-themes/dist/types';</p>
+<p>export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+}
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="themeprovider-lineas-6-8">ThemeProvider (líneas 6-8)</h4>
+<ul>
+<li><strong>Línea 6</strong>: Función wrapper que recibe props de next-themes</li>
+<li><strong>Línea 7</strong>: Renderizado directo del ThemeProvider de next-themes</li>
+</ul>
+<hr />
+<h2 id="15-analisis-detallado-del-codigo">15. Análisis Detallado del Código</h2>
+<h3 id="configuracion-de-entorno">Configuración de Entorno</h3>
+<h4 id="srcconfigenvjs">src/config/env.js</h4>
+<p>```javascript
+const dotenv = require('dotenv');</p>
+<p>class EnvironmentConfig {
+  constructor() {
+    // Load environment variables
+    dotenv.config();
+    this.githubToken = this.validateGitHubToken();
+    this.nodeEnv = process.env.NODE_ENV || 'development';
+  }</p>
+<p>validateGitHubToken() {
+    const token = process.env.GITHUB_TOKEN;</p>
+<div class="codehilite"><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">token</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;No GitHub token found. GitHub features will use public API with rate limits.&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb nb-Type">null</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="o">//</span><span class="w"> </span><span class="n">Validate</span><span class="w"> </span><span class="n">token</span><span class="w"> </span><span class="n">format</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">token</span><span class="o">.</span><span class="n">startsWith</span><span class="p">(</span><span class="s1">&#39;ghp_&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">token</span><span class="o">.</span><span class="n">startsWith</span><span class="p">(</span><span class="s1">&#39;github_pat_&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">console</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;GitHub token format may be incorrect. Expected to start with &quot;ghp_&quot; or &quot;github_pat_&quot;&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="o">//</span><span class="w"> </span><span class="n">Don</span><span class="s1">&#39;t log the actual token for security</span>
+<span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;GitHub token loaded successfully&#39;</span><span class="p">);</span>
+<span class="k">return</span><span class="w"> </span><span class="n">token</span><span class="p">;</span>
+</code></pre></div>
+
+<p>}</p>
+<p>getGitHubToken() {
+    return this.githubToken;
+  }</p>
+<p>isDevelopment() {
+    return this.nodeEnv === 'development';
+  }</p>
+<p>isProduction() {
+    return this.nodeEnv === 'production';
+  }</p>
+<p>// Debug info (without exposing sensitive data)
+  getDebugInfo() {
+    return {
+      nodeEnv: this.nodeEnv,
+      hasGitHubToken: !!this.githubToken,
+      tokenFormat: this.githubToken ? this.githubToken.substring(0, 4) + '...' : null
+    };
+  }
+}</p>
+<p>// Export singleton instance
+module.exports = new EnvironmentConfig();
+```</p>
+<p><strong>Análisis línea por línea:</strong></p>
+<h4 id="constructor-y-carga-de-variables-lineas-4-8">Constructor y Carga de Variables (líneas 4-8)</h4>
+<ul>
+<li><strong>Línea 5</strong>: Carga de variables de entorno con dotenv</li>
+<li><strong>Línea 6</strong>: Validación del token de GitHub</li>
+<li><strong>Línea 7</strong>: Configuración del entorno Node.js</li>
+</ul>
+<h4 id="validacion-de-token-lineas-10-23">Validación de Token (líneas 10-23)</h4>
+<ul>
+<li><strong>Líneas 12-15</strong>: Verificación de existencia del token</li>
+<li><strong>Líneas 17-20</strong>: Validación del formato del token</li>
+<li><strong>Línea 22</strong>: Log seguro sin exponer el token</li>
+</ul>
+<h4 id="metodos-utilitarios-lineas-25-39">Métodos Utilitarios (líneas 25-39)</h4>
+<ul>
+<li><strong>Líneas 25-27</strong>: Getter para token de GitHub</li>
+<li><strong>Líneas 29-35</strong>: Verificadores de entorno</li>
+<li><strong>Líneas 37-43</strong>: Información de debug sin datos sensibles</li>
+</ul>
+<h3 id="utilidades-de-github">Utilidades de GitHub</h3>
+<h4 id="srclibgithub-contributionsts">src/lib/github-contributions.ts</h4>
+<p>```typescript
+interface ContributionDay {
+  date: string;
+  contributionCount: number;
+  color: string;
+}</p>
+<p>interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}</p>
+<p>interface ContributionsData {
+  weeks: ContributionWeek[];
+}</p>
+<p>export async function fetchGitHubContributions(username: string): Promise<ContributionsData | null> {
+  try {
+    const response = await fetch(<code>/api/github/contributions?username=${username}</code>);
+    const result = await response.json();</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">if</span><span class="w"> </span><span class="o">(</span><span class="nt">result</span><span class="p">.</span><span class="nc">success</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="err">return</span><span class="w"> </span><span class="err">result.data</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="nt">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="err">console.error(&#39;Failed</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">fetch</span><span class="w"> </span><span class="n">contributions</span><span class="p">:</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="o">.</span><span class="n">error</span><span class="p">);</span>
+<span class="w">  </span><span class="err">return</span><span class="w"> </span><span class="err">null</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>} catch (error) {
+    console.error('Error fetching contributions:', error);
+    return null;
+  }
+}</p>
+<p>// Fallback contribution data generator (client-side)
+export function generateFallbackContributions(): ContributionsData {
+  const contributions: ContributionDay[] = [];
+  const today = new Date();
+  const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());</p>
+<p>for (let d = new Date(oneYearAgo); d &lt;= today; d.setDate(d.getDate() + 1)) {
+    const dayOfWeek = d.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    const contributionCount = isWeekend ? 
+      Math.random() &lt; 0.3 ? Math.floor(Math.random() * 3) : 0 :
+      Math.random() &lt; 0.7 ? Math.floor(Math.random() * 8) + 1 : 0;</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">let</span><span class="w"> </span><span class="nt">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;#161b22&#39;</span><span class="o">;</span>
+<span class="nt">if</span><span class="w"> </span><span class="o">(</span><span class="nt">contributionCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">0</span><span class="o">)</span><span class="w"> </span><span class="nt">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;#0e4429&#39;</span><span class="o">;</span>
+<span class="nt">if</span><span class="w"> </span><span class="o">(</span><span class="nt">contributionCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">2</span><span class="o">)</span><span class="w"> </span><span class="nt">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;#006d32&#39;</span><span class="o">;</span>
+<span class="nt">if</span><span class="w"> </span><span class="o">(</span><span class="nt">contributionCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">4</span><span class="o">)</span><span class="w"> </span><span class="nt">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;#26a641&#39;</span><span class="o">;</span>
+<span class="nt">if</span><span class="w"> </span><span class="o">(</span><span class="nt">contributionCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nt">6</span><span class="o">)</span><span class="w"> </span><span class="nt">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;#39d353&#39;</span><span class="o">;</span>
+
+<span class="nt">contributions</span><span class="p">.</span><span class="nc">push</span><span class="o">(</span><span class="p">{</span>
+<span class="w">  </span><span class="n">date</span><span class="p">:</span><span class="w"> </span><span class="n">d</span><span class="o">.</span><span class="nf">toISOString</span><span class="p">()</span><span class="o">.</span><span class="nf">split</span><span class="p">(</span><span class="s1">&#39;T&#39;</span><span class="p">)</span><span class="cp">[</span><span class="mi">0</span><span class="cp">]</span><span class="p">,</span>
+<span class="w">  </span><span class="n">contributionCount</span><span class="p">,</span>
+<span class="w">  </span><span class="kc">color</span>
+<span class="p">}</span><span class="o">);</span>
+</code></pre></div>
+
+<p>}</p>
+<p>const weeks: ContributionWeek[] = [];
+  for (let i = 0; i &lt; contributions.length; i += 7) {
+    weeks.push({
+      contributionDays: contributions.slice(i, i + 7)
+    });
+  }</p>
+<p>return { weeks };
+}
+```</p>
+<p><strong>Análisis de Funciones Utilitarias:</strong></p>
+<h4 id="fetchgithubcontributions-lineas-15-28">fetchGitHubContributions (líneas 15-28)</h4>
+<ul>
+<li><strong>Líneas 16-17</strong>: Request a API route local</li>
+<li><strong>Líneas 19-25</strong>: Procesamiento de respuesta exitosa/error</li>
+</ul>
+<h4 id="generatefallbackcontributions-lineas-31-59">generateFallbackContributions (líneas 31-59)</h4>
+<ul>
+<li><strong>Líneas 33-35</strong>: Configuración de rango de fechas</li>
+<li><strong>Líneas 37-42</strong>: Lógica de simulación realística de contribuciones</li>
+<li><strong>Líneas 44-48</strong>: Asignación de colores según GitHub</li>
+<li><strong>Líneas 54-58</strong>: Agrupación en formato de semanas</li>
+</ul>
+<h4 id="srclibgithubts">src/lib/github.ts</h4>
+<p>```typescript
+import { Octokit } from '@octokit/core';</p>
+<p>interface GitHubUser {
+  login: string;
+  public_repos: number;
+  followers: number;
+  following: number;
+  avatar_url: string;
+  bio: string | null;
+  location: string | null;
+  company: string | null;
+}</p>
+<p>export async function fetchGitHubUser(username: string): Promise<GitHubUser | null> {
+  try {
+    const octokit = new Octokit();
+    const response = await octokit.request('GET /users/{username}', {
+      username
+    });</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">return</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">login</span><span class="p">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">login</span><span class="p">,</span>
+<span class="w">  </span><span class="n">public_repos</span><span class="o">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">public_repos</span><span class="p">,</span>
+<span class="w">  </span><span class="n">followers</span><span class="o">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">followers</span><span class="p">,</span>
+<span class="w">  </span><span class="n">following</span><span class="o">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">following</span><span class="p">,</span>
+<span class="w">  </span><span class="n">avatar_url</span><span class="o">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">avatar_url</span><span class="p">,</span>
+<span class="w">  </span><span class="n">bio</span><span class="o">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bio</span><span class="p">,</span>
+<span class="w">  </span><span class="n">location</span><span class="o">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">location</span><span class="p">,</span>
+<span class="w">  </span><span class="n">company</span><span class="o">:</span><span class="w"> </span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">company</span>
+<span class="p">}</span><span class="o">;</span>
+</code></pre></div>
+
+<p>} catch (error) {
+    console.error('Error fetching GitHub user:', error);
+    return null;
+  }
+}</p>
+<p>export async function fetchGitHubRepos(username: string, limit: number = 10) {
+  try {
+    const octokit = new Octokit();
+    const response = await octokit.request('GET /users/{username}/repos', {
+      username,
+      sort: 'updated',
+      per_page: limit
+    });</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">return</span><span class="w"> </span><span class="nt">response</span><span class="p">.</span><span class="nc">data</span><span class="p">.</span><span class="nc">map</span><span class="o">(</span><span class="nt">repo</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">(</span><span class="p">{</span>
+<span class="w">  </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">repo</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+<span class="w">  </span><span class="n">description</span><span class="o">:</span><span class="w"> </span><span class="n">repo</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+<span class="w">  </span><span class="n">html_url</span><span class="o">:</span><span class="w"> </span><span class="n">repo</span><span class="o">.</span><span class="n">html_url</span><span class="p">,</span>
+<span class="w">  </span><span class="n">language</span><span class="o">:</span><span class="w"> </span><span class="n">repo</span><span class="o">.</span><span class="n">language</span><span class="p">,</span>
+<span class="w">  </span><span class="n">stargazers_count</span><span class="o">:</span><span class="w"> </span><span class="n">repo</span><span class="o">.</span><span class="n">stargazers_count</span><span class="p">,</span>
+<span class="w">  </span><span class="n">updated_at</span><span class="o">:</span><span class="w"> </span><span class="n">repo</span><span class="o">.</span><span class="n">updated_at</span>
+<span class="p">}</span><span class="o">));</span>
+</code></pre></div>
+
+<p>} catch (error) {
+    console.error('Error fetching GitHub repos:', error);
+    return [];
+  }
+}
+```</p>
+<p><strong>Análisis de Funciones GitHub:</strong></p>
+<h4 id="fetchgithubuser-lineas-13-32">fetchGitHubUser (líneas 13-32)</h4>
+<ul>
+<li><strong>Líneas 14-17</strong>: Request a API pública de GitHub</li>
+<li><strong>Líneas 19-28</strong>: Mapeo de datos del usuario</li>
+<li><strong>Líneas 29-32</strong>: Manejo de errores con retorno null</li>
+</ul>
+<h4 id="fetchgithubrepos-lineas-34-52">fetchGitHubRepos (líneas 34-52)</h4>
+<ul>
+<li><strong>Líneas 35-40</strong>: Request de repositorios ordenados por actualización</li>
+<li><strong>Líneas 42-49</strong>: Mapeo de datos relevantes de repositorios</li>
+<li><strong>Líneas 50-52</strong>: Manejo de errores con array vacío</li>
+</ul>
+<h3 id="componentes-de-animacion">Componentes de Animación</h3>
+<h4 id="srccomponentschangingcontentanimationtsx">src/components/changingContentAnimation.tsx</h4>
+<p>```typescript
+'use client';</p>
+<p>import React, { useState, useEffect, useMemo } from 'react';</p>
+<p>const ChangingContentAnimation: React.FC = () =&gt; {
+  const targetText = "Mauro Nievas";
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&amp;*()";</p>
+<p>const [displayText, setDisplayText] = useState(targetText);
+  const [isAnimating, setIsAnimating] = useState(false);</p>
+<p>const animateText = useMemo(() =&gt; {
+    return () =&gt; {
+      if (isAnimating) return;</p>
+<div class="codehilite"><pre><span></span><code><span class="w">  </span><span class="n">setIsAnimating</span><span class="p">(</span><span class="k">true</span><span class="p">);</span>
+<span class="w">  </span><span class="n">const</span><span class="w"> </span><span class="n">textArray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">targetText</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="n">let</span><span class="w"> </span><span class="n">iterations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">  </span><span class="n">const</span><span class="w"> </span><span class="k">interval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">setInterval</span><span class="p">(()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="err">{</span>
+<span class="w">    </span><span class="n">setDisplayText</span><span class="p">(</span><span class="n">prev</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="err">{</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">prev</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="k">map</span><span class="p">((</span><span class="nc">char</span><span class="p">,</span><span class="w"> </span><span class="k">index</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="err">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">iterations</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">targetText</span><span class="o">[</span><span class="n">index</span><span class="o">]</span><span class="p">;</span>
+<span class="w">        </span><span class="err">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">characters</span><span class="o">[</span><span class="n">Math.floor(Math.random() * characters.length)</span><span class="o">]</span><span class="p">;</span>
+<span class="w">      </span><span class="err">}</span><span class="p">).</span><span class="k">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="err">}</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">iterations</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">targetText</span><span class="p">.</span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="w">      </span><span class="n">clearInterval</span><span class="p">(</span><span class="k">interval</span><span class="p">);</span>
+<span class="w">      </span><span class="n">setIsAnimating</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+<span class="w">      </span><span class="n">setDisplayText</span><span class="p">(</span><span class="n">targetText</span><span class="p">);</span>
+<span class="w">    </span><span class="err">}</span>
+
+<span class="w">    </span><span class="n">iterations</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
+<span class="w">  </span><span class="err">}</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">);</span>
+<span class="err">}</span><span class="p">;</span>
+</code></pre></div>
+
+<p>}, [targetText, characters, isAnimating]);</p>
+<p>useEffect(() =&gt; {
+    const timer = setTimeout(() =&gt; {
+      animateText();
+    }, 1000);</p>
+<div class="codehilite"><pre><span></span><code><span class="k">return</span><span class="w"> </span><span class="ss">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="nv">clearTimeout</span><span class="ss">(</span><span class="nv">timer</span><span class="ss">)</span><span class="c1">;</span>
+</code></pre></div>
+
+<p>}, [animateText]);</p>
+<p>return (
+    <h1 
+      className={<code>text-4xl font-bold cursor-pointer transition-all duration-300 ${
+        isAnimating ? 'text-spacial-accent-2' : 'text-white'
+      }</code>}
+      onClick={animateText}
+    >
+      {displayText}
+    </h1>
+  );
+};</p>
+<p>export default ChangingContentAnimation;
+```</p>
+<p><strong>Análisis del Componente de Animación:</strong></p>
+<h4 id="estado-y-configuracion-lineas-6-10">Estado y Configuración (líneas 6-10)</h4>
+<ul>
+<li><strong>Línea 6</strong>: Texto objetivo a mostrar</li>
+<li><strong>Línea 7</strong>: Caracteres para el efecto de glitch</li>
+<li><strong>Líneas 9-10</strong>: Estados para texto mostrado y animación activa</li>
+</ul>
+<h4 id="funcion-de-animacion-lineas-12-36">Función de Animación (líneas 12-36)</h4>
+<ul>
+<li><strong>Líneas 14-16</strong>: Guards para prevenir múltiples animaciones</li>
+<li><strong>Líneas 21-26</strong>: Lógica de animación carácter por carácter</li>
+<li><strong>Líneas 28-32</strong>: Condición de finalización</li>
+<li><strong>Línea 34</strong>: Incremento fraccionario para efecto suave</li>
+</ul>
+<h4 id="efecto-de-inicio-lineas-38-44">Efecto de Inicio (líneas 38-44)</h4>
+<ul>
+<li><strong>Líneas 39-43</strong>: Timer para inicio automático de animación</li>
+</ul>
+<h4 id="renderizado-lineas-46-55">Renderizado (líneas 46-55)</h4>
+<ul>
+<li><strong>Líneas 47-51</strong>: Clases dinámicas según estado de animación</li>
+<li><strong>Línea 52</strong>: Click handler para trigger manual</li>
+</ul>
+<h3 id="calculador-de-tiempo">Calculador de Tiempo</h3>
+<h4 id="srccomponentstimecalculatortsx">src/components/timeCalculator.tsx</h4>
+<p>```typescript
+const timeCalculator = () =&gt; {
+  const startDate = new Date('2017-04-04T00:00:00.000Z');
+  const currentDate = new Date();</p>
+<p>const timeDifference = currentDate.getTime() - startDate.getTime();</p>
+<p>if (timeDifference &lt; 0) {
+    return null;
+  }</p>
+<p>const years = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365.25));
+  const months = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
+  const days = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));</p>
+<p>return {
+    years,
+    months,
+    days,
+    totalDays: Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+  };
+};</p>
+<p>export default timeCalculator;
+```</p>
+<p><strong>Análisis del Calculador:</strong></p>
+<h4 id="calculo-de-diferencia-lineas-2-5">Cálculo de Diferencia (líneas 2-5)</h4>
+<ul>
+<li><strong>Línea 2</strong>: Fecha de inicio fija (04/04/2017)</li>
+<li><strong>Líneas 4-5</strong>: Cálculo de diferencia en milisegundos</li>
+</ul>
+<h4 id="validacion-y-calculos-lineas-7-16">Validación y Cálculos (líneas 7-16)</h4>
+<ul>
+<li><strong>Líneas 7-9</strong>: Validación de fecha válida</li>
+<li><strong>Líneas 11-13</strong>: Cálculos precisos usando constantes astronómicas</li>
+<li><strong>Líneas 15-18</strong>: Retorno de objeto con diferentes unidades</li>
+</ul>
+<hr />
+<h2 id="conclusion">Conclusión</h2>
+<p>Este portfolio representa un ejemplo completo de <strong>arquitectura moderna de Next.js 15</strong> con las siguientes características destacadas:</p>
+<h3 id="fortalezas-arquitectonicas">Fortalezas Arquitectónicas</h3>
+<ol>
+<li><strong>Separación de Responsabilidades</strong>: Clara división entre datos, lógica y presentación</li>
+<li><strong>Sistema de Tipos Robusto</strong>: TypeScript utilizado consistentemente en todo el proyecto</li>
+<li><strong>Componentes Reutilizables</strong>: Biblioteca UI personalizada con componentes modulares</li>
+<li><strong>Integración API Inteligente</strong>: Sistema de fallback robusto para GitHub API</li>
+<li><strong>Optimización de Performance</strong>: Carga progresiva y animaciones optimizadas</li>
+<li><strong>Diseño Responsivo</strong>: Sistema de grid adaptable con breakpoints bem definidos</li>
+</ol>
+<h3 id="patrones-de-diseno-implementados_1">Patrones de Diseño Implementados</h3>
+<ul>
+<li><strong>Singleton</strong>: Para servicios de autenticación</li>
+<li><strong>Factory</strong>: Para generación de datos simulados</li>
+<li><strong>Observer</strong>: Para manejo de temas</li>
+<li><strong>Module</strong>: Para encapsulación de datos</li>
+<li><strong>Proxy</strong>: Para componentes polimórficos</li>
+</ul>
+<h3 id="consideraciones-de-seguridad">Consideraciones de Seguridad</h3>
+<ul>
+<li>Tokens de GitHub manejados de forma segura</li>
+<li>Validación de formato de tokens</li>
+<li>No exposición de datos sensibles en logs</li>
+<li>Manejo seguro de variables de entorno</li>
+</ul>
+<h3 id="escalabilidad">Escalabilidad</h3>
+<ul>
+<li>Estructura modular que permite fácil extensión</li>
+<li>Sistema de tipos que facilita mantenimiento</li>
+<li>Componentes reutilizables que reducen duplicación</li>
+<li>Configuración centralizada para cambios globales</li>
+</ul>
+<p>Este proyecto demuestra una implementación profesional de un portfolio moderno con mejores prácticas de desarrollo, arquitectura escalable y experiencia de usuario optimizada.</p>
+        </body>
+        </html>
+        

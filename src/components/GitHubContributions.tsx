@@ -24,7 +24,7 @@ export default function GitHubContributions({ username, className = '' }: GitHub
             setIsLoading(true);
             setHasError(false);
             setLoadedWeeks(0);
-            
+
             try {
                 const data = await fetchGitHubContributions(username);
                 if (data) {
@@ -52,7 +52,7 @@ export default function GitHubContributions({ username, className = '' }: GitHub
             const totalWeeks = contributionsData.contributionCalendar.weeks?.length || 52;
             const chunkSize = 4; // Load 4 weeks at a time for smoother progression
             let currentWeek = 0;
-            
+
             const loadNextChunk = () => {
                 if (currentWeek < totalWeeks) {
                     const nextWeek = Math.min(currentWeek + chunkSize, totalWeeks);
@@ -63,10 +63,10 @@ export default function GitHubContributions({ username, className = '' }: GitHub
                     setIsProgressiveLoading(false);
                 }
             };
-            
+
             // Start progressive loading with a smooth initial delay
             const timer = setTimeout(loadNextChunk, 80);
-            
+
             return () => clearTimeout(timer);
         }
     }, [isProgressiveLoading, contributionsData]);
@@ -87,10 +87,10 @@ export default function GitHubContributions({ username, className = '' }: GitHub
 
     const generateMonthLabels = () => {
         if (!contributionsData?.contributionCalendar?.weeks?.length) return [];
-        
+
         const labels: Array<{month: string, x: number}> = [];
         const totalWeeks = contributionsData.contributionCalendar.weeks.length;
-        
+
         // Show month label every 4 columns (weeks)
         for (let weekIndex = 0; weekIndex < totalWeeks; weekIndex += 4) {
             const week = contributionsData.contributionCalendar.weeks[weekIndex];
@@ -98,14 +98,14 @@ export default function GitHubContributions({ username, className = '' }: GitHub
                 const firstDay = new Date(week.contributionDays[0].date);
                 const month = firstDay.getMonth();
                 const monthName = MONTHS[month];
-                
+
                 labels.push({
                     month: monthName,
                     x: weekIndex * 13 // Each week is 13px wide (10px + 3px gap)
                 });
             }
         }
-        
+
         return labels;
     };
 
@@ -141,21 +141,21 @@ export default function GitHubContributions({ username, className = '' }: GitHub
                                 </span>
                             ))}
                         </div>
-                        
+
                         {/* Day labels */}
                         <div className="day-labels">
                             <span className={`day-label progressive-visible`} style={{ top: '12px' }}>L</span>
                             <span className={`day-label progressive-visible`} style={{ top: '36px' }}>M</span>
                             <span className={`day-label progressive-visible`} style={{ top: '60px' }}>F</span>
                         </div>
-                        
+
                         {/* Contribution grid with progressive loading */}
                         <div className="contributions-grid">
                             {contributionsData.contributionCalendar.weeks?.map((week, weekIndex) => (
                                 <div key={weekIndex} className="contribution-week">
                                     {week.contributionDays?.map((day, dayIndex) => {
                                         const isLoaded = weekIndex < loadedWeeks;
-                                        
+
                                         if (isLoaded) {
                                             return (
                                                 <Tooltip
@@ -168,7 +168,7 @@ export default function GitHubContributions({ username, className = '' }: GitHub
                                                             <div className="text-xs opacity-90">
                                                                 {new Date(day.date).toLocaleDateString('en-US', {
                                                                     weekday: 'short',
-                                                                    month: 'short', 
+                                                                    month: 'short',
                                                                     day: 'numeric',
                                                                     year: 'numeric'
                                                                 })}
@@ -211,23 +211,7 @@ export default function GitHubContributions({ username, className = '' }: GitHub
                                 </div>
                             )) || []}
                         </div>
-                        
-                        {/* Legend */}
-                        <div className={`contributions-legend ${loadedWeeks > 24 ? 'progressive-visible' : 'progressive-hidden'}`}>
-                            <span className="legend-text">Less</span>
-                            <div className="legend-squares">
-                                {[0, 1, 3, 6, 9].map((count, index) => (
-                                    <div
-                                        key={index}
-                                        className="legend-square"
-                                        style={{
-                                            backgroundColor: getContributionColor(count)
-                                        }}
-                                    />
-                                ))}
-                            </div>
-                            <span className="legend-text">More</span>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -278,14 +262,14 @@ export default function GitHubContributions({ username, className = '' }: GitHub
                             </span>
                         ))}
                     </div>
-                    
+
                     {/* Day labels */}
                     <div className="day-labels">
                         <span className="day-label" style={{ top: '12px' }}>L</span>
                         <span className="day-label" style={{ top: '36px' }}>M</span>
                         <span className="day-label" style={{ top: '60px' }}>F</span>
                     </div>
-                    
+
                     {/* Contribution grid */}
                     <div className="contributions-grid">
                         {contributionsData.contributionCalendar.weeks?.map((week, weekIndex) => (
@@ -301,7 +285,7 @@ export default function GitHubContributions({ username, className = '' }: GitHub
                                                 <div className="text-xs opacity-90">
                                                     {new Date(day.date).toLocaleDateString('en-US', {
                                                         weekday: 'short',
-                                                        month: 'short', 
+                                                        month: 'short',
                                                         day: 'numeric',
                                                         year: 'numeric'
                                                     })}
@@ -330,23 +314,7 @@ export default function GitHubContributions({ username, className = '' }: GitHub
                             </div>
                         )) || []}
                     </div>
-                    
-                    {/* Legend */}
-                    <div className="contributions-legend">
-                        <span className="legend-text">Less</span>
-                        <div className="legend-squares">
-                            {[0, 1, 3, 6, 9].map((count, index) => (
-                                <div
-                                    key={index}
-                                    className="legend-square"
-                                    style={{
-                                        backgroundColor: getContributionColor(count)
-                                    }}
-                                />
-                            ))}
-                        </div>
-                        <span className="legend-text">More</span>
-                    </div>
+
                 </div>
             </div>
         </div>

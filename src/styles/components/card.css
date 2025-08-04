@@ -5,17 +5,17 @@
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(0, 173, 181, 0.2);
-  background-color: var(--color-spacial-2);
+  border: 1px solid rgba(94, 129, 172, 0.2);
+  background-color: var(--color-spacial-1);
   color: white;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-slow);
   overflow: hidden;
-  margin: 0 auto;
+  margin: 6px auto;
 }
 
 .card:hover {
-  background-color: var(--color-spacial-1);
+  background-color: var(--color-spacial-2);
 }
 
 .card-header {
@@ -109,6 +109,6 @@
 .card-divider {
   border: none;
   height: 1px;
-  background-color: rgba(0, 173, 181, 0.2);
+  background-color: rgba(94, 129, 172, 0.2);
   margin: 0;
 }

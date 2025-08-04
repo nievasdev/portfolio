@@ -23,15 +23,15 @@
 
 /* Hover Background Colors */
 .hover-bg-spacial-1:hover {
-  background-color: var(--color-spacial-1);
+  background-color: var(--color-spacial-2);
 }
 
 .hover-bg-spacial-3-80:hover {
-  background-color: rgba(0, 173, 181, 0.8);
+  background-color: var(--color-spacial-2);  /* Lighter on hover */
 }
 
 .hover-bg-spacial-3-20:hover {
-  background-color: rgba(0, 173, 181, 0.2);
+  background-color: rgba(94, 129, 172, 0.3);  /* Slightly more opacity on hover */
 }
 
 /* Border Colors */
@@ -40,11 +40,11 @@
 }
 
 .border-spacial-3-20 {
-  border-color: rgba(0, 173, 181, 0.2);
+  border-color: rgba(94, 129, 172, 0.2);  /* Nord10 with opacity */
 }
 
 .border-spacial-3-30 {
-  border-color: rgba(0, 173, 181, 0.3);
+  border-color: rgba(94, 129, 172, 0.3);  /* Nord10 with opacity */
 }
 
 /* Hover Text Colors */

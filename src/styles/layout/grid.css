@@ -53,9 +53,15 @@
 }
 
 .me-section {
-  background-color: var(--color-spacial-2);
+  background-color: var(--color-spacial-1);
+  border: 1px solid rgba(94, 129, 172, 0.2);
   border-radius: var(--radius-lg);
   padding: var(--spacing-3);
+  transition: all var(--transition-slow);
+}
+
+.me-section:hover {
+  background-color: var(--color-spacial-2);
 }
 
 .name-animation {
