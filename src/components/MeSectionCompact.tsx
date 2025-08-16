@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { Octokit } from '@octokit/core';
-import { Card, CardHeader, CardBody } from "./ui";
+import { Card, CardHeader, CardBody, Button } from "./ui";
 import GitHubContributions from "./GitHubContributions";
+import ThemeToggle from "./ThemeToggle";
 
 const technologies = [
     {
@@ -58,7 +59,7 @@ export default function MeSectionCompact() {
         <div className="me-section-compact space-y-2 w-full me-section">
             {/* Professional Description */}
             <div className="p-3 md:p-4 lg:p-5 bg-spacial-1 rounded-lg">
-                <p className="text-center text-sm md:text-base lg:text-lg text-spacial-4-90 font-medium leading-relaxed">
+                <p className="text-center text-base text-spacial-4-90 font-medium leading-relaxed">
                     Full‑Stack developer delivering mission‑critical software across telecom, cybersecurity, and SaaS.
                     Deep JavaScript/TypeScript expertise with a strong focus on Node.js (APIs, microservices, performance) and React/Next.js on the frontend.
                     Experienced with REST APIs, Jest‑based testing, Git, and CI/CD.
@@ -83,7 +84,7 @@ export default function MeSectionCompact() {
                 <Card className="bg-spacial-1">
                     <CardBody className="text-center p-3 md:p-4 lg:p-6">
                         <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-2">Technologies</h3>
-                        <div className="flex justify-center flex-wrap gap-1 md:gap-2">
+                        <div className="technologies flex justify-center flex-wrap gap-1 md:gap-2">
                             {technologies.map((tech) => (
                                 <img
                                     key={tech.name}
@@ -100,6 +101,23 @@ export default function MeSectionCompact() {
 
             {/* GitHub Contributions */}
             <GitHubContributions username="nievasdev" className="mb-4" />
+
+            {/* Resume Download Button and Theme Toggle */}
+            <div className="flex justify-start gap-3">
+                <Button
+                    as="a"
+                    href="/Mauro Nievas Resume.pdf"
+                    download="Mauro_Nievas_Resume.pdf"
+                    size="lg"
+                    variant="solid"
+                    className="bg-spacial-3 hover:bg-spacial-2 text-white font-semibold px-6 py-3 transition-all duration-200 group relative overflow-hidden"
+                >
+                    <span className="download-arrow inline-block mr-3 font-black -ml-1">↓</span>
+                    <span className="button-text relative z-10">Download Resume</span>
+                    <div className="shimmer-effect absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100"></div>
+                </Button>
+                <ThemeToggle />
+            </div>
 
         </div>
     );

@@ -14,7 +14,7 @@
 
 .btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--color-spacial-3), 0 0 0 4px rgba(0, 173, 181, 0.2);
+  box-shadow: 0 0 0 2px var(--color-spacial-3), 0 0 0 4px rgba(102, 102, 102, 0.2);
 }
 
 .btn:disabled {
@@ -74,7 +74,7 @@
 }
 
 .btn-bordered:hover {
-  background-color: rgba(0, 173, 181, 0.2);
+  background-color: rgba(102, 102, 102, 0.2);
   color: white;
   border-color: var(--color-spacial-4);
 }

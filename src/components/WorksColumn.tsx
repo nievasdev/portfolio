@@ -6,6 +6,7 @@ import {
   Card,
   CardHeader,
   CardBody,
+  CardFooter,
   Divider,
   Image,
   Modal,
@@ -240,47 +241,48 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
                   <p className="text-base text-spacial-4-90 leading-relaxed font-medium mb-3">
                     {work.text}
                   </p>
-
-                  {/* Technologies and Button Row */}
-                  <div className="card-actions">
-                    <div className="card-technologies">
-                      {work.technologies.map((tech) => (
-                        <Tooltip
-                          key={tech.name + '-' + work.name}
-                          content={tech.name}
-                          placement="top"
-                          showArrow={true}
-                          classNames={{
-                            base: "backdrop-blur-md",
-                            content: "tooltip"
-                          }}
-                        >
-                          <div className="tech-icon">
-                            <Image
-                              src={tech.logo}
-                              alt={tech.name}
-                              className="img-lg img-hover-scale"
-                              width={36}
-                              height={36}
-                              radius="none"
-                            />
-                          </div>
-                        </Tooltip>
-                      ))}
-                    </div>
-
-                    <Button
-                      className="ml-4"
-                      size="md"
-                      variant="solid"
-                      onClick={() => handleOpen(work.name)}
-                    >
-                      View Details
-                    </Button>
-                  </div>
                 </div>
               </div>
             </CardBody>
+            <CardFooter>
+              {/* Technologies and Button Row */}
+              <div className="card-actions">
+                <div className="card-technologies">
+                  {work.technologies.map((tech) => (
+                    <Tooltip
+                      key={tech.name + '-' + work.name}
+                      content={tech.name}
+                      placement="top"
+                      showArrow={true}
+                      classNames={{
+                        base: "backdrop-blur-md",
+                        content: "tooltip"
+                      }}
+                    >
+                      <div className="tech-icon">
+                        <Image
+                          src={tech.logo}
+                          alt={tech.name}
+                          className="img-lg img-hover-scale"
+                          width={36}
+                          height={36}
+                          radius="none"
+                        />
+                      </div>
+                    </Tooltip>
+                  ))}
+                </div>
+
+                <Button
+                  className="ml-4 group"
+                  size="md"
+                  variant="solid"
+                  onClick={() => handleOpen(work.name)}
+                >
+                  <span className="button-text">View Details</span>
+                </Button>
+              </div>
+            </CardFooter>
           </Card>
         ))}
       </div>

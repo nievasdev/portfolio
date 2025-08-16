@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button, Card, CardHeader, CardBody, Divider, Image, Link, Modal, ModalContent, ModalHeader, ModalBody, Tooltip } from "./ui";
+import { Button, Card, CardHeader, CardBody, CardFooter, Divider, Image, Link, Modal, ModalContent, ModalHeader, ModalBody, Tooltip } from "./ui";
 import { useModal } from "../hooks/useModal";
 import { GithubIcon } from "./icons";
 import { Project } from '@/types';
@@ -109,59 +109,62 @@ export default function ProjectsColumn({ projectsData }: ProjectsColumnProps) {
                   <p className="text-base text-spacial-4-90 leading-relaxed font-medium mb-3">
                     {project.text}
                   </p>
-
-                  {/* Technologies and Button Row */}
-                  <div className="card-actions">
-                    <div className="card-technologies">
-                      {project.technologies.map((tech) => (
-                        <Tooltip
-                          key={tech.name + '-' + project.name}
-                          content={tech.name}
-                          placement="top"
-                          showArrow={true}
-                          classNames={{
-                            base: "backdrop-blur-md",
-                            content: "tooltip"
-                          }}
-                        >
-                          <div className="tech-icon">
-                            <Image
-                              src={tech.logo}
-                              alt={tech.name}
-                              className="img-lg img-hover-scale"
-                              width={36}
-                              height={36}
-                              radius="none"
-                            />
-                          </div>
-                        </Tooltip>
-                      ))}
-                    </div>
-
-                    <div className="card-buttons">
-                      <Button
-                        size="md"
-                        variant="solid"
-                        onClick={() => handleOpen(project.name)}
-                      >
-                        View Details
-                      </Button>
-                      <Button
-                        as="a"
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        size="md"
-                        variant="bordered"
-                      >
-                        <GithubIcon className="w-4 h-4 mr-1" />
-                        GitHub
-                      </Button>
-                    </div>
-                  </div>
                 </div>
               </div>
             </CardBody>
+            <CardFooter>
+              {/* Technologies and Button Row */}
+              <div className="card-actions">
+                <div className="card-technologies">
+                  {project.technologies.map((tech) => (
+                    <Tooltip
+                      key={tech.name + '-' + project.name}
+                      content={tech.name}
+                      placement="top"
+                      showArrow={true}
+                      classNames={{
+                        base: "backdrop-blur-md",
+                        content: "tooltip"
+                      }}
+                    >
+                      <div className="tech-icon">
+                        <Image
+                          src={tech.logo}
+                          alt={tech.name}
+                          className="img-lg img-hover-scale"
+                          width={36}
+                          height={36}
+                          radius="none"
+                        />
+                      </div>
+                    </Tooltip>
+                  ))}
+                </div>
+
+                <div className="card-buttons">
+                  <Button
+                    className="group"
+                    size="md"
+                    variant="solid"
+                    onClick={() => handleOpen(project.name)}
+                  >
+                    <span className="button-text">View Details</span>
+                  </Button>
+                  <Button
+                    className="group"
+                    as="a"
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="md"
+                    variant="bordered"
+                  >
+                    <GithubIcon className="w-5 h-5 mr-1" />
+                    <span className="button-text">GitHub</span>
+                  </Button>
+                </div>
+              </div>
+            </CardFooter>
           </Card>
         ))}
       </div>

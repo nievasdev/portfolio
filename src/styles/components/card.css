@@ -5,13 +5,148 @@
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(94, 129, 172, 0.2);
+  border: 1px solid rgba(102, 102, 102, 0.2);
   background-color: var(--color-spacial-1);
   color: white;
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-slow);
   overflow: hidden;
-  margin: 6px auto;
+  margin: var(--spacing-3) auto;
+  width: 100%;
+  max-width: none;
+}
+
+/* Desktop card spacing improvements - Default layout */
+@media (min-width: 900px) {
+  .card {
+    margin: var(--spacing-4) auto;
+  }
+
+  .card-header {
+    padding: var(--spacing-4);
+    padding-bottom: var(--spacing-2);
+  }
+
+  .card-body {
+    padding: var(--spacing-3);
+    padding-top: var(--spacing-2);
+    padding-right: var(--spacing-4);
+  }
+
+  .card-footer {
+    padding: var(--spacing-4);
+    padding-top: var(--spacing-2);
+  }
+
+  /* Square aspect ratio ONLY for Works and Projects columns - Further reduced height */
+  #works .card,
+  #projects .card {
+    aspect-ratio: 1 / 1;
+    height: 50%;
+    max-height: 250px;
+    min-width: 365px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  #works .card-body,
+  #projects .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #works .card-header,
+  #projects .card-header {
+    flex-shrink: 0;
+    padding: var(--spacing-2);
+    padding-bottom: var(--spacing-1);
+  }
+
+  #works .card-body,
+  #projects .card-body {
+    padding: var(--spacing-2);
+    padding-top: var(--spacing-1);
+    padding-right: var(--spacing-2);
+  }
+
+  #works .card-footer,
+  #projects .card-footer {
+    flex-shrink: 0;
+    padding: var(--spacing-2);
+    padding-top: var(--spacing-1);
+    padding-bottom: 10px;
+  }
+}
+
+/* Large desktop - optimized spacing */
+@media (min-width: 1200px) {
+  .card {
+    margin: var(--spacing-5) auto;
+  }
+
+  .card-header {
+    padding: var(--spacing-5);
+    padding-bottom: var(--spacing-2);
+  }
+
+  .card-body {
+    padding: var(--spacing-4);
+    padding-top: var(--spacing-2);
+    padding-right: var(--spacing-5);
+  }
+
+  .card-footer {
+    padding: var(--spacing-5);
+    padding-top: var(--spacing-2);
+  }
+
+  /* Works and Projects footer specific styling */
+  #works .card-footer,
+  #projects .card-footer {
+    flex-shrink: 0;
+    padding: var(--spacing-5);
+    padding-top: var(--spacing-2);
+    padding-bottom: 10px;
+  }
+
+  /* Square aspect ratio maintained for Works and Projects only - Further reduced height */
+  #works .card,
+  #projects .card {
+    aspect-ratio: 1 / 1;
+    height: 50%;
+    max-height: 230px;
+    min-width: 365px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+
+/* Mobile and Tablet card adjustments */
+@media (max-width: 899px) {
+  .card {
+    margin: var(--spacing-3) auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .card-header {
+    padding: var(--spacing-3);
+    padding-bottom: var(--spacing-2);
+  }
+
+  .card-body {
+    padding: var(--spacing-3);
+    padding-top: var(--spacing-2);
+    padding-right: var(--spacing-3);
+  }
+
+  .card-footer {
+    padding: var(--spacing-3);
+    padding-top: 0;
+  }
 }
 
 .card:hover {
@@ -61,6 +196,111 @@
   flex: 1;
 }
 
+/* Horizontal layout for Works and Projects - Override default */
+@media (min-width: 900px) {
+  #works .card-content,
+  #projects .card-content {
+    gap: var(--spacing-4);
+  }
+
+  #works .card-content .card-image,
+  #projects .card-content .card-image {
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+  }
+
+  #works .card-content .card-image img,
+  #projects .card-content .card-image img {
+    object-fit: contain;
+  }
+}
+
+/* Optimized spacing for square cards - Works and Projects only */
+@media (min-width: 900px) {
+  /* Default card content */
+  .card-content {
+    margin-bottom: var(--spacing-3);
+  }
+
+  .card-actions {
+    margin-top: var(--spacing-2);
+  }
+
+  /* Square cards specific spacing - Works and Projects only */
+  #works .card-content,
+  #projects .card-content {
+    margin-bottom: var(--spacing-1);
+    padding-top: 5px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--spacing-2);
+  }
+
+  #works .card-content .card-image,
+  #projects .card-content .card-image {
+    flex-shrink: 0;
+    width: auto;
+    height: auto;
+  }
+
+  #works .card-content .card-text,
+  #projects .card-content .card-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #works .card-actions,
+  #projects .card-actions {
+    margin-top: auto;
+    padding-top: var(--spacing-1);
+  }
+}
+
+@media (min-width: 1200px) {
+  /* Default card content */
+  .card-content {
+    margin-bottom: var(--spacing-4);
+  }
+
+  .card-actions {
+    margin-top: var(--spacing-3);
+  }
+
+  /* Square cards specific spacing - Works and Projects only */
+  #works .card-content,
+  #projects .card-content {
+    margin-bottom: var(--spacing-1);
+    padding-top: 5px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--spacing-5);
+  }
+
+  #works .card-content .card-image,
+  #projects .card-content .card-image {
+    flex-shrink: 0;
+    width: auto;
+    height: auto;
+  }
+
+  #works .card-content .card-text,
+  #projects .card-content .card-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #works .card-actions,
+  #projects .card-actions {
+    margin-top: auto;
+    padding-top: var(--spacing-1);
+  }
+}
+
 /* Card Actions */
 .card-actions {
   display: flex;
@@ -73,6 +313,71 @@
   flex-wrap: wrap;
   gap: var(--spacing-2);
   flex: 1;
+  min-width: 0; /* Allow wrapping */
+}
+
+/* Desktop adjustments for square cards */
+@media (min-width: 900px) {
+  .card-actions .card-technologies {
+    gap: var(--spacing-1);
+    justify-content: flex-start;
+  }
+
+  .card-actions .card-buttons {
+    margin-left: var(--spacing-2);
+    gap: var(--spacing-1);
+  }
+
+  /* Compact spacing for Works and Projects square cards */
+  #works .card-actions .card-technologies,
+  #projects .card-actions .card-technologies {
+    gap: 0.25rem;
+  }
+
+  #works .card-actions .card-buttons,
+  #projects .card-actions .card-buttons {
+    margin-left: var(--spacing-1);
+    gap: 0.25rem;
+  }
+}
+
+/* Mobile/tablet - keep original layout (not square) */
+@media (max-width: 899px) {
+  .card {
+    height: auto !important;
+    aspect-ratio: unset !important;
+  }
+
+  .card-actions {
+    flex-direction: column;
+    gap: var(--spacing-3);
+    margin-top: var(--spacing-2);
+  }
+
+  .card-actions .card-technologies {
+    gap: var(--spacing-2);
+  }
+
+  .card-actions .card-buttons {
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+
+  /* Ensure icons maintain size on mobile/tablet */
+  .tech-icon img {
+    width: 2rem !important;
+    height: 2rem !important;
+    min-width: 2rem !important;
+    min-height: 2rem !important;
+    max-width: 2rem !important;
+    max-height: 2rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .card-content {
+    flex: none !important;
+    margin-bottom: var(--spacing-2) !important;
+  }
 }
 
 .card-actions .card-buttons {
@@ -89,6 +394,9 @@
   transition: all var(--transition-slow);
   cursor: pointer;
   border-radius: var(--radius-lg);
+  flex-shrink: 0;
+  width: auto;
+  height: auto;
 }
 
 .tech-icon:hover {
@@ -96,8 +404,13 @@
 }
 
 .tech-icon img {
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.25rem !important;
+  height: 2.25rem !important;
+  min-width: 2.25rem !important;
+  min-height: 2.25rem !important;
+  max-width: 2.25rem !important;
+  max-height: 2.25rem !important;
+  flex-shrink: 0;
   transition: transform var(--transition-slow);
 }
 
@@ -109,6 +422,6 @@
 .card-divider {
   border: none;
   height: 1px;
-  background-color: rgba(94, 129, 172, 0.2);
+  background-color: rgba(102, 102, 102, 0.2);
   margin: 0;
 }

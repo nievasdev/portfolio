@@ -9,7 +9,7 @@ const worksData: Work[] = [
     name: "Antel",
     time: "2022 - Current",
     logo: "/logo_ancel.png",
-    text: "Built Node.js microservices handling 3.5M daily transactions. Reduced deployment times by 40% and errors by 99.9%. Established CI/CD workflow with 85% test coverage.",
+    text: "Node.js microservices handling 3.5M daily transactions. Large-scale refactoring reduced deployment by 40%, errors by 99.9%. GitLab CI/CD with 85% test coverage.",
     largeText: [
       "Antel, the National Administration of Telecommunications, is a Uruguayan state-owned company responsible for providing telecommunications services in Uruguay. It is the main provider of fixed and mobile telephone services, internet, and cable television in the country. Founded in 1974, Antel plays a key role in the communications infrastructure in Uruguay, offering services both at a national and international level.",
       "My growth as a developer has been aided by two engineers with many years of experience at Antel. They have provided corrections to my code and recommended courses to enhance my skills."
@@ -44,7 +44,7 @@ const worksData: Work[] = [
     name: "Upshow",
     time: "2021 - 2022",
     logo: "/logo_upshow.png",
-    text: "Built React dashboards with Node/Express APIs. Integrated GitHub/Jira for real-time team reports. Full lifecycle Agile/Scrum workflow.",
+    text: "Built React dashboards consuming Node/Express APIs. Integrated GitHub & Jira for real-time cross-referenced reports. Agile/Scrum full lifecycle support.",
     largeText: [
       "Upshow is a company specialized in technology and interactive platforms designed to enhance engagement and interaction at live events and public venues. It provides solutions that allow establishments and organizers to display user-generated content on screens and monitors, creating a more engaging experience for the audience and encouraging real-time participation.",
       "My growth within the company was thanks to a team that provided me with feedback, English classes, and paid Udemy courses sponsored by the company."
@@ -78,7 +78,7 @@ const worksData: Work[] = [
     name: "Hacknoid",
     time: "2018 - 2021",
     logo: "/logo_hacknoid.png",
-    text: "Migrated frontend from Zend PHP to React.js (60% faster load time). Established Git branching strategies for releases/hotfixes. Optimized SQL queries (40% response time improvement). Developed maintainability tools.",
+    text: "Migrated frontend from Zend PHP to React.js, improving load time by 60%. Git branching strategies for releases. Optimized SQL queries, reducing response by 40%.",
     largeText: [
       "Hacknoid is a cybersecurity-oriented company that has an automated pentesting application."
     ],
@@ -108,7 +108,7 @@ const worksData: Work[] = [
     name: "Gestion total",
     time: "2017 - 2018",
     logo: "/logo_gestionTotal.png",
-    text: "Developed custom JavaScript modules for ERP system across diverse industries. Implemented responsive UI layouts with HTML5/CSS3.",
+    text: "Developed custom JavaScript modules for ERP system, tailoring workflows to client needs across diverse industries. Responsive UI with HTML5/CSS3.",
     largeText: [
       "Gestion total sells features on an ERPNext which is focused on the administrative management of companies.",
       "My growth came from solving the small challenges that arose at work"
@@ -128,7 +128,7 @@ const projectsData: Project[] = [
     name: "Meteor",
     time: "2022",
     logo: "/logo_meteor.png",
-    text: "This website is intended for stock management in a store, which allows control of the database of product brands, types, quantities, and sales history, all in a MongoDB database.",
+    text: "Stock management system for store inventory. Controls product brands, types, quantities & sales history with MongoDB database.",
     largeText: [
       "Meteor is an open-source web and mobile development platform that uses JavaScript on both the client and server sides, with a real-time data system and a wide range of open-source packages and libraries to facilitate integration with other web technologies and services."
     ],

@@ -31,7 +31,7 @@
 }
 
 .hover-bg-spacial-3-20:hover {
-  background-color: rgba(94, 129, 172, 0.3);  /* Slightly more opacity on hover */
+  background-color: rgba(102, 102, 102, 0.3);  /* Slightly more opacity on hover */
 }
 
 /* Border Colors */
@@ -40,11 +40,11 @@
 }
 
 .border-spacial-3-20 {
-  border-color: rgba(94, 129, 172, 0.2);  /* Nord10 with opacity */
+  border-color: rgba(102, 102, 102, 0.2);  /* Gray with opacity */
 }
 
 .border-spacial-3-30 {
-  border-color: rgba(94, 129, 172, 0.3);  /* Nord10 with opacity */
+  border-color: rgba(102, 102, 102, 0.3);  /* Gray with opacity */
 }
 
 /* Hover Text Colors */
