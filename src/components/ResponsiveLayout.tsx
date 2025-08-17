@@ -5,6 +5,7 @@ import MobileNavigation from '@/components/ui/MobileNavigation';
 import MeSectionCompact from '@/components/MeSectionCompact';
 import WorksColumn from '@/components/WorksColumn';
 import ProjectsColumn from '@/components/ProjectsColumn';
+import WorkPreview from '@/components/WorkPreview';
 import timeCalculator from '@/components/timeCalculator';
 
 import type { Work, Project } from '@/types';
@@ -16,10 +17,15 @@ interface ResponsiveLayoutProps {
 
 export default function ResponsiveLayout({ works, projects }: ResponsiveLayoutProps) {
   const [activeSection, setActiveSection] = useState<'about' | 'works' | 'projects'>('about');
+  const [hoveredWork, setHoveredWork] = useState<Work | null>(null);
   const timeDifference = timeCalculator();
 
   const handleSectionChange = (section: 'about' | 'works' | 'projects') => {
     setActiveSection(section);
+  };
+
+  const handleWorkHover = (work: Work | null) => {
+    setHoveredWork(work);
   };
 
   return (
@@ -35,7 +41,7 @@ export default function ResponsiveLayout({ works, projects }: ResponsiveLayoutPr
             <h2 className="text-4xl font-bold text-white mb-6">Works</h2>
           </div>
           <div className="column-content">
-            <WorksColumn worksData={works} />
+            <WorksColumn worksData={works} onWorkHover={handleWorkHover} />
           </div>
         </div>
 
@@ -52,6 +58,11 @@ export default function ResponsiveLayout({ works, projects }: ResponsiveLayoutPr
                 </p>
               </div>
               <MeSectionCompact />
+            </div>
+            
+            {/* Work Preview Section - Only on desktop and when hovering */}
+            <div>
+              <WorkPreview work={hoveredWork} />
             </div>
           </div>
         </div>

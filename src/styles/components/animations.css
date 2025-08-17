@@ -29,21 +29,7 @@
   border-radius: var(--radius-sm);
 }
 
-/* Scale Up Animation */
-.scale-up-top {
-  animation: scale-up-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-}
-
-@keyframes scale-up-top {
-  0% {
-    transform: scale(0.5);
-    transform-origin: 50% 0%;
-  }
-  100% {
-    transform: scale(1);
-    transform-origin: 50% 0%;
-  }
-}
+/* Removed unused scale-up-top animation */
 
 /* Hover Effects */
 .hover-scale {
@@ -54,13 +40,7 @@
   transform: scale(1.1);
 }
 
-.hover-scale-105 {
-  transition: transform var(--transition-slow);
-}
-
-.hover-scale-105:hover {
-  transform: scale(1.05);
-}
+/* Removed unused hover-scale-105 */
 
 /* Transition Classes */
 .transition-all {
@@ -79,78 +59,6 @@
   transition: opacity var(--transition-fast);
 }
 
-/* Duration Classes */
-.duration-150 {
-  transition-duration: 150ms;
-}
+/* Removed unused duration, animate, and spinner classes */
 
-.duration-200 {
-  transition-duration: 200ms;
-}
-
-.duration-300 {
-  transition-duration: 300ms;
-}
-
-/* Animate In Classes */
-.animate-fade-in {
-  animation: var(--animation-fade-in);
-}
-
-.animate-zoom-in {
-  animation: var(--animation-zoom-in);
-}
-
-.animate-backdrop-in {
-  animation: var(--animation-backdrop);
-}
-
-.animate-modal-in {
-  animation: var(--animation-modal);
-}
-
-/* Loading Spinner */
-.spinner {
-  width: 1rem;
-  height: 1rem;
-  border: 2px solid transparent;
-  border-top: 2px solid currentColor;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Pulse Effect */
-.pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-/* Bounce Effect */
-.bounce {
-  animation: bounce 1s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(-25%);
-    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-  }
-  50% {
-    transform: none;
-    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
-}
+/* Removed unused pulse and bounce animations */

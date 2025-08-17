@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../styles/globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import DynamicHtmlLang from "@/components/DynamicHtmlLang";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -83,7 +85,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <LanguageProvider>
+            <DynamicHtmlLang />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

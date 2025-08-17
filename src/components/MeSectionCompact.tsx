@@ -5,6 +5,8 @@ import { Octokit } from '@octokit/core';
 import { Card, CardHeader, CardBody, Button } from "./ui";
 import GitHubContributions from "./GitHubContributions";
 import ThemeToggle from "./ThemeToggle";
+import LanguageToggle from "./LanguageToggle";
+import { useLanguage } from '../contexts/LanguageContext';
 
 const technologies = [
     {
@@ -32,6 +34,7 @@ const technologies = [
 export default function MeSectionCompact() {
     const [userData, setUserData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const { t } = useLanguage();
 
 
     useEffect(() => {
@@ -60,10 +63,7 @@ export default function MeSectionCompact() {
             {/* Professional Description */}
             <div className="p-3 md:p-4 lg:p-5 bg-spacial-1 rounded-lg">
                 <p className="text-center text-base text-spacial-4-90 font-medium leading-relaxed">
-                    Full‑Stack developer delivering mission‑critical software across telecom, cybersecurity, and SaaS.
-                    Deep JavaScript/TypeScript expertise with a strong focus on Node.js (APIs, microservices, performance) and React/Next.js on the frontend.
-                    Experienced with REST APIs, Jest‑based testing, Git, and CI/CD.
-                    Proactive, hands‑on, and relentless about performance and code quality.
+                    {t('about.description')}
                 </p>
             </div>
 
@@ -78,12 +78,12 @@ export default function MeSectionCompact() {
                                 userData ? userData.public_repos : '15+'
                             )}
                         </div>
-                        <div className="text-sm md:text-base lg:text-lg text-spacial-4-70 font-medium">Public Repos</div>
+                        <div className="text-sm md:text-base lg:text-lg text-spacial-4-70 font-medium">{t('about.repos')}</div>
                     </CardBody>
                 </Card>
                 <Card className="bg-spacial-1">
                     <CardBody className="text-center p-3 md:p-4 lg:p-6">
-                        <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-2">Technologies</h3>
+                        <h3 className="text-sm md:text-base lg:text-lg font-semibold text-white mb-2">{t('about.technologies')}</h3>
                         <div className="technologies flex justify-center flex-wrap gap-1 md:gap-2">
                             {technologies.map((tech) => (
                                 <img
@@ -102,7 +102,7 @@ export default function MeSectionCompact() {
             {/* GitHub Contributions */}
             <GitHubContributions username="nievasdev" className="mb-4" />
 
-            {/* Resume Download Button and Theme Toggle */}
+            {/* Resume Download Button, Theme Toggle and Language Toggle */}
             <div className="flex justify-start gap-3">
                 <Button
                     as="a"
@@ -113,10 +113,11 @@ export default function MeSectionCompact() {
                     className="bg-spacial-3 hover:bg-spacial-2 text-white font-semibold px-6 py-3 transition-all duration-200 group relative overflow-hidden"
                 >
                     <span className="download-arrow inline-block mr-3 font-black -ml-1">↓</span>
-                    <span className="button-text relative z-10">Download Resume</span>
+                    <span className="button-text relative z-10">{t('about.download')}</span>
                     <div className="shimmer-effect absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100"></div>
                 </Button>
                 <ThemeToggle />
+                <LanguageToggle />
             </div>
 
         </div>

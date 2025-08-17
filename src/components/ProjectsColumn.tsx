@@ -5,6 +5,7 @@ import { Button, Card, CardHeader, CardBody, CardFooter, Divider, Image, Link, M
 import { useModal } from "../hooks/useModal";
 import { GithubIcon } from "./icons";
 import { Project } from '@/types';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ProjectsColumnProps {
   projectsData: Project[];
@@ -13,6 +14,7 @@ interface ProjectsColumnProps {
 export default function ProjectsColumn({ projectsData }: ProjectsColumnProps) {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { isOpen, onOpen, onClose } = useModal();
+  const { t } = useLanguage();
 
   const handleOpen = (projectName: string) => {
     const project = projectsData?.find(p => p.name === projectName);
@@ -51,7 +53,7 @@ export default function ProjectsColumn({ projectsData }: ProjectsColumnProps) {
                 ))}
 
                 <div className="modal-technologies">
-                  <h4 className="technologies-title">Technologies Used:</h4>
+                  <h4 className="technologies-title">{t('projects.technologiesUsed')}</h4>
                   <div className="technologies-list">
                     {selectedProject.technologies?.map(tech => (
                       <div
@@ -61,7 +63,7 @@ export default function ProjectsColumn({ projectsData }: ProjectsColumnProps) {
                         <Image
                           src={tech.logo}
                           alt={tech.name}
-                          className="img-xl img-contain mr-3 img-hover-scale"
+                          className="img-xl img-contain mr-3 hover-scale"
                           width={28}
                           height={28}
                         />
@@ -131,7 +133,7 @@ export default function ProjectsColumn({ projectsData }: ProjectsColumnProps) {
                         <Image
                           src={tech.logo}
                           alt={tech.name}
-                          className="img-lg img-hover-scale"
+                          className="img-lg hover-scale"
                           width={36}
                           height={36}
                           radius="none"
@@ -148,7 +150,7 @@ export default function ProjectsColumn({ projectsData }: ProjectsColumnProps) {
                     variant="solid"
                     onClick={() => handleOpen(project.name)}
                   >
-                    <span className="button-text">View Details</span>
+                    <span className="button-text">{t('projects.viewDetails')}</span>
                   </Button>
                   <Button
                     className="group"
@@ -160,7 +162,7 @@ export default function ProjectsColumn({ projectsData }: ProjectsColumnProps) {
                     variant="bordered"
                   >
                     <GithubIcon className="w-5 h-5 mr-1" />
-                    <span className="button-text">GitHub</span>
+                    <span className="button-text">{t('projects.github')}</span>
                   </Button>
                 </div>
               </div>

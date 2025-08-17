@@ -31,13 +31,7 @@ export interface Project {
   technologies: Technology[];
 }
 
-export interface Blog {
-  id: string;
-  title: string;
-  content: string;
-  date: string;
-  summary: string;
-}
+// Blog interface removed - functionality not implemented
 
 // UI Component Props
 export interface ButtonProps {

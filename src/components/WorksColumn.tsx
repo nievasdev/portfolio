@@ -17,15 +17,18 @@ import {
 } from './ui';
 import { Work } from '@/types';
 import { useModal } from '../hooks/useModal';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface WorksColumnProps {
   worksData: Work[];
+  onWorkHover?: (work: Work | null) => void;
 }
 
-export default function WorksColumn({ worksData }: WorksColumnProps) {
+export default function WorksColumn({ worksData, onWorkHover }: WorksColumnProps) {
   const [selectedWork, setSelectedWork] = useState<Work | null>(null);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const { isOpen, onOpen, onClose } = useModal();
+  const { t } = useLanguage();
 
   const handleOpen = (workName: string) => {
     const work = worksData?.find(w => w.name === workName);
@@ -106,11 +109,11 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
                   {selectedWork.projects.length > 0 && (
                     <div className="projects-section">
                       <div className="flex justify-between items-center mb-6">
-                        <h3 className="text-2xl font-semibold text-white">Key Projects</h3>
+                        <h3 className="text-2xl font-semibold text-white">{t('works.keyProjects')}</h3>
                         {selectedWork.projects.length > 2 && (
                           <div className="flex items-center gap-2">
                             <span className="text-sm text-spacial-4-70">
-                              {Math.min(currentProjectIndex + 2, selectedWork.projects.length)} of {selectedWork.projects.length} visible
+                              {Math.min(currentProjectIndex + 2, selectedWork.projects.length)} {t('works.of')} {selectedWork.projects.length} {t('works.visible')}
                             </span>
                             <div className="flex gap-1">
                               {Array.from({ length: selectedWork.projects.length - 1 }, (_, index) => (
@@ -162,14 +165,14 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
                             disabled={currentProjectIndex === 0}
                             className="px-4 py-2 bg-spacial-1 hover:bg-spacial-2 rounded-lg text-spacial-4 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            Previous
+                            {t('works.previous')}
                           </button>
                           <button
                             onClick={() => goToProject(Math.min(selectedWork.projects.length - 2, currentProjectIndex + 1))}
                             disabled={currentProjectIndex >= selectedWork.projects.length - 2}
                             className="px-4 py-2 bg-spacial-1 hover:bg-spacial-2 rounded-lg text-spacial-4 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            Next
+                            {t('works.next')}
                           </button>
                         </div>
                       )}
@@ -178,7 +181,7 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
 
                   {/* Technologies Section */}
                   <div className="technologies-section">
-                    <h3 className="text-2xl font-semibold text-white mb-6">Technologies Used</h3>
+                    <h3 className="text-2xl font-semibold text-white mb-6">{t('works.technologiesUsed')}</h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
                       {selectedWork.technologies.map((tech, techIndex) => (
                         <div key={techIndex} className="tech-item text-center">
@@ -197,7 +200,7 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
 
                   {/* Summary Section */}
                   <div className="summary-section">
-                    <h3 className="text-2xl font-semibold text-white mb-4">Role Summary</h3>
+                    <h3 className="text-2xl font-semibold text-white mb-4">{t('works.roleSummary')}</h3>
                     <div className="bg-gradient-to-r from-spacial-1 to-spacial-2 rounded-lg p-6 border border-spacial-3/20">
                       <p className="text-xl text-spacial-4-90 leading-relaxed font-medium">
                         {selectedWork.text}
@@ -215,7 +218,12 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
       {/* Works List */}
       <div className="space-y-2">
         {worksData?.map((work) => (
-          <Card key={work.name} >
+          <div
+            key={work.name}
+            onMouseEnter={() => onWorkHover?.(work)}
+            onMouseLeave={() => onWorkHover?.(null)}
+          >
+            <Card>
             <CardHeader>
               <div className="card-title">
                 <h3 className="text-2xl font-semibold text-white">{work.name}</h3>
@@ -263,7 +271,7 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
                         <Image
                           src={tech.logo}
                           alt={tech.name}
-                          className="img-lg img-hover-scale"
+                          className="img-lg hover-scale"
                           width={36}
                           height={36}
                           radius="none"
@@ -279,11 +287,12 @@ export default function WorksColumn({ worksData }: WorksColumnProps) {
                   variant="solid"
                   onClick={() => handleOpen(work.name)}
                 >
-                  <span className="button-text">View Details</span>
+                  <span className="button-text">{t('works.viewDetails')}</span>
                 </Button>
               </div>
             </CardFooter>
-          </Card>
+            </Card>
+          </div>
         ))}
       </div>
     </>

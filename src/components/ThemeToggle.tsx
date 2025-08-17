@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from './ui';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function ThemeToggle() {
+  const { t } = useLanguage();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     // Initialize based on system preference if no localStorage
     if (typeof window !== 'undefined') {
@@ -89,7 +91,7 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
     >
       <span className="button-text relative z-10">
-        {isDarkMode ? '☀️' : '🌙'} {isDarkMode ? 'Light' : 'Dark'}
+        {isDarkMode ? '☀️' : '🌙'} {isDarkMode ? t('theme.light') : t('theme.dark')}
       </span>
       <div className="shimmer-effect absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100"></div>
     </Button>
