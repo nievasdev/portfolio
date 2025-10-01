@@ -1,14 +1,31 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import compression from 'vite-plugin-compression';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://portfolio-maurojs-projects.vercel.app',
   output: 'static',
   vite: {
-    plugins: [],
+    plugins: [
+      compression({
+        algorithm: 'gzip',
+        ext: '.gz',
+        threshold: 0,
+        deleteOriginFile: false,
+        filter: /\.(js|css|html|svg|json)$/
+      }),
+      compression({
+        algorithm: 'brotliCompress',
+        ext: '.br',
+        threshold: 0,
+        deleteOriginFile: false,
+        filter: /\.(js|css|html|svg|json)$/
+      })
+    ],
     build: {
       minify: 'esbuild',
+      cssMinify: 'lightningcss',
       // Optimización de chunks
       rollupOptions: {
         output: {

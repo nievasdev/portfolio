@@ -23,7 +23,7 @@ const { projects } = Astro.props;
       <div>
         <input type="checkbox" id={`project-modal-${index}`} class="modal-toggle" />
         
-        <label for={`project-modal-${index}`} class="card card-clickable">
+        <label for={`project-modal-${index}`} class="card card-clickable" onclick="playTerminalSound()">
           <div class="stack">
             <div>
               <h3>{project.name}</h3>

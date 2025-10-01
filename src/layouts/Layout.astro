@@ -28,60 +28,7 @@ const { title, description = "Full Stack Developer Portfolio" } = Astro.props;
     </div>
     <slot />
     <script is:inline>
-      document.addEventListener('astro:page-load', () => {
-        const cards = document.querySelectorAll('a.card-clickable[data-work-name]');
-
-        cards.forEach(card => {
-          card.addEventListener('click', (e) => {
-            e.preventDefault();
-            const workName = card.getAttribute('data-work-name');
-            const targetUrl = card.getAttribute('href');
-
-            showTerminalAnimation(workName, targetUrl);
-          });
-        });
-      });
-
-      function showTerminalAnimation(workName, targetUrl) {
-        const overlay = document.getElementById('terminal-overlay');
-        const textElement = document.getElementById('terminal-text');
-
-        overlay.classList.add('active');
-
-        const commands = [
-          `> cd ${workName}/`,
-          `> less experience.txt`
-        ];
-
-        let commandIndex = 0;
-
-        function typeCommand() {
-          if (commandIndex >= commands.length) {
-            setTimeout(() => {
-              window.location.href = targetUrl;
-            }, 100);
-            return;
-          }
-
-          const command = commands[commandIndex];
-          let charIndex = 0;
-
-          const baseText = commands.slice(0, commandIndex).join('\n') + (commandIndex > 0 ? '\n' : '');
-
-          const typingInterval = setInterval(() => {
-            if (charIndex < command.length) {
-              textElement.textContent = baseText + command.substring(0, charIndex + 1);
-              charIndex++;
-            } else {
-              clearInterval(typingInterval);
-              commandIndex++;
-              setTimeout(typeCommand, 50);
-            }
-          }, 10);
-        }
-
-        typeCommand();
-      }
+document.addEventListener('astro:page-load',()=>{document.querySelectorAll('a.card-clickable[data-work-name]').forEach(e=>{e.addEventListener('click',t=>{t.preventDefault();const n=e.getAttribute('data-work-name'),a=e.getAttribute('href');showTerminalAnimation(n,a)})})});function showTerminalAnimation(e,t){const n=document.getElementById('terminal-overlay'),a=document.getElementById('terminal-text');n.classList.add('active');const r=[`> cd ${e}/`,`> less experience.txt`];let i=0;function o(){if(i>=r.length)return void setTimeout(()=>{window.location.href=t},100);const e=r[i];let n=0;const c=r.slice(0,i).join('\n')+(i>0?'\n':'');setInterval(()=>{n<e.length?(a.textContent=c+e.substring(0,n+1),n++):(clearInterval(void 0),i++,setTimeout(o,50))},10)}o()}function playTerminalSound(){const t=new(window.AudioContext||window.webkitAudioContext)(),e=t.createOscillator(),n=t.createGain();e.connect(n),n.connect(t.destination),e.frequency.value=2e3,e.type="sine",n.gain.setValueAtTime(0,t.currentTime),n.gain.linearRampToValueAtTime(.18,t.currentTime+.003),n.gain.linearRampToValueAtTime(0,t.currentTime+.035),e.start(t.currentTime),e.stop(t.currentTime+.035);const a=t.createOscillator(),i=t.createGain();a.connect(i),i.connect(t.destination),a.frequency.value=1400,a.type="sine",i.gain.setValueAtTime(0,t.currentTime+.012),i.gain.linearRampToValueAtTime(.12,t.currentTime+.018),i.gain.linearRampToValueAtTime(0,t.currentTime+.045),a.start(t.currentTime+.012),a.stop(t.currentTime+.045)}window.playTerminalSound=playTerminalSound;
     </script>
   </body>
 </html>

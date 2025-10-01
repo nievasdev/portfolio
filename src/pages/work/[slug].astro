@@ -37,16 +37,16 @@ const { work, lang, index } = Astro.props;
             <a href="/">← BACK</a>
           </nav>
 
-          <div transition:name={`work-content${index}`} class="card border">
+          <div class="card border">
         <div class="stack">
-          <h1 transition:name={`work-title-${index}`}>{work.name}</h1>
-         <p transition:name={`work-time-${index}`} class="desc">{work.time}</p>
+          <h1>{work.name}</h1>
+         <p class="desc">{work.time}</p>
           <p class="desc">{work.workMethod}</p>
         </div>
 
         <div class="stack">
           <h4>DESCRIPTION:</h4>
-          <p transition:name={`work-text-${index}`}>{work.text}</p>
+          <p>{work.text}</p>
           {work.largeText && work.largeText.length > 0 && (
             <ul>
               {work.largeText.map((text: string) => (

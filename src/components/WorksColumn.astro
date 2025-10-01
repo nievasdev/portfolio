@@ -25,14 +25,14 @@ const { works } = Astro.props;
   <div>
     {works.map((work, index) => (
     <a
-      transition:name={`work-content${index}`}
       href={`/work/${index}-en`}
-      class="card card-clickable"
+      class="card card-clickable work-card"
       data-work-name={work.name.toLowerCase().replace(/\s+/g, '_')}
+      onclick="playTerminalSound()"
     >
         <div>
-          <h3 transition:name={`work-title-${index}`}>{work.name}</h3>
-          <p transition:name={`work-time-${index}`} class="desc">{work.time}</p>
+          <h3>{work.name}</h3>
+          <p class="desc">{work.time}</p>
         </div>
         {work.largeText && work.largeText.length > 0 && (
           <ul>
