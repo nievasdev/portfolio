@@ -1,0 +1,144 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const worksEn = await getCollection('works', ({ id }) => id === 'en');
+  const worksEs = await getCollection('works', ({ id }) => id === 'es');
+
+  const allWorks = [
+    ...(worksEn[0]?.data || []).map((work: any, index: number) => ({
+      params: { slug: `${index}-en` },
+      props: { work, lang: 'en', index }
+    })),
+    ...(worksEs[0]?.data || []).map((work: any, index: number) => ({
+      params: { slug: `${index}-es` },
+      props: { work, lang: 'es', index }
+    }))
+  ];
+
+  return allWorks;
+}
+
+const { work, lang, index } = Astro.props;
+---
+
+<Layout title={`${work.name} - MAURO NIEVAS`}>
+  <main>
+    <div class="work-detail">
+      <div class="work-layout">
+        <div class="terminal-header">
+          <span class="terminal-prompt">> cd {work.name.toLowerCase().replace(/\s+/g, '_')}/</span>
+          <span class="terminal-prompt">> less experience.txt</span>
+        </div>
+
+        <div class="work-content">
+          <nav class="back-nav">
+            <a href="/">← BACK</a>
+          </nav>
+
+          <div transition:name={`work-content${index}`} class="card border">
+        <div class="stack">
+          <h1 transition:name={`work-title-${index}`}>{work.name}</h1>
+         <p transition:name={`work-time-${index}`} class="desc">{work.time}</p>
+          <p class="desc">{work.workMethod}</p>
+        </div>
+
+        <div class="stack">
+          <h4>DESCRIPTION:</h4>
+          <p transition:name={`work-text-${index}`}>{work.text}</p>
+          {work.largeText && work.largeText.length > 0 && (
+            <ul>
+              {work.largeText.map((text: string) => (
+                <li>{text}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="stack">
+          <h4>TECHNOLOGIES:</h4>
+          <div class="flex wrap">
+            {work.technologies.map((tech: any) => (
+              <span class="tag">{tech.name}</span>
+            ))}
+          </div>
+        </div>
+
+        {work.projects && work.projects.length > 0 && (
+          <div class="stack">
+            <h4>PROJECTS:</h4>
+            <ul>
+              {work.projects.map((project: any) => (
+                <li><strong>{project.title}:</strong> {project.text}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .work-detail {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .work-layout {
+    display: block;
+  }
+
+  .terminal-header {
+    display: none;
+  }
+
+  .work-content {
+    width: 100%;
+  }
+
+  @media (min-width: 64rem) {
+    .work-layout {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      position: relative;
+    }
+
+    .terminal-header {
+      display: block;
+      padding: 1rem;
+      position: fixed;
+      left: 1rem;
+      top: 1rem;
+      width: 250px;
+      height: fit-content;
+    }
+
+    .terminal-prompt {
+      display: block;
+      font: 14px/1.5 Monaco, 'Courier New', Courier, monospace;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .terminal-prompt:last-child {
+      margin-bottom: 0;
+    }
+
+    .work-content {
+      max-width: 900px;
+    }
+  }
+
+  .back-nav {
+    margin-bottom: 1rem;
+  }
+
+  .back-nav a {
+    display: inline-block;
+  }
+</style>

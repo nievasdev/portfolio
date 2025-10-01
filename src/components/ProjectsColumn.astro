@@ -1,0 +1,78 @@
+---
+export interface Props {
+  projects: Array<{
+    name: string;
+    time: string;
+    logo: string;
+    text: string;
+    largeText?: string[];
+    github: string;
+    technologies: Array<{
+      name: string;
+      logo: string;
+    }>;
+  }>;
+}
+
+const { projects } = Astro.props;
+---
+
+<section>
+  <div>
+    {projects.map((project, index) => (
+      <div>
+        <input type="checkbox" id={`project-modal-${index}`} class="modal-toggle" />
+        
+        <label for={`project-modal-${index}`} class="card card-clickable">
+          <div class="stack">
+            <div>
+              <h3>{project.name}</h3>
+              <p class="desc">{project.time}</p>
+            </div>
+            <p>{project.text}</p>
+
+            <div>
+              <h4>TECH STACK:</h4>
+              <div class="flex wrap">
+                {project.technologies.map((tech) => (
+                  <span class="tag">{tech.name}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </label>
+        
+        <div class="modal" onclick={`document.getElementById('project-modal-${index}').checked=false`}>
+          <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="close" onclick={`document.getElementById('project-modal-${index}').checked=false`}>×</button>
+            <h2>{project.name}</h2>
+            <p class="desc">{project.time}</p>
+            
+            <div>
+              <h4>DESCRIPTION:</h4>
+              <p>{project.text}</p>
+              {project.largeText && project.largeText.map((text) => (
+                <p>{project.text}</p>
+              ))}
+            </div>
+            
+            <div class="stack">
+              <h4>TECHNOLOGIES:</h4>
+              <div class="flex wrap">
+                {project.technologies.map((tech) => (
+                  <span class="tag">{tech.name}</span>
+                ))}
+              </div>
+            </div>
+            
+            <div>
+              <a href={project.github} target="_blank" rel="noopener noreferrer">
+                VIEW CODE →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

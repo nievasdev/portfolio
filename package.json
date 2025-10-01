@@ -1,0 +1,33 @@
+{
+  "name": "portfolio",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:optimize": "astro build && node scripts/optimize-build.js",
+    "build:analyze": "npm run build:optimize && npm run analyze",
+    "build:stats": "npm run build:optimize && node scripts/build-stats.js",
+    "analyze": "du -sh dist/ && find dist/ -name '*.html' -o -name '*.css' -o -name '*.js' | xargs wc -c | sort -n",
+    "start": "astro preview",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.14.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.17",
+    "imagemin": "^9.0.1",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-svgo": "^11.0.1",
+    "rollup-plugin-gzip": "^4.1.1",
+    "terser": "^5.44.0",
+    "typescript": "^5.9.2",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-imagemin": "^0.6.1"
+  }
+}

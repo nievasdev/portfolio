@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import WorksColumn from '../components/WorksColumn.astro';
+import MeSectionCompact from '../components/MeSectionCompact.astro';
+import ProjectsColumn from '../components/ProjectsColumn.astro';
+
+// Get data from content collections
+const worksEn = await getCollection('works', ({ id }) => id === 'en');
+const projectsEn = await getCollection('projects', ({ id }) => id === 'en');
+
+const works = worksEn[0]?.data || [];
+const projects = projectsEn[0]?.data || [];
+---
+
+<Layout title="MAURO NIEVAS - PORTFOLIO">
+  <main>
+    <!-- Desktop Grid Layout -->
+    <div class="desktop">
+      <!-- Left Column: Works -->
+      <div>
+        <h2>EXPERIENCE</h2>
+        <WorksColumn works={works} />
+      </div>
+      
+      <!-- Center Column: Personal Info -->
+      <div>
+        <MeSectionCompact />
+      </div>
+      
+      <!-- Right Column: Projects -->
+      <div>
+        <h2>PROJECTS</h2>
+        <ProjectsColumn projects={projects} />
+      </div>
+    </div>
+
+    <!-- Mobile/Tablet Layout -->
+    <div class="mobile">
+      <div>
+        <MeSectionCompact />
+      </div>
+      <div>
+        <h2>EXPERIENCE</h2>
+        <WorksColumn works={works} />
+      </div>
+      <div>
+        <h2>PROJECTS</h2>
+        <ProjectsColumn projects={projects} />
+      </div>
+    </div>
+  </main>
+</Layout>

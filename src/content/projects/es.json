@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Meteor",
+    "time": "2022",
+    "logo": "/logo_meteor.png",
+    "text": "Sistema de gestión de inventario para tienda. Controla marcas de productos, tipos, cantidades e historial de ventas con base de datos MongoDB.",
+    "largeText": [
+      "Meteor es una plataforma de desarrollo web y móvil de código abierto que utiliza JavaScript tanto en el lado del cliente como del servidor, con un sistema de datos en tiempo real y una amplia gama de paquetes y bibliotecas de código abierto para facilitar la integración con otras tecnologías y servicios web."
+    ],
+    "github": "https://github.com/Mauro-js/Meteor_practices",
+    "technologies": [
+      { "name": "JavaScript", "logo": "/logo_javascript.png" },
+      { "name": "Node", "logo": "/logo_node.png" }
+    ]
+  },
+  {
+    "name": "Flask",
+    "time": "2023",
+    "logo": "/logo_flask.png", 
+    "text": "Un sitio web basado en Flask con una base de datos PostgreSQL para las elecciones presidenciales de una comisión de profesores de física.",
+    "largeText": [
+      "Flask es un framework web de Python que permite a los desarrolladores crear aplicaciones web de forma rápida y sencilla. Flask se considera un micro-framework, lo que significa que está diseñado para ser ligero y flexible, y no incluye componentes adicionales innecesarios.",
+      "Flask proporciona las herramientas básicas para crear aplicaciones web, como enrutamiento de URL, gestión de cookies, soporte para plantillas Jinja2 y más. Aunque Flask se considera un framework de nivel principiante, es altamente escalable y extensible, y es utilizado por desarrolladores de todos los niveles de experiencia para crear aplicaciones web desde simples hasta complejas."
+    ],
+    "github": "https://github.com/Mauro-js/test_python_flask",
+    "technologies": [
+      { "name": "Python", "logo": "/logo_python.png" }
+    ]
+  }
+]
