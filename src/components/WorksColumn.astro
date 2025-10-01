@@ -16,16 +16,17 @@ export interface Props {
       logo: string;
     }>;
   }>;
+  lang?: string;
 }
 
-const { works } = Astro.props;
+const { works, lang = 'en' } = Astro.props;
 ---
 
 <section>
   <div>
     {works.map((work, index) => (
     <a
-      href={`/work/${index}-en`}
+      href={`/work/${index}-${lang}`}
       class="card card-clickable work-card"
       onclick="playTerminalSound()"
     >

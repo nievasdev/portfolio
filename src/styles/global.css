@@ -12,7 +12,7 @@ p{font-size:12px;line-height:1.5;margin-bottom:.75rem}
 a{color:var(--accent);text-decoration:underline;font:700 10px/1.2 Monaco,'Courier New',Courier,monospace;text-transform:uppercase;letter-spacing:.05em;display:block;padding:.25rem .5rem;border-left:2px solid var(--accent);transition:all .15s}
 .card p{text-transform:none}
 .card li{text-transform:none}
-a:hover{background:#0f0;color:#000;transform:scale(1.02)}
+a:hover{background:#0f0;color:#000;border-left-color:#0f0;transform:scale(1.02)}
 a.cta{background:var(--accent);color:#000;font-weight:900;margin-top:.5rem}
 a.cta:hover{background:#0f0;transform:scale(1.02)}
 a.card-clickable{padding:1rem;color:var(--fg);text-decoration:none;border-left:1px solid #fff3}
