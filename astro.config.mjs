@@ -8,43 +8,7 @@ export default defineConfig({
   vite: {
     plugins: [],
     build: {
-      // Minificación agresiva
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-          pure_funcs: ['console.log'],
-          reduce_vars: true,
-          reduce_funcs: true,
-          hoist_funs: true,
-          hoist_vars: true,
-          if_return: true,
-          join_vars: true,
-          cascade: true,
-          collapse_vars: true,
-          evaluate: true,
-          loops: true,
-          unsafe: true,
-          unsafe_comps: true,
-          unsafe_math: true,
-          unsafe_proto: true,
-          conditionals: true,
-          dead_code: true,
-          booleans: true,
-          unused: true,
-          toplevel: true,
-          top_retain: false,
-          properties: true
-        },
-        mangle: {
-          toplevel: true,
-          safari10: true
-        },
-        format: {
-          comments: false
-        }
-      },
+      minify: 'esbuild',
       // Optimización de chunks
       rollupOptions: {
         output: {
