@@ -35,7 +35,7 @@ const { projects } = Astro.props;
               <h4>TECH STACK:</h4>
               <div class="flex wrap">
                 {project.technologies.map((tech) => (
-                  <span class="tag">{tech.name}</span>
+                  <span class="tag" data-category={tech.category}>{tech.name}</span>
                 ))}
               </div>
             </div>
@@ -60,7 +60,7 @@ const { projects } = Astro.props;
               <h4>TECHNOLOGIES:</h4>
               <div class="flex wrap">
                 {project.technologies.map((tech) => (
-                  <span class="tag">{tech.name}</span>
+                  <span class="tag" data-category={tech.category}>{tech.name}</span>
                 ))}
               </div>
             </div>

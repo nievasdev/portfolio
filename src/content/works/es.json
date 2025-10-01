@@ -28,10 +28,10 @@
       }
     ],
     "technologies": [
-      { "name": "JavaScript", "logo": "/logo_javascript.png" },
-      { "name": "React", "logo": "/logo_react.png" },
-      { "name": "NextJs", "logo": "/logo_next.png" },
-      { "name": "Node", "logo": "/logo_node.png" }
+      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
+      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
+      { "name": "NextJs", "logo": "/logo_next.png", "category": "framework" },
+      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
     ]
   },
   {
@@ -63,9 +63,9 @@
       }
     ],
     "technologies": [
-      { "name": "JavaScript", "logo": "/logo_javascript.png" },
-      { "name": "React", "logo": "/logo_react.png" },
-      { "name": "Node", "logo": "/logo_node.png" }
+      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
+      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
+      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
     ]
   },
   {
@@ -92,10 +92,10 @@
       }
     ],
     "technologies": [
-      { "name": "Python", "logo": "/logo_python.png" },
-      { "name": "JavaScript", "logo": "/logo_javascript.png" },
-      { "name": "React", "logo": "/logo_react.png" },
-      { "name": "Node", "logo": "/logo_node.png" }
+      { "name": "Python", "logo": "/logo_python.png", "category": "language" },
+      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
+      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
+      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
     ]
   },
   {
@@ -110,8 +110,8 @@
     "workMethod": "Encargos por clientes.",
     "projects": [],
     "technologies": [
-      { "name": "Python", "logo": "/logo_python.png" },
-      { "name": "JavaScript", "logo": "/logo_javascript.png" }
+      { "name": "Python", "logo": "/logo_python.png", "category": "language" },
+      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" }
     ]
   }
 ]

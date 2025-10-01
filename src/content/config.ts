@@ -16,6 +16,7 @@ const works = defineCollection({
     technologies: z.array(z.object({
       name: z.string(),
       logo: z.string(),
+      category: z.string().optional(),
     })),
   })),
 });
@@ -32,6 +33,7 @@ const projects = defineCollection({
     technologies: z.array(z.object({
       name: z.string(),
       logo: z.string(),
+      category: z.string().optional(),
     })),
   })),
 });

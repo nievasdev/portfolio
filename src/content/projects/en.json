@@ -9,8 +9,8 @@
     ],
     "github": "https://github.com/Mauro-js/Meteor_practices",
     "technologies": [
-      { "name": "JavaScript", "logo": "/logo_javascript.png" },
-      { "name": "Node", "logo": "/logo_node.png" }
+      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
+      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
     ]
   },
   {
@@ -24,7 +24,7 @@
     ],
     "github": "https://github.com/Mauro-js/test_python_flask",
     "technologies": [
-      { "name": "python", "logo": "/logo_python.png" }
+      { "name": "python", "logo": "/logo_python.png", "category": "language" }
     ]
   }
 ]

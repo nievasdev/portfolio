@@ -27,7 +27,6 @@ const { works } = Astro.props;
     <a
       href={`/work/${index}-en`}
       class="card card-clickable work-card"
-      data-work-name={work.name.toLowerCase().replace(/\s+/g, '_')}
       onclick="playTerminalSound()"
     >
         <div>

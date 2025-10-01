@@ -27,20 +27,20 @@ const { work, lang, index } = Astro.props;
   <main>
     <div class="work-detail">
       <div class="work-layout">
-        <div class="terminal-header">
-          <span class="terminal-prompt">> cd {work.name.toLowerCase().replace(/\s+/g, '_')}/</span>
-          <span class="terminal-prompt">> less experience.txt</span>
+        <div id="terminal-header" class="terminal-header">
+          <span class="terminal-prompt" id="terminal-line-1"></span>
+          <span class="terminal-prompt" id="terminal-line-2"></span>
         </div>
 
-        <div class="work-content">
+        <div id="work-content" class="work-content work-hidden">
           <nav class="back-nav">
-            <a href="/">← BACK</a>
+            <a href="/" onclick="playTerminalSound()">← BACK</a>
           </nav>
 
           <div class="card border">
         <div class="stack">
           <h1>{work.name}</h1>
-         <p class="desc">{work.time}</p>
+         <p class="work-meta">{work.time}</p>
           <p class="desc">{work.workMethod}</p>
         </div>
 
@@ -60,7 +60,7 @@ const { work, lang, index } = Astro.props;
           <h4>TECHNOLOGIES:</h4>
           <div class="flex wrap">
             {work.technologies.map((tech: any) => (
-              <span class="tag">{tech.name}</span>
+              <span class="tag" data-category={tech.category}>{tech.name}</span>
             ))}
           </div>
         </div>
@@ -80,6 +80,73 @@ const { work, lang, index } = Astro.props;
       </div>
     </div>
   </main>
+
+  <script is:inline define:vars={{ workName: work.name }}>
+    function initWorkPage() {
+      const line1 = document.getElementById('terminal-line-1');
+      const line2 = document.getElementById('terminal-line-2');
+      const workContent = document.getElementById('work-content');
+
+      if (!line1 || !line2 || !workContent) return;
+
+      // Reset state on page load
+      line1.textContent = '';
+      line2.textContent = '';
+
+      // Force reset of animation
+      workContent.style.animation = 'none';
+      workContent.classList.remove('work-fade-in');
+      workContent.classList.add('work-hidden');
+
+      // Trigger reflow to restart animation
+      void workContent.offsetWidth;
+
+      setTimeout(() => {
+            workContent.style.animation = '';
+            workContent.classList.remove('work-hidden');
+            workContent.classList.add('work-fade-in');
+          }, 500);
+
+      const lines = [
+        `> cd ${workName.toLowerCase().replace(/\s+/g, '_')}/`,
+        `> less experience.txt`
+      ];
+
+      let currentLine = 0;
+
+      function typeNextLine() {
+        if (currentLine >= lines.length) {
+          line1.classList.remove('typing');
+          line2.classList.remove('typing');
+
+         return;
+        }
+
+        const line = lines[currentLine];
+        const element = currentLine === 0 ? line1 : line2;
+        element.classList.add('typing');
+        let charIndex = 0;
+
+        const interval = setInterval(() => {
+          if (charIndex < line.length) {
+            element.textContent = line.substring(0, charIndex + 1);
+            charIndex++;
+          } else {
+            clearInterval(interval);
+            element.classList.remove('typing');
+            currentLine++;
+            setTimeout(typeNextLine, 1);
+          }
+        }, 15);
+      }
+
+      setTimeout(typeNextLine, 10);
+    }
+
+    // Run on initial load and on View Transitions navigation
+    document.addEventListener('astro:page-load', initWorkPage);
+    initWorkPage();
+  </script>
 </Layout>
 
 <style>
@@ -96,8 +163,40 @@ const { work, lang, index } = Astro.props;
     display: none;
   }
 
+  .terminal-prompt {
+    display: block;
+    font: 14px/1.5 Monaco, 'Courier New', Courier, monospace;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    min-height: 1.5rem;
+  }
+
+  .terminal-prompt:last-child {
+    margin-bottom: 0;
+  }
+
+  .terminal-prompt.typing::after {
+    content: '▊';
+    animation: blink-cursor 1s infinite;
+  }
+
   .work-content {
     width: 100%;
+  }
+
+  .work-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .work-fade-in {
+    visibility: visible !important;
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   @media (min-width: 64rem) {
@@ -118,19 +217,14 @@ const { work, lang, index } = Astro.props;
       height: fit-content;
     }
 
-    .terminal-prompt {
-      display: block;
-      font: 14px/1.5 Monaco, 'Courier New', Courier, monospace;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .terminal-prompt:last-child {
-      margin-bottom: 0;
-    }
-
     .work-content {
       max-width: 900px;
+      padding-right: 2rem;
+    }
+
+    .work-content p,
+    .work-content li {
+      line-height: 1.6;
     }
   }
 
@@ -140,5 +234,14 @@ const { work, lang, index } = Astro.props;
 
   .back-nav a {
     display: inline-block;
+  }
+
+  .work-meta {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
   }
 </style>
