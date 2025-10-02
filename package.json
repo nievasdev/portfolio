@@ -6,12 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "build:optimize": "astro build && node scripts/optimize-build.js",
-    "build:analyze": "npm run build:optimize && npm run analyze",
-    "build:stats": "npm run build:optimize && node scripts/build-stats.js",
-    "analyze": "du -sh dist/ && find dist/ -name '*.html' -o -name '*.css' -o -name '*.js' | xargs wc -c | sort -n",
     "start": "astro preview",
-    "start:gzip": "npm run build && npx serve dist -p 4321",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "astro check"
