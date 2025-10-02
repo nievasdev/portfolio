@@ -30,17 +30,24 @@ const { works, lang = 'en' } = Astro.props;
       class="card card-clickable work-card"
       onclick="playTerminalSound()"
     >
-        <div>
-          <h3>{work.name}</h3>
-          <p class="desc">{work.time}</p>
+        <p class="work-time">{work.time}</p>
+        <div class="work-main">
+          <div class="work-title-section">
+            {work.logo && (
+              <div class="work-logo-container">
+                <img src={work.logo} alt={`${work.name} logo`} class="work-logo" />
+              </div>
+            )}
+            <h3>{work.name}</h3>
+          </div>
+          {work.largeText && work.largeText.length > 0 && (
+            <ul class="work-description">
+              {work.largeText.map((text: string) => (
+                <li>{text}</li>
+              ))}
+            </ul>
+          )}
         </div>
-        {work.largeText && work.largeText.length > 0 && (
-          <ul>
-            {work.largeText.map((text: string) => (
-              <li>{text}</li>
-            ))}
-          </ul>
-        )}
       </a>
     ))}
   </div>

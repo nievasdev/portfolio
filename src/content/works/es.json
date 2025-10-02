@@ -2,7 +2,7 @@
   {
     "name": "Antel",
     "time": "2022 - Actual",
-    "logo": "/logo_ancel.png",
+    "logo": "/logo_ancel.svg",
     "text": "Microservicios Node.js manejando 3.5M transacciones diarias. Refactorización a gran escala redujo despliegues 40%, errores 99.9%. GitLab CI/CD con 85% cobertura de pruebas.",
     "largeText": [
       "Antel, la Administración Nacional de Telecomunicaciones, es una empresa estatal uruguaya responsable de brindar servicios de telecomunicaciones en Uruguay. Es el principal proveedor de servicios de telefonía fija y móvil, internet y televisión por cable del país. Fundada en 1974, Antel juega un papel clave en la infraestructura de comunicaciones en Uruguay, ofreciendo servicios tanto a nivel nacional como internacional.",

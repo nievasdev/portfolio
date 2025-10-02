@@ -35,12 +35,20 @@ const { work, lang, index } = Astro.props;
         <div id="work-content" class="work-content work-hidden">
           <nav class="back-nav">
             <a href="/">← BACK</a>
+            <span class="terminal-mobile" id="terminal-mobile"></span>
           </nav>
 
           <div class="card border">
         <div class="stack">
-          <h1>{work.name}</h1>
-         <p class="work-meta">{work.time}</p>
+          <div class="work-detail-header">
+            {work.logo && (
+              <img src={work.logo} alt={`${work.name} logo`} class="work-detail-logo" />
+            )}
+            <div>
+              <h1>{work.name}</h1>
+              <p class="work-meta">{work.time}</p>
+            </div>
+          </div>
           <p class="desc">{work.workMethod}</p>
         </div>
 
@@ -85,13 +93,15 @@ const { work, lang, index } = Astro.props;
     function initWorkPage() {
       const line1 = document.getElementById('terminal-line-1');
       const line2 = document.getElementById('terminal-line-2');
+      const terminalMobile = document.getElementById('terminal-mobile');
       const workContent = document.getElementById('work-content');
 
-      if (!line1 || !line2 || !workContent) return;
+      if (!line1 || !line2 || !terminalMobile || !workContent) return;
 
       // Reset state on page load
       line1.textContent = '';
       line2.textContent = '';
+      terminalMobile.textContent = '';
 
       // Force reset of animation
       workContent.style.animation = 'none';
@@ -112,13 +122,15 @@ const { work, lang, index } = Astro.props;
         `> less experience.txt`
       ];
 
+      const mobileLine = `> cd ${workName.toLowerCase().replace(/\s+/g, '_')}/ && less experience.txt`;
+
       let currentLine = 0;
 
+      // Desktop animation
       function typeNextLine() {
         if (currentLine >= lines.length) {
           line1.classList.remove('typing');
           line2.classList.remove('typing');
-
          return;
         }
 
@@ -140,7 +152,24 @@ const { work, lang, index } = Astro.props;
         }, 15);
       }
 
+      // Mobile animation
+      function typeMobileLine() {
+        terminalMobile.classList.add('typing');
+        let charIndex = 0;
+
+        const interval = setInterval(() => {
+          if (charIndex < mobileLine.length) {
+            terminalMobile.textContent = mobileLine.substring(0, charIndex + 1);
+            charIndex++;
+          } else {
+            clearInterval(interval);
+            terminalMobile.classList.remove('typing');
+          }
+        }, 15);
+      }
+
       setTimeout(typeNextLine, 10);
+      setTimeout(typeMobileLine, 10);
     }
 
     // Run on initial load and on View Transitions navigation
@@ -230,10 +259,37 @@ const { work, lang, index } = Astro.props;
 
   .back-nav {
     margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 
   .back-nav a {
     display: inline-block;
+  }
+
+  .terminal-mobile {
+    display: inline-block;
+    font: 12px/1.5 Monaco, 'Courier New', Courier, monospace;
+    color: var(--accent);
+  }
+
+  .terminal-mobile.typing::after {
+    content: '▊';
+    animation: blink-cursor 1s infinite;
+  }
+
+  @media (min-width: 64rem) {
+    .terminal-mobile {
+      display: none;
+    }
+  }
+
+  @media (max-width: 63.99rem) {
+    .terminal-header {
+      display: none !important;
+    }
   }
 
   .work-meta {
@@ -243,5 +299,21 @@ const { work, lang, index } = Astro.props;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.25rem;
+  }
+
+  .work-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .work-detail-header h1 {
+    margin-bottom: 0.25rem;
+  }
+
+  .work-detail-logo {
+    height: 80px;
+    width: auto;
   }
 </style>

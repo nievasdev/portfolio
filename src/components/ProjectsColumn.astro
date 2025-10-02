@@ -25,9 +25,9 @@ const { projects } = Astro.props;
         
         <label for={`project-modal-${index}`} class="card card-clickable" onclick="playTerminalSound()">
           <div class="stack">
-            <div>
+            <div class="work-header">
               <h3>{project.name}</h3>
-              <p class="desc">{project.time}</p>
+              <p class="work-time">{project.time}</p>
             </div>
             <p>{project.text}</p>
 
@@ -45,8 +45,10 @@ const { projects } = Astro.props;
         <div class="modal" onclick={`document.getElementById('project-modal-${index}').checked=false`}>
           <div class="modal-content" onclick="event.stopPropagation()">
             <button class="close" onclick={`document.getElementById('project-modal-${index}').checked=false`}>×</button>
-            <h2>{project.name}</h2>
-            <p class="desc">{project.time}</p>
+            <div class="work-header">
+              <h2>{project.name}</h2>
+              <p class="work-time">{project.time}</p>
+            </div>
             
             <div>
               <h4>DESCRIPTION:</h4>

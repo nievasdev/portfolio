@@ -2,7 +2,7 @@
   {
     "name": "Antel",
     "time": "2022 - Current",
-    "logo": "/logo_ancel.png",
+    "logo": "/logo_ancel.svg",
     "text": "Node.js microservices handling 3.5M daily transactions. Large-scale refactoring reduced deployment by 40%, errors by 99.9%. GitLab CI/CD with 85% test coverage.",
     "largeText": [
       "Developed Node.js microservices handling up to 3.5M daily transactions, integrating SQLite databases and SFTP services.",
