@@ -102,6 +102,9 @@ const { work, lang, index } = Astro.props;
       line1.textContent = '';
       line2.textContent = '';
       terminalMobile.textContent = '';
+      line1.classList.remove('typing');
+      line2.classList.remove('typing');
+      terminalMobile.classList.remove('typing');
 
       // Force reset of animation
       workContent.style.animation = 'none';
@@ -112,10 +115,10 @@ const { work, lang, index } = Astro.props;
       void workContent.offsetWidth;
 
       setTimeout(() => {
-            workContent.style.animation = '';
-            workContent.classList.remove('work-hidden');
-            workContent.classList.add('work-fade-in');
-          }, 500);
+        workContent.style.animation = '';
+        workContent.classList.remove('work-hidden');
+        workContent.classList.add('work-fade-in');
+      }, 500);
 
       const lines = [
         `> cd ${workName.toLowerCase().replace(/\s+/g, '_')}/`,
@@ -125,13 +128,13 @@ const { work, lang, index } = Astro.props;
       const mobileLine = `> cd ${workName.toLowerCase().replace(/\s+/g, '_')}/ && less experience.txt`;
 
       let currentLine = 0;
+      let mobileInterval = null;
 
       // Desktop animation
       function typeNextLine() {
         if (currentLine >= lines.length) {
-          line1.classList.remove('typing');
-          line2.classList.remove('typing');
-         return;
+          // Keep cursor on last line
+          return;
         }
 
         const line = lines[currentLine];
@@ -145,7 +148,10 @@ const { work, lang, index } = Astro.props;
             charIndex++;
           } else {
             clearInterval(interval);
-            element.classList.remove('typing');
+            if (currentLine < lines.length - 1) {
+              element.classList.remove('typing');
+            }
+            // Keep typing class on last line for cursor
             currentLine++;
             setTimeout(typeNextLine, 1);
           }
@@ -154,27 +160,36 @@ const { work, lang, index } = Astro.props;
 
       // Mobile animation
       function typeMobileLine() {
+        // Clear any existing interval
+        if (mobileInterval) {
+          clearInterval(mobileInterval);
+        }
+
         terminalMobile.classList.add('typing');
         let charIndex = 0;
 
-        const interval = setInterval(() => {
+        mobileInterval = setInterval(() => {
           if (charIndex < mobileLine.length) {
             terminalMobile.textContent = mobileLine.substring(0, charIndex + 1);
             charIndex++;
           } else {
-            clearInterval(interval);
-            terminalMobile.classList.remove('typing');
+            clearInterval(mobileInterval);
+            mobileInterval = null;
+            // Keep the typing cursor after animation finishes
           }
         }, 15);
       }
 
-      setTimeout(typeNextLine, 10);
-      setTimeout(typeMobileLine, 10);
+      // Only run the appropriate animation based on screen size
+      if (window.innerWidth <= 1370) {
+        setTimeout(typeMobileLine, 300);
+      } else {
+        setTimeout(typeNextLine, 300);
+      }
     }
 
-    // Run on initial load and on View Transitions navigation
+    // Run on View Transitions navigation AND initial page load
     document.addEventListener('astro:page-load', initWorkPage);
-    initWorkPage();
   </script>
 </Layout>
 
@@ -205,7 +220,7 @@ const { work, lang, index } = Astro.props;
   }
 
   .terminal-prompt.typing::after {
-    content: '▊';
+    content: ' ▊';
     animation: blink-cursor 1s infinite;
   }
 
@@ -228,7 +243,7 @@ const { work, lang, index } = Astro.props;
     to { opacity: 1; }
   }
 
-  @media (min-width: 64rem) {
+  @media (min-width: 1371px) {
     .work-layout {
       display: flex;
       justify-content: center;
@@ -270,23 +285,22 @@ const { work, lang, index } = Astro.props;
   }
 
   .terminal-mobile {
-    display: inline-block;
     font: 12px/1.5 Monaco, 'Courier New', Courier, monospace;
     color: var(--accent);
   }
 
   .terminal-mobile.typing::after {
-    content: '▊';
+    content: ' ▊';
     animation: blink-cursor 1s infinite;
   }
 
-  @media (min-width: 64rem) {
+  @media (min-width: 1371px) {
     .terminal-mobile {
       display: none;
     }
   }
 
-  @media (max-width: 63.99rem) {
+  @media (max-width: 1370px) {
     .terminal-header {
       display: none !important;
     }
@@ -315,5 +329,25 @@ const { work, lang, index } = Astro.props;
   .work-detail-logo {
     height: 80px;
     width: auto;
+    animation: pixelateToFocus 1s ease-out forwards;
+  }
+
+  @keyframes pixelateToFocus {
+    0% {
+      filter: blur(12px) brightness(0.7);
+      image-rendering: pixelated;
+      transform: scale(0.9);
+    }
+    30% {
+      filter: blur(8px) brightness(0.85);
+    }
+    60% {
+      filter: blur(4px) brightness(0.95);
+    }
+    100% {
+      filter: blur(0) brightness(1);
+      image-rendering: auto;
+      transform: scale(1);
+    }
   }
 </style>
