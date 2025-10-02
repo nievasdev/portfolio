@@ -5,90 +5,96 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ### Essential Commands
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run ESLint (note: builds ignore ESLint and TypeScript errors)
+- `npm run build` - Build static site for production
+- `npm run dev` - Start development server
+- `npm run start` - Preview production build
+- `npm run lint` - Run Astro check
 
 ### Node.js Version
-- Requires Node.js 20+ (as specified in README)
+- Requires Node.js 20+ 
 - Use `nvm use 20.0.0` to set correct version
 
 ## Architecture Overview
 
 ### Project Structure
-This is a **Next.js 15 portfolio** migrated from Astro, featuring a **3-column grid layout**:
+This is an **Astro 5 portfolio** featuring a **fully static** 3-column grid layout:
 
 - **Left Column**: Work experience (`WorksColumn`)
-- **Center Column**: Personal info (`MeSectionCompact`) 
+- **Center Column**: Personal info (`MeSectionCompact`) with GitHub contributions
 - **Right Column**: Personal projects (`ProjectsColumn`)
 
 ### Key Architectural Patterns
 
-**Data Management**: Static data approach using TypeScript objects in `src/lib/data.ts`
-- Work experience data is private (only accessible via `getWorks()`)
-- Project data is private (only accessible via `getProjects()`) 
-- All data is loaded at build time in page components
+**Data Management**: Astro Content Collections for static data
+- Work experience data in `src/content/works/` (en.json, es.json)
+- Project data in `src/content/projects/` (en.json, es.json)
+- All data is loaded at build time and pre-rendered for optimal performance
 
 **Component Architecture**:
-- Custom UI library in `src/components/ui/` (replaces NextUI)
-- Theme system using `next-themes` with default dark theme
-- Responsive design with CSS Grid and Tailwind
+- Astro components for optimal performance and zero JavaScript by default
+- Static site generation with NO client-side interactivity
+- Responsive design with CSS Grid and Tailwind CSS
 
-**GitHub Integration**:
-- Real-time GitHub API integration for contributions
-- Fallback system: authenticated API → public API → realistic simulation
-- GitHub token managed through environment variables (`GITHUB_TOKEN`)
+**Static GitHub Integration**:
+- No API calls - all GitHub activity is simulated with realistic patterns
+- Static contribution chart with proper visualization
+- No runtime dependencies on external services
 
 ### Configuration Details
 
 **Build Configuration**:
-- TypeScript and ESLint errors are ignored during builds (`next.config.ts`)
-- Custom ESLint config using FlatCompat for Next.js rules
+- Full static output (`output: 'static'` in `astro.config.mjs`)
+- Optimized for deployment on static hosting platforms
+- Inlined stylesheets for maximum performance
 
 **Styling System**:
-- Tailwind CSS with custom "spacial" theme
-- CSS organized in `/src/styles/` with modular approach:
-  - `components/` - Component-specific styles
-  - `layout/` - Grid and responsive styles  
-  - `utilities/` - Colors, spacing, typography
+- Tailwind CSS v4 with `@tailwindcss/vite` plugin
+- Dark theme by default with custom CSS variables
+- Responsive typography and layouts
+- Custom scrollbar styling
 
-**Path Aliases**:
-- `@/*` maps to `./src/*` for clean imports
+**Content Collections**:
+- TypeScript schema validation for content integrity
+- Multilingual support (English/Spanish)
+- JSON-based data structure for easy maintenance
 
-### Environment Variables
-- `GITHUB_TOKEN` - GitHub Personal Access Token for API access
-- Token validation checks for `ghp_` or `github_pat_` prefixes
-- See `.env.example` for setup
-
-### GitHub API Implementation
-- **API Route**: `/api/github/contributions` handles GitHub GraphQL queries
-- **Service Layer**: `src/services/github-auth.js` manages authentication
-- **Public API Fallback**: Uses public GitHub API when token unavailable
-- **Contribution Simulation**: Generates realistic contribution patterns based on user profile
+### Static Generation Benefits
+- **Zero JavaScript runtime** - Pure HTML/CSS delivery
+- **Lightning fast** load times
+- **SEO optimized** - All content pre-rendered
+- **Hosting flexibility** - Deploy to any static host
+- **Maximum security** - No server-side vulnerabilities
 
 ### Data Types
-Core TypeScript interfaces in `src/types/index.ts`:
+Core TypeScript interfaces defined in content schema:
 - `Work` - Work experience with projects and technologies
 - `Project` - Personal projects with GitHub links
-- `Blog` - Blog posts (future implementation)
+- All interfaces validated at build time
 
 ### Theme Implementation
-- Dark theme by default with system preference detection
-- Theme switching handled by `ThemeProvider` 
-- Prevents hydration flash with inline script in layout
+- Dark theme with CSS custom properties
+- Consistent color palette throughout the application
+- Responsive design patterns
+- Optimized for both desktop and mobile viewing
 
 ## Development Notes
 
-### GitHub Integration Testing
-When working with GitHub features, you can test without a token - the system gracefully falls back to simulated data.
+### Static-First Approach
+All functionality is implemented as static generation. No client-side JavaScript is used, ensuring maximum performance and compatibility.
 
-### Data Updates
-To update work experience or projects, modify the data objects in `src/lib/data.ts`. The system uses static generation, so changes appear immediately in development.
+### Content Updates
+To update work experience or projects, modify the JSON files in `src/content/`. Changes are reflected immediately in development and included in the next build.
 
 ### Responsive Behavior
 - Desktop: 3-column grid layout
-- Tablet: Layout adapts responsively
-- Mobile: Single column with hamburger menu
+- Tablet/Mobile: Single column stacked layout
+- All layouts are CSS-based with no JavaScript dependencies
 
-### Migration Context
-This codebase was migrated from Astro to Next.js 15, preserving all original functionality while modernizing the architecture. Some legacy references to Astro collections may remain in comments.
+### Performance Optimization
+- Static site generation for instant loading
+- Optimized images and assets
+- Minimal CSS with Tailwind's utility classes
+- No external runtime dependencies
+
+### Migration Notes
+This project was migrated from Next.js to Astro, converting all React components to Astro components and eliminating all client-side JavaScript while maintaining the same visual design and functionality.

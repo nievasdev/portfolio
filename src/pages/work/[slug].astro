@@ -1,0 +1,319 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const worksEn = await getCollection('works', ({ id }) => id === 'en');
+  const worksEs = await getCollection('works', ({ id }) => id === 'es');
+
+  const allWorks = [
+    ...(worksEn[0]?.data || []).map((work: any, index: number) => ({
+      params: { slug: `${index}-en` },
+      props: { work, lang: 'en', index }
+    })),
+    ...(worksEs[0]?.data || []).map((work: any, index: number) => ({
+      params: { slug: `${index}-es` },
+      props: { work, lang: 'es', index }
+    }))
+  ];
+
+  return allWorks;
+}
+
+const { work, lang, index } = Astro.props;
+---
+
+<Layout title={`${work.name} - MAURO NIEVAS`}>
+  <main>
+    <div class="work-detail">
+      <div class="work-layout">
+        <div id="terminal-header" class="terminal-header">
+          <span class="terminal-prompt" id="terminal-line-1"></span>
+          <span class="terminal-prompt" id="terminal-line-2"></span>
+        </div>
+
+        <div id="work-content" class="work-content work-hidden">
+          <nav class="back-nav">
+            <a href="/">← BACK</a>
+            <span class="terminal-mobile" id="terminal-mobile"></span>
+          </nav>
+
+          <div class="card border">
+        <div class="stack">
+          <div class="work-detail-header">
+            {work.logo && (
+              <img src={work.logo} alt={`${work.name} logo`} class="work-detail-logo" />
+            )}
+            <div>
+              <h1>{work.name}</h1>
+              <p class="work-meta">{work.time}</p>
+            </div>
+          </div>
+          <p class="desc">{work.workMethod}</p>
+        </div>
+
+        <div class="stack">
+          <h4>DESCRIPTION:</h4>
+          <p>{work.text}</p>
+          {work.largeText && work.largeText.length > 0 && (
+            <ul>
+              {work.largeText.map((text: string) => (
+                <li>{text}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="stack">
+          <h4>TECHNOLOGIES:</h4>
+          <div class="flex wrap">
+            {work.technologies.map((tech: any) => (
+              <span class="tag" data-category={tech.category}>{tech.name}</span>
+            ))}
+          </div>
+        </div>
+
+        {work.projects && work.projects.length > 0 && (
+          <div class="stack">
+            <h4>PROJECTS:</h4>
+            <ul>
+              {work.projects.map((project: any) => (
+                <li><strong>{project.title}:</strong> {project.text}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ workName: work.name }}>
+    function initWorkPage() {
+      const line1 = document.getElementById('terminal-line-1');
+      const line2 = document.getElementById('terminal-line-2');
+      const terminalMobile = document.getElementById('terminal-mobile');
+      const workContent = document.getElementById('work-content');
+
+      if (!line1 || !line2 || !terminalMobile || !workContent) return;
+
+      // Reset state on page load
+      line1.textContent = '';
+      line2.textContent = '';
+      terminalMobile.textContent = '';
+
+      // Force reset of animation
+      workContent.style.animation = 'none';
+      workContent.classList.remove('work-fade-in');
+      workContent.classList.add('work-hidden');
+
+      // Trigger reflow to restart animation
+      void workContent.offsetWidth;
+
+      setTimeout(() => {
+            workContent.style.animation = '';
+            workContent.classList.remove('work-hidden');
+            workContent.classList.add('work-fade-in');
+          }, 500);
+
+      const lines = [
+        `> cd ${workName.toLowerCase().replace(/\s+/g, '_')}/`,
+        `> less experience.txt`
+      ];
+
+      const mobileLine = `> cd ${workName.toLowerCase().replace(/\s+/g, '_')}/ && less experience.txt`;
+
+      let currentLine = 0;
+
+      // Desktop animation
+      function typeNextLine() {
+        if (currentLine >= lines.length) {
+          line1.classList.remove('typing');
+          line2.classList.remove('typing');
+         return;
+        }
+
+        const line = lines[currentLine];
+        const element = currentLine === 0 ? line1 : line2;
+        element.classList.add('typing');
+        let charIndex = 0;
+
+        const interval = setInterval(() => {
+          if (charIndex < line.length) {
+            element.textContent = line.substring(0, charIndex + 1);
+            charIndex++;
+          } else {
+            clearInterval(interval);
+            element.classList.remove('typing');
+            currentLine++;
+            setTimeout(typeNextLine, 1);
+          }
+        }, 15);
+      }
+
+      // Mobile animation
+      function typeMobileLine() {
+        terminalMobile.classList.add('typing');
+        let charIndex = 0;
+
+        const interval = setInterval(() => {
+          if (charIndex < mobileLine.length) {
+            terminalMobile.textContent = mobileLine.substring(0, charIndex + 1);
+            charIndex++;
+          } else {
+            clearInterval(interval);
+            terminalMobile.classList.remove('typing');
+          }
+        }, 15);
+      }
+
+      setTimeout(typeNextLine, 10);
+      setTimeout(typeMobileLine, 10);
+    }
+
+    // Run on initial load and on View Transitions navigation
+    document.addEventListener('astro:page-load', initWorkPage);
+    initWorkPage();
+  </script>
+</Layout>
+
+<style>
+  .work-detail {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .work-layout {
+    display: block;
+  }
+
+  .terminal-header {
+    display: none;
+  }
+
+  .terminal-prompt {
+    display: block;
+    font: 14px/1.5 Monaco, 'Courier New', Courier, monospace;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    min-height: 1.5rem;
+  }
+
+  .terminal-prompt:last-child {
+    margin-bottom: 0;
+  }
+
+  .terminal-prompt.typing::after {
+    content: '▊';
+    animation: blink-cursor 1s infinite;
+  }
+
+  .work-content {
+    width: 100%;
+  }
+
+  .work-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .work-fade-in {
+    visibility: visible !important;
+    animation: fadeIn 0.5s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @media (min-width: 64rem) {
+    .work-layout {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      position: relative;
+    }
+
+    .terminal-header {
+      display: block;
+      padding: 1rem;
+      position: fixed;
+      left: 1rem;
+      top: 1rem;
+      width: 250px;
+      height: fit-content;
+    }
+
+    .work-content {
+      max-width: 900px;
+      padding-right: 2rem;
+    }
+
+    .work-content p,
+    .work-content li {
+      line-height: 1.6;
+    }
+  }
+
+  .back-nav {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .back-nav a {
+    display: inline-block;
+  }
+
+  .terminal-mobile {
+    display: inline-block;
+    font: 12px/1.5 Monaco, 'Courier New', Courier, monospace;
+    color: var(--accent);
+  }
+
+  .terminal-mobile.typing::after {
+    content: '▊';
+    animation: blink-cursor 1s infinite;
+  }
+
+  @media (min-width: 64rem) {
+    .terminal-mobile {
+      display: none;
+    }
+  }
+
+  @media (max-width: 63.99rem) {
+    .terminal-header {
+      display: none !important;
+    }
+  }
+
+  .work-meta {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+
+  .work-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .work-detail-header h1 {
+    margin-bottom: 0.25rem;
+  }
+
+  .work-detail-logo {
+    height: 80px;
+    width: auto;
+  }
+</style>

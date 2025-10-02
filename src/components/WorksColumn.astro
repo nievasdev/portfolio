@@ -1,0 +1,54 @@
+---
+export interface Props {
+  works: Array<{
+    name: string;
+    time: string;
+    logo: string;
+    text: string;
+    largeText: string[];
+    workMethod: string;
+    projects: Array<{
+      title: string;
+      text: string;
+    }>;
+    technologies: Array<{
+      name: string;
+      logo: string;
+    }>;
+  }>;
+  lang?: string;
+}
+
+const { works, lang = 'en' } = Astro.props;
+---
+
+<section>
+  <div>
+    {works.map((work, index) => (
+    <a
+      href={`/work/${index}-${lang}`}
+      class="card card-clickable work-card"
+      onclick="playTerminalSound()"
+    >
+        <p class="work-time">{work.time}</p>
+        <div class="work-main">
+          <div class="work-title-section">
+            {work.logo && (
+              <div class="work-logo-container">
+                <img src={work.logo} alt={`${work.name} logo`} class="work-logo" />
+              </div>
+            )}
+            <h3>{work.name}</h3>
+          </div>
+          {work.largeText && work.largeText.length > 0 && (
+            <ul class="work-description">
+              {work.largeText.map((text: string) => (
+                <li>{text}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

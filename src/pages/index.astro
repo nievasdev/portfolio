@@ -1,0 +1,142 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import WorksColumn from '../components/WorksColumn.astro';
+import MeSectionCompactEn from '../components/MeSectionCompactEn.astro';
+import MeSectionCompactEs from '../components/MeSectionCompactEs.astro';
+import ProjectsColumn from '../components/ProjectsColumn.astro';
+
+// Get data from content collections for both languages
+const worksEn = await getCollection('works', ({ id }) => id === 'en');
+const projectsEn = await getCollection('projects', ({ id }) => id === 'en');
+const worksEs = await getCollection('works', ({ id }) => id === 'es');
+const projectsEs = await getCollection('projects', ({ id }) => id === 'es');
+
+const worksEnData = worksEn[0]?.data || [];
+const projectsEnData = projectsEn[0]?.data || [];
+const worksEsData = worksEs[0]?.data || [];
+const projectsEsData = projectsEs[0]?.data || [];
+---
+
+<Layout title="MAURO NIEVAS - PORTFOLIO">
+  <main>
+    <!-- Desktop Grid Layout -->
+    <div class="desktop" id="content-en">
+      <!-- Left Column: Works -->
+      <div>
+        <h2>EXPERIENCE</h2>
+        <WorksColumn works={worksEnData} lang="en" />
+      </div>
+
+      <!-- Center Column: Personal Info -->
+      <div>
+        <MeSectionCompactEn />
+      </div>
+
+      <!-- Right Column: Projects -->
+      <div>
+        <h2>PROJECTS</h2>
+        <ProjectsColumn projects={projectsEnData} />
+      </div>
+    </div>
+
+    <div class="desktop hidden" id="content-es">
+      <!-- Left Column: Works -->
+      <div>
+        <h2>EXPERIENCIA</h2>
+        <WorksColumn works={worksEsData} lang="es" />
+      </div>
+
+      <!-- Center Column: Personal Info -->
+      <div>
+        <MeSectionCompactEs />
+      </div>
+
+      <!-- Right Column: Projects -->
+      <div>
+        <h2>PROYECTOS</h2>
+        <ProjectsColumn projects={projectsEsData} />
+      </div>
+    </div>
+
+    <!-- Mobile/Tablet Layout -->
+    <div class="mobile" id="mobile-en">
+      <div>
+        <MeSectionCompactEn />
+      </div>
+      <div>
+        <h2>EXPERIENCE</h2>
+        <WorksColumn works={worksEnData} lang="en" />
+      </div>
+      <div>
+        <h2>PROJECTS</h2>
+        <ProjectsColumn projects={projectsEnData} />
+      </div>
+    </div>
+
+    <div class="mobile hidden" id="mobile-es">
+      <div>
+        <MeSectionCompactEs />
+      </div>
+      <div>
+        <h2>EXPERIENCIA</h2>
+        <WorksColumn works={worksEsData} lang="es" />
+      </div>
+      <div>
+        <h2>PROYECTOS</h2>
+        <ProjectsColumn projects={projectsEsData} />
+      </div>
+    </div>
+  </main>
+
+  <script is:inline>
+    let currentLang = 'en';
+
+    function switchLanguage(lang) {
+      currentLang = lang;
+
+      // Update content visibility using classes
+      const contentEn = document.getElementById('content-en');
+      const contentEs = document.getElementById('content-es');
+      const mobileEn = document.getElementById('mobile-en');
+      const mobileEs = document.getElementById('mobile-es');
+
+      if (lang === 'en') {
+        contentEn.classList.remove('hidden');
+        contentEs.classList.add('hidden');
+        mobileEn.classList.remove('hidden');
+        mobileEs.classList.add('hidden');
+      } else {
+        contentEn.classList.add('hidden');
+        contentEs.classList.remove('hidden');
+        mobileEn.classList.add('hidden');
+        mobileEs.classList.remove('hidden');
+      }
+
+      // Save preference
+      localStorage.setItem('preferred-lang', lang);
+
+      // Play sound
+      if (typeof playTerminalSound === 'function') {
+        playTerminalSound();
+      }
+    }
+
+    function toggleLanguage() {
+      const newLang = currentLang === 'en' ? 'es' : 'en';
+      switchLanguage(newLang);
+    }
+
+    // Load saved language preference on page load
+    document.addEventListener('astro:page-load', () => {
+      const savedLang = localStorage.getItem('preferred-lang') || 'en';
+      switchLanguage(savedLang);
+    });
+  </script>
+</Layout>
+
+<style>
+  .hidden {
+    display: none !important;
+  }
+</style>

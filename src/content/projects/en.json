@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Meteor",
+    "time": "2022",
+    "logo": "/logo_meteor.png",
+    "text": "Stock management system for store inventory. Controls product brands, types, quantities & sales history with MongoDB database.",
+    "largeText": [
+      "Meteor is an open-source web and mobile development platform that uses JavaScript on both the client and server sides, with a real-time data system and a wide range of open-source packages and libraries to facilitate integration with other web technologies and services."
+    ],
+    "github": "https://github.com/Mauro-js/Meteor_practices",
+    "technologies": [
+      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
+      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
+    ]
+  },
+  {
+    "name": "Flask",
+    "time": "2023",
+    "logo": "/logo_flask.png", 
+    "text": "A Flask-based website with a PostgreSQL database for the presidential elections of a physics professors' commission.",
+    "largeText": [
+      "Flask is a Python web framework that allows developers to quickly and easily create web applications. Flask is considered a micro-framework, which means that it is designed to be lightweight and flexible, and does not include unnecessary additional components.",
+      "Flask provides the basic tools for creating web applications, such as URL routing, cookie management, support for Jinja2 templates, and more. Although Flask is considered a beginner-level framework, it is highly scalable and extensible, and is used by developers of all levels of experience to create web applications from simple to complex."
+    ],
+    "github": "https://github.com/Mauro-js/test_python_flask",
+    "technologies": [
+      { "name": "python", "logo": "/logo_python.png", "category": "language" }
+    ]
+  }
+]

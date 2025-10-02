@@ -1,92 +1,43 @@
-# Portfolio Next.js
+# Astro Starter Kit: Minimal
 
-Portfolio personal migrado de Astro a Next.js 15 con todas las funcionalidades originales.
-
-## 🚀 Características
-
-- **Next.js 15** con App Router
-- **TypeScript** completo
-- **Tailwind CSS** con tema personalizado "spacial"
-- **Custom UI Library** (reemplaza NextUI)
-- **Responsive Design** completo
-- **Animaciones suaves** con CSS y Framer Motion
-- **GitHub API** integración en tiempo real
-- **Dark theme** por defecto
-- **Layout de 3 columnas** idéntico al original
-
-## 🛠️ Tecnologías
-
-- Next.js 15.4.4
-- React 19
-- TypeScript
-- Tailwind CSS
-- Framer Motion
-- next-themes
-- @octokit/core
-
-## 📦 Instalación
-
-```bash
-# Usar Node.js 20+
-nvm use 20.0.0
-
-# Instalar dependencias
-npm install
-
-# Ejecutar en desarrollo
-npm run dev
-
-# Build para producción
-npm run build
-
-# Iniciar servidor de producción
-npm start
+```sh
+npm create astro@latest -- --template minimal
 ```
 
-## 🌐 Desarrollo
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-El servidor de desarrollo corre en: http://localhost:3000
+## 🚀 Project Structure
 
-## 📁 Estructura
+Inside of your Astro project, you'll see the following folders and files:
 
-```
-src/
-├── app/                 # App Router de Next.js
-├── components/          # Componentes React
-│   ├── ui/             # Biblioteca UI personalizada
-│   ├── icons.tsx       # Iconos SVG
-│   └── ...
-├── hooks/              # Custom hooks
-├── lib/                # Utilidades y datos
-├── providers/          # Providers de contexto
-├── types/              # Definiciones TypeScript
-└── styles/             # Estilos globales
+```text
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
 ```
 
-## 🎨 Componentes Principales
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-- **Navbar** - Navegación con menú móvil
-- **ChangingContentAnimation** - Animación del nombre
-- **MeSectionCompact** - Información personal
-- **WorksColumn** - Experiencia laboral
-- **ProjectsColumn** - Proyectos personales
-- **UI Library** - Componentes reutilizables
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
-## 🚀 Deployment
+Any static assets, like images, can be placed in the `public/` directory.
 
-El proyecto está optimizado para deployment en Vercel, Netlify o cualquier plataforma que soporte Next.js.
+## 🧞 Commands
 
-## 📱 Responsive
+All commands are run from the root of the project, from a terminal:
 
-- **Desktop**: Grid de 3 columnas
-- **Tablet**: Layout adaptativo  
-- **Mobile**: Columna única con menú hamburguesa
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 🎯 Migración Completada
+## 👀 Want to learn more?
 
-✅ Todas las funcionalidades del portfolio original en Astro han sido migradas exitosamente a Next.js
-✅ Diseño idéntico y responsive
-✅ Componentes UI personalizados funcionando
-✅ Animaciones y transiciones preservadas
-✅ GitHub API integrado
-✅ Build y desarrollo funcionando correctamente
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

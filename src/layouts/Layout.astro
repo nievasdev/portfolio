@@ -1,0 +1,29 @@
+---
+import '../styles/global.css';
+import { ViewTransitions } from 'astro:transitions';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Full Stack Developer Portfolio" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <ViewTransitions />
+  </head>
+  <body class="bg-background text-foreground antialiased">
+    <slot />
+    <script is:inline>
+function playTerminalSound(){const t=new(window.AudioContext||window.webkitAudioContext)(),e=t.createOscillator(),n=t.createGain();e.connect(n),n.connect(t.destination),e.frequency.value=2e3,e.type="sine",n.gain.setValueAtTime(0,t.currentTime),n.gain.linearRampToValueAtTime(.18,t.currentTime+.003),n.gain.linearRampToValueAtTime(0,t.currentTime+.035),e.start(t.currentTime),e.stop(t.currentTime+.035);const a=t.createOscillator(),i=t.createGain();a.connect(i),i.connect(t.destination),a.frequency.value=1400,a.type="sine",i.gain.setValueAtTime(0,t.currentTime+.012),i.gain.linearRampToValueAtTime(.12,t.currentTime+.018),i.gain.linearRampToValueAtTime(0,t.currentTime+.045),a.start(t.currentTime+.012),a.stop(t.currentTime+.045)}window.playTerminalSound=playTerminalSound;
+    </script>
+  </body>
+</html>

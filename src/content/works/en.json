@@ -1,0 +1,117 @@
+[
+  {
+    "name": "Antel",
+    "time": "2022 - Current",
+    "logo": "/logo_ancel.svg",
+    "text": "Node.js microservices handling 3.5M daily transactions. Large-scale refactoring reduced deployment by 40%, errors by 99.9%. GitLab CI/CD with 85% test coverage.",
+    "largeText": [
+      "Developed Node.js microservices handling up to 3.5M daily transactions, integrating SQLite databases and SFTP services.",
+      "Optimized and designed internal processes across multiple applications while coordinating cross‑functional teams, accelerating response time by 50% and reducing errors by 99.9%."
+    ],
+    "workMethod": "The working method involves a weekly meeting to coordinate projects and priorities.",
+    "projects": [
+      {
+        "title": "Page in NextJs",
+        "text": "A project in Next.js from scratch with an SQLite database, login, validations, and an SMS messaging service."
+      },
+      {
+        "title": "Node",
+        "text": "Node project with authentication and generation of security codes."
+      },
+      {
+        "title": "Java to Node",
+        "text": "Migration of an IP management project from Java to Node."
+      },
+      {
+        "title": "Jest",
+        "text": "Creating Unit Tests in Jest"
+      }
+    ],
+    "technologies": [
+      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
+      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
+      { "name": "NextJs", "logo": "/logo_next.png", "category": "framework" },
+      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
+    ]
+  },
+  {
+    "name": "Upshow",
+    "time": "2021 - 2022",
+    "logo": "/logo_upshow.png",
+    "text": "Built React dashboards consuming Node/Express APIs. Integrated GitHub & Jira for real-time cross-referenced reports. Agile/Scrum full lifecycle support.",
+    "largeText": [
+      "Upshow is a company specialized in technology and interactive platforms designed to enhance engagement and interaction at live events and public venues. It provides solutions that allow establishments and organizers to display user-generated content on screens and monitors, creating a more engaging experience for the audience and encouraging real-time participation.",
+      "My growth within the company was thanks to a team that provided me with feedback, English classes, and paid Udemy courses sponsored by the company."
+    ],
+    "workMethod": "Scrum methodology is used based on requests from a manager.",
+    "projects": [
+      {
+        "title": "React feature",
+        "text": "Creation of small features for React projects."
+      },
+      {
+        "title": "Node, GitHub and Jira",
+        "text": "Data integration project between GitHub and Jira."
+      },
+      {
+        "title": "Elasticsearch",
+        "text": "Automation project for data analysis in Elasticsearch."
+      },
+      {
+        "title": "Show services status",
+        "text": "Project that displays the status of our services day by day and hour by hour."
+      }
+    ],
+    "technologies": [
+      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
+      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
+      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
+    ]
+  },
+  {
+    "name": "Hacknoid",
+    "time": "2018 - 2021",
+    "logo": "/logo_hacknoid.png",
+    "text": "Migrated frontend from Zend PHP to React.js, improving load time by 60%. Git branching strategies for releases. Optimized SQL queries, reducing response by 40%.",
+    "largeText": [
+      "Hacknoid is a cybersecurity-oriented company that has an automated pentesting application."
+    ],
+    "workMethod": "Occasional meetings with the boss.",
+    "projects": [
+      {
+        "title": "Django, Python",
+        "text": "Creation of backend with Django Python."
+      },
+      {
+        "title": "Zend to React",
+        "text": "Migration of frontend from Zend Framework to React."
+      },
+      {
+        "title": "Automated pentesting",
+        "text": "Creation of modules for pentesting in Python."
+      }
+    ],
+    "technologies": [
+      { "name": "python", "logo": "/logo_python.png", "category": "language" },
+      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
+      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
+      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
+    ]
+  },
+  {
+    "name": "Gestion total",
+    "time": "2017 - 2018",
+    "logo": "/logo_gestionTotal.png",
+    "text": "Developed custom JavaScript modules for ERP system, tailoring workflows to client needs across diverse industries. Responsive UI with HTML5/CSS3.",
+    "largeText": [
+      "Gestion total sells features on an ERPNext which is focused on the administrative management of companies.",
+      "My growth came from solving the small challenges that arose at work"
+    ],
+    "workMethod": "Commissioned by clients.",
+    "projects": [],
+    "technologies": [
+      { "name": "python", "logo": "/logo_python.png", "category": "language" },
+      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" }
+    ]
+  }
+]
