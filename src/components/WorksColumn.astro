@@ -31,6 +31,7 @@ const { works, lang = 'en' } = Astro.props;
       onclick="playTerminalSound()"
     >
         <p class="work-time">{work.time}</p>
+        <h3 class="work-title">{work.name}</h3>
         <div class="work-main">
           <div class="work-title-section">
             {work.logo && (
@@ -38,7 +39,6 @@ const { works, lang = 'en' } = Astro.props;
                 <img src={work.logo} alt={`${work.name} logo`} class="work-logo" />
               </div>
             )}
-            <h3>{work.name}</h3>
           </div>
           {work.largeText && work.largeText.length > 0 && (
             <ul class="work-description">

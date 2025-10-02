@@ -43,10 +43,11 @@ strong{text-transform:uppercase;color:var(--accent)}
 .desc{color:var(--gray);font-size:10px;line-height:1.2}
 .work-card{position:relative;border-top:1px solid #fff3}
 .work-time{position:absolute;top:-7px;right:1.5rem;background:var(--bg);padding:0 .5rem;color:#aaa;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin:0}
-.work-main{display:flex;gap:1rem;align-items:center}
-.work-title-section{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.work-title{position:absolute;top:-9px;left:1.5rem;background:var(--bg);padding:0 .5rem;margin:0}
+.work-main{overflow:auto}
+.work-title-section{float:left;margin-right:1rem;margin-bottom:.5rem}
 .work-logo-container{display:flex;justify-content:center}
-.work-logo{height:64px;width:auto}
+.work-logo{height:80px;width:auto}
 .work-description{margin:0}
 .work-description li{border-left:none;padding-left:0}
 ::-webkit-scrollbar{width:6px}
