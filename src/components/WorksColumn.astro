@@ -5,6 +5,8 @@ export interface Props {
     time: string;
     logo: string;
     text: string;
+    tagline?: string;
+    highlights?: string[];
     largeText: string[];
     workMethod: string;
     projects: Array<{
@@ -14,6 +16,10 @@ export interface Props {
     technologies: Array<{
       name: string;
       logo: string;
+    }>;
+    stats?: Array<{
+      value: string;
+      label: string;
     }>;
   }>;
   lang?: string;
@@ -28,7 +34,6 @@ const { works, lang = 'en' } = Astro.props;
     <a
       href={`/work/${index}-${lang}`}
       class="card card-clickable work-card"
-      onclick="playTerminalSound()"
     >
         <p class="work-time">{work.time}</p>
         <h3 class="work-title">{work.name}</h3>
@@ -36,16 +41,34 @@ const { works, lang = 'en' } = Astro.props;
           <div class="work-title-section">
             {work.logo && (
               <div class="work-logo-container">
-                <img src={work.logo} alt={`${work.name} logo`} class="work-logo" />
+                <img src={work.logo} alt={`${work.name} logo`} class="work-logo" width="80" height="80" />
               </div>
             )}
           </div>
-          {work.largeText && work.largeText.length > 0 && (
+          {work.tagline && <p class="desc work-tagline">{work.tagline}</p>}
+          {work.stats && work.stats.length > 0 && (
+            <div class="stats-row">
+              {work.stats.map((stat) => (
+                <div class="stat">
+                  <b>{stat.value}</b>
+                  <span>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          {work.highlights && work.highlights.length > 0 && (
             <ul class="work-description">
-              {work.largeText.map((text: string) => (
+              {work.highlights.slice(0, 2).map((text: string) => (
                 <li>{text}</li>
               ))}
             </ul>
+          )}
+          {work.technologies && work.technologies.length > 0 && (
+            <div class="flex wrap work-tags">
+              {work.technologies.map((tech: any) => (
+                <span class="tag" data-category={tech.category}>{tech.name}</span>
+              ))}
+            </div>
           )}
         </div>
       </a>

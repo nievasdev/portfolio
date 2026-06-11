@@ -28,13 +28,9 @@ const projectsEsData = projectsEs[0]?.data || [];
         <WorksColumn works={worksEnData} lang="en" />
       </div>
 
-      <!-- Center Column: Personal Info -->
+      <!-- Right Column: Personal Info + Projects -->
       <div>
         <MeSectionCompactEn />
-      </div>
-
-      <!-- Right Column: Projects -->
-      <div>
         <h2>PROJECTS</h2>
         <ProjectsColumn projects={projectsEnData} />
       </div>
@@ -47,13 +43,9 @@ const projectsEsData = projectsEs[0]?.data || [];
         <WorksColumn works={worksEsData} lang="es" />
       </div>
 
-      <!-- Center Column: Personal Info -->
+      <!-- Right Column: Personal Info + Projects -->
       <div>
         <MeSectionCompactEs />
-      </div>
-
-      <!-- Right Column: Projects -->
-      <div>
         <h2>PROYECTOS</h2>
         <ProjectsColumn projects={projectsEsData} />
       </div>
@@ -61,6 +53,10 @@ const projectsEsData = projectsEs[0]?.data || [];
 
     <!-- Mobile/Tablet Layout -->
     <div class="mobile" id="mobile-en">
+      <div class="contact-bar">
+        <strong>MAURO NIEVAS</strong>
+        <a href="mailto:mauro@nievas.dev" class="cta">CONTACT →</a>
+      </div>
       <div>
         <MeSectionCompactEn />
       </div>
@@ -75,6 +71,10 @@ const projectsEsData = projectsEs[0]?.data || [];
     </div>
 
     <div class="mobile hidden" id="mobile-es">
+      <div class="contact-bar">
+        <strong>MAURO NIEVAS</strong>
+        <a href="mailto:mauro@nievas.dev" class="cta">CONTACTAR →</a>
+      </div>
       <div>
         <MeSectionCompactEs />
       </div>
@@ -115,11 +115,6 @@ const projectsEsData = projectsEs[0]?.data || [];
 
       // Save preference
       localStorage.setItem('preferred-lang', lang);
-
-      // Play sound
-      if (typeof playTerminalSound === 'function') {
-        playTerminalSound();
-      }
     }
 
     function toggleLanguage() {

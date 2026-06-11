@@ -4,9 +4,20 @@
     "time": "2022 - Current",
     "logo": "/logo_ancel.svg",
     "text": "Node.js microservices handling 3.5M daily transactions. Large-scale refactoring reduced deployment by 40%, errors by 99.9%. GitLab CI/CD with 85% test coverage.",
-    "largeText": [
+    "tagline": "State telecom of Uruguay",
+    "highlights": [
       "Developed Node.js microservices handling up to 3.5M daily transactions, integrating SQLite databases and SFTP services.",
-      "Optimized and designed internal processes across multiple applications while coordinating cross‑functional teams, accelerating response time by 50% and reducing errors by 99.9%."
+      "Optimized internal processes across multiple applications, making responses 50% faster and reducing errors by 99.9%."
+    ],
+    "largeText": [
+      "Antel, the National Telecommunications Administration, is a Uruguayan state-owned company responsible for providing telecommunications services in Uruguay. It is the country's main provider of fixed and mobile telephony, internet, and cable television. Founded in 1974, Antel plays a key role in Uruguay's communications infrastructure, offering services both nationally and internationally.",
+      "My growth as a developer has been helped by two engineers with many years of experience at Antel. They have provided corrections to my code and recommended courses to improve my skills."
+    ],
+    "stats": [
+      { "value": "3.5M", "label": "daily transactions" },
+      { "value": "-99.9%", "label": "errors" },
+      { "value": "50%", "label": "faster response" },
+      { "value": "85%", "label": "test coverage" }
     ],
     "workMethod": "The working method involves a weekly meeting to coordinate projects and priorities.",
     "projects": [
@@ -39,6 +50,11 @@
     "time": "2021 - 2022",
     "logo": "/logo_upshow.png",
     "text": "Built React dashboards consuming Node/Express APIs. Integrated GitHub & Jira for real-time cross-referenced reports. Agile/Scrum full lifecycle support.",
+    "tagline": "Interactive engagement platforms for venues",
+    "highlights": [
+      "Built React dashboards consuming Node/Express APIs, supporting the full Agile/Scrum lifecycle.",
+      "Integrated GitHub and Jira data for real-time cross-referenced reports."
+    ],
     "largeText": [
       "Upshow is a company specialized in technology and interactive platforms designed to enhance engagement and interaction at live events and public venues. It provides solutions that allow establishments and organizers to display user-generated content on screens and monitors, creating a more engaging experience for the audience and encouraging real-time participation.",
       "My growth within the company was thanks to a team that provided me with feedback, English classes, and paid Udemy courses sponsored by the company."
@@ -73,6 +89,11 @@
     "time": "2018 - 2021",
     "logo": "/logo_hacknoid.png",
     "text": "Migrated frontend from Zend PHP to React.js, improving load time by 60%. Git branching strategies for releases. Optimized SQL queries, reducing response by 40%.",
+    "tagline": "Cybersecurity / automated pentesting",
+    "highlights": [
+      "Migrated the frontend from Zend PHP to React.js, improving load time by 60%.",
+      "Optimized SQL queries, reducing response time by 40%."
+    ],
     "largeText": [
       "Hacknoid is a cybersecurity-oriented company that has an automated pentesting application."
     ],
@@ -103,6 +124,11 @@
     "time": "2017 - 2018",
     "logo": "/logo_gestionTotal.png",
     "text": "Developed custom JavaScript modules for ERP system, tailoring workflows to client needs across diverse industries. Responsive UI with HTML5/CSS3.",
+    "tagline": "ERP solutions for business management",
+    "highlights": [
+      "Developed custom JavaScript modules for ERPNext, tailoring workflows to client needs across diverse industries.",
+      "Built responsive UIs with HTML5/CSS3."
+    ],
     "largeText": [
       "Gestion total sells features on an ERPNext which is focused on the administrative management of companies.",
       "My growth came from solving the small challenges that arose at work"

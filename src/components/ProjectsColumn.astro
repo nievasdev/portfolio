@@ -7,6 +7,8 @@ export interface Props {
     text: string;
     largeText?: string[];
     github: string;
+    demo?: string;
+    screenshot?: string;
     technologies: Array<{
       name: string;
       logo: string;
@@ -23,12 +25,15 @@ const { projects } = Astro.props;
       <div>
         <input type="checkbox" id={`project-modal-${index}`} class="modal-toggle" />
         
-        <label for={`project-modal-${index}`} class="card card-clickable" onclick="playTerminalSound()">
+        <label for={`project-modal-${index}`} class="card card-clickable">
           <div class="stack">
             <div class="work-header">
               <h3>{project.name}</h3>
               <p class="work-time">{project.time}</p>
             </div>
+            {project.screenshot && (
+              <img src={project.screenshot} alt={`${project.name} screenshot`} class="project-shot" loading="lazy" decoding="async" />
+            )}
             <p>{project.text}</p>
 
             <div>
@@ -54,7 +59,7 @@ const { projects } = Astro.props;
               <h4>DESCRIPTION:</h4>
               <p>{project.text}</p>
               {project.largeText && project.largeText.map((text) => (
-                <p>{project.text}</p>
+                <p>{text}</p>
               ))}
             </div>
             
@@ -67,10 +72,15 @@ const { projects } = Astro.props;
               </div>
             </div>
             
-            <div>
+            <div class="project-links">
               <a href={project.github} target="_blank" rel="noopener noreferrer">
                 VIEW CODE →
               </a>
+              {project.demo && (
+                <a href={project.demo} target="_blank" rel="noopener noreferrer">
+                  LIVE DEMO →
+                </a>
+              )}
             </div>
           </div>
         </div>

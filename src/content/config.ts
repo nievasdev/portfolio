@@ -7,7 +7,13 @@ const works = defineCollection({
     time: z.string(),
     logo: z.string(),
     text: z.string(),
+    tagline: z.string().optional(),
+    highlights: z.array(z.string()).optional(),
     largeText: z.array(z.string()),
+    stats: z.array(z.object({
+      value: z.string(),
+      label: z.string(),
+    })).optional(),
     workMethod: z.string(),
     projects: z.array(z.object({
       title: z.string(),
@@ -30,6 +36,8 @@ const projects = defineCollection({
     text: z.string(),
     largeText: z.array(z.string()).optional(),
     github: z.string(),
+    demo: z.string().optional(),
+    screenshot: z.string().optional(),
     technologies: z.array(z.object({
       name: z.string(),
       logo: z.string(),

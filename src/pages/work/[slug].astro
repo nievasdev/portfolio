@@ -42,7 +42,7 @@ const { work, lang, index } = Astro.props;
         <div class="stack">
           <div class="work-detail-header">
             {work.logo && (
-              <img src={work.logo} alt={`${work.name} logo`} class="work-detail-logo" />
+              <img src={work.logo} alt={`${work.name} logo`} class="work-detail-logo" width="80" height="80" />
             )}
             <div>
               <h1>{work.name}</h1>
@@ -52,15 +52,35 @@ const { work, lang, index } = Astro.props;
           <p class="desc">{work.workMethod}</p>
         </div>
 
+        {work.stats && work.stats.length > 0 && (
+          <div class="stats-row">
+            {work.stats.map((stat: any) => (
+              <div class="stat">
+                <b>{stat.value}</b>
+                <span>{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {work.highlights && work.highlights.length > 0 && (
+          <div class="stack">
+            <h4>HIGHLIGHTS:</h4>
+            <ul>
+              {work.highlights.map((text: string) => (
+                <li>{text}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div class="stack">
           <h4>DESCRIPTION:</h4>
           <p>{work.text}</p>
           {work.largeText && work.largeText.length > 0 && (
-            <ul>
-              {work.largeText.map((text: string) => (
-                <li>{text}</li>
-              ))}
-            </ul>
+            work.largeText.map((text: string) => (
+              <p>{text}</p>
+            ))
           )}
         </div>
 
@@ -178,6 +198,16 @@ const { work, lang, index } = Astro.props;
             // Keep the typing cursor after animation finishes
           }
         }, 15);
+      }
+
+      // Skip typing animation if the user prefers reduced motion
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        line1.textContent = lines[0];
+        line2.textContent = lines[1];
+        line2.classList.add('typing');
+        terminalMobile.textContent = mobileLine;
+        terminalMobile.classList.add('typing');
+        return;
       }
 
       // Only run the appropriate animation based on screen size
