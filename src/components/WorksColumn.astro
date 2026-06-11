@@ -26,6 +26,9 @@ export interface Props {
 }
 
 const { works, lang = 'en' } = Astro.props;
+
+const rawLogos = import.meta.glob('../../public/logo_*.svg', { query: '?raw', import: 'default', eager: true });
+const logoFor = (path: string) => rawLogos[`../../public${path}`] as string | undefined;
 ---
 
 <section>
@@ -39,10 +42,8 @@ const { works, lang = 'en' } = Astro.props;
         <h3 class="work-title">{work.name}</h3>
         <div class="work-main">
           <div class="work-title-section">
-            {work.logo && (
-              <div class="work-logo-container">
-                <img src={work.logo} alt={`${work.name} logo`} class="work-logo" width="56" height="56" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
-              </div>
+            {work.logo && logoFor(work.logo) && (
+              <div class="work-logo-container work-logo" aria-hidden="true" set:html={logoFor(work.logo)} />
             )}
           </div>
           <div class="work-body">

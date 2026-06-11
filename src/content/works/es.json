@@ -2,7 +2,7 @@
   {
     "name": "Antel",
     "time": "2022 - Actual",
-    "logo": "/logo_ancel.webp",
+    "logo": "/logo_ancel.svg",
     "text": "Una refactorización a gran escala redujo el tiempo de deployment en 40%. Pipeline de GitLab CI/CD con 85% de cobertura de tests en Jest.",
     "tagline": "Telecom estatal de Uruguay",
     "highlights": [
@@ -72,7 +72,7 @@
   {
     "name": "Upshow",
     "time": "2021 - 2022",
-    "logo": "/logo_upshow.webp",
+    "logo": "/logo_upshow.svg",
     "text": "Construí dashboards React consumiendo APIs Node/Express. Integré GitHub y Jira para reportes de referencia cruzada en tiempo real. Soporte completo del ciclo de vida Agile/Scrum.",
     "tagline": "Plataformas interactivas para venues",
     "highlights": [
@@ -120,7 +120,7 @@
   {
     "name": "Hacknoid",
     "time": "2018 - 2021",
-    "logo": "/logo_hacknoid.webp",
+    "logo": "/logo_hacknoid.svg",
     "text": "Migré frontend de Zend PHP a React.js, mejorando tiempo de carga 60%. Estrategias de branching Git para releases. Optimicé consultas SQL, reduciendo respuesta 40%.",
     "tagline": "Ciberseguridad / pentesting automatizado",
     "highlights": [
@@ -167,7 +167,7 @@
   {
     "name": "Gestion total",
     "time": "2017 - 2018",
-    "logo": "/logo_gestionTotal.webp",
+    "logo": "/logo_gestionTotal.svg",
     "text": "Desarrollé módulos JavaScript personalizados para sistema ERP, adaptando flujos de trabajo a necesidades de clientes en diversas industrias. UI responsiva con HTML5/CSS3.",
     "tagline": "Soluciones ERP para gestión empresarial",
     "highlights": [

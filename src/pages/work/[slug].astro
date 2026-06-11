@@ -37,6 +37,9 @@ export async function getStaticPaths() {
 }
 
 const { work, lang, index, otherWorks } = Astro.props;
+
+const rawLogos = import.meta.glob('../../../public/logo_*.svg', { query: '?raw', import: 'default', eager: true });
+const logoRaw = work.logo ? (rawLogos[`../../../public${work.logo}`] as string | undefined) : undefined;
 ---
 
 <Layout title={`${work.name} - MAURO NIEVAS`}>
@@ -65,8 +68,8 @@ const { work, lang, index, otherWorks } = Astro.props;
           <div class="card border">
         <div class="stack">
           <div class="work-detail-header">
-            {work.logo && (
-              <img src={work.logo} alt={`${work.name} logo`} class="work-detail-logo" width="80" height="80" decoding="async" />
+            {logoRaw && (
+              <div class="work-detail-logo" aria-hidden="true" set:html={logoRaw} />
             )}
             <div>
               <h1>{work.name}</h1>
@@ -433,6 +436,11 @@ const { work, lang, index, otherWorks } = Astro.props;
     height: 80px;
     width: auto;
     animation: pixelateToFocus 1s ease-out forwards;
+  }
+
+  .work-detail-logo :global(svg) {
+    height: 80px;
+    width: auto;
   }
 
   @keyframes pixelateToFocus {

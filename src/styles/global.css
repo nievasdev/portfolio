@@ -43,6 +43,7 @@ strong{text-transform:uppercase;color:#eee}
 .work-body{flex:1;min-width:0}
 .work-logo-container{display:flex;justify-content:center}
 .work-logo{height:56px;width:auto}
+.work-logo svg{height:56px;width:auto}
 .work-description{margin:0}
 .work-description li{border-left:none;padding-left:0}
 .work-tagline{margin-bottom:.5rem;color:#888}
