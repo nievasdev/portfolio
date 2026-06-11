@@ -23,7 +23,6 @@ li{font:400 14px/1.65 var(--sans);margin-bottom:.35rem;padding:.25rem .5rem;bord
 li:before{content:"▸ ";color:var(--gray);margin-right:.25rem;font-family:var(--mono)}
 strong{text-transform:uppercase;color:#eee}
 .border{border:1px solid #fff3}
-.grid{display:grid}
 .flex{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
 .wrap{flex-wrap:wrap;gap:.25rem}
 .center{text-align:center;margin-bottom:1rem}
@@ -32,12 +31,6 @@ strong{text-transform:uppercase;color:#eee}
 .tag[data-category="language"]:hover{background:#8BAE3A;transform:scale(1.1)}
 .tag[data-category="framework"]{background:#4682B4;border:1px solid #4682B4;color:#000}
 .tag[data-category="framework"]:hover{background:#5B9FD5;transform:scale(1.1)}
-.tag[data-category="database"]{background:#8B7355;border:1px solid #8B7355;color:#000}
-.tag[data-category="database"]:hover{background:#A99070;transform:scale(1.1)}
-.tag[data-category="testing"]{background:#9B8B47;border:1px solid #9B8B47;color:#000}
-.tag[data-category="testing"]:hover{background:#BCA960;transform:scale(1.1)}
-.tag[data-category="security"]{background:#704214;border:1px solid #704214;color:#fff}
-.tag[data-category="security"]:hover{background:#8F5A2A;transform:scale(1.1)}
 .card{border:1px solid #fff3;padding:calc(.8rem - 1px) 1.2rem;margin-bottom:1rem;display:block}
 .stack{margin-bottom:.75rem}
 .stack > div{margin-bottom:.75rem}
@@ -95,16 +88,6 @@ a.icon-link:hover{background:transparent;border-color:#0f0;color:#0f0;transform:
 .mobile>div{margin-bottom:2rem}
 .hero{flex-direction:column;align-items:flex-start;padding:.75rem 1rem .75rem 3.5rem;gap:.5rem}
 }
-.contrib{display:grid;grid-template-columns:repeat(53,1fr);gap:1px;margin-bottom:.75rem}
-.contrib div{width:8px;height:8px}
-.c0{background:transparent;border:1px solid #fff1}
-.c1{background:#fff3}
-.c2{background:#fff6}
-.c3{background:#fff9}
-.c4{background:#fff}
-.stats{display:flex;justify-content:space-between;font-size:10px}
-.stats span:first-child{color:var(--gray);text-transform:uppercase;letter-spacing:.05em}
-.stats span:last-child{font-weight:700}
 .modal-toggle{display:none}
 .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:1000}
 .modal-toggle:checked ~ .modal{display:flex}
