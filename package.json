@@ -33,7 +33,6 @@
     "rollup-plugin-gzip": "^4.1.1",
     "terser": "^5.44.0",
     "typescript": "^5.9.2",
-    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-imagemin": "^0.6.1",
     "vitest": "^4.0.15",
     "zod": "^3.25.76"

@@ -2,8 +2,8 @@
   {
     "name": "Antel",
     "time": "2022 - Current",
-    "logo": "/logo_ancel.svg",
-    "text": "Node.js microservices handling 3.5M daily transactions. Large-scale refactoring reduced deployment by 40%, errors by 99.9%. GitLab CI/CD with 85% test coverage.",
+    "logo": "/logo_ancel.webp",
+    "text": "Large-scale refactoring reduced deployment time by 40%. GitLab CI/CD pipeline with 85% test coverage in Jest.",
     "tagline": "State telecom of Uruguay",
     "highlights": [
       "Developed Node.js microservices handling up to 3.5M daily transactions, integrating SQLite databases and SFTP services.",
@@ -11,55 +11,79 @@
     ],
     "largeText": [
       "Antel, the National Telecommunications Administration, is a Uruguayan state-owned company responsible for providing telecommunications services in Uruguay. It is the country's main provider of fixed and mobile telephony, internet, and cable television. Founded in 1974, Antel plays a key role in Uruguay's communications infrastructure, offering services both nationally and internationally.",
-      "My growth as a developer has been helped by two engineers with many years of experience at Antel. They have provided corrections to my code and recommended courses to improve my skills."
+      "I work in a team with a strong code review and peer mentorship culture, which deepened my expertise in microservices architecture."
     ],
     "stats": [
-      { "value": "3.5M", "label": "daily transactions" },
-      { "value": "-99.9%", "label": "errors" },
-      { "value": "50%", "label": "faster response" },
-      { "value": "85%", "label": "test coverage" }
+      {
+        "value": "3.5M",
+        "label": "daily transactions"
+      },
+      {
+        "value": "-99.9%",
+        "label": "errors"
+      },
+      {
+        "value": "50%",
+        "label": "faster response"
+      },
+      {
+        "value": "85%",
+        "label": "test coverage"
+      }
     ],
-    "workMethod": "The working method involves a weekly meeting to coordinate projects and priorities.",
+    "workMethod": "Full-Stack Developer on the internal systems team.",
     "projects": [
       {
-        "title": "Page in NextJs",
-        "text": "A project in Next.js from scratch with an SQLite database, login, validations, and an SMS messaging service."
+        "title": "CLIENT PORTAL",
+        "text": "Next.js + SQLite with login, validations, and SMS notifications."
       },
       {
-        "title": "Node",
-        "text": "Node project with authentication and generation of security codes."
+        "title": "SECURITY CODES SERVICE",
+        "text": "Node API with authentication and security code generation."
       },
       {
-        "title": "Java to Node",
-        "text": "Migration of an IP management project from Java to Node."
-      },
-      {
-        "title": "Jest",
-        "text": "Creating Unit Tests in Jest"
+        "title": "JAVA TO NODE MIGRATION",
+        "text": "Migrated an IP management system from Java to Node, maintaining functional parity."
       }
     ],
     "technologies": [
-      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
-      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
-      { "name": "NextJs", "logo": "/logo_next.png", "category": "framework" },
-      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
+      {
+        "name": "JavaScript",
+        "category": "language"
+      },
+      {
+        "name": "TypeScript",
+        "category": "language"
+      },
+      {
+        "name": "React",
+        "category": "framework"
+      },
+      {
+        "name": "NextJs",
+        "category": "framework"
+      },
+      {
+        "name": "Node",
+        "category": "framework"
+      }
     ]
   },
   {
     "name": "Upshow",
     "time": "2021 - 2022",
-    "logo": "/logo_upshow.png",
+    "logo": "/logo_upshow.webp",
     "text": "Built React dashboards consuming Node/Express APIs. Integrated GitHub & Jira for real-time cross-referenced reports. Agile/Scrum full lifecycle support.",
     "tagline": "Interactive engagement platforms for venues",
     "highlights": [
-      "Built React dashboards consuming Node/Express APIs, supporting the full Agile/Scrum lifecycle.",
+      "Built React dashboards on Node/Express APIs used for sprint planning and release tracking.",
       "Integrated GitHub and Jira data for real-time cross-referenced reports."
     ],
     "largeText": [
       "Upshow is a company specialized in technology and interactive platforms designed to enhance engagement and interaction at live events and public venues. It provides solutions that allow establishments and organizers to display user-generated content on screens and monitors, creating a more engaging experience for the audience and encouraging real-time participation.",
-      "My growth within the company was thanks to a team that provided me with feedback, English classes, and paid Udemy courses sponsored by the company."
+      "Continuous feedback and training there sharpened my ability to integrate multiple APIs into unified, real-time reporting tools."
     ],
-    "workMethod": "Scrum methodology is used based on requests from a manager.",
+    "workMethod": "Full-Stack Developer on a Scrum team building venue engagement platforms.",
     "projects": [
       {
         "title": "React feature",
@@ -79,15 +103,24 @@
       }
     ],
     "technologies": [
-      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
-      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
-      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
+      {
+        "name": "JavaScript",
+        "category": "language"
+      },
+      {
+        "name": "React",
+        "category": "framework"
+      },
+      {
+        "name": "Node",
+        "category": "framework"
+      }
     ]
   },
   {
     "name": "Hacknoid",
     "time": "2018 - 2021",
-    "logo": "/logo_hacknoid.png",
+    "logo": "/logo_hacknoid.webp",
     "text": "Migrated frontend from Zend PHP to React.js, improving load time by 60%. Git branching strategies for releases. Optimized SQL queries, reducing response by 40%.",
     "tagline": "Cybersecurity / automated pentesting",
     "highlights": [
@@ -97,7 +130,7 @@
     "largeText": [
       "Hacknoid is a cybersecurity-oriented company that has an automated pentesting application."
     ],
-    "workMethod": "Occasional meetings with the boss.",
+    "workMethod": "Full-Stack Developer focused on frontend migration and pentesting tooling.",
     "projects": [
       {
         "title": "Django, Python",
@@ -113,31 +146,48 @@
       }
     ],
     "technologies": [
-      { "name": "python", "logo": "/logo_python.png", "category": "language" },
-      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
-      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
-      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
+      {
+        "name": "python",
+        "category": "language"
+      },
+      {
+        "name": "JavaScript",
+        "category": "language"
+      },
+      {
+        "name": "React",
+        "category": "framework"
+      },
+      {
+        "name": "Node",
+        "category": "framework"
+      }
     ]
   },
   {
     "name": "Gestion total",
     "time": "2017 - 2018",
-    "logo": "/logo_gestionTotal.png",
+    "logo": "/logo_gestionTotal.webp",
     "text": "Developed custom JavaScript modules for ERP system, tailoring workflows to client needs across diverse industries. Responsive UI with HTML5/CSS3.",
     "tagline": "ERP solutions for business management",
     "highlights": [
-      "Developed custom JavaScript modules for ERPNext, tailoring workflows to client needs across diverse industries.",
-      "Built responsive UIs with HTML5/CSS3."
+      "Developed custom JavaScript modules for ERPNext, tailoring workflows to client needs across diverse industries."
     ],
     "largeText": [
       "Gestion total sells features on an ERPNext which is focused on the administrative management of companies.",
-      "My growth came from solving the small challenges that arose at work"
+      "Solving day-to-day client requirements there built a strong foundation in adapting ERP systems to real business workflows."
     ],
-    "workMethod": "Commissioned by clients.",
+    "workMethod": "Full-Stack Developer building ERP customizations for clients.",
     "projects": [],
     "technologies": [
-      { "name": "python", "logo": "/logo_python.png", "category": "language" },
-      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" }
+      {
+        "name": "python",
+        "category": "language"
+      },
+      {
+        "name": "JavaScript",
+        "category": "language"
+      }
     ]
   }
 ]

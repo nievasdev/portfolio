@@ -2,8 +2,8 @@
   {
     "name": "Antel",
     "time": "2022 - Actual",
-    "logo": "/logo_ancel.svg",
-    "text": "Microservicios Node.js manejando 3.5M transacciones diarias. Refactorización a gran escala redujo despliegues 40%, errores 99.9%. GitLab CI/CD con 85% cobertura de pruebas.",
+    "logo": "/logo_ancel.webp",
+    "text": "Una refactorización a gran escala redujo el tiempo de deployment en 40%. Pipeline de GitLab CI/CD con 85% de cobertura de tests en Jest.",
     "tagline": "Telecom estatal de Uruguay",
     "highlights": [
       "Desarrollé microservicios Node.js que manejan hasta 3.5M de transacciones diarias, integrando bases SQLite y servicios SFTP.",
@@ -11,55 +11,79 @@
     ],
     "largeText": [
       "Antel, la Administración Nacional de Telecomunicaciones, es una empresa estatal uruguaya responsable de brindar servicios de telecomunicaciones en Uruguay. Es el principal proveedor de servicios de telefonía fija y móvil, internet y televisión por cable del país. Fundada en 1974, Antel juega un papel clave en la infraestructura de comunicaciones en Uruguay, ofreciendo servicios tanto a nivel nacional como internacional.",
-      "Mi crecimiento como desarrollador ha sido ayudado por dos ingenieros con muchos años de experiencia en Antel. Han proporcionado correcciones a mi código y recomendado cursos para mejorar mis habilidades."
+      "Trabajo en un equipo con una fuerte cultura de code review y mentoría entre pares, lo que profundizó mi expertise en arquitectura de microservicios."
     ],
     "stats": [
-      { "value": "3.5M", "label": "transacciones diarias" },
-      { "value": "-99.9%", "label": "errores" },
-      { "value": "50%", "label": "respuesta más rápida" },
-      { "value": "85%", "label": "cobertura de tests" }
+      {
+        "value": "3.5M",
+        "label": "tx diarias"
+      },
+      {
+        "value": "-99.9%",
+        "label": "errores"
+      },
+      {
+        "value": "50%",
+        "label": "más rápido"
+      },
+      {
+        "value": "85%",
+        "label": "tests"
+      }
     ],
-    "workMethod": "El método de trabajo involucra una reunión semanal para coordinar proyectos y prioridades.",
+    "workMethod": "Desarrollador Full-Stack en el equipo de sistemas internos.",
     "projects": [
       {
-        "title": "Página en NextJs",
-        "text": "Un proyecto en Next.js desde cero con una base de datos SQLite, login, validaciones y un servicio de mensajería SMS."
+        "title": "PORTAL DE CLIENTES",
+        "text": "Next.js + SQLite con login, validaciones y notificaciones SMS."
       },
       {
-        "title": "Node",
-        "text": "Proyecto Node con autenticación y generación de códigos de seguridad."
+        "title": "SERVICIO DE CÓDIGOS DE SEGURIDAD",
+        "text": "API Node con autenticación y generación de códigos."
       },
       {
-        "title": "Java a Node",
-        "text": "Migración de un proyecto de gestión de IP de Java a Node."
-      },
-      {
-        "title": "Jest",
-        "text": "Creación de Pruebas Unitarias en Jest"
+        "title": "MIGRACIÓN JAVA A NODE",
+        "text": "Migré un sistema de gestión de IPs de Java a Node manteniendo paridad funcional."
       }
     ],
     "technologies": [
-      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
-      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
-      { "name": "NextJs", "logo": "/logo_next.png", "category": "framework" },
-      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
+      {
+        "name": "JavaScript",
+        "category": "language"
+      },
+      {
+        "name": "TypeScript",
+        "category": "language"
+      },
+      {
+        "name": "React",
+        "category": "framework"
+      },
+      {
+        "name": "NextJs",
+        "category": "framework"
+      },
+      {
+        "name": "Node",
+        "category": "framework"
+      }
     ]
   },
   {
     "name": "Upshow",
     "time": "2021 - 2022",
-    "logo": "/logo_upshow.png",
+    "logo": "/logo_upshow.webp",
     "text": "Construí dashboards React consumiendo APIs Node/Express. Integré GitHub y Jira para reportes de referencia cruzada en tiempo real. Soporte completo del ciclo de vida Agile/Scrum.",
     "tagline": "Plataformas interactivas para venues",
     "highlights": [
-      "Construí dashboards React consumiendo APIs Node/Express, con soporte completo del ciclo Agile/Scrum.",
+      "Construí dashboards React sobre APIs Node/Express usados para planificación de sprints y seguimiento de releases.",
       "Integré datos de GitHub y Jira para reportes de referencia cruzada en tiempo real."
     ],
     "largeText": [
       "Upshow es una empresa especializada en tecnología y plataformas interactivas diseñadas para mejorar el engagement e interacción en eventos en vivo y lugares públicos. Proporciona soluciones que permiten a establecimientos y organizadores mostrar contenido generado por usuarios en pantallas y monitores, creando una experiencia más atractiva para la audiencia y fomentando la participación en tiempo real.",
-      "Mi crecimiento dentro de la empresa fue gracias a un equipo que me proporcionó retroalimentación, clases de inglés y cursos pagados de Udemy patrocinados por la empresa."
+      "El feedback continuo y la capacitación ahí afinaron mi capacidad para integrar múltiples APIs en herramientas de reporting unificadas en tiempo real."
     ],
-    "workMethod": "Se utiliza metodología Scrum basada en solicitudes de un gerente.",
+    "workMethod": "Desarrollador Full-Stack en un equipo Scrum construyendo plataformas de engagement para venues.",
     "projects": [
       {
         "title": "Funcionalidad React",
@@ -79,15 +103,24 @@
       }
     ],
     "technologies": [
-      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
-      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
-      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
+      {
+        "name": "JavaScript",
+        "category": "language"
+      },
+      {
+        "name": "React",
+        "category": "framework"
+      },
+      {
+        "name": "Node",
+        "category": "framework"
+      }
     ]
   },
   {
     "name": "Hacknoid",
     "time": "2018 - 2021",
-    "logo": "/logo_hacknoid.png",
+    "logo": "/logo_hacknoid.webp",
     "text": "Migré frontend de Zend PHP a React.js, mejorando tiempo de carga 60%. Estrategias de branching Git para releases. Optimicé consultas SQL, reduciendo respuesta 40%.",
     "tagline": "Ciberseguridad / pentesting automatizado",
     "highlights": [
@@ -97,7 +130,7 @@
     "largeText": [
       "Hacknoid es una empresa orientada a la ciberseguridad que tiene una aplicación de pentesting automatizado."
     ],
-    "workMethod": "Reuniones ocasionales con el jefe.",
+    "workMethod": "Desarrollador Full-Stack enfocado en migración de frontend y herramientas de pentesting.",
     "projects": [
       {
         "title": "Django, Python",
@@ -113,31 +146,48 @@
       }
     ],
     "technologies": [
-      { "name": "Python", "logo": "/logo_python.png", "category": "language" },
-      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" },
-      { "name": "React", "logo": "/logo_react.png", "category": "framework" },
-      { "name": "Node", "logo": "/logo_node.png", "category": "framework" }
+      {
+        "name": "Python",
+        "category": "language"
+      },
+      {
+        "name": "JavaScript",
+        "category": "language"
+      },
+      {
+        "name": "React",
+        "category": "framework"
+      },
+      {
+        "name": "Node",
+        "category": "framework"
+      }
     ]
   },
   {
     "name": "Gestion total",
     "time": "2017 - 2018",
-    "logo": "/logo_gestionTotal.png",
+    "logo": "/logo_gestionTotal.webp",
     "text": "Desarrollé módulos JavaScript personalizados para sistema ERP, adaptando flujos de trabajo a necesidades de clientes en diversas industrias. UI responsiva con HTML5/CSS3.",
     "tagline": "Soluciones ERP para gestión empresarial",
     "highlights": [
-      "Desarrollé módulos JavaScript personalizados para ERPNext, adaptando flujos de trabajo a las necesidades de clientes en diversas industrias.",
-      "Construí interfaces responsivas con HTML5/CSS3."
+      "Desarrollé módulos JavaScript personalizados para ERPNext, adaptando flujos de trabajo a las necesidades de clientes en diversas industrias."
     ],
     "largeText": [
       "Gestion total vende funcionalidades en un ERPNext que se enfoca en la gestión administrativa de empresas.",
-      "Mi crecimiento vino de resolver los pequeños desafíos que surgían en el trabajo"
+      "Resolver los requerimientos diarios de clientes ahí me dio una base sólida para adaptar sistemas ERP a flujos de negocio reales."
     ],
-    "workMethod": "Encargos por clientes.",
+    "workMethod": "Desarrollador Full-Stack construyendo personalizaciones ERP para clientes.",
     "projects": [],
     "technologies": [
-      { "name": "Python", "logo": "/logo_python.png", "category": "language" },
-      { "name": "JavaScript", "logo": "/logo_javascript.png", "category": "language" }
+      {
+        "name": "Python",
+        "category": "language"
+      },
+      {
+        "name": "JavaScript",
+        "category": "language"
+      }
     ]
   }
 ]

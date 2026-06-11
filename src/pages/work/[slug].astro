@@ -6,21 +6,37 @@ export async function getStaticPaths() {
   const worksEn = await getCollection('works', ({ id }) => id === 'en');
   const worksEs = await getCollection('works', ({ id }) => id === 'es');
 
+  const slugify = (name: string) => name.toLowerCase().replace(/\s+/g, '-');
+
   const allWorks = [
-    ...(worksEn[0]?.data || []).map((work: any, index: number) => ({
+    ...(worksEn[0]?.data || []).map((work: any, index: number, arr: any[]) => ({
       params: { slug: `${index}-en` },
-      props: { work, lang: 'en', index }
+      props: {
+        work,
+        lang: 'en',
+        index,
+        otherWorks: arr
+          .map((w: any, i: number) => ({ name: slugify(w.name), index: i }))
+          .filter((_, i: number) => i !== index)
+      }
     })),
-    ...(worksEs[0]?.data || []).map((work: any, index: number) => ({
+    ...(worksEs[0]?.data || []).map((work: any, index: number, arr: any[]) => ({
       params: { slug: `${index}-es` },
-      props: { work, lang: 'es', index }
+      props: {
+        work,
+        lang: 'es',
+        index,
+        otherWorks: arr
+          .map((w: any, i: number) => ({ name: slugify(w.name), index: i }))
+          .filter((_, i: number) => i !== index)
+      }
     }))
   ];
 
   return allWorks;
 }
 
-const { work, lang, index } = Astro.props;
+const { work, lang, index, otherWorks } = Astro.props;
 ---
 
 <Layout title={`${work.name} - MAURO NIEVAS`}>
@@ -30,6 +46,14 @@ const { work, lang, index } = Astro.props;
         <div id="terminal-header" class="terminal-header">
           <span class="terminal-prompt" id="terminal-line-1"></span>
           <span class="terminal-prompt" id="terminal-line-2"></span>
+          <nav class="work-nav">
+            <span class="terminal-prompt">&gt; ls ../</span>
+            <ul class="work-nav-list">
+              {otherWorks.map((w: any) => (
+                <li><a href={`/work/${w.index}-${lang}`}>{w.name}/</a></li>
+              ))}
+            </ul>
+          </nav>
         </div>
 
         <div id="work-content" class="work-content work-hidden">
@@ -42,7 +66,7 @@ const { work, lang, index } = Astro.props;
         <div class="stack">
           <div class="work-detail-header">
             {work.logo && (
-              <img src={work.logo} alt={`${work.name} logo`} class="work-detail-logo" width="80" height="80" />
+              <img src={work.logo} alt={`${work.name} logo`} class="work-detail-logo" width="80" height="80" decoding="async" />
             )}
             <div>
               <h1>{work.name}</h1>
@@ -103,6 +127,15 @@ const { work, lang, index } = Astro.props;
             </ul>
           </div>
         )}
+
+        <nav class="work-nav work-nav-mobile">
+          <h4>&gt; ls ../</h4>
+          <ul class="work-nav-list">
+            {otherWorks.map((w: any) => (
+              <li><a href={`/work/${w.index}-${lang}`}>{w.name}/</a></li>
+            ))}
+          </ul>
+        </nav>
           </div>
         </div>
       </div>
@@ -218,8 +251,7 @@ const { work, lang, index } = Astro.props;
       }
     }
 
-    // Run on View Transitions navigation AND initial page load
-    document.addEventListener('astro:page-load', initWorkPage);
+    initWorkPage();
   </script>
 </Layout>
 
@@ -247,6 +279,47 @@ const { work, lang, index } = Astro.props;
 
   .terminal-prompt:last-child {
     margin-bottom: 0;
+  }
+
+  .work-nav {
+    margin-top: 1.5rem;
+  }
+
+  .work-nav .terminal-prompt {
+    margin-bottom: 0.5rem;
+  }
+
+  .work-nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .work-nav-list a {
+    display: inline-block;
+    padding: 0.2rem 0;
+    border-left: none;
+    text-transform: none;
+    font: 13px/1.4 Monaco, 'Courier New', Courier, monospace;
+  }
+
+  .work-nav-mobile {
+    margin-top: 1rem;
+  }
+
+  .work-nav-mobile h4 {
+    font: 700 11px/1.2 Monaco, 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 1371px) {
+    .work-nav-mobile {
+      display: none;
+    }
   }
 
   .terminal-prompt.typing::after {

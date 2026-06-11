@@ -41,35 +41,37 @@ const { works, lang = 'en' } = Astro.props;
           <div class="work-title-section">
             {work.logo && (
               <div class="work-logo-container">
-                <img src={work.logo} alt={`${work.name} logo`} class="work-logo" width="80" height="80" />
+                <img src={work.logo} alt={`${work.name} logo`} class="work-logo" width="56" height="56" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
               </div>
             )}
           </div>
-          {work.tagline && <p class="desc work-tagline">{work.tagline}</p>}
-          {work.stats && work.stats.length > 0 && (
-            <div class="stats-row">
-              {work.stats.map((stat) => (
-                <div class="stat">
-                  <b>{stat.value}</b>
-                  <span>{stat.label}</span>
-                </div>
-              ))}
-            </div>
-          )}
-          {work.highlights && work.highlights.length > 0 && (
-            <ul class="work-description">
-              {work.highlights.slice(0, 2).map((text: string) => (
-                <li>{text}</li>
-              ))}
-            </ul>
-          )}
-          {work.technologies && work.technologies.length > 0 && (
-            <div class="flex wrap work-tags">
-              {work.technologies.map((tech: any) => (
-                <span class="tag" data-category={tech.category}>{tech.name}</span>
-              ))}
-            </div>
-          )}
+          <div class="work-body">
+            {work.tagline && <p class="desc work-tagline">{work.tagline}</p>}
+            {work.stats && work.stats.length > 0 && (
+              <div class="stats-row work-stats">
+                {work.stats.map((stat) => (
+                  <div class="stat">
+                    <b>{stat.value}</b>
+                    <span>{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {work.highlights && work.highlights.length > 0 && (
+              <ul class="work-description">
+                {work.highlights.slice(0, 2).map((text: string) => (
+                  <li>{text}</li>
+                ))}
+              </ul>
+            )}
+            {work.technologies && work.technologies.length > 0 && (
+              <div class="flex wrap work-tags">
+                {work.technologies.map((tech: any) => (
+                  <span class="tag" data-category={tech.category}>{tech.name}</span>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </a>
     ))}

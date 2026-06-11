@@ -5,6 +5,7 @@ import WorksColumn from '../components/WorksColumn.astro';
 import MeSectionCompactEn from '../components/MeSectionCompactEn.astro';
 import MeSectionCompactEs from '../components/MeSectionCompactEs.astro';
 import ProjectsColumn from '../components/ProjectsColumn.astro';
+import Hero from '../components/Hero.astro';
 
 // Get data from content collections for both languages
 const worksEn = await getCollection('works', ({ id }) => id === 'en');
@@ -20,71 +21,71 @@ const projectsEsData = projectsEs[0]?.data || [];
 
 <Layout title="MAURO NIEVAS - PORTFOLIO">
   <main>
-    <!-- Desktop Grid Layout -->
-    <div class="desktop" id="content-en">
-      <!-- Left Column: Works -->
-      <div>
-        <h2>EXPERIENCE</h2>
-        <WorksColumn works={worksEnData} lang="en" />
-      </div>
+    <!-- Desktop Layout -->
+    <div class="desktop-wrap" id="content-en">
+      <Hero lang="en" />
+      <div class="desktop">
+        <!-- Left Column: Works -->
+        <div>
+          <h2 class="section-label">&gt; experience</h2>
+          <WorksColumn works={worksEnData} lang="en" />
+        </div>
 
-      <!-- Right Column: Personal Info + Projects -->
-      <div>
-        <MeSectionCompactEn />
-        <h2>PROJECTS</h2>
-        <ProjectsColumn projects={projectsEnData} />
+        <!-- Right Column: About + Projects -->
+        <div>
+          <MeSectionCompactEn />
+          <h2 class="section-label">&gt; projects</h2>
+          <ProjectsColumn projects={projectsEnData} idPrefix="en-desktop-" />
+        </div>
       </div>
     </div>
 
-    <div class="desktop hidden" id="content-es">
-      <!-- Left Column: Works -->
-      <div>
-        <h2>EXPERIENCIA</h2>
-        <WorksColumn works={worksEsData} lang="es" />
-      </div>
+    <div class="desktop-wrap hidden" id="content-es">
+      <Hero lang="es" />
+      <div class="desktop">
+        <!-- Left Column: Works -->
+        <div>
+          <h2 class="section-label">&gt; experiencia</h2>
+          <WorksColumn works={worksEsData} lang="es" />
+        </div>
 
-      <!-- Right Column: Personal Info + Projects -->
-      <div>
-        <MeSectionCompactEs />
-        <h2>PROYECTOS</h2>
-        <ProjectsColumn projects={projectsEsData} />
+        <!-- Right Column: About + Projects -->
+        <div>
+          <MeSectionCompactEs />
+          <h2 class="section-label">&gt; proyectos</h2>
+          <ProjectsColumn projects={projectsEsData} idPrefix="es-desktop-" />
+        </div>
       </div>
     </div>
 
     <!-- Mobile/Tablet Layout -->
     <div class="mobile" id="mobile-en">
-      <div class="contact-bar">
-        <strong>MAURO NIEVAS</strong>
-        <a href="mailto:mauro@nievas.dev" class="cta">CONTACT →</a>
-      </div>
+      <Hero lang="en" />
       <div>
         <MeSectionCompactEn />
       </div>
       <div>
-        <h2>EXPERIENCE</h2>
+        <h2 class="section-label">&gt; experience</h2>
         <WorksColumn works={worksEnData} lang="en" />
       </div>
       <div>
-        <h2>PROJECTS</h2>
-        <ProjectsColumn projects={projectsEnData} />
+        <h2 class="section-label">&gt; projects</h2>
+        <ProjectsColumn projects={projectsEnData} idPrefix="en-mobile-" />
       </div>
     </div>
 
     <div class="mobile hidden" id="mobile-es">
-      <div class="contact-bar">
-        <strong>MAURO NIEVAS</strong>
-        <a href="mailto:mauro@nievas.dev" class="cta">CONTACTAR →</a>
-      </div>
+      <Hero lang="es" />
       <div>
         <MeSectionCompactEs />
       </div>
       <div>
-        <h2>EXPERIENCIA</h2>
+        <h2 class="section-label">&gt; experiencia</h2>
         <WorksColumn works={worksEsData} lang="es" />
       </div>
       <div>
-        <h2>PROYECTOS</h2>
-        <ProjectsColumn projects={projectsEsData} />
+        <h2 class="section-label">&gt; proyectos</h2>
+        <ProjectsColumn projects={projectsEsData} idPrefix="es-mobile-" />
       </div>
     </div>
   </main>
@@ -123,10 +124,7 @@ const projectsEsData = projectsEs[0]?.data || [];
     }
 
     // Load saved language preference on page load
-    document.addEventListener('astro:page-load', () => {
-      const savedLang = localStorage.getItem('preferred-lang') || 'en';
-      switchLanguage(savedLang);
-    });
+    switchLanguage(localStorage.getItem('preferred-lang') || 'en');
   </script>
 </Layout>
 

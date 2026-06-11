@@ -14,23 +14,22 @@ export interface Props {
       logo: string;
     }>;
   }>;
+  idPrefix?: string;
 }
 
-const { projects } = Astro.props;
+const { projects, idPrefix = '' } = Astro.props;
 ---
 
 <section>
   <div>
     {projects.map((project, index) => (
       <div>
-        <input type="checkbox" id={`project-modal-${index}`} class="modal-toggle" />
-        
-        <label for={`project-modal-${index}`} class="card card-clickable">
+        <input type="checkbox" id={`project-modal-${idPrefix}${index}`} class="modal-toggle" />
+
+        <label for={`project-modal-${idPrefix}${index}`} class="card card-clickable work-card">
+          <p class="work-time">{project.time}</p>
+          <h3 class="work-title">{project.name}</h3>
           <div class="stack">
-            <div class="work-header">
-              <h3>{project.name}</h3>
-              <p class="work-time">{project.time}</p>
-            </div>
             {project.screenshot && (
               <img src={project.screenshot} alt={`${project.name} screenshot`} class="project-shot" loading="lazy" decoding="async" />
             )}
@@ -47,11 +46,11 @@ const { projects } = Astro.props;
           </div>
         </label>
         
-        <div class="modal" onclick={`document.getElementById('project-modal-${index}').checked=false`}>
-          <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="close" onclick={`document.getElementById('project-modal-${index}').checked=false`}>×</button>
+        <div class="modal">
+          <div class="modal-content">
+            <button class="close" onclick={`document.getElementById('project-modal-${idPrefix}${index}').checked=false`}>×</button>
             <div class="work-header">
-              <h2>{project.name}</h2>
+              <h3>{project.name}</h3>
               <p class="work-time">{project.time}</p>
             </div>
             
