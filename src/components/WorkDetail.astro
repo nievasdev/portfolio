@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import TransactionsFlow from './TransactionsFlow.astro';
 import { ui, localePath, type Lang } from '../i18n/ui';
 import { rich, plain } from '../lib/rich';
-import { logoSvg } from '../lib/logos';
+import { logoStyle, logoSvg } from '../lib/logos';
 import type { Work } from '../content/schemas';
 
 interface Props {
@@ -27,14 +27,22 @@ const logo = logoSvg(work.logo);
   title={`${work.name} — Mauro Nievas`}
   description={`${work.role} · ${work.time}. ${plain(work.highlights[0])}`}
 >
-  <div class="hero row">
-    {logo ? <div class="co-logo" aria-hidden="true" set:html={logo} /> : <div />}
-    <div>
+  <!-- Same axis as the home: the back link and the text on the column, the logo in the margin
+       against it, its top on the company name's. -->
+  <div class="hero work-hero">
+    <div class="row">
+      <span class="meta"></span>
       <a class="back" href={home}>{t.work.back}</a>
-      <p class="meta">{work.time}</p>
-      <h1 style={`view-transition-name: work-${work.slug}; view-transition-class: work-name`}>{work.name}</h1>
-      <p class="role">{work.role}{work.via && ` · ${work.via}`}</p>
-      <p class="lede">{work.workMethod}</p>
+    </div>
+    <div class="row">
+      <div class="meta">
+        {logo && <div class="co-mini" style={logoStyle(work.logo)} aria-hidden="true" set:html={logo} />}
+      </div>
+      <header class="entry-head">
+        <h1 style={`view-transition-name: work-${work.slug}; view-transition-class: work-name`}>{work.name}</h1>
+        <p class="role">{work.time} · {work.role}{work.via && ` · ${work.via}`}</p>
+      </header>
+      <p class="lede entry-body">{work.workMethod}</p>
     </div>
   </div>
 

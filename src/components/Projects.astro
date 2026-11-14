@@ -22,12 +22,16 @@ const anchor = (name: string) =>
   {projects.map((p) => (
     <article class="entry row" id={anchor(p.name)}>
       <div class="meta">
-        {p.logo && logoStyle(p.logo) && <svg class="co-mini" style={logoStyle(p.logo)} aria-hidden="true"><use href={logoHref(p.logo)} /></svg>}
-        <span>{t.projects.kind[p.kind]}</span>
+        {p.logo && logoStyle(p.logo)
+          ? <svg class="co-mini" style={logoStyle(p.logo)} aria-hidden="true"><use href={logoHref(p.logo)} /></svg>
+          : <span>{t.projects.kind[p.kind]}</span>}
       </div>
-      <div>
+      <header class="entry-head">
+        {p.logo && logoStyle(p.logo) && <p class="kind">{t.projects.kind[p.kind]}</p>}
         <h3>{p.name}</h3>
         {p.subtitle && <p class="sub">{p.subtitle}</p>}
+      </header>
+      <div class="entry-body">
         {p.text && <p class="body-text">{p.text}</p>}
         {p.diagram === 'search' && <SearchFlow lang={lang} />}
         {p.search && (

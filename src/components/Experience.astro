@@ -52,12 +52,15 @@ const logoOf = new Map(works.flatMap((w) => {
       <div class="meta">
         {logoOf.has(work.slug) && <svg class="co-mini" style={logoOf.get(work.slug)!.style} aria-hidden="true"><use href={logoOf.get(work.slug)!.href} /></svg>}
       </div>
-      <div>
+      <!-- the head is a grid row of its own, so the logo beside it takes exactly its height -->
+      <header class="entry-head">
         <h3>
           <a href={localePath(lang, `/work/${work.slug}`)} style={`view-transition-name: work-${work.slug}; view-transition-class: work-name`}>{work.name}<span class="go" aria-hidden="true">→</span></a>
           {work.via && <>{' '}<span class="via">({work.via})</span></>}
         </h3>
         <p class="sub"><span class="when">{work.time}</span> · {work.role}</p>
+      </header>
+      <div class="entry-body">
         <ul class="points">
           {work.keyPoints.map((point) => <li set:html={rich(point)} />)}
         </ul>

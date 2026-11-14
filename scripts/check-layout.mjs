@@ -26,6 +26,25 @@ const AUDIT = `(() => {
   if (document.documentElement.scrollWidth > width) {
     problems.push('desborde horizontal: ' + document.documentElement.scrollWidth + 'px en ' + width + 'px');
   }
+  // One reading axis: the page title, the statement and every entry's text start on the same x.
+  // Measured on the first text node, so a box stretched over the column with centered text fails too.
+  const textLeft = (el) => {
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, { acceptNode: (n) => n.textContent.trim() ? 1 : 3 });
+    const node = walker.nextNode();
+    if (!node) return el.getBoundingClientRect().left;
+    const range = document.createRange();
+    range.selectNodeContents(node);
+    return range.getBoundingClientRect().left;
+  };
+  // Entries are measured by their box: a list's text starts after its dash.
+  const axis = [
+    ...[...document.querySelectorAll('main h1, .back, .statement-text')].map((el) => ({ el, left: Math.round(textLeft(el)) })),
+    ...[...document.querySelectorAll('.entry.row > :last-child')].map((el) => ({ el, left: Math.round(el.getBoundingClientRect().left) })),
+  ];
+  const misaligned = axis.filter(({ left }) => Math.abs(left - axis[axis.length - 1].left) > 1);
+  for (const { el, left } of misaligned) {
+    problems.push('fuera del eje de lectura (' + left + 'px, la columna empieza en ' + axis[axis.length - 1].left + 'px): ' + (el.className || el.tagName));
+  }
   const inText = (el) => el.closest('p, li:not(.seg), dd') && !el.closest('.actions, .links, .facts, .more, .lang');
   for (const el of document.querySelectorAll('a[href], button:not([hidden]), input')) {
     const r = el.getBoundingClientRect();

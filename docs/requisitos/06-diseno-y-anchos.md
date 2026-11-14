@@ -10,11 +10,13 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   que se pueda tocar sin errar.
 - **R-40.** Las bandas marinas ocupan exactamente el ancho de la pantalla, sin corrimientos.
 - **R-41.** Los logos se ven del mismo tamaño aparente entre sí: cada SVG está recortado a su
-  dibujo y todos ocupan la misma superficie (uno ancho queda más bajo, uno alto más angosto). Esa
-  superficie es la de un cuadrado de 52 px en la entrada de cada empresa en escritorio (40 px en
-  pantallas chicas) y de 28 px en la línea de tiempo (20 px). En escritorio, el logo va en el
-  margen, pegado a la columna y a la altura del nombre de la empresa; en pantallas chicas, arriba
-  del nombre.
+  dibujo. En escritorio, el logo de cada entrada (y el de la página de cada empresa) va en el
+  margen, pegado a la columna, y mide exactamente el alto del encabezado que tiene al lado (nombre
+  + línea de fecha y rol); el ancho sale de su proporción. En pantallas chicas va arriba del nombre
+  y, como en la línea de tiempo, todos ocupan la misma superficie (uno ancho queda más bajo, uno
+  alto más angosto): un cuadrado de 40 px, y de 28 px / 20 px en la línea de tiempo.
+- **R-50.** Todo el texto de una página arranca sobre el mismo eje vertical: el título, el «←
+  volver», la frase de la banda y el texto de cada entrada.
 - **R-42.** En escritorio los diagramas ocupan todo el ancho del contenedor; en pantallas chicas
   usan su versión vertical, a todo el ancho, con las etiquetas legibles.
 - **R-43.** En pantallas chicas la frase-momento no deja más de una pantalla de aire.
@@ -26,7 +28,7 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   cada idioma, y cada punto clave de una empresa tiene 15 palabras o menos. El detalle va en las
   páginas de cada empresa.
 - **R-44.** La herramienta `npm run check:layout` recorre la home y una página de empresa en los dos
-  idiomas en todos los anchos de referencia y falla ante cualquier problema de R-38 o R-39.
+  idiomas en todos los anchos de referencia y falla ante cualquier problema de R-38, R-39 o R-50.
 
 ## Criterios de aceptación
 

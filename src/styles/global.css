@@ -87,11 +87,13 @@ main{padding-bottom:var(--s-7)}
 
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-/* hero: the text starts on the reading column, so the whole page sits on one axis; the mark,
-   large, closes the row on the right, its top on the name's */
-.hero{
+/* page heads: the home's and each company's share the vertical rhythm */
+.hero{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(2.5rem,5vw,3.5rem)}
+/* the home's: the text starts on the reading column, so the whole page sits on one axis; the
+   mark, large, closes the row on the right, its top on the name's */
+.home-hero{
   display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(1.5rem,4vw,3.5rem);align-items:start;
-  padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(2.5rem,5vw,3.5rem) calc(var(--gutter) + clamp(2rem,4vw,3.5rem));
+  padding-left:calc(var(--gutter) + clamp(2rem,4vw,3.5rem));
 }
 .hero-main{container-type:inline-size}
 /* 12 mono glyphs ≈ 6.8em at this tracking: sized to its column, it always stays on one line */
@@ -101,9 +103,9 @@ main{padding-bottom:var(--s-7)}
   margin:0 0 clamp(1.5rem,3.5vw,2.5rem);
 }
 .hero-name .dot{display:inline-block}
-.hero .mark{width:clamp(9rem,19vw,16rem);height:auto;aspect-ratio:1}
-.hero .mark g{fill:none;stroke:currentColor;stroke-width:8;stroke-miterlimit:10}
-.hero .mark circle{fill:var(--gold)}
+.home-hero .mark{width:clamp(9rem,19vw,16rem);height:auto;aspect-ratio:1}
+.home-hero .mark g{fill:none;stroke:currentColor;stroke-width:8;stroke-miterlimit:10}
+.home-hero .mark circle{fill:var(--gold)}
 h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--display);letter-spacing:-.035em;margin:0;text-wrap:balance}
 .role{font:400 .9rem/1.6 var(--mono);color:var(--muted);margin:var(--s-3) 0 0;text-wrap:balance}
 .lede{font-size:clamp(1.25rem,2.1vw,1.5rem);line-height:1.45;margin:var(--s-4) 0 0;max-width:44ch;text-wrap:pretty}
@@ -117,10 +119,10 @@ h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--display);letter-spacing:-.035em;
 /* ---- motion: one grammar for the whole site (exponential ease-out, the gold dot as protagonist) ---- */
 @media (prefers-reduced-motion:no-preference){
   /* on load: the braces draw themselves stroke by stroke, then the dot pops in */
-  .hero .mark path{stroke-dasharray:1;animation:brace-draw 1.1s cubic-bezier(.16,1,.3,1) both}
-  .hero .mark path:nth-child(2){animation-delay:.12s}
-  .hero .mark path:nth-child(3){animation-delay:.24s}
-  .hero .mark circle{animation:dot-pop .6s .75s cubic-bezier(.34,1.56,.64,1) both}
+  .home-hero .mark path{stroke-dasharray:1;animation:brace-draw 1.1s cubic-bezier(.16,1,.3,1) both}
+  .home-hero .mark path:nth-child(2){animation-delay:.12s}
+  .home-hero .mark path:nth-child(3){animation-delay:.24s}
+  .home-hero .mark circle{animation:dot-pop .6s .75s cubic-bezier(.34,1.56,.64,1) both}
   .hero-main>:not(.hero-name){animation:rise .7s cubic-bezier(.16,1,.3,1) both}
   .hero-main>:nth-child(3){animation-delay:.08s}
   .hero-main>:nth-child(4){animation-delay:.16s}
@@ -270,14 +272,22 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 .seg-logo{--logo:1.75rem;position:absolute;left:0;bottom:1.8rem;width:calc(var(--logo) * var(--lw,1));height:calc(var(--logo) * var(--lh,1));color:var(--muted);transition:color .2s}
 .seg a:hover .seg-logo,.seg a:focus-visible .seg-logo,.seg.current .seg-logo{color:var(--text)}
 
-/* company logo under each entry's date */
 /* company and project logos: --logo is the side of the square every logo matches in area;
    --lw/--lh (logoShape) stretch it to each logo's proportions */
 .co-mini{--logo:3.25rem;display:block;width:calc(var(--logo) * var(--lw,1));height:calc(var(--logo) * var(--lh,1));color:var(--text)}
-.meta>.co-mini+*{margin-top:var(--s-2)}
-/* the logo leans on the name it belongs to: right edge of the margin, next to the column */
+.co-mini>svg{display:block;width:100%;height:100%}
+
+/* an entry: logo | head on the first row, the body under the head (grid-column -2 is the text
+   column with one column or two) */
+.entry-body{grid-column:-2 / -1}
+.entry-body>:first-child{margin-top:var(--s-3)}
+.kind{margin:0 0 var(--s-1);font:400 .8rem/1.6 var(--mono);color:var(--muted)}
+
+/* desktop: the logo leans on the head it belongs to, at the right edge of the margin, and is
+   exactly as tall as that head (its row); the width follows the logo's proportions */
 @media (min-width:52.01rem){
-  .entry>.meta:has(.co-mini){display:flex;flex-direction:column;align-items:flex-end;padding-right:var(--s-5)}
+  .row>.meta:has(.co-mini){display:flex;flex-direction:column;align-items:flex-end;padding:0 var(--s-5) 0 0}
+  .row>.meta>.co-mini{flex:1 1 0;min-height:0;width:auto;height:auto;aspect-ratio:calc(var(--lw) / var(--lh))}
 }
 
 /* ---- Antel's transaction flow (TransactionsFlow.astro) ---- */
@@ -357,10 +367,10 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0;color:var(--gold-ink)}
 }
 
 /* work detail */
-.back{display:inline-block;margin-bottom:var(--s-4);font:400 .85rem var(--mono);color:var(--muted);text-decoration:none}
+.back{display:inline-block;justify-self:start;margin-bottom:var(--s-4);font:400 .85rem var(--mono);color:var(--muted);text-decoration:none}
 .back:hover{color:var(--text)}
-.co-logo{color:var(--text);margin-top:.4rem}
-.co-logo svg{display:block;width:7.5rem;height:7.5rem}
+/* a company page's logo: inlined (above the fold), sized like the others but larger */
+.work-hero .co-mini{--logo:5rem}
 .more{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-4);list-style:none;margin:0;padding:0;font:400 .9rem var(--mono)}
 
 .site-footer{border-top:1px solid var(--line);padding:2rem 0 3rem;font:400 .8rem var(--mono);color:var(--muted)}
@@ -374,22 +384,20 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0;color:var(--gold-ink)}
   .meta{padding-top:0;margin-bottom:var(--s-1)}
   .meta:empty{display:none}
   /* phones: the mark first, then the text; the CTA alone, the other three on one line */
-  .hero{grid-template-columns:minmax(0,1fr);padding-left:0}
-  .hero .mark{order:-1;width:6rem;margin-bottom:var(--s-4)}
+  .home-hero{grid-template-columns:minmax(0,1fr);padding-left:0}
+  .home-hero .mark{order:-1;width:6rem;margin-bottom:var(--s-4)}
   .actions{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;column-gap:1.5rem;row-gap:var(--s-3)}
   .actions .cta{grid-column:1 / -1;justify-self:start}
   .statement-text{margin-left:0}
   .seg-name{display:none}
   .seg a{inset:-2.1rem 3px -.75rem 0}
   .seg-logo{--logo:1.25rem}
-  .entry>.meta:has(.co-mini){display:flex;align-items:center;gap:.75rem;margin-bottom:var(--s-2)}
+  .row>.meta:has(.co-mini){display:flex;align-items:center;gap:.75rem;margin-bottom:var(--s-2)}
   .co-mini{--logo:2.5rem;margin:0}
-  .meta>.co-mini+*{margin-top:0}
   .statement{padding-block:3.5rem}
   .flow .flow-wide{display:none}
   .flow .flow-tall{display:block}
-  .co-logo{margin:0 0 var(--s-4)}
-  .co-logo svg{width:4rem;height:4rem}
+  .work-hero .co-mini{--logo:3.5rem}
   .shots.pair{grid-template-columns:1fr}
   dl.pairs,dl.pairs.wide{grid-template-columns:1fr;gap:0}
   dl.pairs dd{margin-bottom:var(--s-3)}
