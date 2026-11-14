@@ -9,34 +9,39 @@ export interface Segment {
   current: boolean;
 }
 
-// "2022-04" → months since year 0, so differences are whole months.
-const months = (ym: string) => {
-  const [y, m] = ym.split('-').map(Number);
-  return y * 12 + (m - 1);
+const MONTHS_PER_YEAR = 12;
+const MIN_MONTHS = 1;
+const PRECISION = 10; // one decimal
+
+// A month counter: only differences between two of them are ever used.
+const monthOf = (yearMonth: string) => {
+  const [year, month] = yearMonth.split('-').map(Number);
+  return year * MONTHS_PER_YEAR + month;
 };
 
-const ym = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+const monthOfDate = (date: Date) => date.getFullYear() * MONTHS_PER_YEAR + date.getMonth() + 1;
 
 // One segment per job on a bar from the earliest start to today (oldest first).
 export function timelineSegments(works: Work[], now: Date = new Date()) {
-  const end = months(ym(now));
-  const start = Math.min(...works.map((w) => months(w.start)));
-  const span = Math.max(1, end - start);
-  const pct = (n: number) => Math.round((n / span) * 1000) / 10;
+  const firstStart = works.map((w) => w.start).sort()[0];
+  const start = monthOf(firstStart);
+  const end = monthOfDate(now);
+  const span = Math.max(MIN_MONTHS, end - start);
+  const percent = (months: number) => Math.round((months / span) * 100 * PRECISION) / PRECISION;
 
   const segments: Segment[] = works
     .map((w) => {
-      const from = months(w.start);
-      const to = w.end ? months(w.end) : end;
+      const from = monthOf(w.start);
+      const to = w.end ? monthOf(w.end) : end;
       return {
         slug: w.slug,
         name: w.name,
-        left: pct(from - start),
-        width: pct(Math.max(1, to - from)),
+        left: percent(from - start),
+        width: percent(Math.max(MIN_MONTHS, to - from)),
         current: !w.end,
       };
     })
     .sort((a, b) => a.left - b.left);
 
-  return { segments, startYear: Math.floor(start / 12), endYear: now.getFullYear() };
+  return { segments, startYear: Number(firstStart.slice(0, 4)), endYear: now.getFullYear() };
 }

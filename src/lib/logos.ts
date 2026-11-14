@@ -9,7 +9,8 @@ export function logoSvg(path: string): string | undefined {
 export function logoSymbol(path: string, id: string): string | undefined {
   const svg = logoSvg(path);
   if (!svg) return undefined;
-  const viewBox = svg.match(/viewBox="([^"]+)"/)?.[1];
-  const inner = svg.replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
+  // Every logo file is a single <svg> with a viewBox; keep what is between its tags.
+  const viewBox = svg.match(/viewBox="([^"]+)"/)![1];
+  const inner = svg.slice(svg.indexOf('>') + 1, svg.lastIndexOf('</svg>'));
   return `<symbol id="${id}" viewBox="${viewBox}">${inner}</symbol>`;
 }
