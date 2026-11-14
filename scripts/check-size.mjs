@@ -23,11 +23,12 @@ function htmlFiles(dir) {
   });
 }
 
-// Words a visitor reads in <main>: no markup, scripts, styles, SVG labels or screen-reader text.
+// Words a visitor reads in <main>: no markup, scripts, styles, SVG labels, closed popovers (the
+// enlarged screenshots) or screen-reader text.
 function readableWords(html) {
   const main = html.match(/<main[\s\S]*<\/main>/)?.[0] ?? '';
   const text = main
-    .replace(/<(script|style|svg)[\s\S]*?<\/\1>/g, ' ')
+    .replace(/<(script|style|svg|dialog)[\s\S]*?<\/\1>/g, ' ')
     .replace(/<span class="sr-only">[\s\S]*?<\/span>/g, ' ')
     .replace(/<[^>]+>/g, ' ');
   return text.split(/\s+/).filter((word) => /[\p{L}\p{N}]/u.test(word)).length;

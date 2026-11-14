@@ -34,6 +34,9 @@
 - **R-13.** El buscador «Try it» viene cargado con «inquilino que no paga el alquiler», la
   captura muestra los resultados de esa misma búsqueda y, al enviarlo, abre en
   otra pestaña `https://uruleyes.com/?q=<texto>`.
+- **R-47.** Tocar una captura la amplía sobre un velo marino, sin JavaScript (Popover API); se
+  cierra con Esc, tocando afuera o con «Close ×», y abajo ofrece «Visit site →». La imagen grande
+  se descarga recién al abrirla. Las dos capturas de AntelTV tienen la misma proporción.
 - **R-14.** Un dato que falta no se muestra: nunca aparece un `[placeholder]` ni el dato no
   verificable «99.9 %».
 
@@ -160,6 +163,15 @@ Verificación: `src/tests/data-integrity.test.ts`.
 - Entonces aparece primero «experience» y después «projects»
 
 Verificación: `src/tests/i18n.test.ts` (menú) y navegador.
+
+**CA-47: capturas ampliables** (R-47)
+
+- Dada la home en escritorio (1440 px) y en el celular (390 px)
+- Cuando el visitante toca la primera captura y después aprieta Esc
+- Entonces antes de tocar la imagen grande no se descargó, al tocar se abre en grande con
+  «Visit site →» y «Close ×», y con Esc se cierra
+
+Verificación: navegador (Chrome sin interfaz, por CDP).
 
 **CA-46: la banda trae su prueba** (R-11, R-16)
 

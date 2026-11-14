@@ -84,6 +84,8 @@ const en = {
   projects: {
     visit: 'Visit site →',
     caseStudy: 'Case study →',
+    enlarge: 'Enlarge screenshot',
+    close: 'Close ×',
     kind: {
       featured: 'featured',
       case: 'case study',
@@ -189,6 +191,8 @@ const es: Dictionary = {
   projects: {
     visit: 'Visitar sitio →',
     caseStudy: 'Caso de estudio →',
+    enlarge: 'Ampliar captura',
+    close: 'Cerrar ×',
     kind: {
       featured: 'destacado',
       case: 'caso de estudio',

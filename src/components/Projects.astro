@@ -51,20 +51,35 @@ const anchor = (name: string) =>
         )}
         {p.screenshots && p.screenshots.length > 0 && (
           <div class:list={['shots', { pair: p.screenshots.length > 1 }]}>
-            {p.screenshots.map((s) => (
-              <a class="shot" href={p.url} tabindex="-1">
-              <img
-                src={`${s.src}-1200.webp`}
-                srcset={`${s.src}-600.webp 600w, ${s.src}-1200.webp 1200w`}
-                sizes={p.screenshots!.length > 1 ? '(max-width: 52rem) 100vw, 23rem' : '(max-width: 52rem) 100vw, 46rem'}
-                width={s.width}
-                height={s.height}
-                alt={s.alt}
-                loading="lazy"
-                decoding="async"
-              />
-              </a>
-            ))}
+            {p.screenshots.map((s, i) => {
+              // Tapping a screenshot enlarges it (Popover API: no JavaScript); Esc or a tap outside closes it.
+              // The large copy sits in a closed popover, so the browser only downloads it when opened.
+              const id = `${anchor(p.name)}-shot-${i + 1}`;
+              return (
+                <>
+                  <button type="button" class="shot" popovertarget={id}>
+                    <span class="sr-only">{t.projects.enlarge}:</span>
+                    <img
+                      src={`${s.src}-1200.webp`}
+                      srcset={`${s.src}-600.webp 600w, ${s.src}-1200.webp 1200w`}
+                      sizes={p.screenshots!.length > 1 ? '(max-width: 52rem) 100vw, 23rem' : '(max-width: 52rem) 100vw, 46rem'}
+                      width={s.width}
+                      height={s.height}
+                      alt={s.alt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </button>
+                  <dialog id={id} popover class="lightbox">
+                    <img src={`${s.src}-1200.webp`} width={s.width} height={s.height} alt={s.alt} loading="lazy" decoding="async" />
+                    <div class="lightbox-bar">
+                      {p.url && <a href={p.url}>{t.projects.visit}</a>}
+                      <button type="button" popovertarget={id} popovertargetaction="hide">{t.projects.close}</button>
+                    </div>
+                  </dialog>
+                </>
+              );
+            })}
           </div>
         )}
         {p.technologies.length > 0 && (

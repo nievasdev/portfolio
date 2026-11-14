@@ -25,6 +25,10 @@ desde `lib/experience.ts`.
 - Ningún `[placeholder]` ni «99.9».
 - Cada tecnología con su nombre oficial (lista en `data-integrity.test.ts`).
 - Logos y capturas existen en `public/`; los logos están recortados a su dibujo.
+- Las capturas se amplían con un `<dialog popover>` por captura (`Projects.astro`): un
+  `<button popovertarget>` lo abre y el navegador maneja Esc y el toque afuera, sin JavaScript. La
+  copia grande tiene `loading="lazy"` y, como el popover cerrado no se muestra, no se descarga
+  hasta abrirlo. El conteo de palabras de `check:size` saltea los `<dialog>`, que están cerrados.
 - Cada punto clave tiene 15 palabras o menos, y `npm run check:size` corta la home en 300 palabras
   visibles por idioma (R-46). Si un texto nuevo no entra, va a `highlights`, que se ven en la
   página de la empresa.
