@@ -5,8 +5,8 @@
 ### Hero
 
 - **R-07.** El hero muestra `mauro.nievas` con el punto dorado, el rol, la frase principal y tres
-  datos con el mismo formato (cifra en negrita + etiqueta): años de experiencia, transacciones por
-  día y Uruleyes. El logo va grande en el margen izquierdo, como el de cada empresa: su borde
+  datos con el mismo formato, para lucirlos: la cifra grande en la tipografía del nombre y la
+  etiqueta chica debajo (años de experiencia, transacciones por día y Uruleyes). El logo va grande en el margen izquierdo, como el de cada empresa: su borde
   izquierdo coincide con el del logo del encabezado y su arriba con el del nombre; se dibuja al
   cargar. En pantallas chicas va arriba del nombre.
 - **R-08.** Los años de experiencia son los años completos desde el **1 de abril de 2017** a la

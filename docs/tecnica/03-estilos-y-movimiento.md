@@ -87,9 +87,10 @@ solo espacio.
 ## Tipografías
 
 - Todo el texto monoespaciado usa la mono del sistema (`--mono`).
-- Solo el nombre, los títulos de empresa, la marca y el mail usan `--display`: JetBrains Mono 600
-  recortada a letras, acentos del español y `.@-` (`public/fonts/jetbrains-mono-display-600.woff2`,
-  4,5 KB, precargada y con `font-display: swap`). Si un título nuevo usa un carácter fuera de ese
+- Solo el nombre, los títulos de empresa, la marca, el mail y las cifras del hero usan
+  `--display`: JetBrains Mono 600 recortada a letras, acentos del español, `.@-`, dígitos, `+` y
+  `,` (`public/fonts/jetbrains-mono-display-600.woff2`, 5,3 KB, precargada y con
+  `font-display: swap`). Si un título nuevo usa un carácter fuera de ese
   conjunto, se muestra con la mono del sistema: hay que regenerar el recorte (por ejemplo con la
   librería `subset-font`) a partir de la fuente completa.
 

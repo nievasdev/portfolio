@@ -23,7 +23,7 @@ const t = ui[lang];
     <p class="lede">{t.hero.lede}</p>
     <ul class="facts">
       {t.hero.facts.map((f) => {
-        const body = <><b>{f.value}</b> {f.label}</>;
+        const body = <><b class="fig">{f.value}</b> <span class="fig-label">{f.label}</span></>;
         return <li>{f.href ? <a href={f.href}>{body}</a> : body}</li>;
       })}
     </ul>
