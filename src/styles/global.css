@@ -61,9 +61,12 @@ a:hover{text-decoration-color:var(--gold)}
 .skip{position:absolute;left:1rem;top:-3rem;z-index:20;padding:.5rem .9rem;background:var(--text);color:var(--bg);font:400 .85rem var(--mono);text-decoration:none;border-radius:3px}
 .skip:focus{top:.75rem}
 
-.wrap{max-width:72rem;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem)}
+/* the layout is symmetric: margin | text | margin. At full width (80rem) both margins measure
+   --gutter, so the text column sits on the screen's centre; labels and logos hang in the left
+   margin, the right one stays empty. On narrower screens the right margin gives way first. */
+.wrap{max-width:80rem;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem)}
 main{padding-bottom:var(--s-7)}
-.row{display:grid;grid-template-columns:var(--gutter) minmax(0,var(--measure));column-gap:clamp(2rem,4vw,3.5rem)}
+.row{display:grid;grid-template-columns:var(--gutter) [text] minmax(0,var(--measure)) [text-end] minmax(0,1fr);column-gap:clamp(2rem,4vw,3.5rem)}
 
 /* header */
 .site-header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
@@ -89,12 +92,9 @@ main{padding-bottom:var(--s-7)}
 
 /* page heads: the home's and each company's share the vertical rhythm */
 .hero{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(2.5rem,5vw,3.5rem)}
-/* the home's: the text starts on the reading column, so the whole page sits on one axis; the
-   mark, large, closes the row on the right, its top on the name's */
-.home-hero{
-  display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(1.5rem,4vw,3.5rem);align-items:start;
-  padding-left:calc(var(--gutter) + clamp(2rem,4vw,3.5rem));
-}
+/* the home's: the same row as every entry, so the mark hangs in the left margin, its left edge on
+   the header logo's and its top on the name's; it fills the margin up to the column's gap */
+.hero-mark{display:flex;align-items:flex-start}
 .hero-main{container-type:inline-size}
 /* 12 mono glyphs ≈ 6.8em at this tracking: sized to its column, it always stays on one line */
 .hero-name{
@@ -103,7 +103,7 @@ main{padding-bottom:var(--s-7)}
   margin:0 0 clamp(1.5rem,3.5vw,2.5rem);
 }
 .hero-name .dot{display:inline-block}
-.home-hero .mark{width:clamp(9rem,19vw,16rem);height:auto;aspect-ratio:1}
+.home-hero .mark{width:calc(var(--gutter) + 1rem);height:auto;aspect-ratio:1;margin-top:-.75rem}
 .home-hero .mark g{fill:none;stroke:currentColor;stroke-width:8;stroke-miterlimit:10}
 .home-hero .mark circle{fill:var(--gold)}
 h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--display);letter-spacing:-.035em;margin:0;text-wrap:balance}
@@ -277,9 +277,8 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 .co-mini{--logo:3.25rem;display:block;width:calc(var(--logo) * var(--lw,1));height:calc(var(--logo) * var(--lh,1));color:var(--text)}
 .co-mini>svg{display:block;width:100%;height:100%}
 
-/* an entry: logo | head on the first row, the body under the head (grid-column -2 is the text
-   column with one column or two) */
-.entry-body{grid-column:-2 / -1}
+/* an entry: logo | head on the first row, the body under the head, on the text column */
+.entry-body{grid-column:text}
 .entry-body>:first-child{margin-top:var(--s-3)}
 .kind{margin:0 0 var(--s-1);font:400 .8rem/1.6 var(--mono);color:var(--muted)}
 
@@ -299,6 +298,11 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
     --bleed:calc(var(--gutter) + clamp(2rem,4vw,3.5rem));
     width:calc(100% + var(--bleed));margin:var(--s-5) 0 var(--s-4) calc(-1 * var(--bleed));
   }
+}
+/* full width: the right margin is as wide as the left one, so diagrams bleed into both and stay
+   centred on the page */
+@media (min-width:80rem){
+  .flow{width:calc(100% + 2 * var(--bleed))}
 }
 .flow .flow-tall{display:none}
 .flow .node{fill:none;stroke:color-mix(in srgb,var(--muted) 45%,transparent);stroke-width:1.25}
@@ -380,12 +384,12 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0;color:var(--gold-ink)}
 @media (max-width:52rem){
   .site-nav{display:none}
   .theme-toggle{margin-left:auto}
-  .row{grid-template-columns:minmax(0,1fr)}
+  .row{grid-template-columns:[text] minmax(0,1fr)}
   .meta{padding-top:0;margin-bottom:var(--s-1)}
   .meta:empty{display:none}
   /* phones: the mark first, then the text; the CTA alone, the other three on one line */
-  .home-hero{grid-template-columns:minmax(0,1fr);padding-left:0}
-  .home-hero .mark{order:-1;width:6rem;margin-bottom:var(--s-4)}
+  .hero-mark{justify-content:flex-start;padding-right:0;margin-bottom:var(--s-4)}
+  .home-hero .mark{width:6rem}
   .actions{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;column-gap:1.5rem;row-gap:var(--s-3)}
   .actions .cta{grid-column:1 / -1;justify-self:start}
   .statement-text{margin-left:0}

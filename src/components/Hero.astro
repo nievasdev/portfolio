@@ -10,8 +10,10 @@ const { lang } = Astro.props;
 const t = ui[lang];
 ---
 
-<!-- Two columns: who and what on the reading column, the mark large beside the name. -->
-<div class="hero home-hero">
+<!-- The same row as every entry: the mark hangs in the left margin against the name, the text
+     starts on the reading column (the screen's centre axis). -->
+<div class="hero home-hero row">
+  <div class="hero-mark"><Mark animated /></div>
   <div class="hero-main">
     <h1 class="hero-name">
       <span class="sr-only">Mauro Nievas</span>
@@ -32,5 +34,4 @@ const t = ui[lang];
       <a href={links.linkedin}>LinkedIn</a>
     </div>
   </div>
-  <Mark animated />
 </div>

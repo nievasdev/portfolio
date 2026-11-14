@@ -17,6 +17,10 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   alto más angosto): un cuadrado de 40 px, y de 28 px / 20 px en la línea de tiempo.
 - **R-50.** Todo el texto de una página arranca sobre el mismo eje vertical: el título, el «←
   volver», la frase de la banda y el texto de cada entrada.
+- **R-51.** La grilla es simétrica (margen | columna | margen): desde 1280 px los dos márgenes miden
+  lo mismo y la columna de texto queda centrada en la pantalla. Etiquetas y logos cuelgan en el
+  margen izquierdo; el derecho queda libre y es el primero que se angosta en pantallas medianas.
+  Los diagramas de las entradas se abren hacia los dos márgenes y quedan centrados.
 - **R-42.** En escritorio los diagramas ocupan todo el ancho del contenedor; en pantallas chicas
   usan su versión vertical, a todo el ancho, con las etiquetas legibles.
 - **R-43.** En pantallas chicas la frase-momento no deja más de una pantalla de aire.

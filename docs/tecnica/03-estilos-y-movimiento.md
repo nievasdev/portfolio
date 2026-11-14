@@ -11,6 +11,20 @@ Todo en `src/styles/global.css`, incrustado en cada página.
   `<html>`. Un script de una línea en el `<head>` (`Layout.astro`) la aplica **antes de pintar**,
   así no hay parpadeo. Sin JS el botón queda `hidden` y manda el sistema.
 
+## Grilla
+
+`.row` es `margen | [text] columna [text-end] | resto`: `var(--gutter) minmax(0, var(--measure))
+minmax(0, 1fr)`. Con `.wrap` a 80rem, el resto mide lo mismo que el margen y la columna queda en el
+centro de la pantalla; en pantallas medianas el `1fr` se achica primero y la columna no se toca.
+El cuerpo de una entrada se ubica con `grid-column: text` (la línea con nombre sirve igual con una
+columna en el celular). Cada entrada es `logo | encabezado` arriba y el cuerpo debajo: así, en
+escritorio, el logo (`flex: 1 1 0` + `aspect-ratio` desde `--lw/--lh`) mide exactamente el alto
+del encabezado. El logo grande del hero usa la misma fila, en el margen.
+
+`npm run check:layout` verifica el eje: título, «← volver», frase de la banda y texto de cada
+entrada tienen que empezar en la misma x (el título y la frase se miden por su primer texto, así
+una caja estirada con texto centrado también falla).
+
 ## Bandas marinas (`.band`)
 
 Redefinen los tokens dentro de la sección, así todo lo que contienen se adapta solo. El ancho

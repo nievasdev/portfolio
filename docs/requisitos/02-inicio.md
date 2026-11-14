@@ -6,8 +6,9 @@
 
 - **R-07.** El hero muestra `mauro.nievas` con el punto dorado, el rol, la frase principal y tres
   datos con el mismo formato (cifra en negrita + etiqueta): años de experiencia, transacciones por
-  día y Uruleyes. El logo va grande a la derecha, con su arriba alineado con el del nombre, y se
-  dibuja al cargar; en pantallas chicas va arriba del nombre.
+  día y Uruleyes. El logo va grande en el margen izquierdo, como el de cada empresa: su borde
+  izquierdo coincide con el del logo del encabezado y su arriba con el del nombre; se dibuja al
+  cargar. En pantallas chicas va arriba del nombre.
 - **R-08.** Los años de experiencia son los años completos desde el **1 de abril de 2017** a la
   fecha del build; el número sube con el primer build posterior a cada 1 de abril.
 - **R-09.** «3.5M transactions/day ↓» lleva al diagrama de transacciones de la banda y «Uruleyes try
