@@ -22,8 +22,8 @@ const projects = (await getEntry('projects', lang))?.data ?? [];
 <Layout lang={lang} path="/" title={t.meta.title} description={t.meta.description} bandFooter>
   <Hero lang={lang} />
   <Statement lang={lang} />
-  <Projects lang={lang} projects={projects} />
   <Experience lang={lang} works={works} />
+  <Projects lang={lang} projects={projects} />
   <About lang={lang} />
   <Contact lang={lang} />
 </Layout>

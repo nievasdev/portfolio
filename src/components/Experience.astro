@@ -1,5 +1,4 @@
 ---
-import TransactionsFlow from './TransactionsFlow.astro';
 import { ui, localePath, type Lang } from '../i18n/ui';
 import { rich } from '../lib/rich';
 import { timelineSegments } from '../lib/timeline';
@@ -59,7 +58,6 @@ const logoOf = new Map(works.filter((w) => logoSvg(w.logo)).map((w) => [w.slug, 
         <ul class="points">
           {work.keyPoints.map((point) => <li set:html={rich(point)} />)}
         </ul>
-        {work.diagram === 'transactions' && <TransactionsFlow lang={lang} />}
         <ul class="tags">
           {work.technologies.slice(0, HOME_TECHNOLOGIES).map((tech) => <li>{tech}</li>)}
         </ul>

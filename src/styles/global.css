@@ -215,8 +215,12 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 }
 .band ::selection{color:#fff}
 
-/* the statement: the page's one moment */
-.statement{padding-block:clamp(5rem,16vh,9.5rem)}
+/* the statement: the page's one moment, the claim and its proof (the transactions flow) */
+.statement{padding-block:clamp(3.5rem,10vh,6rem)}
+/* the band already spans the whole container, so its diagram needs no bleed into the margin */
+.statement .flow{width:auto;margin:var(--s-5) 0 0}
+/* the tall version stops growing at phone-ish sizes, so tablets don't get giant labels */
+@media (max-width:52rem){.statement .flow{max-width:24rem}}
 .statement-text{
   margin:0 0 0 calc(var(--gutter) + clamp(2rem,4vw,3.5rem));max-width:21em;
   font:600 clamp(1.75rem,4.2vw,3.4rem)/1.18 var(--sans);letter-spacing:-.025em;text-wrap:balance;

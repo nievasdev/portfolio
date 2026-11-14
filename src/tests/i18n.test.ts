@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ui } from '../i18n/ui';
+import { ui, homeSections } from '../i18n/ui';
 
 // Flattens nested keys ('hero.facts.0.label') so missing translations show up by path.
 function keys(value: unknown, prefix = ''): string[] {
@@ -12,6 +12,10 @@ function keys(value: unknown, prefix = ''): string[] {
 describe('UI dictionary', () => {
   it('has exactly the same keys in English and Spanish', () => {
     expect(keys(ui.es)).toEqual(keys(ui.en));
+  });
+
+  it('el menú lleva a experiencia antes que a proyectos, como la home (CA-18)', () => {
+    expect(homeSections).toEqual(['experience', 'projects', 'about', 'contact']);
   });
 
   it('el dato de industrias es solo texto, sin número destacado ni link', () => {

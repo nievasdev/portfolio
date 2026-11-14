@@ -1,7 +1,7 @@
 ---
 import Mark from './Mark.astro';
 import ThemeToggle from './ThemeToggle.astro';
-import { ui, languages, localePath, type Lang } from '../i18n/ui';
+import { ui, languages, localePath, homeSections, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -11,7 +11,6 @@ interface Props {
 const { lang, path } = Astro.props;
 const t = ui[lang];
 const home = localePath(lang, '/');
-const sections = ['projects', 'experience', 'about', 'contact'] as const;
 ---
 
 <header class="site-header">
@@ -22,7 +21,7 @@ const sections = ['projects', 'experience', 'about', 'contact'] as const;
     </a>
     <nav class="site-nav" aria-label={t.nav.label}>
       <ul>
-        {sections.map((s) => (
+        {homeSections.map((s) => (
           <li><a href={`${home}#${s}`}>{t.nav[s]}</a></li>
         ))}
       </ul>

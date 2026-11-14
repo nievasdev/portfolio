@@ -49,6 +49,11 @@ contenido queda quieto y visible.
 escritorio y vertical para pantallas chicas. En escritorio se salen de la columna de texto hacia el
 margen (`--bleed`) para que las etiquetas se lean a ~16 px.
 
+En la home, el de Antel vive dentro de la banda marina (`Statement.astro`), debajo de la frase: toma
+los colores de la banda porque `.band` redefine los tokens. Ahí no necesita `--bleed` (la banda ya
+ocupa todo el contenedor) y la versión vertical se limita a 24rem para que en tablet no crezca de
+más. En la página de Antel sigue en su columna, con el `--bleed`.
+
 ## Logos
 
 SVG en `public/logo_*.svg` con `fill="currentColor"`, el `viewBox` recortado al dibujo y

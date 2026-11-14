@@ -9,6 +9,9 @@ export const links = {
   email: 'mauro@nievas.dev',
 } as const;
 
+// Home sections in page order; the header menu follows it.
+export const homeSections = ['experience', 'projects', 'about', 'contact'] as const;
+
 // Maps a language-agnostic path ('/', '/work/antel') to its URL in `lang`.
 // English lives at the root, Spanish under /es.
 export function localePath(lang: Lang, path: string): string {

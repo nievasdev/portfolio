@@ -62,8 +62,9 @@ Verificación: navegador (capturas de `npm run check:layout`).
 **CA-41: frase-momento en móvil** (R-43)
 
 - Dado un ancho de 360 px
-- Cuando se ve la banda de la frase
-- Entonces su alto no supera el de la pantalla
+- Cuando se ve la banda de la frase y su diagrama
+- Entonces ni arriba de la frase, ni entre la frase y el diagrama, ni debajo de él queda más de un
+  cuarto de pantalla vacío
 
 Verificación: navegador.
 
