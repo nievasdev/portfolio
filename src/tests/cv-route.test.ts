@@ -35,6 +35,7 @@ describe('cvResponse: el CV se sirve como PDF (CA-30)', () => {
     setEntries({});
     await expect(cvResponse('es')).rejects.toThrow(MissingCvContentError);
     await expect(cvResponse('es')).rejects.toThrow('Falta el contenido del CV para "es" (src/content/cv/es.json)');
+    await expect(cvResponse('es')).rejects.toMatchObject({ name: 'MissingCvContentError' });
   });
 
   it('el CV con experiencia es más largo que el que no la tiene', async () => {
