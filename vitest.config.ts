@@ -6,6 +6,8 @@ export default defineConfig({
     globals: true,
     // No test needs a DOM; node keeps the suite (and every Stryker mutant run) fast.
     environment: 'node',
+    // Some tests build real PDFs; under Stryker's parallel load they need more than 5 s.
+    testTimeout: 30000,
     setupFiles: ['./src/tests/setup.ts'],
     include: ['src/**/*.{test,spec}.{js,ts}'],
     coverage: {

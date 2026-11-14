@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { resolve } from 'path';
 import worksEn from '../content/works/en.json';
 import worksEs from '../content/works/es.json';
@@ -39,6 +39,15 @@ describe('Data Integrity', () => {
   it('has every project logo in public/', () => {
     [...projectsEn, ...projectsEs].forEach((p) => {
       if ('logo' in p && p.logo) expect(existsSync(resolve(publicDir, p.logo.slice(1))), p.logo).toBe(true);
+    });
+  });
+
+  it('ningún logo conserva el lienzo cuadrado sin recortar (CA-39)', () => {
+    const logos = [...worksEn.map((w) => w.logo), ...projectsEn.flatMap((p) => ('logo' in p && p.logo ? [p.logo] : []))];
+    logos.forEach((logo) => {
+      const svg = readFileSync(resolve(publicDir, logo.slice(1)), 'utf8');
+      const [, , width, height] = svg.match(/viewBox="([^"]+)"/)![1].split(/\s+/).map(Number);
+      expect(width, logo).not.toBe(height);
     });
   });
 

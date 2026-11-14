@@ -19,6 +19,20 @@ describe('yearsSince', () => {
     expect(yearsSince(CAREER_START, new Date(2027, 3, 1))).toBe(10);
   });
 
+  it('en el mismo mes del aniversario, cuenta según el día', () => {
+    const midMonthStart = new Date(2017, 3, 15);
+    expect(yearsSince(midMonthStart, new Date(2026, 3, 14))).toBe(8);
+    expect(yearsSince(midMonthStart, new Date(2026, 3, 15))).toBe(9);
+  });
+
+  it('en un mes anterior al aniversario no cuenta el año aunque el día sea mayor', () => {
+    expect(yearsSince(new Date(2017, 3, 15), new Date(2026, 2, 20))).toBe(8);
+  });
+
+  it('en un mes posterior al aniversario cuenta el año aunque el día sea menor', () => {
+    expect(yearsSince(new Date(2017, 3, 15), new Date(2026, 4, 10))).toBe(9);
+  });
+
   it('never goes negative', () => {
     expect(yearsSince(CAREER_START, new Date(2016, 0, 1))).toBe(0);
   });

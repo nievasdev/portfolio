@@ -44,6 +44,10 @@ describe('Content Schema Validation', () => {
       expect(workSchema.safeParse(current).success).toBe(true);
     });
 
+    it('exige que el logo sea una ruta absoluta dentro de public/', () => {
+      expect(workSchema.safeParse({ ...validWork, logo: 'logo_acme.svg' }).success).toBe(false);
+    });
+
     it('accepts only known diagrams', () => {
       expect(workSchema.safeParse({ ...validWork, diagram: 'transactions' }).success).toBe(true);
       expect(workSchema.safeParse({ ...validWork, diagram: 'pie' }).success).toBe(false);
@@ -89,6 +93,14 @@ describe('Content Schema Validation', () => {
     it('accepts only known project diagrams', () => {
       expect(projectSchema.safeParse({ ...validProject, diagram: 'search' }).success).toBe(true);
       expect(projectSchema.safeParse({ ...validProject, diagram: 'transactions' }).success).toBe(false);
+    });
+
+    it('acepta capturas solo bajo /shots/ y con texto alternativo', () => {
+      const shot = { src: '/shots/uruleyes', alt: 'Resultados', width: 1200, height: 750 };
+      expect(projectSchema.safeParse({ ...validProject, screenshots: [shot] }).success).toBe(true);
+      expect(projectSchema.safeParse({ ...validProject, screenshots: [{ ...shot, src: '/img/uruleyes' }] }).success).toBe(false);
+      const { alt, ...withoutAlt } = shot;
+      expect(projectSchema.safeParse({ ...validProject, screenshots: [withoutAlt] }).success).toBe(false);
     });
 
     it('treats github as optional', () => {

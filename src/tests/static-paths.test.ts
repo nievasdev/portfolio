@@ -24,6 +24,11 @@ describe('Static Path Generation', () => {
       });
     });
 
+    it('cada otra empresa lleva su identificador y su nombre (CA-21)', () => {
+      const [antel] = workPaths(worksEn as Work[]);
+      expect(antel.props.others[0]).toEqual({ slug: 'upshow', name: 'Upshow' });
+    });
+
     it('uses unique kebab-case slugs', () => {
       const slugs = worksEn.map((w) => w.slug);
       expect(new Set(slugs).size).toBe(slugs.length);
