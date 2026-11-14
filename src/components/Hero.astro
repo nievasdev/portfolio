@@ -10,22 +10,28 @@ const { lang } = Astro.props;
 const t = ui[lang];
 ---
 
-<div class="hero row">
-  <Mark animated />
-  <div>
-    <h1>Mauro Nievas</h1>
-    <p class="role">{t.hero.role}</p>
-    <p class="lede">{t.hero.lede}</p>
-    <ul class="facts">
-      {t.hero.facts.map((f) => (
-        <li>{f.value && <><b>{f.value}</b> </>}{f.label}</li>
-      ))}
-    </ul>
-    <div class="actions">
-      <a class="cta" href="#contact">{t.hero.cta} <span class="pip" aria-hidden="true"></span></a>
-      <a href={localePath(lang, '/cv.pdf')} download="Mauro-Nievas-CV.pdf">{t.hero.cv}</a>
-      <a href={links.github}>GitHub</a>
-      <a href={links.linkedin}>LinkedIn</a>
+<div class="hero">
+  <h1 class="hero-name">
+    <span class="sr-only">Mauro Nievas</span>
+    <span aria-hidden="true">mauro<span class="dot">.</span>nievas</span>
+  </h1>
+  <div class="row hero-body">
+    <Mark animated />
+    <div>
+      <p class="role">{t.hero.role}</p>
+      <p class="lede">{t.hero.lede}</p>
+      <ul class="facts">
+        {t.hero.facts.map((f) => {
+          const body = <>{f.value && <><b>{f.value}</b> </>}{f.label}</>;
+          return <li>{f.href ? <a href={f.href}>{body}</a> : body}</li>;
+        })}
+      </ul>
+      <div class="actions">
+        <a class="cta" href="#contact">{t.hero.cta} <span class="pip" aria-hidden="true"></span></a>
+        <a href={localePath(lang, '/cv.pdf')} download="Mauro-Nievas-CV.pdf">{t.hero.cv}</a>
+        <a href={links.github}>GitHub</a>
+        <a href={links.linkedin}>LinkedIn</a>
+      </div>
     </div>
   </div>
 </div>

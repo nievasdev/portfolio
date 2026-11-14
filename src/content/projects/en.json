@@ -3,12 +3,14 @@
     "kind": "featured",
     "name": "Uruleyes",
     "subtitle": "Natural-language search for Uruguayan law",
-    "text": "A natural-language search engine for Uruguayan law. It indexes legislation and official sources (IMPO, Parliament, MTSS, BPS and more), classifies results by legal practice area, and handles high concurrent load on minimal hardware. Adopted widely by Uruguay's legal community.",
+    "text": "A natural-language search engine for Uruguayan law. It indexes legislation and official sources (IMPO, Parliament, MTSS, BPS and more), classifies results by legal practice area, and was load-tested at 1,500 searches a minute with a 46 ms p95 on a 4-core server. Adopted widely by Uruguay's legal community.",
     "url": "https://uruleyes.com",
+    "diagram": "search",
+    "search": { "action": "https://uruleyes.com/", "param": "q", "example": "despido por embarazo" },
     "screenshots": [
       { "src": "/shots/uruleyes-results", "alt": "Uruleyes search results for “despido por embarazo”: 58 laws and decrees, each tagged by practice area with a link to the official text in IMPO.", "width": 1200, "height": 750 }
     ],
-    "technologies": ["Node.js", "Docker"]
+    "technologies": ["Node.js", "TypeScript", "Express", "PostgreSQL", "pgvector", "Preact", "Docker"]
   },
   {
     "kind": "case",

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from './Hero.astro';
+import Statement from './Statement.astro';
 import Experience from './Experience.astro';
 import Projects from './Projects.astro';
 import About from './About.astro';
@@ -18,10 +19,11 @@ const works = (await getEntry('works', lang))?.data ?? [];
 const projects = (await getEntry('projects', lang))?.data ?? [];
 ---
 
-<Layout lang={lang} path="/" title={t.meta.title} description={t.meta.description}>
+<Layout lang={lang} path="/" title={t.meta.title} description={t.meta.description} bandFooter>
   <Hero lang={lang} />
-  <Experience lang={lang} works={works} />
+  <Statement lang={lang} />
   <Projects lang={lang} projects={projects} />
+  <Experience lang={lang} works={works} />
   <About lang={lang} />
   <Contact lang={lang} />
 </Layout>

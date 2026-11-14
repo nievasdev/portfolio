@@ -39,7 +39,7 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:5rem;scrollbar-color:var(--line) var(--bg);-webkit-text-size-adjust:100%}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.65 var(--sans);-webkit-font-smoothing:antialiased;caret-color:var(--gold)}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.65 var(--sans);-webkit-font-smoothing:antialiased;caret-color:var(--gold);overflow-x:clip}
 ::selection{background:color-mix(in srgb,var(--gold) 35%,transparent);color:var(--text)}
 a{color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-decoration-thickness:1px;text-underline-offset:.25em;transition:text-decoration-color .2s}
 a:hover{text-decoration-color:var(--gold)}
@@ -68,8 +68,18 @@ main{padding-bottom:var(--s-7)}
 /* the logo mark */
 .mark{color:var(--text);flex:none}
 
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
 /* hero */
-.hero{padding:clamp(3rem,7vw,5rem) 0 clamp(2.5rem,5vw,3.5rem)}
+.hero{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(2.5rem,5vw,3.5rem)}
+/* "mauro.nievas" starts on the reading column, so the whole hero sits on one axis.
+   12 mono glyphs ≈ 6.8em at this tracking: the min() keeps it on one line on phones. */
+.hero-name{
+  font:600 min(calc((100vw - 2 * clamp(1rem,4vw,2.5rem)) / 6.8), 5rem)/.95 var(--mono);
+  letter-spacing:-.045em;white-space:nowrap;text-wrap:nowrap;
+  margin:0 0 clamp(1.5rem,3.5vw,2.5rem) calc(var(--gutter) + clamp(2rem,4vw,3.5rem));
+}
+.hero-name .dot{display:inline-block}
 .hero .mark{width:7.5rem;height:7.5rem;margin-top:.4rem}
 .hero .mark g{fill:none;stroke:currentColor;stroke-width:8;stroke-miterlimit:10}
 .hero .mark circle{fill:var(--gold)}
@@ -83,18 +93,56 @@ h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--mono);letter-spacing:-.035em;mar
 .cta:hover{gap:.95rem}
 .cta .pip{width:.45rem;height:.45rem;border-radius:50%;background:var(--gold)}
 
-/* signature: the braces close in around the dot once, on load */
-.hero .mark path:nth-child(1){--dy:-14px}
-.hero .mark path:nth-child(2){--dx:12px;--dy:7px}
-.hero .mark path:nth-child(3){--dx:-12px;--dy:7px}
+/* ---- motion: one grammar for the whole site (exponential ease-out, the gold dot as protagonist) ---- */
 @media (prefers-reduced-motion:no-preference){
-  .hero .mark path{animation:mark-close .9s cubic-bezier(.16,1,.3,1) both}
-  .hero .mark path:nth-child(2){animation-delay:.08s}
-  .hero .mark path:nth-child(3){animation-delay:.16s}
-  .hero .mark circle{animation:mark-pop .5s .55s cubic-bezier(.16,1,.3,1) both}
+  /* on load: the braces draw themselves stroke by stroke, then the dot pops in */
+  .hero .mark path{stroke-dasharray:1;animation:brace-draw 1.1s cubic-bezier(.16,1,.3,1) both}
+  .hero .mark path:nth-child(2){animation-delay:.12s}
+  .hero .mark path:nth-child(3){animation-delay:.24s}
+  .hero .mark circle{animation:dot-pop .6s .75s cubic-bezier(.34,1.56,.64,1) both}
+  .hero-body>div>*{animation:rise .7s cubic-bezier(.16,1,.3,1) both}
+  .hero-body>div>:nth-child(2){animation-delay:.08s}
+  .hero-body>div>:nth-child(3){animation-delay:.16s}
+  .hero-body>div>:nth-child(4){animation-delay:.24s}
 }
-@keyframes mark-close{from{translate:var(--dx,0) var(--dy,0);opacity:0}}
-@keyframes mark-pop{from{scale:0}}
+@keyframes brace-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes dot-pop{from{scale:0}}
+@keyframes rise{from{opacity:0;translate:0 .6rem}}
+
+/* on scroll: the name's dot drops away; each section's dot falls in and lands as its rule draws */
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    .hero-name .dot{
+      animation:dot-drop linear both;animation-timeline:view();animation-range:exit 0% exit 55%;
+    }
+    .section-head{view-timeline-name:--head}
+    .section-head .dot{
+      display:inline-block;
+      animation:dot-land both cubic-bezier(.16,1,.3,1);animation-timeline:--head;animation-range:entry 10% cover 32%;
+    }
+    .section-head::after{
+      transform-origin:left;
+      animation:rule-draw both cubic-bezier(.16,1,.3,1);animation-timeline:--head;animation-range:entry 0% cover 40%;
+    }
+  }
+}
+@keyframes dot-drop{to{translate:0 1.4em;scale:.2;opacity:0}}
+@keyframes dot-land{
+  from{translate:0 -4rem;scale:3;opacity:0}
+  65%{translate:0 .12rem;scale:1;opacity:1}
+  to{translate:0 0;scale:1;opacity:1}
+}
+@keyframes rule-draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* between pages: the company name morphs into the detail title; the header stays put */
+@view-transition{navigation:auto}
+@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}
+.site-header{view-transition-name:site-header}
+::view-transition-group(*){animation-duration:.42s;animation-timing-function:cubic-bezier(.16,1,.3,1)}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.28s}
+/* the company name: show only the destination text resizing with its box (no blurry upscaled snapshot) */
+::view-transition-old(.work-name){animation:none;opacity:0}
+::view-transition-new(.work-name){animation:none}
 
 /* sections: a full-width rule head, then entries whose margin column carries dates and labels */
 .section{padding-top:var(--s-6)}
@@ -119,11 +167,12 @@ h3 .via{font-weight:400;color:var(--muted)}
 .tags{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-3);list-style:none;margin:var(--s-3) 0 0;padding:0;font:400 .78rem/1.7 var(--mono);color:var(--muted)}
 .tags:first-child{margin-top:.15rem}
 .links{display:flex;flex-wrap:wrap;gap:var(--s-4);margin-top:var(--s-3);font:400 .85rem var(--mono)}
-.links a{text-decoration-color:var(--gold-ink)}
 .body-text{margin:var(--s-3) 0 0}
 .shots{display:grid;gap:var(--s-3);margin:var(--s-4) 0 0}
 .shots.pair{grid-template-columns:1fr 1fr;align-items:start}
-.shots img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:4px;background:var(--line)}
+.shot{display:block;overflow:hidden;border:1px solid var(--line);border-radius:4px;background:var(--line)}
+.shot img{display:block;width:100%;height:auto;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.shot:hover img{transform:scale(1.025)}
 .flush{margin:0}
 .earlier{margin:0;color:var(--muted)}
 
@@ -137,7 +186,120 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 .prose p:last-child{margin-bottom:0}
 
 .contact-text{font-size:clamp(1.25rem,2.1vw,1.5rem);line-height:1.45;margin:0;max-width:34ch}
-.mail{display:inline-block;margin-top:var(--s-4);font:600 clamp(1.25rem,3vw,1.9rem) var(--mono);letter-spacing:-.02em;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:.3em;overflow-wrap:anywhere}
+.mail{display:inline-block;margin-top:var(--s-4);font:600 clamp(1.6rem,5.2vw,4.25rem)/1.15 var(--mono);letter-spacing:-.035em;overflow-wrap:anywhere;--ul:3px;--ul-base:color-mix(in srgb,var(--gold) 35%,transparent)}
+
+/* ---- bands: full-bleed navy sections; they redefine the tokens so everything inside adapts ---- */
+.band{
+  --bg:#1E2A44;--text:#E6E9F0;--muted:#A9B0BF;--line:rgba(230,233,240,.16);--gold-ink:#C9A227;
+  background:var(--bg);color:var(--text);
+  margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%);
+}
+.band ::selection{color:#fff}
+
+/* the statement: the page's one moment */
+.statement{padding-block:clamp(5rem,16vh,9.5rem)}
+.statement-text{
+  margin:0 0 0 calc(var(--gutter) + clamp(2rem,4vw,3.5rem));max-width:21em;
+  font:600 clamp(1.75rem,4.2vw,3.4rem)/1.18 var(--sans);letter-spacing:-.025em;text-wrap:balance;
+}
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    .statement{view-timeline-name:--stmt}
+    .statement .w{
+      animation:word-on linear both;animation-timeline:--stmt;
+      animation-range:cover calc(22% + var(--i) / var(--n) * 34%) cover calc(28% + var(--i) / var(--n) * 34%);
+    }
+    .statement-text .dot{
+      display:inline-block;animation:dot-land both cubic-bezier(.16,1,.3,1);
+      animation-timeline:--stmt;animation-range:cover 56% cover 66%;
+    }
+  }
+}
+@keyframes word-on{from{color:rgba(230,233,240,.2)}to{color:var(--text)}}
+
+/* ---- career timeline: one segment per job, proportional, the gold dot at today ---- */
+.timeline{padding-top:1.5rem}
+.timeline-bar{position:relative;height:2px;margin:0;padding:0;list-style:none}
+.seg{position:absolute;top:0;height:2px}
+.seg a{position:absolute;inset:-1.5rem 3px -.75rem 0;display:block;text-decoration:none}
+.seg a::after{content:"";position:absolute;left:0;right:0;bottom:.75rem;height:2px;background:color-mix(in srgb,var(--muted) 45%,transparent);transition:background .2s}
+.seg a:hover::after,.seg a:focus-visible::after{background:var(--gold)}
+.seg.current a::after{background:var(--text)}
+.seg.current::after{content:"";position:absolute;right:-5px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.seg-name{position:absolute;left:0;top:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:400 .72rem/1 var(--mono);color:var(--muted)}
+.seg a:hover .seg-name{color:var(--text)}
+.timeline-years{display:flex;justify-content:space-between;margin-top:.7rem;font:400 .72rem var(--mono);color:var(--muted)}
+
+/* ---- Antel's transaction flow (TransactionsFlow.astro) ---- */
+.flow{margin:var(--s-4) 0 0}
+.flow svg{display:block;width:100%;height:auto;overflow:visible}
+/* desktop: diagrams break out of the text column into the margin, so their labels read at ~16px */
+@media (min-width:52.01rem){
+  .flow{
+    --bleed:calc(var(--gutter) + clamp(2rem,4vw,3.5rem));
+    width:calc(100% + var(--bleed));margin:var(--s-5) 0 var(--s-4) calc(-1 * var(--bleed));
+  }
+}
+.flow .flow-tall{display:none}
+.flow .node{fill:none;stroke:color-mix(in srgb,var(--muted) 45%,transparent);stroke-width:1.25}
+.flow .lane{fill:none;stroke:color-mix(in srgb,var(--muted) 35%,transparent);stroke-width:1.25}
+.flow .tx{fill:none;stroke:var(--gold);stroke-width:6;stroke-linecap:round;stroke-dasharray:.1px 56px;stroke-dashoffset:calc(var(--lane) * -19px)}
+.flow text{font:400 12px var(--mono);fill:var(--text);text-anchor:middle}
+.flow .rate{fill:var(--gold-ink)}
+.flow .start{text-anchor:start}
+.flow-tall text{font-size:15px}
+.flow .node-fill{fill:var(--bg)}
+.flow .dashed{stroke-dasharray:3 4}
+.flow .muted{fill:var(--muted)}
+.flow-search .flow-wide text{font-size:11px}
+.flow-search .tx{stroke-width:5;stroke-dasharray:.1px 14px}
+.flow-search .flow-tall text{font-size:13px}
+.flow-search .flow-tall .small{font-size:11.5px}
+
+/* ---- "Try it": a real search that opens the product ---- */
+.try{margin-top:var(--s-4)}
+.try-label{display:block;margin-bottom:var(--s-2);font:400 .78rem var(--mono);color:var(--muted)}
+.try-field{display:flex;max-width:34rem;border:1px solid var(--line);border-radius:4px;overflow:hidden;transition:border-color .2s}
+.try-field:focus-within{border-color:var(--gold)}
+.try input{flex:1;min-width:0;padding:.7rem .9rem;border:0;background:transparent;color:var(--text);font:400 1rem var(--sans);outline:none}
+.try input::placeholder{color:var(--muted)}
+.try button{padding:0 1rem;border:0;background:var(--text);color:var(--bg);font:400 .85rem var(--mono);white-space:nowrap;cursor:pointer;transition:scale .12s ease-out}
+.try button:active{scale:.97}
+
+@supports (animation-timeline:view()){
+  @media (prefers-reduced-motion:no-preference){
+    .timeline-row{view-timeline-name:--tl}
+    .timeline-bar{transform-origin:left;animation:rule-draw both cubic-bezier(.16,1,.3,1);animation-timeline:--tl;animation-range:entry 10% cover 40%}
+    .seg.current::after{animation:dot-land both cubic-bezier(.16,1,.3,1);animation-timeline:--tl;animation-range:cover 30% cover 45%}
+    .flow{view-timeline-name:--flow}
+    .flow .tx{animation:flow-move linear both;animation-timeline:--flow;animation-range:cover 0% cover 100%}
+  }
+}
+@keyframes flow-move{to{stroke-dashoffset:calc(var(--lane) * -19px - 448px)}}
+
+/* the close: contact and footer read as one navy section */
+.band.closing{padding-bottom:var(--s-6);margin-top:var(--s-6)}
+main:has(.closing){padding-bottom:0}
+.site-footer.band{border-top-color:var(--line)}
+
+/* ---- hover layer: underlines draw in gold, photographs settle, the button presses ---- */
+.facts a{color:inherit}
+:is(.actions a:not(.cta), .links a, h3 a, .more a, .earlier a, .mail, .facts a){
+  text-decoration:none;padding-bottom:.08em;
+  background:
+    linear-gradient(var(--gold),var(--gold)) left bottom/0 var(--ul,1px) no-repeat,
+    linear-gradient(var(--ul-base,var(--line)),var(--ul-base,var(--line))) left bottom/100% var(--ul,1px) no-repeat;
+  transition:background-size .4s cubic-bezier(.16,1,.3,1);
+}
+:is(.actions a:not(.cta), .links a, h3 a, .more a, .earlier a, .mail, .facts a):hover{
+  background-size:100% var(--ul,1px),100% var(--ul,1px);
+}
+h3 a{--ul-base:transparent}
+.cta{transition:gap .25s cubic-bezier(.16,1,.3,1),scale .12s ease-out}
+.cta:active{scale:.97}
+@media (prefers-reduced-motion:reduce){
+  :is(.actions a:not(.cta), .links a, h3 a, .more a, .earlier a, .mail, .facts a),.shot img,.cta{transition:none}
+}
 
 /* work detail */
 .back{display:inline-block;margin-bottom:var(--s-4);font:400 .85rem var(--mono);color:var(--muted);text-decoration:none}
@@ -156,7 +318,15 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
   .row{grid-template-columns:minmax(0,1fr)}
   .meta{padding-top:0;margin-bottom:var(--s-1)}
   .meta:empty{display:none}
-  .hero .mark{width:4rem;height:4rem;margin:0 0 var(--s-5)}
+  .hero-name{margin-left:0}
+  .statement-text{margin-left:0}
+  .seg-name{display:none}
+  .timeline{padding-top:.75rem}
+  .seg a{inset:-.75rem 3px -.75rem 0}
+  .flow .flow-wide{display:none}
+  .flow .flow-tall{display:block}
+  .hero .mark{width:3.5rem;height:3.5rem;margin:0}
+  .hero-body .role{margin-top:var(--s-3)}
   .co-logo{margin:0 0 var(--s-4)}
   .co-logo svg{width:3.5rem;height:3.5rem}
   .shots.pair{grid-template-columns:1fr}

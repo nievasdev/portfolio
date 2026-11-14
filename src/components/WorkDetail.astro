@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import TransactionsFlow from './TransactionsFlow.astro';
 import { ui, localePath, type Lang } from '../i18n/ui';
 import { rich, plain } from '../lib/rich';
 import type { Work } from '../content/schemas';
@@ -31,7 +32,7 @@ const logo = rawLogos[`../../public${work.logo}`] as string | undefined;
     <div>
       <a class="back" href={home}>{t.work.back}</a>
       <p class="meta">{work.time}</p>
-      <h1>{work.name}</h1>
+      <h1 style={`view-transition-name: work-${work.slug}; view-transition-class: work-name`}>{work.name}</h1>
       <p class="role">{work.role}{work.via && ` · ${work.via}`}</p>
       <p class="lede">{work.workMethod}</p>
     </div>
@@ -41,9 +42,12 @@ const logo = rawLogos[`../../public${work.logo}`] as string | undefined;
     <h2 id="h-overview" class="section-head">{t.work.overview}<span class="dot">.</span></h2>
     <div class="entry row">
       <span class="meta">{t.work.highlights}</span>
-      <ul class="points">
-        {work.highlights.map((h) => <li set:html={rich(h)} />)}
-      </ul>
+      <div>
+        <ul class="points">
+          {work.highlights.map((h) => <li set:html={rich(h)} />)}
+        </ul>
+        {work.diagram === 'transactions' && <TransactionsFlow lang={lang} />}
+      </div>
     </div>
     {work.largeText.length > 0 && (
       <div class="entry row">

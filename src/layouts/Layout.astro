@@ -11,9 +11,11 @@ export interface Props {
   path: string;
   title: string;
   description: string;
+  // The home page closes on a navy band; the footer continues it.
+  bandFooter?: boolean;
 }
 
-const { lang, path, title, description } = Astro.props;
+const { lang, path, title, description, bandFooter = false } = Astro.props;
 const site = Astro.site ?? new URL('https://nievas.dev');
 const url = (l: Lang) => new URL(localePath(l, path), site).href;
 ---
@@ -50,6 +52,6 @@ const url = (l: Lang) => new URL(localePath(l, path), site).href;
         <slot />
       </div>
     </main>
-    <Footer lang={lang} />
+    <Footer lang={lang} band={bandFooter} />
   </body>
 </html>

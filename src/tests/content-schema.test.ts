@@ -44,6 +44,11 @@ describe('Content Schema Validation', () => {
       expect(workSchema.safeParse(current).success).toBe(true);
     });
 
+    it('accepts only known diagrams', () => {
+      expect(workSchema.safeParse({ ...validWork, diagram: 'transactions' }).success).toBe(true);
+      expect(workSchema.safeParse({ ...validWork, diagram: 'pie' }).success).toBe(false);
+    });
+
     it('requires at least one highlight', () => {
       expect(workSchema.safeParse({ ...validWork, highlights: [] }).success).toBe(false);
     });
@@ -72,6 +77,18 @@ describe('Content Schema Validation', () => {
     it('rejects links that are not URLs', () => {
       expect(projectSchema.safeParse({ ...validProject, url: 'uruleyes' }).success).toBe(false);
       expect(projectSchema.safeParse({ ...validProject, github: 123 }).success).toBe(false);
+    });
+
+    it('accepts a search box only with an https action', () => {
+      const search = { action: 'https://uruleyes.com/', param: 'q', example: 'despido' };
+      expect(projectSchema.safeParse({ ...validProject, search }).success).toBe(true);
+      expect(projectSchema.safeParse({ ...validProject, search: { ...search, action: 'http://uruleyes.com/' } }).success).toBe(false);
+      expect(projectSchema.safeParse({ ...validProject, search: { ...search, param: '' } }).success).toBe(false);
+    });
+
+    it('accepts only known project diagrams', () => {
+      expect(projectSchema.safeParse({ ...validProject, diagram: 'search' }).success).toBe(true);
+      expect(projectSchema.safeParse({ ...validProject, diagram: 'transactions' }).success).toBe(false);
     });
 
     it('treats github as optional', () => {

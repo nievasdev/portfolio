@@ -4,13 +4,14 @@ import { ui, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
+  band?: boolean;
 }
 
-const { lang } = Astro.props;
+const { lang, band = false } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
-<footer class="site-footer">
+<footer class:list={['site-footer', { band }]}>
   <div class="wrap">
     <Mark />
     <span>© {year} Mauro Nievas · {ui[lang].footer}</span>

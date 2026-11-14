@@ -10,7 +10,7 @@ interface Props {
 const { lang, path } = Astro.props;
 const t = ui[lang];
 const home = localePath(lang, '/');
-const sections = ['experience', 'projects', 'about', 'contact'] as const;
+const sections = ['projects', 'experience', 'about', 'contact'] as const;
 ---
 
 <header class="site-header">

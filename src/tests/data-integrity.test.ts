@@ -16,7 +16,7 @@ const canonicalTech = new Set([
   'React', 'Next.js', 'Tailwind CSS', 'SCSS',
   'MySQL', 'MariaDB', 'PostgreSQL', 'MongoDB', 'Sequelize',
   'Docker', 'GitLab CI/CD', 'Git', 'Jest', 'Linux',
-  'Python', 'PHP', 'Flask',
+  'Python', 'PHP', 'Flask', 'pgvector', 'Preact',
 ]);
 
 const allContent = { worksEn, worksEs, projectsEn, projectsEs };
@@ -73,9 +73,8 @@ describe('Data Integrity', () => {
 
   describe('EN / ES parity', () => {
     it('lists the same works in the same order', () => {
-      expect(worksEs.map((w) => [w.slug, w.logo, w.technologies])).toEqual(
-        worksEn.map((w) => [w.slug, w.logo, w.technologies]),
-      );
+      const shape = (w: (typeof worksEn)[number]) => [w.slug, w.logo, w.technologies, 'diagram' in w ? w.diagram : undefined];
+      expect(worksEs.map(shape)).toEqual(worksEn.map(shape));
     });
 
     it('has the same amount of highlights and projects per work', () => {
@@ -86,7 +85,7 @@ describe('Data Integrity', () => {
     });
 
     it('lists the same projects in the same order', () => {
-      const shape = (p: (typeof projectsEn)[number]) => [p.kind, 'github' in p ? p.github : undefined, p.technologies];
+      const shape = (p: (typeof projectsEn)[number]) => [p.kind, 'github' in p ? p.github : undefined, p.technologies, 'search' in p ? p.search : undefined, 'diagram' in p ? p.diagram : undefined];
       expect(projectsEs.map(shape)).toEqual(projectsEn.map(shape));
     });
   });

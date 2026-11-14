@@ -17,6 +17,8 @@ export const workSchema = z.object({
   end: yearMonth.optional(),
   location: z.string().min(1),
   logo: z.string().startsWith('/'),
+  // A live diagram drawn under the highlights (src/components/TransactionsFlow.astro).
+  diagram: z.enum(['transactions']).optional(),
   highlights: z.array(z.string().min(1)).min(1),
   technologies: z.array(z.string().min(1)),
   workMethod: z.string().min(1),
@@ -36,6 +38,14 @@ export const projectSchema = z.object({
   url: z.string().url().optional(),
   caseStudyUrl: z.string().url().optional(),
   github: z.string().url().optional(),
+  // A live architecture diagram (src/components/SearchFlow.astro).
+  diagram: z.enum(['search']).optional(),
+  // A real search box that sends the visitor to the product: GET <action>?<param>=<query>.
+  search: z.object({
+    action: z.string().url().startsWith('https://'),
+    param: z.string().min(1),
+    example: z.string().min(1),
+  }).optional(),
   caseStudy: z.object({
     problem: z.string().optional(),
     role: z.string().optional(),

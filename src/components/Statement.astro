@@ -1,0 +1,21 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const words = ui[lang].statement.split(' ');
+---
+
+<!-- The page's one moment: the words light up one by one as the sentence crosses the screen (CSS only). -->
+<section class="band statement">
+  <p class="statement-text">
+    {words.map((w, i) => (
+      <>
+        <span class="w" style={`--i:${i}; --n:${words.length}`}>{w}</span>{i < words.length - 1 && ' '}
+      </>
+    ))}<span class="dot">.</span>
+  </p>
+</section>

@@ -24,7 +24,7 @@ const angles = [270, 30, 150];
 ) : animated ? (
   <svg class="mark" viewBox="-76 -76 152 152" aria-hidden="true">
     <g>
-      {angles.map((a) => <path transform={`rotate(${a})`} d={brace} />)}
+      {angles.map((a) => <path transform={`rotate(${a})`} d={brace} pathLength="1" />)}
     </g>
     <circle r="8.5" />
   </svg>

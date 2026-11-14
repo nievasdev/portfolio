@@ -1,6 +1,8 @@
 ---
+import TransactionsFlow from './TransactionsFlow.astro';
 import { ui, localePath, type Lang } from '../i18n/ui';
 import { rich } from '../lib/rich';
+import { timelineSegments } from '../lib/timeline';
 import type { Work } from '../content/schemas';
 
 interface Props {
@@ -10,22 +12,41 @@ interface Props {
 
 const { lang, works } = Astro.props;
 const t = ui[lang];
+const timeline = timelineSegments(works);
 ---
 
 <section id="experience" class="section" aria-labelledby="h-experience">
   <h2 id="h-experience" class="section-head">{t.sections.experience}<span class="dot">.</span></h2>
+
+  <nav class="entry row timeline-row" aria-label={t.timeline.label}>
+    <span class="meta">{timeline.startYear} — {t.timeline.now}</span>
+    <div class="timeline">
+      <ol class="timeline-bar">
+        {timeline.segments.map((s) => (
+          <li class:list={['seg', { current: s.current }]} style={`left:${s.left}%; width:${s.width}%`}>
+            <a href={`#work-${s.slug}`} title={s.name}><span class="seg-name">{s.name}</span></a>
+          </li>
+        ))}
+      </ol>
+      <div class="timeline-years" aria-hidden="true">
+        <span>{timeline.startYear}</span><span>{timeline.endYear}</span>
+      </div>
+    </div>
+  </nav>
+
   {works.map((work) => (
-    <article class="entry row">
+    <article class="entry row" id={`work-${work.slug}`}>
       <span class="meta">{work.time}</span>
       <div>
         <h3>
-          <a href={localePath(lang, `/work/${work.slug}`)}>{work.name}</a>
+          <a href={localePath(lang, `/work/${work.slug}`)} style={`view-transition-name: work-${work.slug}; view-transition-class: work-name`}>{work.name}</a>
           {work.via && <>{' '}<span class="via">({work.via})</span></>}
         </h3>
         <p class="sub">{work.role}</p>
         <ul class="points">
           {work.highlights.map((h) => <li set:html={rich(h)} />)}
         </ul>
+        {work.diagram === 'transactions' && <TransactionsFlow lang={lang} />}
         <ul class="tags">
           {work.technologies.map((tech) => <li>{tech}</li>)}
         </ul>

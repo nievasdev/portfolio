@@ -3,12 +3,14 @@
     "kind": "featured",
     "name": "Uruleyes",
     "subtitle": "Búsqueda legal en lenguaje natural",
-    "text": "Buscador en lenguaje natural de la normativa uruguaya. Indexa legislación y fuentes oficiales (IMPO, Parlamento, MTSS, BPS, entre otras), clasifica los resultados por área del derecho y soporta alta concurrencia con hardware mínimo. Adoptado ampliamente por la comunidad jurídica uruguaya.",
+    "text": "Buscador en lenguaje natural de la normativa uruguaya. Indexa legislación y fuentes oficiales (IMPO, Parlamento, MTSS, BPS, entre otras), clasifica los resultados por área del derecho y en pruebas de carga sostuvo 1.500 búsquedas por minuto con un p95 de 46 ms en un servidor de 4 núcleos. Adoptado ampliamente por la comunidad jurídica uruguaya.",
     "url": "https://uruleyes.com",
+    "diagram": "search",
+    "search": { "action": "https://uruleyes.com/", "param": "q", "example": "despido por embarazo" },
     "screenshots": [
       { "src": "/shots/uruleyes-results", "alt": "Resultados de Uruleyes para “despido por embarazo”: 58 leyes y decretos, cada uno con su área del derecho y el enlace al texto oficial en IMPO.", "width": 1200, "height": 750 }
     ],
-    "technologies": ["Node.js", "Docker"]
+    "technologies": ["Node.js", "TypeScript", "Express", "PostgreSQL", "pgvector", "Preact", "Docker"]
   },
   {
     "kind": "case",

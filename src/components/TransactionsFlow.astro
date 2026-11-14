@@ -1,0 +1,48 @@
+---
+// Antel's transaction flow: SFTP files → Node.js microservices (three lanes) → SQL databases.
+// The gold "transactions" are dashed strokes whose offset is driven by scroll (CSS only);
+// without scroll-driven animations they rest as dots along the lanes.
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].flow;
+const [serviceA, ...serviceB] = t.service.split(' ');
+
+// desktop, viewBox 720x200: three lanes through the service box
+const wideLane = (y: number) => `M171,100 C223,100 223,${y} 275,${y} L445,${y} C497,${y} 497,100 549,100`;
+const wideLanes = [82, 100, 118];
+// phone, viewBox 300x440: the same flow, top to bottom
+const tallLane = (x: number) => `M200,60 C200,95 ${x},100 ${x},135 L${x},355 C${x},372 200,365 200,380`;
+const tallLanes = [178, 200, 222];
+---
+
+<figure class="flow" id="flow-transactions" role="img" aria-label={t.label}>
+  <svg class="flow-wide" viewBox="0 0 720 200" aria-hidden="true">
+    <rect class="node" x="1" y="72" width="170" height="56" rx="4" />
+    <rect class="node node-service" x="275" y="40" width="170" height="120" rx="4" />
+    <rect class="node" x="549" y="72" width="170" height="56" rx="4" />
+    {wideLanes.map((y) => <path class="lane" d={wideLane(y)} />)}
+    {wideLanes.map((y, i) => <path class="tx" d={wideLane(y)} style={`--lane:${i}`} />)}
+    <text x="86" y="104" class="label">{t.input}</text>
+    <text x="360" y="62" class="label">{t.service}</text>
+    <text x="634" y="104" class="label">{t.store}</text>
+    <text x="360" y="148" class="rate">{t.rate}</text>
+  </svg>
+
+  <svg class="flow-tall" viewBox="0 0 300 440" aria-hidden="true">
+    <rect class="node" x="110" y="10" width="180" height="50" rx="4" />
+    <rect class="node node-service" x="10" y="120" width="280" height="250" rx="4" />
+    <rect class="node" x="110" y="380" width="180" height="50" rx="4" />
+    {tallLanes.map((x) => <path class="lane" d={tallLane(x)} />)}
+    {tallLanes.map((x, i) => <path class="tx" d={tallLane(x)} style={`--lane:${i}`} />)}
+    <text x="200" y="40" class="label">{t.input}</text>
+    <text x="28" y="225" class="label start">{serviceA}</text>
+    <text x="28" y="245" class="label start">{serviceB.join(' ')}</text>
+    <text x="28" y="280" class="rate start">{t.rate}</text>
+    <text x="200" y="410" class="label">{t.store}</text>
+  </svg>
+</figure>

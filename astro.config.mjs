@@ -8,7 +8,9 @@ export default defineConfig({
   vite: {
     build: {
       minify: 'esbuild',
-      cssMinify: 'lightningcss'
+      // Not lightningcss: it folds animation-timeline into the `animation` shorthand,
+      // which browsers reject, so every scroll-driven animation silently disappears in production.
+      cssMinify: 'esbuild'
     }
   },
   build: {

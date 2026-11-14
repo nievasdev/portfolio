@@ -8,6 +8,7 @@
     "start": "2022-04",
     "location": "Montevideo, Uruguay",
     "logo": "/logo_ancel.svg",
+    "diagram": "transactions",
     "highlights": [
       "Desarrollo y mantengo microservicios en Node.js que procesan hasta **3,5M de transacciones diarias**, con integración a bases de datos SQL y servicios SFTP.",
       "Lideré un refactor a gran escala en proyectos Next.js y Node.js, **reduciendo los tiempos de despliegue un 40%**.",
