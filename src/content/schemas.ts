@@ -32,6 +32,7 @@ export const workSchema = z.object({
 export const projectSchema = z.object({
   kind: z.enum(['featured', 'case', 'earlier']),
   name: z.string().min(1),
+  logo: z.string().startsWith('/').optional(),
   subtitle: z.string().optional(),
   time: z.string().optional(),
   text: z.string().optional(),

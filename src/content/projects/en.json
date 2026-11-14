@@ -2,6 +2,7 @@
   {
     "kind": "featured",
     "name": "Uruleyes",
+    "logo": "/logo_uruleyes.svg",
     "subtitle": "Natural-language search for Uruguayan law",
     "text": "A natural-language search engine for Uruguayan law. It indexes legislation and official sources (IMPO, Parliament, MTSS, BPS and more), classifies results by legal practice area, and was load-tested at 1,500 searches a minute with a 46 ms p95 on a 4-core server. Adopted widely by Uruguay's legal community.",
     "url": "https://uruleyes.com",

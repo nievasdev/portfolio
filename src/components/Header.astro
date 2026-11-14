@@ -1,5 +1,6 @@
 ---
 import Mark from './Mark.astro';
+import ThemeToggle from './ThemeToggle.astro';
 import { ui, languages, localePath, type Lang } from '../i18n/ui';
 
 interface Props {
@@ -26,6 +27,7 @@ const sections = ['projects', 'experience', 'about', 'contact'] as const;
         ))}
       </ul>
     </nav>
+    <ThemeToggle lang={lang} />
     <div class="lang" role="group" aria-label={t.language}>
       {languages.map((l, i) => (
         <>

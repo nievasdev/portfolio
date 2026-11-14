@@ -2,6 +2,7 @@
   {
     "kind": "featured",
     "name": "Uruleyes",
+    "logo": "/logo_uruleyes.svg",
     "subtitle": "Búsqueda legal en lenguaje natural",
     "text": "Buscador en lenguaje natural de la normativa uruguaya. Indexa legislación y fuentes oficiales (IMPO, Parlamento, MTSS, BPS, entre otras), clasifica los resultados por área del derecho y en pruebas de carga sostuvo 1.500 búsquedas por minuto con un p95 de 46 ms en un servidor de 4 núcleos. Adoptado ampliamente por la comunidad jurídica uruguaya.",
     "url": "https://uruleyes.com",

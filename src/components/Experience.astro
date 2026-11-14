@@ -3,6 +3,7 @@ import TransactionsFlow from './TransactionsFlow.astro';
 import { ui, localePath, type Lang } from '../i18n/ui';
 import { rich } from '../lib/rich';
 import { timelineSegments } from '../lib/timeline';
+import { logoSymbol } from '../lib/logos';
 import type { Work } from '../content/schemas';
 
 interface Props {
@@ -13,9 +14,14 @@ interface Props {
 const { lang, works } = Astro.props;
 const t = ui[lang];
 const timeline = timelineSegments(works);
+// Each logo is defined once and reused in the timeline and beside its entry.
+const logoId = (slug: string) => `logo-${slug}`;
+const symbols = works.map((w) => logoSymbol(w.logo, logoId(w.slug))).filter(Boolean).join('');
+const hasLogo = new Set(works.filter((w) => logoSymbol(w.logo, '')).map((w) => w.slug));
 ---
 
 <section id="experience" class="section" aria-labelledby="h-experience">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" set:html={symbols} />
   <h2 id="h-experience" class="section-head">{t.sections.experience}<span class="dot">.</span></h2>
 
   <nav class="entry row timeline-row" aria-label={t.timeline.label}>
@@ -24,7 +30,12 @@ const timeline = timelineSegments(works);
       <ol class="timeline-bar">
         {timeline.segments.map((s) => (
           <li class:list={['seg', { current: s.current }]} style={`left:${s.left}%; width:${s.width}%`}>
-            <a href={`#work-${s.slug}`} title={s.name}><span class="seg-name">{s.name}</span></a>
+            <a href={`#work-${s.slug}`} title={s.name}>
+              {hasLogo.has(s.slug)
+                ? <svg class="seg-logo" aria-hidden="true"><use href={`#${logoId(s.slug)}`} /></svg>
+                : <span class="seg-name" aria-hidden="true">{s.name}</span>}
+              <span class="sr-only">{s.name}</span>
+            </a>
           </li>
         ))}
       </ol>
@@ -36,10 +47,13 @@ const timeline = timelineSegments(works);
 
   {works.map((work) => (
     <article class="entry row" id={`work-${work.slug}`}>
-      <span class="meta">{work.time}</span>
+      <div class="meta">
+        <span>{work.time}</span>
+        {hasLogo.has(work.slug) && <svg class="co-mini" aria-hidden="true"><use href={`#${logoId(work.slug)}`} /></svg>}
+      </div>
       <div>
         <h3>
-          <a href={localePath(lang, `/work/${work.slug}`)} style={`view-transition-name: work-${work.slug}; view-transition-class: work-name`}>{work.name}</a>
+          <a href={localePath(lang, `/work/${work.slug}`)} style={`view-transition-name: work-${work.slug}; view-transition-class: work-name`}>{work.name}<span class="go" aria-hidden="true">→</span></a>
           {work.via && <>{' '}<span class="via">({work.via})</span></>}
         </h3>
         <p class="sub">{work.role}</p>

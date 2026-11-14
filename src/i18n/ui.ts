@@ -24,6 +24,7 @@ const en = {
   skip: 'Skip to content',
   home: 'Mauro Nievas, home',
   language: 'Language',
+  theme: { toDark: 'Switch to dark theme', toLight: 'Switch to light theme' },
   nav: {
     label: 'Sections',
     experience: 'Experience',
@@ -132,6 +133,7 @@ const es: Dictionary = {
   skip: 'Saltar al contenido',
   home: 'Mauro Nievas, inicio',
   language: 'Idioma',
+  theme: { toDark: 'Cambiar a tema oscuro', toLight: 'Cambiar a tema claro' },
   nav: {
     label: 'Secciones',
     experience: 'Experiencia',

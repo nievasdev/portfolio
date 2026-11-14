@@ -1,6 +1,7 @@
 ---
 import SearchFlow from './SearchFlow.astro';
 import { ui, type Lang } from '../i18n/ui';
+import { logoSvg } from '../lib/logos';
 import type { Project } from '../content/schemas';
 
 interface Props {
@@ -22,7 +23,10 @@ const anchor = (name: string) =>
   <h2 id="h-projects" class="section-head">{t.sections.projects}<span class="dot">.</span></h2>
   {main.map((p) => (
     <article class="entry row" id={anchor(p.name)}>
-      <span class="meta">{t.projects.kind[p.kind]}</span>
+      <div class="meta">
+        <span>{t.projects.kind[p.kind]}</span>
+        {p.logo && logoSvg(p.logo) && <span class="co-mini" aria-hidden="true" set:html={logoSvg(p.logo)} />}
+      </div>
       <div>
         <h3>{p.name}</h3>
         {p.subtitle && <p class="sub">{p.subtitle}</p>}

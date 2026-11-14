@@ -36,6 +36,12 @@ describe('Data Integrity', () => {
     });
   });
 
+  it('has every project logo in public/', () => {
+    [...projectsEn, ...projectsEs].forEach((p) => {
+      if ('logo' in p && p.logo) expect(existsSync(resolve(publicDir, p.logo.slice(1))), p.logo).toBe(true);
+    });
+  });
+
   it('ships the favicon, touch icon and fonts', () => {
     ['favicon.svg', 'apple-touch-icon.png', 'fonts/jetbrains-mono-latin-400.woff2', 'fonts/jetbrains-mono-latin-600.woff2']
       .forEach((f) => expect(existsSync(resolve(publicDir, f)), f).toBe(true));

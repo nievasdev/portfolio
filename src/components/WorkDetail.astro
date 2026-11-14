@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import TransactionsFlow from './TransactionsFlow.astro';
 import { ui, localePath, type Lang } from '../i18n/ui';
 import { rich, plain } from '../lib/rich';
+import { logoSvg } from '../lib/logos';
 import type { Work } from '../content/schemas';
 
 interface Props {
@@ -17,8 +18,7 @@ const path = `/work/${work.slug}`;
 const home = `${localePath(lang, '/')}#experience`;
 
 // Company logos are inlined (fill="currentColor") so they follow the theme with no extra request.
-const rawLogos = import.meta.glob('../../public/logo_*.svg', { query: '?raw', import: 'default', eager: true });
-const logo = rawLogos[`../../public${work.logo}`] as string | undefined;
+const logo = logoSvg(work.logo);
 ---
 
 <Layout

@@ -1,0 +1,49 @@
+---
+// Light/dark switch. Hidden without JS (the theme then just follows the system).
+// The saved choice is applied in Layout's <head> before paint, so pages never flash.
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang].theme;
+---
+
+<button class="theme-toggle" type="button" hidden data-to-dark={t.toDark} data-to-light={t.toLight} aria-label={t.toDark}>
+  <svg viewBox="0 0 20 20" aria-hidden="true">
+    <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.5" />
+    <path d="M10 3a7 7 0 0 0 0 14z" fill="currentColor" />
+  </svg>
+</button>
+
+<script is:inline>
+  (function () {
+    var b = document.querySelector('.theme-toggle');
+    var root = document.documentElement;
+    var current = function () {
+      return root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    };
+    var label = function () {
+      var dark = current() === 'dark';
+      b.setAttribute('aria-pressed', String(dark));
+      b.setAttribute('aria-label', dark ? b.dataset.toLight : b.dataset.toDark);
+    };
+    b.hidden = false;
+    label();
+    b.addEventListener('click', function () {
+      var next = current() === 'dark' ? 'light' : 'dark';
+      var apply = function () {
+        root.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        label();
+      };
+      if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.startViewTransition(apply);
+      } else {
+        apply();
+      }
+    });
+  })();
+</script>
