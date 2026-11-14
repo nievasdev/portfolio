@@ -44,7 +44,8 @@ cerrar el ciclo (después de la mutación y el navegador).
   `.layout-check/` para compararlas antes/después.
 - **Commit:** `feat|fix|test|refactor|docs|chore(alcance): …` en español, con los R/CA que cubre.
   `test:` es solo para tests que pasan desde el principio (caracterización o matar un mutante).
-  Antes de commitear, `npm test`, `npm run typecheck` y `npm run build` tienen que pasar.
+  Antes de commitear, `npm test`, `npm run typecheck`, `npm run build` y `npm run check:size`
+  (cada página HTML con gzip ≤ 14 000 bytes) tienen que pasar.
 
 Después de cada fase se para y se espera el OK, salvo que Mauro pida «hazlo completo».
 

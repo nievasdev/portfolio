@@ -16,7 +16,8 @@
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit -p tsconfig.json --types node",
     "mutation": "stryker run",
-    "check:layout": "node scripts/check-layout.mjs"
+    "check:layout": "node scripts/check-layout.mjs",
+    "check:size": "node scripts/check-size.mjs"
   },
   "dependencies": {
     "astro": "^5.14.1",

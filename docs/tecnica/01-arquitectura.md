@@ -12,7 +12,7 @@
 ```
 src/
   pages/          rutas (envoltorios finos): index, es/index, work/[slug], es/work/[slug],
-                  cv.pdf.ts, es/cv.pdf.ts
+                  cv.pdf.ts, es/cv.pdf.ts, logos.svg.ts (sprite de logos)
   components/     HomePage, Hero, Statement, Projects, Experience, About, Contact,
                   WorkDetail, Header, Footer, Mark, ThemeToggle, TransactionsFlow, SearchFlow
   layouts/        Layout.astro: <head> (hreflang, canonical, meta, tema), header y footer

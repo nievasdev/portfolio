@@ -52,7 +52,7 @@ describe('Data Integrity', () => {
   });
 
   it('ships the favicon, touch icon and fonts', () => {
-    ['favicon.svg', 'apple-touch-icon.png', 'fonts/jetbrains-mono-latin-400.woff2', 'fonts/jetbrains-mono-latin-600.woff2']
+    ['favicon.svg', 'apple-touch-icon.png', 'fonts/jetbrains-mono-display-600.woff2']
       .forEach((f) => expect(existsSync(resolve(publicDir, f)), f).toBe(true));
   });
 

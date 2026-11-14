@@ -1,7 +1,7 @@
 ---
 import SearchFlow from './SearchFlow.astro';
 import { ui, type Lang } from '../i18n/ui';
-import { logoSvg } from '../lib/logos';
+import { logoHref, logoSvg } from '../lib/logos';
 import type { Project } from '../content/schemas';
 
 interface Props {
@@ -25,7 +25,7 @@ const anchor = (name: string) =>
     <article class="entry row" id={anchor(p.name)}>
       <div class="meta">
         <span>{t.projects.kind[p.kind]}</span>
-        {p.logo && logoSvg(p.logo) && <span class="co-mini" aria-hidden="true" set:html={logoSvg(p.logo)} />}
+        {p.logo && logoSvg(p.logo) && <svg class="co-mini" aria-hidden="true"><use href={logoHref(p.logo)} /></svg>}
       </div>
       <div>
         <h3>{p.name}</h3>

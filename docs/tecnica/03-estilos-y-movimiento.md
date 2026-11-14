@@ -51,5 +51,24 @@ margen (`--bleed`) para que las etiquetas se lean a ~16 px.
 
 ## Logos
 
-SVG en `public/logo_*.svg` con `fill="currentColor"` y el `viewBox` recortado al dibujo. En la home
-se definen una vez como `<symbol>` (`lib/logos.ts`) y se reutilizan con `<use>`.
+SVG en `public/logo_*.svg` con `fill="currentColor"`, el `viewBox` recortado al dibujo y
+optimizados con SVGO (precisión de 1 decimal). El endpoint `src/pages/logos.svg.ts` los junta en un
+sprite, `/logos.svg`, generado en el build desde esos mismos archivos (`logoSprite()` en
+`lib/logos.ts`). Las páginas los dibujan con `<use href="/logos.svg#logo-ancel">`: siguen tomando
+el color del tema y no pesan en el HTML. El logo grande de cada página de empresa sí va incrustado,
+porque está arriba de todo.
+
+## Tipografías
+
+- Todo el texto monoespaciado usa la mono del sistema (`--mono`).
+- Solo el nombre, los títulos de empresa, la marca y el mail usan `--display`: JetBrains Mono 600
+  recortada a letras, acentos del español y `.@-` (`public/fonts/jetbrains-mono-display-600.woff2`,
+  4,5 KB, precargada y con `font-display: swap`). Si un título nuevo usa un carácter fuera de ese
+  conjunto, se muestra con la mono del sistema: hay que regenerar el recorte (por ejemplo con la
+  librería `subset-font`) a partir de la fuente completa.
+
+## Peso
+
+Cada página HTML, con gzip, cabe en 14 000 bytes (R-45), así llega entera en la primera ida y
+vuelta. El favicon va incrustado como `data:` URI (leído de `public/favicon.svg` al compilar). Lo
+que más pesa dentro del HTML es el CSS (~4,5 KB con gzip) y los dos diagramas.

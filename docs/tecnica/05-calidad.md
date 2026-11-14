@@ -8,6 +8,7 @@
 | `npm run typecheck` | `tsc` sobre todo el proyecto (sin errores) |
 | `npm run mutation` | Stryker sobre `src/lib`, `src/i18n` y `src/content/schemas.ts`; umbral **100 %** |
 | `npm run check:layout` | El build en el navegador, en los 9 anchos de referencia |
+| `npm run check:size` | Cada página HTML con gzip pesa como máximo 14 000 bytes (R-45) |
 | `npm run build` | El sitio y los dos PDF |
 
 ## Mutación (Stryker)

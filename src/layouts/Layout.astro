@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Mark from '../components/Mark.astro';
 import { ui, localePath, type Lang } from '../i18n/ui';
+import faviconSvg from '../../public/favicon.svg?raw';
 
 export interface Props {
   lang: Lang;
@@ -18,6 +19,8 @@ export interface Props {
 const { lang, path, title, description, bandFooter = false } = Astro.props;
 const site = Astro.site ?? new URL('https://nievas.dev');
 const url = (l: Lang) => new URL(localePath(l, path), site).href;
+// Inlined so the page loads in a single request (the favicon is not a second one).
+const favicon = `data:image/svg+xml,${encodeURIComponent(faviconSvg.trim())}`;
 ---
 
 <!DOCTYPE html>
@@ -36,9 +39,9 @@ const url = (l: Lang) => new URL(localePath(l, path), site).href;
     <link rel="alternate" hreflang="en" href={url('en')} />
     <link rel="alternate" hreflang="es" href={url('es')} />
     <link rel="alternate" hreflang="x-default" href={url('en')} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={favicon} type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preload" href="/fonts/jetbrains-mono-latin-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-display-600.woff2" as="font" type="font/woff2" crossorigin />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

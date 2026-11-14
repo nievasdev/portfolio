@@ -15,6 +15,10 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
 - **R-42.** En escritorio los diagramas ocupan todo el ancho del contenedor; en pantallas chicas
   usan su versión vertical, a todo el ancho, con las etiquetas legibles.
 - **R-43.** En pantallas chicas la frase-momento no deja más de una pantalla de aire.
+- **R-45.** Cada página HTML, comprimida con gzip, pesa como máximo **14 000 bytes**, para que
+  llegue entera en la primera ida y vuelta de la conexión. Esa página trae todo lo necesario para
+  verse: CSS, textos, diagramas y favicon. Aparte se cargan solo las imágenes (capturas y el
+  archivo de logos `/logos.svg`) y la tipografía del nombre, recortada a las letras que usa.
 - **R-44.** La herramienta `npm run check:layout` recorre la home y una página de empresa en los dos
   idiomas en todos los anchos de referencia y falla ante cualquier problema de R-38 o R-39.
 
@@ -67,6 +71,14 @@ Verificación: navegador.
 - Entonces empieza en x = 0 y termina en el borde de la pantalla
 
 Verificación: navegador.
+
+**CA-44: la página entra en un request** (R-45)
+
+- Dado el sitio construido
+- Cuando se comprime cada página HTML con gzip
+- Entonces ninguna supera 14 000 bytes
+
+Verificación: `npm run check:size`.
 
 **CA-43: revisión completa** (R-44)
 

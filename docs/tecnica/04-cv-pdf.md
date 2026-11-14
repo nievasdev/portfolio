@@ -41,7 +41,8 @@ viñetas y las filas de título. `sectionHead(label, keep)` reserva el alto de l
 ## Fuentes
 
 JetBrains Mono en **WOFF** (`src/assets/fonts/`), no WOFF2: fontkit no puede recortar WOFF2 al
-incrustarla. Esas copias no se publican; las de la web están en `public/fonts/` en WOFF2.
+incrustarla. Esas copias completas no se publican; la web solo usa el recorte de la 600
+(`public/fonts/jetbrains-mono-display-600.woff2`, ver 03-estilos-y-movimiento.md).
 
 ## Cómo se prueba
 

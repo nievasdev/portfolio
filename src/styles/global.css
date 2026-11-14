@@ -1,6 +1,7 @@
 /* nievas.dev: palette and lettering taken from the logo (navy, cold white, grays, one gold dot). */
-@font-face{font-family:"JetBrains Mono";src:url(/fonts/jetbrains-mono-latin-400.woff2) format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"JetBrains Mono";src:url(/fonts/jetbrains-mono-latin-600.woff2) format("woff2");font-weight:600;font-display:swap}
+/* Only the logo's lettering is a web font: JetBrains Mono 600 cut down to the letters of the name,
+   the company titles and the email (~4.5 KB). Every other monospace text uses the system's. */
+@font-face{font-family:"JetBrains Mono";src:url(/fonts/jetbrains-mono-display-600.woff2) format("woff2");font-weight:600;font-display:swap}
 
 :root{
   --bg:#F6F7F9;
@@ -9,7 +10,8 @@
   --line:#DDE1E8;
   --gold:#C9A227;     /* decorative only on light: the dot */
   --gold-ink:#8A6D12; /* gold that passes AA as text on --bg */
-  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace;
+  --display:"JetBrains Mono",var(--mono);
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 
   /* spacing scale (4px base): tight inside an entry, generous between groups */
@@ -66,7 +68,7 @@ main{padding-bottom:var(--s-7)}
 /* header */
 .site-header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;gap:2rem;height:4rem}
-.brand{display:flex;align-items:center;gap:.6rem;font:600 .95rem var(--mono);text-decoration:none;letter-spacing:-.01em}
+.brand{display:flex;align-items:center;gap:.6rem;font:600 .95rem var(--display);text-decoration:none;letter-spacing:-.01em}
 .brand .mark{width:1.6rem;height:1.6rem}
 .site-nav{margin-left:auto}
 .site-nav ul{display:flex;gap:1.75rem;list-style:none;margin:0;padding:0}
@@ -90,7 +92,7 @@ main{padding-bottom:var(--s-7)}
 /* "mauro.nievas" starts on the reading column, so the whole hero sits on one axis.
    12 mono glyphs ≈ 6.8em at this tracking: the min() keeps it on one line on phones. */
 .hero-name{
-  font:600 min(calc((100vw - 2 * clamp(1rem,4vw,2.5rem)) / 6.8), 5rem)/.95 var(--mono);
+  font:600 min(calc((100vw - 2 * clamp(1rem,4vw,2.5rem)) / 6.8), 5rem)/.95 var(--display);
   letter-spacing:-.045em;white-space:nowrap;text-wrap:nowrap;
   margin:0 0 clamp(1.5rem,3.5vw,2.5rem) calc(var(--gutter) + clamp(2rem,4vw,3.5rem));
 }
@@ -98,7 +100,7 @@ main{padding-bottom:var(--s-7)}
 .hero .mark{width:7.5rem;height:7.5rem;margin-top:.4rem}
 .hero .mark g{fill:none;stroke:currentColor;stroke-width:8;stroke-miterlimit:10}
 .hero .mark circle{fill:var(--gold)}
-h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--mono);letter-spacing:-.035em;margin:0;text-wrap:balance}
+h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--display);letter-spacing:-.035em;margin:0;text-wrap:balance}
 .role{font:400 .9rem/1.6 var(--mono);color:var(--muted);margin:var(--s-3) 0 0}
 .lede{font-size:clamp(1.25rem,2.1vw,1.5rem);line-height:1.45;margin:var(--s-4) 0 0;max-width:44ch;text-wrap:pretty}
 .facts{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-4);margin:var(--s-4) 0 0;padding:0;list-style:none;font:400 .85rem var(--mono);color:var(--muted)}
@@ -201,7 +203,7 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 .prose p:last-child{margin-bottom:0}
 
 .contact-text{font-size:clamp(1.25rem,2.1vw,1.5rem);line-height:1.45;margin:0;max-width:34ch}
-.mail{display:inline-block;margin-top:var(--s-4);font:600 clamp(1.6rem,5.2vw,4.25rem)/1.15 var(--mono);letter-spacing:-.035em;overflow-wrap:anywhere;--ul:3px;--ul-base:color-mix(in srgb,var(--gold) 35%,transparent)}
+.mail{display:inline-block;margin-top:var(--s-4);font:600 clamp(1.6rem,5.2vw,4.25rem)/1.15 var(--display);letter-spacing:-.035em;overflow-wrap:anywhere;--ul:3px;--ul-base:color-mix(in srgb,var(--gold) 35%,transparent)}
 
 /* ---- bands: full-bleed navy sections; they redefine the tokens so everything inside adapts ---- */
 .band{
@@ -251,7 +253,6 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 
 /* company logo under each entry's date */
 .co-mini{display:block;width:4.25rem;height:4.25rem;margin-top:1rem;color:var(--text)}
-.co-mini svg{display:block;width:100%;height:100%}
 
 /* ---- Antel's transaction flow (TransactionsFlow.astro) ---- */
 .flow{margin:var(--s-4) 0 0}
