@@ -4,7 +4,8 @@ import { resolve } from 'path';
 export default defineConfig({
   test: {
     globals: true,
-    environment: 'jsdom',
+    // No test needs a DOM; node keeps the suite (and every Stryker mutant run) fast.
+    environment: 'node',
     setupFiles: ['./src/tests/setup.ts'],
     include: ['src/**/*.{test,spec}.{js,ts}'],
     coverage: {
@@ -21,7 +22,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src')
+      '@': resolve(__dirname, './src'),
+      // Astro's virtual module does not exist outside Astro; tests swap in a fake they control.
+      'astro:content': resolve(__dirname, './src/tests/fakes/astro-content.ts')
     }
   }
 });

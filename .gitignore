@@ -23,3 +23,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 coverage/
+
+# mutation testing (Stryker) and browser checks
+.stryker-tmp/
+reports/
+.layout-check/
