@@ -67,6 +67,10 @@ describe('CV helpers', () => {
     expect(displayUrl('https://www.linkedin.com/in/mauronievasdev/')).toBe('linkedin.com/in/mauronievasdev');
   });
 
+  it('solo quita el protocolo al principio del link', () => {
+    expect(displayUrl('ver https://nievas.dev')).toBe('ver https://nievas.dev');
+  });
+
   it('muestra un link sin www tal cual, sin protocolo', () => {
     expect(displayUrl('https://nievas.dev')).toBe('nievas.dev');
   });
@@ -102,8 +106,10 @@ describe('CV PDF', () => {
     const pdf = await buildCv({ lang: 'en', cv: cvSchema.parse(cvEn), works: worksEn as Work[], years: 9, compress: false });
     const raw = pdf.toString('latin1');
     expect(raw).toContain('/MediaBox [0 0 595.28 841.89]');
-    expect(raw).toContain('/Title');
-    expect(raw).toContain('/Author');
+    // pdfkit writes ASCII metadata as is and the rest as UTF-16BE with a byte order mark.
+    const utf16 = (text: string) => Buffer.from(`﻿${text}`, 'utf16le').swap16().toString('latin1');
+    expect(raw).toContain(`(${utf16('Mauro Nievas — CV')})`);
+    expect(raw).toContain('(Mauro Nievas)');
   });
 
   it('prints the computed years, the companies and the contact email', async () => {

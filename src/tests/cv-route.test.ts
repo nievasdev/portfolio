@@ -26,6 +26,11 @@ describe('cvResponse: el CV se sirve como PDF (CA-30)', () => {
     expect(body.subarray(0, PDF_SIGNATURE.length).toString()).toBe(PDF_SIGNATURE);
   });
 
+  it('el PDF publicado va comprimido', async () => {
+    const body = await bodyOf(await cvResponse('en'));
+    expect(body.toString('latin1')).toContain('/FlateDecode');
+  });
+
   it('sin experiencia cargada para el idioma, igual genera el CV', async () => {
     const body = await bodyOf(await cvResponse('es'));
     expect(body.subarray(0, PDF_SIGNATURE.length).toString()).toBe(PDF_SIGNATURE);

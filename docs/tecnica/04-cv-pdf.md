@@ -33,9 +33,10 @@ Cómo cumple SOID:
 
 ## Saltos de página
 
-`ensure(space)` agrega una página si el bloque no entra. `sectionHead(label, keep)` reserva el
-alto de la sección entera (`keep`) para secciones cortas como habilidades o referencias, así nunca
-se cortan entre páginas (R-29).
+`ensure(space)` agrega una página si el bloque no entra; lo usan los títulos de sección, las
+viñetas y las filas de título. `sectionHead(label, keep)` reserva el alto de la sección entera
+(`keep`) para secciones cortas como habilidades o referencias, así nunca se cortan entre páginas
+(R-29); por eso sus filas no llaman a `ensure` (sería código que nunca actúa).
 
 ## Fuentes
 

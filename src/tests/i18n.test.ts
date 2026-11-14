@@ -14,6 +14,11 @@ describe('UI dictionary', () => {
     expect(keys(ui.es)).toEqual(keys(ui.en));
   });
 
+  it('el dato de industrias es solo texto, sin número destacado ni link', () => {
+    expect(ui.en.hero.facts[2]).toEqual({ value: '', label: 'Telecom · SaaS', href: null });
+    expect(ui.es.hero.facts[2]).toEqual({ value: '', label: 'Telecomunicaciones · SaaS', href: null });
+  });
+
   it('has no empty strings except the label-only fact', () => {
     const empty = (obj: unknown, path = ''): string[] =>
       obj && typeof obj === 'object'

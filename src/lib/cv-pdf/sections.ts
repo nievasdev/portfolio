@@ -104,12 +104,12 @@ const drawEducation: CvSection = ({ doc, left, width, sectionHead, titleRow }, {
   });
 };
 
-// The same stack as the site's About section.
-const drawSkills: CvSection = ({ doc, left, width, sectionHead, ensure }, { lang, cv }) => {
+// The same stack as the site's About section. Its head reserves the whole section, so no row
+// ever needs its own page break.
+const drawSkills: CvSection = ({ doc, left, width, sectionHead }, { lang, cv }) => {
   const { stack } = ui[lang].about;
   sectionHead(cv.labels.skills, stack.length * ROW_HEIGHT);
   stack.forEach((group) => {
-    ensure(ROW_HEIGHT);
     const y = doc.y;
     doc.font(FONT.mono).fontSize(SIZE.label).fillColor(COLOR.muted)
       .text(group.label, left, y + SKILLS.labelNudge, { width: SKILLS.labelWidth });
@@ -124,11 +124,11 @@ const drawLanguages: CvSection = ({ doc, left, width, sectionHead }, { cv }) => 
   doc.font(FONT.sans).fontSize(SIZE.body).fillColor(COLOR.text).text(cv.languages.join(SEPARATOR), left, doc.y, { width });
 };
 
-const drawReferences: CvSection = ({ doc, left, width, sectionHead, ensure }, { cv }) => {
+// Like skills, the head reserves the whole section.
+const drawReferences: CvSection = ({ doc, left, width, sectionHead }, { cv }) => {
   if (cv.references.length === 0) return;
   sectionHead(cv.labels.references, cv.references.length * ROW_HEIGHT);
   cv.references.forEach((reference) => {
-    ensure(ROW_HEIGHT);
     const details = [reference.role, reference.email, reference.phone].filter(Boolean).join(SEPARATOR);
     doc.font(FONT.sansBold).fontSize(SIZE.body).fillColor(COLOR.text).text(reference.name, left, doc.y, { continued: true });
     doc.font(FONT.sans).fillColor(COLOR.muted).text(`  ${details}`, { width });

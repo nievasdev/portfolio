@@ -37,6 +37,20 @@ describe('Content Schema Validation', () => {
       expect(workSchema.safeParse({ ...validWork, slug: 'gestion-total' }).success).toBe(true);
     });
 
+    it('acepta un identificador de una sola palabra y rechaza un guion al final', () => {
+      expect(workSchema.safeParse({ ...validWork, slug: 'antel' }).success).toBe(true);
+      expect(workSchema.safeParse({ ...validWork, slug: 'antel-' }).success).toBe(false);
+    });
+
+    it('rechaza fechas con texto antes o después del año-mes', () => {
+      expect(workSchema.safeParse({ ...validWork, start: 'x2020-03' }).success).toBe(false);
+      expect(workSchema.safeParse({ ...validWork, start: '2020-03x' }).success).toBe(false);
+    });
+
+    it('exige título y texto en cada proyecto de la empresa', () => {
+      expect(workSchema.safeParse({ ...validWork, projects: [{ text: 'Did the thing.' }] }).success).toBe(false);
+    });
+
     it('requires year-month dates', () => {
       expect(workSchema.safeParse({ ...validWork, start: '2020' }).success).toBe(false);
       expect(workSchema.safeParse({ ...validWork, end: '2021-13' }).success).toBe(false);
@@ -88,6 +102,15 @@ describe('Content Schema Validation', () => {
       expect(projectSchema.safeParse({ ...validProject, search }).success).toBe(true);
       expect(projectSchema.safeParse({ ...validProject, search: { ...search, action: 'http://uruleyes.com/' } }).success).toBe(false);
       expect(projectSchema.safeParse({ ...validProject, search: { ...search, param: '' } }).success).toBe(false);
+    });
+
+    it('exige que el logo del proyecto sea una ruta absoluta', () => {
+      expect(projectSchema.safeParse({ ...validProject, logo: 'logo_uruleyes.svg' }).success).toBe(false);
+      expect(projectSchema.safeParse({ ...validProject, logo: '/logo_uruleyes.svg' }).success).toBe(true);
+    });
+
+    it('rechaza un caso de estudio con campos que no son texto', () => {
+      expect(projectSchema.safeParse({ ...validProject, caseStudy: { role: 42 } }).success).toBe(false);
     });
 
     it('accepts only known project diagrams', () => {

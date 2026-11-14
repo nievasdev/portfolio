@@ -24,6 +24,16 @@ Lecciones de llevarlo al 100 %:
   regex de `logos.ts` (todos los archivos empiezan con `<svg`).
 - **Valores exactos** en los tests (posiciones de la línea de tiempo, el símbolo de un logo) matan
   mucho más que comparaciones del tipo «mayor que».
+- **Un «timeout» cuenta como muerto, pero puede esconder un sobreviviente.** Con la máquina cargada
+  (otra prueba corriendo en paralelo) los tests que generan PDFs tardan más y Stryker corta
+  mutantes que en realidad sobreviven. Por eso `timeoutMS: 60000`, `timeoutFactor: 3` y
+  `concurrency: 4`, y la pasada final se corre sola, sin nada más en paralelo.
+- **Mutantes estáticos** (código que corre al importar el módulo: los esquemas Zod y el diccionario
+  `ui.ts`). En la pasada completa, Stryker a veces no los reactiva y alguno figura «vivo» aunque un
+  test lo mata. Si eso pasa, se confirma corriendo solo ese tramo, por ejemplo
+  `npx stryker run --mutate "src/content/schemas.ts:18:1-18:40"`: si ahí muere, es la herramienta,
+  no un hueco del test. Hace falta Stryker 10 o más con Vitest 4 (la 9 configuraba Vitest con
+  opciones de la versión 3 y fallaba más seguido).
 - Los archivos `.astro` no se pueden mutar: lo visual se cubre con criterios de aceptación
   revisados en el navegador.
 

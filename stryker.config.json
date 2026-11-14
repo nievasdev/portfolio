@@ -8,5 +8,8 @@
   "htmlReporter": { "fileName": "reports/mutation/index.html" },
   "thresholds": { "high": 100, "low": 100, "break": 100 },
   "coverageAnalysis": "perTest",
+  "timeoutMS": 60000,
+  "timeoutFactor": 3,
+  "concurrency": 4,
   "tempDirName": ".stryker-tmp"
 }
