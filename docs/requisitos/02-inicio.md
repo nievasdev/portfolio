@@ -29,7 +29,8 @@
   prueba de carga), buscador «Try it», captura, stack y «Visit site». El rediseño de AntelTV es el
   caso de estudio: rol y qué construí en una línea cada uno, dos capturas y «Visit site». No hay
   otros proyectos: solo se muestra trabajo propio y verificable.
-- **R-13.** El buscador «Try it» viene cargado con «despido por embarazo» y, al enviarlo, abre en
+- **R-13.** El buscador «Try it» viene cargado con «inquilino que no paga el alquiler», la
+  captura muestra los resultados de esa misma búsqueda y, al enviarlo, abre en
   otra pestaña `https://uruleyes.com/?q=<texto>`.
 - **R-14.** Un dato que falta no se muestra: nunca aparece un `[placeholder]` ni el dato no
   verificable «99.9 %».
@@ -87,7 +88,8 @@ Verificación: `src/tests/i18n.test.ts` (destinos) y navegador.
 
 - Dado el proyecto Uruleyes
 - Cuando se lee su configuración de búsqueda
-- Entonces apunta a `https://uruleyes.com/` con el parámetro `q` y el ejemplo «despido por embarazo»
+- Entonces apunta a `https://uruleyes.com/` con el parámetro `q` y el ejemplo «inquilino que no paga
+  el alquiler», y el texto alternativo de la captura nombra esa búsqueda
 
 Verificación: `src/tests/data-integrity.test.ts`, `src/tests/content-schema.test.ts`.
 

@@ -76,6 +76,15 @@ describe('Data Integrity', () => {
     });
   });
 
+  it('el buscador de Uruleyes y su captura muestran «inquilino que no paga el alquiler» (CA-10)', () => {
+    const EXAMPLE = 'inquilino que no paga el alquiler';
+    [projectsEn, projectsEs].forEach((projects) => {
+      const uruleyes = projects.find((p) => p.name === 'Uruleyes')!;
+      expect(uruleyes.search?.example).toBe(EXAMPLE);
+      expect(uruleyes.screenshots?.[0].alt).toContain(EXAMPLE);
+    });
+  });
+
   it('never claims the unverifiable "99.9%" error reduction', () => {
     const text = JSON.stringify({ ...allContent, ui });
     expect(text).not.toMatch(/99[.,]9/);

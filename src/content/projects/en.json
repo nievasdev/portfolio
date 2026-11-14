@@ -7,9 +7,9 @@
     "text": "Uruguayan laws, decrees and rulings, sorted by legal area.",
     "url": "https://uruleyes.com",
     "diagram": "search",
-    "search": { "action": "https://uruleyes.com/", "param": "q", "example": "despido por embarazo" },
+    "search": { "action": "https://uruleyes.com/", "param": "q", "example": "inquilino que no paga el alquiler" },
     "screenshots": [
-      { "src": "/shots/uruleyes-results", "alt": "Uruleyes search results for “despido por embarazo”: 58 laws and decrees, each tagged by practice area with a link to the official text in IMPO.", "width": 1200, "height": 750 }
+      { "src": "/shots/uruleyes-results", "alt": "Uruleyes search results for “inquilino que no paga el alquiler”: 169 laws and decrees on leases and evictions, found by also searching “arrendatario” and “arrendamiento”, each with a link to the official text in IMPO.", "width": 1200, "height": 750 }
     ],
     "technologies": ["Node.js", "TypeScript", "Express", "PostgreSQL", "pgvector", "Preact", "Docker"]
   },

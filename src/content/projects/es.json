@@ -7,9 +7,9 @@
     "text": "Leyes, decretos y sentencias de Uruguay, ordenados por área del derecho.",
     "url": "https://uruleyes.com",
     "diagram": "search",
-    "search": { "action": "https://uruleyes.com/", "param": "q", "example": "despido por embarazo" },
+    "search": { "action": "https://uruleyes.com/", "param": "q", "example": "inquilino que no paga el alquiler" },
     "screenshots": [
-      { "src": "/shots/uruleyes-results", "alt": "Resultados de Uruleyes para “despido por embarazo”: 58 leyes y decretos, cada uno con su área del derecho y el enlace al texto oficial en IMPO.", "width": 1200, "height": 750 }
+      { "src": "/shots/uruleyes-results", "alt": "Resultados de Uruleyes para “inquilino que no paga el alquiler”: 169 leyes y decretos sobre arrendamientos y desalojos, encontrados buscando también «arrendatario» y «arrendamiento», cada uno con el enlace al texto oficial en IMPO.", "width": 1200, "height": 750 }
     ],
     "technologies": ["Node.js", "TypeScript", "Express", "PostgreSQL", "pgvector", "Preact", "Docker"]
   },
