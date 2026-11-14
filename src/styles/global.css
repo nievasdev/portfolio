@@ -207,7 +207,9 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 .band{
   --bg:#1E2A44;--text:#E6E9F0;--muted:#A9B0BF;--line:rgba(230,233,240,.16);--gold-ink:#C9A227;
   background:var(--bg);color:var(--text);
-  margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%);
+  /* full-bleed without 100vw (which counts the scrollbar and shifts the band): paint the ground
+     sideways with a shadow and clip it vertically, so the content keeps its column */
+  box-shadow:0 0 0 100vmax var(--bg);clip-path:inset(0 -100vmax);
 }
 .band ::selection{color:#fff}
 
@@ -236,7 +238,7 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 .timeline{padding-top:2.1rem}
 .timeline-bar{position:relative;height:2px;margin:0;padding:0;list-style:none}
 .seg{position:absolute;top:0;height:2px}
-.seg a{position:absolute;inset:-2.1rem 3px -.75rem 0;display:block;text-decoration:none}
+.seg a{position:absolute;inset:-2.1rem 3px -.75rem 0;display:block;min-width:1.5rem;text-decoration:none}
 .seg a::after{content:"";position:absolute;left:0;right:0;bottom:.75rem;height:2px;background:color-mix(in srgb,var(--muted) 45%,transparent);transition:background .2s}
 .seg a:hover::after,.seg a:focus-visible::after{background:var(--gold)}
 .seg.current a::after{background:var(--text)}
@@ -305,6 +307,9 @@ main:has(.closing){padding-bottom:0}
 
 /* ---- hover layer: underlines draw in gold, photographs settle, the button presses ---- */
 .facts a{color:inherit}
+/* touch targets: every link outside running text is at least 24px tall (WCAG 2.5.8, R-39) */
+:is(.actions a:not(.cta), .links a, h3 a, .more a, .facts a, .back, .lang a){display:inline-block;line-height:1.5rem;min-width:1.5rem;text-align:center}
+:is(.actions a:not(.cta), .links a, h3 a, .more a, .facts a){text-align:start}
 :is(.actions a:not(.cta), .links a, h3 a, .more a, .earlier a, .mail, .facts a){
   text-decoration:none;padding-bottom:.08em;
   background:
@@ -345,9 +350,10 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0;color:var(--gold-ink)}
   .statement-text{margin-left:0}
   .seg-name{display:none}
   .seg a{inset:-2.1rem 3px -.75rem 0}
-  .seg-logo{width:1.35rem;height:1.35rem;top:-.35rem}
+  .seg-logo{width:1.5rem;height:1.5rem;top:-.4rem}
   .entry>.meta:has(.co-mini){display:flex;align-items:center;gap:.75rem}
-  .co-mini{order:-1;width:2.5rem;height:2.5rem;margin:0}
+  .co-mini{order:-1;width:3rem;height:3rem;margin:0}
+  .statement{padding-block:3.5rem}
   .flow .flow-wide{display:none}
   .flow .flow-tall{display:block}
   .hero .mark{width:3.5rem;height:3.5rem;margin:0}
