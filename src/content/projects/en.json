@@ -4,7 +4,7 @@
     "name": "Uruleyes",
     "logo": "/logo_uruleyes.svg",
     "subtitle": "Natural-language search for Uruguayan law",
-    "text": "A natural-language search engine for Uruguayan law. It indexes legislation and official sources (IMPO, Parliament, MTSS, BPS and more), classifies results by legal practice area, and was load-tested at 1,500 searches a minute with a 46 ms p95 on a 4-core server. Adopted widely by Uruguay's legal community.",
+    "text": "Uruguayan laws, decrees and rulings, sorted by legal area.",
     "url": "https://uruleyes.com",
     "diagram": "search",
     "search": { "action": "https://uruleyes.com/", "param": "q", "example": "despido por embarazo" },
@@ -17,8 +17,8 @@
     "kind": "case",
     "name": "AntelTV home redesign",
     "caseStudy": {
-      "role": "Frontend development, component architecture, sprint planning and estimation across an 8-week, multi-sprint effort.",
-      "built": "Hero banner, content carousels, Top 10, navigation and search, as reusable React components with Tailwind CSS."
+      "role": "Frontend and sprint planning over 8 weeks.",
+      "built": "Hero, carousels, Top 10 and search as React components."
     },
     "url": "https://www.anteltv.com.uy",
     "screenshots": [

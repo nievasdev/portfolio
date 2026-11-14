@@ -75,6 +75,13 @@ describe('Data Integrity', () => {
     });
   });
 
+  it('cada punto clave de la home se lee de un vistazo: 15 palabras o menos (R-46)', () => {
+    const MAX_WORDS = 15;
+    [...worksEn, ...worksEs].flatMap((w) => w.keyPoints).forEach((point) => {
+      expect(point.replace(/\*\*/g, '').split(/\s+/).length, point).toBeLessThanOrEqual(MAX_WORDS);
+    });
+  });
+
   it('never claims the unverifiable "99.9%" error reduction', () => {
     const text = JSON.stringify({ ...allContent, ui });
     expect(text).not.toMatch(/99[.,]9/);
@@ -95,6 +102,7 @@ describe('Data Integrity', () => {
     it('has the same amount of highlights and projects per work', () => {
       worksEn.forEach((w, i) => {
         expect(worksEs[i].highlights.length).toBe(w.highlights.length);
+        expect(worksEs[i].keyPoints.length).toBe(w.keyPoints.length);
         expect(worksEs[i].projects.length).toBe(w.projects.length);
       });
     });

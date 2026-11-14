@@ -4,7 +4,7 @@
     "name": "Uruleyes",
     "logo": "/logo_uruleyes.svg",
     "subtitle": "Búsqueda legal en lenguaje natural",
-    "text": "Buscador en lenguaje natural de la normativa uruguaya. Indexa legislación y fuentes oficiales (IMPO, Parlamento, MTSS, BPS, entre otras), clasifica los resultados por área del derecho y en pruebas de carga sostuvo 1.500 búsquedas por minuto con un p95 de 46 ms en un servidor de 4 núcleos. Adoptado ampliamente por la comunidad jurídica uruguaya.",
+    "text": "Leyes, decretos y sentencias de Uruguay, ordenados por área del derecho.",
     "url": "https://uruleyes.com",
     "diagram": "search",
     "search": { "action": "https://uruleyes.com/", "param": "q", "example": "despido por embarazo" },
@@ -17,8 +17,8 @@
     "kind": "case",
     "name": "Rediseño de la home de AntelTV",
     "caseStudy": {
-      "role": "Desarrollo frontend, arquitectura de componentes, planificación y estimación de sprints en un proyecto de 8 semanas.",
-      "built": "Banner principal, carruseles de contenido, Top 10, navegación y buscador, como componentes reutilizables en React con Tailwind CSS."
+      "role": "Frontend y planificación de sprints durante 8 semanas.",
+      "built": "Banner, carruseles, Top 10 y buscador como componentes React."
     },
     "url": "https://www.anteltv.com.uy",
     "screenshots": [

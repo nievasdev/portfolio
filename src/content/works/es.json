@@ -9,6 +9,10 @@
     "location": "Montevideo, Uruguay",
     "logo": "/logo_ancel.svg",
     "diagram": "transactions",
+    "keyPoints": [
+      "**Procesos internos 50% más rápidos** con microservicios Node.js.",
+      "**85% de cobertura** con Jest."
+    ],
     "highlights": [
       "Desarrollo y mantengo microservicios en Node.js que procesan hasta **3,5M de transacciones diarias**, con integración a bases de datos SQL y servicios SFTP.",
       "Lideré un refactor a gran escala en proyectos Next.js y Node.js, **reduciendo los tiempos de despliegue un 40%**.",
@@ -46,6 +50,9 @@
     "end": "2022-03",
     "location": "Uruguay",
     "logo": "/logo_upshow.svg",
+    "keyPoints": [
+      "**Reportes en tiempo real** de GitHub y Jira en dashboards React."
+    ],
     "highlights": [
       "Desarrollé dashboards en React sobre APIs Node/Express, integrando GitHub y Jira para generar reportes en tiempo real que agilizaron el flujo Agile, desde la planificación hasta la liberación."
     ],
@@ -83,6 +90,10 @@
     "end": "2021-07",
     "location": "Uruguay",
     "logo": "/logo_hacknoid.svg",
+    "keyPoints": [
+      "**Carga 60% más rápida** tras liderar la migración de Zend PHP a React.",
+      "**Respuestas 40% más rápidas** optimizando SQL y herramientas."
+    ],
     "highlights": [
       "Lideré la migración del frontend de Zend PHP a React: **tiempo de carga percibido un 60% menor**.",
       "Optimicé consultas SQL y herramientas de desarrollo: **tiempos de respuesta un 40% más rápidos**; definí estrategias de branching en Git para releases y hotfixes."
@@ -116,6 +127,9 @@
     "end": "2018-04",
     "location": "Uruguay",
     "logo": "/logo_gestionTotal.svg",
+    "keyPoints": [
+      "Módulos JavaScript a medida para clientes de ERPNext."
+    ],
     "highlights": [
       "Desarrollé módulos JavaScript a medida e interfaces responsive para ERPNext, adaptando flujos de trabajo a clientes de distintas industrias."
     ],

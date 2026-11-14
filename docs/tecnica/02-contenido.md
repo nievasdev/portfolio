@@ -4,7 +4,7 @@
 
 | Colección | Archivos | Qué tiene |
 | --- | --- | --- |
-| `works` | `src/content/works/{en,es}.json` | Empresas: slug, fechas año-mes, rol, logros con `**métricas**`, tecnologías, logo, diagrama opcional |
+| `works` | `src/content/works/{en,es}.json` | Empresas: slug, fechas año-mes, rol, `keyPoints` (1–2, para la home), `highlights` (todos, para la página de la empresa y el CV) con `**métricas**`, tecnologías, logo, diagrama opcional |
 | `projects` | `src/content/projects/{en,es}.json` | Proyectos: tipo (`featured`, `case`, `earlier`), logo, capturas, búsqueda «Try it», diagrama |
 | `cv` | `src/content/cv/{en,es}.json` | Lo que solo usa el CV: titular, resumen con `{years}`, formación, idiomas, referencias |
 
@@ -25,6 +25,9 @@ desde `lib/experience.ts`.
 - Ningún `[placeholder]` ni «99.9».
 - Cada tecnología con su nombre oficial (lista en `data-integrity.test.ts`).
 - Logos y capturas existen en `public/`; los logos están recortados a su dibujo.
+- Cada punto clave tiene 15 palabras o menos, y `npm run check:size` corta la home en 300 palabras
+  visibles por idioma (R-46). Si un texto nuevo no entra, va a `highlights`, que se ven en la
+  página de la empresa.
 
 ## Gotcha: caché de contenido en desarrollo
 

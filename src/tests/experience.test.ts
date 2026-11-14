@@ -39,13 +39,14 @@ describe('yearsSince', () => {
 });
 
 describe('home copy', () => {
-  const years = yearsSince(CAREER_START);
-
-  it('shows the computed years in hero and about, in both languages', () => {
+  it('muestra los años calculados en el hero, en los dos idiomas (CA-08)', () => {
+    const years = yearsSince(CAREER_START);
     expect(ui.en.hero.facts[0].value).toBe(`${years}+`);
     expect(ui.es.hero.facts[0].value).toBe(`+${years}`);
-    expect(ui.en.about.paragraphs[0]).toContain(`${years}+ years`);
-    expect(ui.es.about.paragraphs[0]).toContain(`más de ${years} años`);
+  });
+
+  it('el About no repite los años del hero (R-17)', () => {
+    [ui.en, ui.es].forEach((t) => expect(t.about.paragraphs.join(' ')).not.toMatch(/\d+\+? (years|años)/));
   });
 
   it('does not claim cybersecurity as an industry on the home page', () => {

@@ -14,6 +14,8 @@ interface Props {
 const { lang, works } = Astro.props;
 const t = ui[lang];
 const timeline = timelineSegments(works);
+// The home is for scanning: key points and the main technologies; the rest is on each company page.
+const HOME_TECHNOLOGIES = 3;
 // Logos come from the shared sprite (/logos.svg), in the timeline and beside each entry.
 const logoOf = new Map(works.filter((w) => logoSvg(w.logo)).map((w) => [w.slug, logoHref(w.logo)]));
 ---
@@ -55,11 +57,11 @@ const logoOf = new Map(works.filter((w) => logoSvg(w.logo)).map((w) => [w.slug, 
         </h3>
         <p class="sub">{work.role}</p>
         <ul class="points">
-          {work.highlights.map((h) => <li set:html={rich(h)} />)}
+          {work.keyPoints.map((point) => <li set:html={rich(point)} />)}
         </ul>
         {work.diagram === 'transactions' && <TransactionsFlow lang={lang} />}
         <ul class="tags">
-          {work.technologies.map((tech) => <li>{tech}</li>)}
+          {work.technologies.slice(0, HOME_TECHNOLOGIES).map((tech) => <li>{tech}</li>)}
         </ul>
       </div>
     </article>

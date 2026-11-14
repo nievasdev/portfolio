@@ -19,6 +19,9 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   llegue entera en la primera ida y vuelta de la conexión. Esa página trae todo lo necesario para
   verse: CSS, textos, diagramas y favicon. Aparte se cargan solo las imágenes (capturas y el
   archivo de logos `/logos.svg`) y la tipografía del nombre, recortada a las letras que usa.
+- **R-46.** La home se recorre en alrededor de un minuto: como máximo **300 palabras** visibles en
+  cada idioma, y cada punto clave de una empresa tiene 15 palabras o menos. El detalle va en las
+  páginas de cada empresa.
 - **R-44.** La herramienta `npm run check:layout` recorre la home y una página de empresa en los dos
   idiomas en todos los anchos de referencia y falla ante cualquier problema de R-38 o R-39.
 
@@ -79,6 +82,15 @@ Verificación: navegador.
 - Entonces ninguna supera 14 000 bytes
 
 Verificación: `npm run check:size`.
+
+**CA-45: la home se lee en un minuto** (R-46)
+
+- Dado el sitio construido
+- Cuando se cuentan las palabras visibles del `<main>` de la home en cada idioma, sin SVG ni texto
+  solo para lectores de pantalla
+- Entonces ninguna supera 300, y ningún punto clave supera 15 palabras
+
+Verificación: `npm run check:size` y `src/tests/data-integrity.test.ts`.
 
 **CA-43: revisión completa** (R-44)
 

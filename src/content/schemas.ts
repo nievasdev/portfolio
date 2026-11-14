@@ -19,7 +19,10 @@ export const workSchema = z.object({
   logo: z.string().startsWith('/'),
   // A live diagram drawn under the highlights (src/components/TransactionsFlow.astro).
   diagram: z.enum(['transactions']).optional(),
+  // The full list goes to the company page and the CV; the home shows only `keyPoints`.
   highlights: z.array(z.string().min(1)).min(1),
+  // One or two short lines for scanning the home: the number first, 15 words at most (R-46).
+  keyPoints: z.array(z.string().min(1)).min(1).max(2),
   technologies: z.array(z.string().min(1)),
   workMethod: z.string().min(1),
   largeText: z.array(z.string().min(1)),

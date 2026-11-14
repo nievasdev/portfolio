@@ -9,6 +9,10 @@
     "location": "Montevideo, Uruguay",
     "logo": "/logo_ancel.svg",
     "diagram": "transactions",
+    "keyPoints": [
+      "**50% faster internal processes** with Node.js microservices.",
+      "**85% test coverage** with Jest."
+    ],
     "highlights": [
       "Built and maintain Node.js microservices processing up to **3.5M transactions per day**, integrating SQL databases and SFTP-based services.",
       "Led large-scale refactoring across Next.js and Node.js projects, **reducing deployment times by 40%**.",
@@ -46,6 +50,9 @@
     "end": "2022-03",
     "location": "Uruguay",
     "logo": "/logo_upshow.svg",
+    "keyPoints": [
+      "**Real-time GitHub and Jira reports** in React dashboards."
+    ],
     "highlights": [
       "Built React dashboards on top of Node/Express APIs, integrating GitHub and Jira to deliver real-time reports that streamlined Agile workflows from planning to release."
     ],
@@ -83,6 +90,10 @@
     "end": "2021-07",
     "location": "Uruguay",
     "logo": "/logo_hacknoid.svg",
+    "keyPoints": [
+      "**60% faster load time** after leading the Zend PHP to React migration.",
+      "**40% faster responses** from SQL and tooling optimizations."
+    ],
     "highlights": [
       "Led the frontend migration from Zend PHP to React: **60% faster perceived load time**.",
       "Optimized SQL queries and developer tooling: **40% faster response times**; defined Git branching strategies for releases and hotfixes."
@@ -116,6 +127,9 @@
     "end": "2018-04",
     "location": "Uruguay",
     "logo": "/logo_gestionTotal.svg",
+    "keyPoints": [
+      "Custom JavaScript modules for ERPNext clients."
+    ],
     "highlights": [
       "Developed custom JavaScript modules and responsive UI for ERPNext, tailoring workflows to clients across diverse industries."
     ],

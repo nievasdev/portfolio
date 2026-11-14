@@ -11,6 +11,7 @@ const validWork = {
   location: 'Uruguay',
   logo: '/logo_acme.svg',
   highlights: ['Shipped **things**.'],
+  keyPoints: ['**Things** shipped.'],
   technologies: ['Node.js'],
   workMethod: 'Intro line.',
   largeText: ['Context.'],
@@ -65,6 +66,13 @@ describe('Content Schema Validation', () => {
     it('accepts only known diagrams', () => {
       expect(workSchema.safeParse({ ...validWork, diagram: 'transactions' }).success).toBe(true);
       expect(workSchema.safeParse({ ...validWork, diagram: 'pie' }).success).toBe(false);
+    });
+
+    it('la home muestra uno o dos puntos clave por empresa, nunca más', () => {
+      expect(workSchema.safeParse({ ...validWork, keyPoints: [] }).success).toBe(false);
+      expect(workSchema.safeParse({ ...validWork, keyPoints: ['a', 'b'] }).success).toBe(true);
+      expect(workSchema.safeParse({ ...validWork, keyPoints: ['a', 'b', 'c'] }).success).toBe(false);
+      expect(workSchema.safeParse({ ...validWork, keyPoints: [''] }).success).toBe(false);
     });
 
     it('requires at least one highlight', () => {

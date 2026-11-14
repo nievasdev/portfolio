@@ -34,7 +34,7 @@ const en = {
   },
   hero: {
     role: 'Senior Full-Stack Developer · Node.js · TypeScript · React / Next.js',
-    lede: 'I build backend systems that handle millions of daily transactions, and the interfaces people use on top of them.',
+    lede: 'I build backends that handle millions of daily transactions, and their interfaces.',
     facts: [
       { value: `${years}+`, label: 'years', href: null },
       { value: '3.5M', label: 'transactions/day', href: '#flow-transactions' },
@@ -96,9 +96,7 @@ const en = {
   },
   about: {
     paragraphs: [
-      `I'm a full-stack developer from Montevideo, Uruguay, with ${years}+ years building software for telecom and SaaS. My focus is Node.js and TypeScript on the backend (APIs, microservices, performance) and React/Next.js on the frontend.`,
-      "I care about integrity, serving the people who use what I build, and doing honest, careful work. I'd rather ship something solid than something flashy.",
-      "Outside of work I'm finishing a degree in Information Systems at Universidad ORT, building Uruleyes, and spending time with my family.",
+      "Based in Montevideo. I'd rather ship solid than flashy. I'm finishing a degree in Information Systems at Universidad ORT and enjoy time with my family.",
     ],
     stack: [
       { label: 'Backend', items: 'Node.js · TypeScript · Express · REST · GraphQL' },
@@ -109,7 +107,7 @@ const en = {
     ],
   },
   contact: {
-    text: 'Open to remote opportunities and interesting problems.',
+    text: 'Open to remote work.',
   },
   work: {
     back: '← All experience',
@@ -143,7 +141,7 @@ const es: Dictionary = {
   },
   hero: {
     role: 'Desarrollador Full-Stack Senior · Node.js · TypeScript · React / Next.js',
-    lede: 'Construyo sistemas backend que procesan millones de transacciones diarias, y las interfaces que la gente usa sobre ellos.',
+    lede: 'Construyo backends que procesan millones de transacciones diarias, y sus interfaces.',
     facts: [
       { value: `+${years}`, label: 'años', href: null },
       { value: '3,5M', label: 'transacciones/día', href: '#flow-transactions' },
@@ -205,9 +203,7 @@ const es: Dictionary = {
   },
   about: {
     paragraphs: [
-      `Soy desarrollador full-stack en Montevideo, Uruguay, con más de ${years} años construyendo software para telecomunicaciones y SaaS. Me enfoco en Node.js y TypeScript en el backend (APIs, microservicios, performance) y en React/Next.js en el frontend.`,
-      'Me importan la integridad, servir a quienes usan lo que construyo y hacer un trabajo honesto y cuidado. Prefiero entregar algo sólido antes que algo vistoso.',
-      'Fuera del trabajo estoy terminando la Licenciatura en Sistemas en la Universidad ORT, desarrollando Uruleyes y compartiendo tiempo con mi familia.',
+      'Vivo en Montevideo. Prefiero lo sólido a lo vistoso. Estoy terminando la Licenciatura en Sistemas en la Universidad ORT y disfruto el tiempo con mi familia.',
     ],
     stack: [
       { label: 'Backend', items: 'Node.js · TypeScript · Express · REST · GraphQL' },
@@ -218,7 +214,7 @@ const es: Dictionary = {
     ],
   },
   contact: {
-    text: 'Abierto a oportunidades remotas y a buenos desafíos.',
+    text: 'Abierto a trabajo remoto.',
   },
   work: {
     back: '← Toda la experiencia',
