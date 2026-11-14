@@ -20,6 +20,9 @@ Mauro.
    verifican y cómo se verifican). Los IDs son únicos y nunca se reutilizan ni se renumeran.
 2. Mauro aprueba el cambio de requisitos. Recién ahí se programa, con TDD.
 
+La documentación técnica (`docs/tecnica/`, cómo está hecho) se actualiza en el mismo commit que
+cambia lo que describe.
+
 ### TDD, un commit por ciclo
 
 Rojo, verde y refactor son fases de **un solo ciclo** y van en **un solo commit**, que se hace al
