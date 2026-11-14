@@ -7,7 +7,7 @@ import worksEn from '../content/works/en.json';
 import worksEs from '../content/works/es.json';
 import projectsEn from '../content/projects/en.json';
 import { cvSchema, type Work } from '../content/schemas';
-import { buildCv, formatMonth, segments } from '../lib/cv';
+import { buildCv, displayUrl, formatMonth, segments } from '../lib/cv';
 import { CAREER_START } from '../lib/experience';
 
 // Uncompressed PDFs keep text runs as hex strings; decode them to search the content.
@@ -21,6 +21,10 @@ function pdfText(pdf: Buffer): string {
 describe('CV content', () => {
   it.each([['en', cvEn], ['es', cvEs]])('%s matches the CV schema', (_, cv) => {
     expect(cvSchema.parse(cv)).toBeTruthy();
+  });
+
+  it('rechaza un resumen sin el lugar para los años', () => {
+    expect(cvSchema.safeParse({ ...cvEn, summary: 'Full-Stack Developer with many years.' }).success).toBe(false);
   });
 
   it('has the same shape in English and Spanish', () => {
@@ -59,6 +63,25 @@ describe('CV helpers', () => {
     expect(formatMonth('2021-07', cvEs.months)).toBe('jul 2021');
   });
 
+  it('muestra un link sin protocolo, sin www y sin barra final', () => {
+    expect(displayUrl('https://www.linkedin.com/in/mauronievasdev/')).toBe('linkedin.com/in/mauronievasdev');
+  });
+
+  it('muestra un link sin www tal cual, sin protocolo', () => {
+    expect(displayUrl('https://nievas.dev')).toBe('nievas.dev');
+  });
+
+  it('un texto que solo termina en ** no es negrita', () => {
+    expect(segments('fin**')).toEqual([{ text: 'fin**', bold: false }]);
+  });
+
+  it('toda la puntuación seguida queda pegada a la negrita (CA-28)', () => {
+    expect(segments('**40%**.. y')).toEqual([
+      { text: '40%..', bold: true },
+      { text: ' y', bold: false },
+    ]);
+  });
+
   it('splits bold runs and keeps trailing punctuation with them', () => {
     expect(segments('up to **40%**. Done')).toEqual([
       { text: 'up to ', bold: false },
@@ -73,6 +96,14 @@ describe('CV PDF', () => {
     const pdf = await buildCv({ lang, cv: cvSchema.parse(cv), works: works as Work[], years: 9, compress: false });
     expect(pdf.subarray(0, 5).toString()).toBe('%PDF-');
     expect(pdf.length).toBeGreaterThan(5000);
+  });
+
+  it('usa hoja A4 y declara título y autor del documento', async () => {
+    const pdf = await buildCv({ lang: 'en', cv: cvSchema.parse(cvEn), works: worksEn as Work[], years: 9, compress: false });
+    const raw = pdf.toString('latin1');
+    expect(raw).toContain('/MediaBox [0 0 595.28 841.89]');
+    expect(raw).toContain('/Title');
+    expect(raw).toContain('/Author');
   });
 
   it('prints the computed years, the companies and the contact email', async () => {

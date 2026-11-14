@@ -13,13 +13,26 @@ const SANS_BOLD = 'Helvetica-Bold';
 const MARGIN = 50;
 const BRACE = 'M-58.9,-34 L-50,-34 Q-42,-34 -42,-26 L-42,-8 Q-42,0 -34,0 Q-42,0 -42,8 L-42,26 Q-42,34 -50,34 L-58.9,34';
 
-export interface CvInput {
+// What the CV says; `renderCv` draws it on any PDFKit-like document.
+export interface CvContent {
   lang: Lang;
   cv: Cv;
   works: Work[];
+  years: number;
+}
+
+export interface CvInput extends Omit<CvContent, 'years'> {
   years?: number;
   // Tests turn compression off to search the PDF text.
   compress?: boolean;
+}
+
+// The slice of PDFKit's document that `renderCv` uses, so tests can pass a recording fake.
+export type CvDocument = PDFKit.PDFDocument;
+
+// "https://www.linkedin.com/in/x/" → "linkedin.com/in/x": how a link reads on paper.
+export function displayUrl(url: string): string {
+  return url.replace(/^https:\/\/(www\.)?/, '').replace(/\/$/, '');
 }
 
 export function formatMonth(ym: string, months: string[]): string {
@@ -48,8 +61,8 @@ export function segments(text: string): { text: string; bold: boolean }[] {
   return out;
 }
 
+// Creates the real PDF (fonts, metadata, output buffer) and draws the CV on it.
 export function buildCv({ lang, cv, works, years = yearsOfExperience, compress = true }: CvInput): Promise<Buffer> {
-  const t = ui[lang];
   const doc = new PDFDocument({
     size: 'A4',
     margin: MARGIN,
@@ -65,6 +78,14 @@ export function buildCv({ lang, cv, works, years = yearsOfExperience, compress =
   doc.on('data', (c: Buffer) => chunks.push(c));
   const done = new Promise<Buffer>((ok) => doc.on('end', () => ok(Buffer.concat(chunks))));
 
+  renderCv(doc, { lang, cv, works, years });
+  doc.end();
+  return done;
+}
+
+// Draws every section of the CV on `doc`, top to bottom, adding pages as needed.
+export function renderCv(doc: CvDocument, { lang, cv, works, years }: CvContent): void {
+  const t = ui[lang];
   const left = MARGIN;
   const width = doc.page.width - MARGIN * 2;
   const bottom = () => doc.page.height - MARGIN;
@@ -87,7 +108,7 @@ export function buildCv({ lang, cv, works, years = yearsOfExperience, compress =
     [cv.location, undefined],
     [cv.phone, `tel:${cv.phone.replace(/\s/g, '')}`],
     [links.email, `mailto:${links.email}`],
-    [links.linkedin.replace(/^https:\/\/(www\.)?/, '').replace(/\/$/, ''), links.linkedin],
+    [displayUrl(links.linkedin), links.linkedin],
     ['nievas.dev', lang === 'es' ? 'https://nievas.dev/es' : 'https://nievas.dev'],
   ];
   doc.font(SANS).fontSize(8.5).fillColor(C.text);
@@ -201,7 +222,4 @@ export function buildCv({ lang, cv, works, years = yearsOfExperience, compress =
       doc.moveDown(0.2);
     });
   }
-
-  doc.end();
-  return done;
 }
