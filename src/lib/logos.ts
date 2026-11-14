@@ -22,12 +22,41 @@ export function logoHref(path: string): string {
   return `${LOGO_SPRITE_URL}#${logoId(path)}`;
 }
 
+// Every logo file is a single <svg> with a viewBox.
+function viewBoxOf(svg: string): string {
+  return svg.match(/viewBox="([^"]+)"/)![1];
+}
+
+export interface LogoShape {
+  width: number;
+  height: number;
+}
+
+const roundTo3 = (n: number) => Math.round(n * 1000) / 1000;
+
+// Size of a logo relative to a square of side 1, keeping its proportions and that square's area:
+// a wide logo gets shorter and a tall one narrower, so no logo looks bigger than the rest.
+export function logoShape(path: string): LogoShape | undefined {
+  const svg = logoSvg(path);
+  if (!svg) return undefined;
+  // SVGO writes the viewBox with single spaces
+  const [, , width, height] = viewBoxOf(svg).split(' ').map(Number);
+  const stretch = Math.sqrt(width / height);
+  return { width: roundTo3(stretch), height: roundTo3(1 / stretch) };
+}
+
+// The shape as CSS custom properties; `.co-mini` and `.seg-logo` multiply them by their --logo side.
+export function logoStyle(path: string): string | undefined {
+  const shape = logoShape(path);
+  return shape && `--lw:${shape.width}; --lh:${shape.height}`;
+}
+
 // Turns a logo file into a <symbol> so it can be drawn many times with <use>.
 export function logoSymbol(path: string, id: string): string | undefined {
   const svg = logoSvg(path);
   if (!svg) return undefined;
-  // Every logo file is a single <svg> with a viewBox; keep what is between its tags.
-  const viewBox = svg.match(/viewBox="([^"]+)"/)![1];
+  // Keep what is between the <svg> tags.
+  const viewBox = viewBoxOf(svg);
   const inner = svg.slice(svg.indexOf('>') + 1, svg.lastIndexOf('</svg>'));
   return `<symbol id="${id}" viewBox="${viewBox}">${inner}</symbol>`;
 }

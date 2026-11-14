@@ -63,6 +63,13 @@ sprite, `/logos.svg`, generado en el build desde esos mismos archivos (`logoSpri
 el color del tema y no pesan en el HTML. El logo grande de cada página de empresa sí va incrustado,
 porque está arriba de todo.
 
+Tamaño óptico: `logoShape()` toma la proporción del `viewBox` y devuelve ancho y alto relativos a un
+cuadrado de lado 1 con la misma superficie (ancho = √proporción, alto = 1/√proporción).
+`logoStyle()` lo pasa como `--lw`/`--lh`, y `.co-mini` y `.seg-logo` los multiplican por su
+`--logo`, el lado del cuadrado de cada contexto. Así «UP», que es ancho, y la «a» de Antel, que es
+alta, pesan lo mismo. La proporción se lee con `split(' ')` porque SVGO escribe el `viewBox` con un
+solo espacio.
+
 ## Tipografías
 
 - Todo el texto monoespaciado usa la mono del sistema (`--mono`).

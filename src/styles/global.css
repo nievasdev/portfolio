@@ -251,11 +251,19 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 .seg-name{position:absolute;left:0;top:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font:400 .72rem/1 var(--mono);color:var(--muted)}
 .seg a:hover .seg-name{color:var(--text)}
 .timeline-years{display:flex;justify-content:space-between;margin-top:.7rem;font:400 .72rem var(--mono);color:var(--muted)}
-.seg-logo{position:absolute;left:0;top:-.45rem;width:1.6rem;height:1.6rem;color:var(--muted);transition:color .2s}
+/* sits on the bar whatever its height: anchored by the bottom of the link box */
+.seg-logo{--logo:1.75rem;position:absolute;left:0;bottom:1.8rem;width:calc(var(--logo) * var(--lw,1));height:calc(var(--logo) * var(--lh,1));color:var(--muted);transition:color .2s}
 .seg a:hover .seg-logo,.seg a:focus-visible .seg-logo,.seg.current .seg-logo{color:var(--text)}
 
 /* company logo under each entry's date */
-.co-mini{display:block;width:4.25rem;height:4.25rem;margin-top:1rem;color:var(--text)}
+/* company and project logos: --logo is the side of the square every logo matches in area;
+   --lw/--lh (logoShape) stretch it to each logo's proportions */
+.co-mini{--logo:3.25rem;display:block;width:calc(var(--logo) * var(--lw,1));height:calc(var(--logo) * var(--lh,1));color:var(--text)}
+.meta>.co-mini+*{margin-top:var(--s-2)}
+/* the logo leans on the name it belongs to: right edge of the margin, next to the column */
+@media (min-width:52.01rem){
+  .entry>.meta:has(.co-mini){display:flex;flex-direction:column;align-items:flex-end;padding-right:var(--s-5)}
+}
 
 /* ---- Antel's transaction flow (TransactionsFlow.astro) ---- */
 .flow{margin:var(--s-4) 0 0}
@@ -354,9 +362,10 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0;color:var(--gold-ink)}
   .statement-text{margin-left:0}
   .seg-name{display:none}
   .seg a{inset:-2.1rem 3px -.75rem 0}
-  .seg-logo{width:1.5rem;height:1.5rem;top:-.4rem}
-  .entry>.meta:has(.co-mini){display:flex;align-items:center;gap:.75rem}
-  .co-mini{order:-1;width:3rem;height:3rem;margin:0}
+  .seg-logo{--logo:1.25rem}
+  .entry>.meta:has(.co-mini){display:flex;align-items:center;gap:.75rem;margin-bottom:var(--s-2)}
+  .co-mini{--logo:2.5rem;margin:0}
+  .meta>.co-mini+*{margin-top:0}
   .statement{padding-block:3.5rem}
   .flow .flow-wide{display:none}
   .flow .flow-tall{display:block}

@@ -10,8 +10,11 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   que se pueda tocar sin errar.
 - **R-40.** Las bandas marinas ocupan exactamente el ancho de la pantalla, sin corrimientos.
 - **R-41.** Los logos se ven del mismo tamaño aparente entre sí: cada SVG está recortado a su
-  dibujo. En la entrada de cada empresa miden 68 px en escritorio y 48 px en pantallas chicas; en
-  la línea de tiempo, 26 px y 24 px.
+  dibujo y todos ocupan la misma superficie (uno ancho queda más bajo, uno alto más angosto). Esa
+  superficie es la de un cuadrado de 52 px en la entrada de cada empresa en escritorio (40 px en
+  pantallas chicas) y de 28 px en la línea de tiempo (20 px). En escritorio, el logo va en el
+  margen, pegado a la columna y a la altura del nombre de la empresa; en pantallas chicas, arriba
+  del nombre.
 - **R-42.** En escritorio los diagramas ocupan todo el ancho del contenedor; en pantallas chicas
   usan su versión vertical, a todo el ancho, con las etiquetas legibles.
 - **R-43.** En pantallas chicas la frase-momento no deja más de una pantalla de aire.
@@ -47,9 +50,10 @@ Verificación: `npm run check:layout`.
 
 - Dado cualquier logo de empresa o proyecto
 - Cuando se lee su `viewBox`
-- Entonces no es el lienzo cuadrado original sin recortar
+- Entonces no es el lienzo cuadrado original sin recortar, y el ancho por el alto con que se dibuja
+  es el mismo para todos
 
-Verificación: `src/tests/data-integrity.test.ts`.
+Verificación: `src/tests/data-integrity.test.ts`, `src/tests/logos.test.ts` (`logoShape`).
 
 **CA-40: diagrama vertical en móvil** (R-42)
 
