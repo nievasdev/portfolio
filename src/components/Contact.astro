@@ -1,0 +1,26 @@
+---
+import { ui, links, localePath, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+---
+
+<section id="contact" class="section" aria-labelledby="h-contact">
+  <h2 id="h-contact" class="section-head">{t.sections.contact}<span class="dot">.</span></h2>
+  <div class="entry row">
+    <span class="meta"></span>
+    <div>
+      <p class="contact-text">{t.contact.text}</p>
+      <a class="mail" href={`mailto:${links.email}`}>{links.email}</a>
+      <div class="links">
+        <a href={localePath(lang, '/cv.pdf')} download="Mauro-Nievas-CV.pdf">{t.hero.cv}</a>
+        <a href={links.github}>GitHub</a>
+        <a href={links.linkedin}>LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>

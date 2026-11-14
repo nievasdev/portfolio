@@ -1,0 +1,40 @@
+{
+  "headline": "Desarrollador Full-Stack Senior · Node.js · TypeScript · React · Next.js",
+  "location": "Montevideo, Uruguay",
+  "phone": "+598 95 170 627",
+  "summary": "Desarrollador Full-Stack con más de {years} años construyendo software en producción para telecomunicaciones, SaaS y clientes empresariales. Fuerte en Node.js y TypeScript en el backend (APIs REST, microservicios, performance) y en React y Next.js en el frontend, con experiencia práctica en testing con Jest, flujos de trabajo con Git y GitLab CI/CD. Fundador de Uruleyes, un buscador legal usado por la comunidad jurídica uruguaya.",
+  "labels": {
+    "summary": "Perfil",
+    "experience": "Experiencia laboral",
+    "projects": "Proyectos",
+    "education": "Formación",
+    "skills": "Habilidades",
+    "languages": "Idiomas",
+    "references": "Referencias profesionales",
+    "present": "Actualidad"
+  },
+  "months": ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+  "projects": [
+    {
+      "name": "Uruleyes",
+      "role": "Fundador y desarrollador",
+      "when": "Proyecto personal · uruleyes.com",
+      "text": "Buscador en lenguaje natural de la normativa uruguaya, que indexa fuentes oficiales y clasifica los resultados por área del derecho."
+    }
+  ],
+  "education": [
+    {
+      "title": "Licenciatura en Sistemas",
+      "school": "Universidad ORT Uruguay",
+      "when": "En curso"
+    }
+  ],
+  "languages": ["Español (nativo)", "Inglés (intermedio, B1+)"],
+  "references": [
+    { "name": "Rodrigo Robaina", "role": "Lead Developer, Antel", "email": "rrobaina@antel.net.uy", "phone": "+598 98 811 438" },
+    { "name": "Daniel Scandroglio", "role": "Desarrollador Front-End, Antel", "email": "dscandroglio@antel.net.uy", "phone": "+598 95 222 085" },
+    { "name": "Gonzalo Rizzo", "role": "Software Engineer, Upshow", "email": "me@gonzalorizzo.com", "phone": "+598 95 572 448" },
+    { "name": "Nicolás Comerci", "role": "Sr Software Engineer, Hacknoid", "email": "nicocomerci@hotmail.com", "phone": "+598 92 075 329" },
+    { "name": "Gabriel Rodríguez Shaw", "role": "Hacknoid", "phone": "+598 93 830 884" }
+  ]
+}

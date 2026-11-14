@@ -1,0 +1,18 @@
+---
+import Mark from './Mark.astro';
+import { ui, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <Mark />
+    <span>© {year} Mauro Nievas · {ui[lang].footer}</span>
+  </div>
+</footer>

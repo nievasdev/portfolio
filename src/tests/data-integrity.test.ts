@@ -5,181 +5,89 @@ import worksEn from '../content/works/en.json';
 import worksEs from '../content/works/es.json';
 import projectsEn from '../content/projects/en.json';
 import projectsEs from '../content/projects/es.json';
+import { workSchema, projectSchema } from '../content/schemas';
+import { ui } from '../i18n/ui';
 
 const publicDir = resolve(__dirname, '../../public');
 
+// One spelling per technology, everywhere (tags, CV, stack).
+const canonicalTech = new Set([
+  'Node.js', 'TypeScript', 'JavaScript', 'Express', 'REST', 'GraphQL',
+  'React', 'Next.js', 'Tailwind CSS', 'SCSS',
+  'MySQL', 'MariaDB', 'PostgreSQL', 'MongoDB', 'Sequelize',
+  'Docker', 'GitLab CI/CD', 'Git', 'Jest', 'Linux',
+  'Python', 'PHP', 'Flask',
+]);
+
+const allContent = { worksEn, worksEs, projectsEn, projectsEs };
+
 describe('Data Integrity', () => {
-  describe('Work Logos', () => {
-    it('should have all English work logos in public directory', () => {
-      worksEn.forEach((work) => {
-        if (work.logo) {
-          const logoPath = resolve(publicDir, work.logo.replace(/^\//, ''));
-          expect(existsSync(logoPath), `Logo not found for ${work.name}: ${work.logo}`).toBe(true);
-        }
-      });
-    });
+  it.each(Object.entries({ worksEn, worksEs }))('%s matches the work schema', (_, works) => {
+    works.forEach((w) => expect(workSchema.parse(w)).toBeTruthy());
+  });
 
-    it('should have all Spanish work logos in public directory', () => {
-      worksEs.forEach((work) => {
-        if (work.logo) {
-          const logoPath = resolve(publicDir, work.logo.replace(/^\//, ''));
-          expect(existsSync(logoPath), `Logo not found for ${work.name}: ${work.logo}`).toBe(true);
-        }
+  it.each(Object.entries({ projectsEn, projectsEs }))('%s matches the project schema', (_, projects) => {
+    projects.forEach((p) => expect(projectSchema.parse(p)).toBeTruthy());
+  });
+
+  it('has every work logo in public/', () => {
+    [...worksEn, ...worksEs].forEach((w) => {
+      expect(existsSync(resolve(publicDir, w.logo.slice(1))), w.logo).toBe(true);
+    });
+  });
+
+  it('ships the favicon, touch icon and fonts', () => {
+    ['favicon.svg', 'apple-touch-icon.png', 'fonts/jetbrains-mono-latin-400.woff2', 'fonts/jetbrains-mono-latin-600.woff2']
+      .forEach((f) => expect(existsSync(resolve(publicDir, f)), f).toBe(true));
+  });
+
+  it('uses only canonical technology names', () => {
+    const used = [...worksEn, ...worksEs, ...projectsEn, ...projectsEs].flatMap((x) => x.technologies);
+    used.forEach((name) => expect(canonicalTech.has(name), name).toBe(true));
+  });
+
+  it('uses canonical names in the stack section', () => {
+    Object.values(ui).forEach((t) => {
+      t.about.stack.flatMap((s) => s.items.split(' · ')).forEach((name) => {
+        expect(canonicalTech.has(name), name).toBe(true);
       });
     });
   });
 
-  describe('Project Logos', () => {
-    it('should have all English project logos in public directory', () => {
-      projectsEn.forEach((project) => {
-        if (project.logo) {
-          const logoPath = resolve(publicDir, project.logo.replace(/^\//, ''));
-          expect(existsSync(logoPath), `Logo not found for ${project.name}: ${project.logo}`).toBe(true);
-        }
-      });
-    });
-
-    it('should have all Spanish project logos in public directory', () => {
-      projectsEs.forEach((project) => {
-        if (project.logo) {
-          const logoPath = resolve(publicDir, project.logo.replace(/^\//, ''));
-          expect(existsSync(logoPath), `Logo not found for ${project.name}: ${project.logo}`).toBe(true);
-        }
-      });
+  it('has valid GitHub URLs where present', () => {
+    [...projectsEn, ...projectsEs].forEach((p) => {
+      if ('github' in p && p.github) expect(p.github).toMatch(/^https:\/\/github\.com\/[\w-]+\/[\w.-]+$/);
     });
   });
 
-  describe('Technology Logos', () => {
-    it('should have all work technology logos in public directory', () => {
-      const allWorks = [...worksEn, ...worksEs];
-
-      allWorks.forEach((work) => {
-        work.technologies.forEach((tech) => {
-          if (tech.logo) {
-            const logoPath = resolve(publicDir, tech.logo.replace(/^\//, ''));
-            expect(existsSync(logoPath), `Tech logo not found for ${tech.name}: ${tech.logo}`).toBe(true);
-          }
-        });
-      });
-    });
-
-    it('should have all project technology logos in public directory', () => {
-      const allProjects = [...projectsEn, ...projectsEs];
-
-      allProjects.forEach((project) => {
-        project.technologies.forEach((tech) => {
-          if (tech.logo) {
-            const logoPath = resolve(publicDir, tech.logo.replace(/^\//, ''));
-            expect(existsSync(logoPath), `Tech logo not found for ${tech.name}: ${tech.logo}`).toBe(true);
-          }
-        });
-      });
-    });
+  it('never claims the unverifiable "99.9%" error reduction', () => {
+    const text = JSON.stringify({ ...allContent, ui });
+    expect(text).not.toMatch(/99[.,]9/);
   });
 
-  describe('GitHub URLs', () => {
-    it('should have valid GitHub URLs for all English projects', () => {
-      const githubRegex = /^https?:\/\/(www\.)?github\.com\/.+\/.+/;
-
-      projectsEn.forEach((project) => {
-        expect(project.github, `Invalid GitHub URL for ${project.name}`).toMatch(githubRegex);
-        expect(project.github.trim()).toBe(project.github);
-        expect(project.github).not.toBe('');
-      });
-    });
-
-    it('should have valid GitHub URLs for all Spanish projects', () => {
-      const githubRegex = /^https?:\/\/(www\.)?github\.com\/.+\/.+/;
-
-      projectsEs.forEach((project) => {
-        expect(project.github, `Invalid GitHub URL for ${project.name}`).toMatch(githubRegex);
-        expect(project.github.trim()).toBe(project.github);
-        expect(project.github).not.toBe('');
-      });
-    });
+  it('never ships template placeholders like [N]', () => {
+    const strings = (v: unknown): string[] =>
+      typeof v === 'string' ? [v] : v && typeof v === 'object' ? Object.values(v).flatMap(strings) : [];
+    strings({ ...allContent, ui }).forEach((s) => expect(s).not.toMatch(/\[[^\]]+\]/));
   });
 
-  describe('Data Structure Consistency', () => {
-    it('should have matching structure between English and Spanish works', () => {
-      expect(worksEn.length).toBe(worksEs.length);
+  describe('EN / ES parity', () => {
+    it('lists the same works in the same order', () => {
+      expect(worksEs.map((w) => [w.slug, w.logo, w.technologies])).toEqual(
+        worksEn.map((w) => [w.slug, w.logo, w.technologies]),
+      );
+    });
 
-      worksEn.forEach((workEn, index) => {
-        const workEs = worksEs[index];
-
-        // Same number of projects
-        expect(workEn.projects.length).toBe(workEs.projects.length);
-
-        // Same number of technologies
-        expect(workEn.technologies.length).toBe(workEs.technologies.length);
-
-        // Same logo references (should point to same file)
-        expect(workEn.logo).toBe(workEs.logo);
-
-        // Technology logos should match
-        workEn.technologies.forEach((tech, techIndex) => {
-          expect(tech.logo).toBe(workEs.technologies[techIndex].logo);
-        });
+    it('has the same amount of highlights and projects per work', () => {
+      worksEn.forEach((w, i) => {
+        expect(worksEs[i].highlights.length).toBe(w.highlights.length);
+        expect(worksEs[i].projects.length).toBe(w.projects.length);
       });
     });
 
-    it('should have matching structure between English and Spanish projects', () => {
-      expect(projectsEn.length).toBe(projectsEs.length);
-
-      projectsEn.forEach((projectEn, index) => {
-        const projectEs = projectsEs[index];
-
-        // Same GitHub URL
-        expect(projectEn.github).toBe(projectEs.github);
-
-        // Same logo
-        expect(projectEn.logo).toBe(projectEs.logo);
-
-        // Same number of technologies
-        expect(projectEn.technologies.length).toBe(projectEs.technologies.length);
-
-        // Technology logos should match
-        projectEn.technologies.forEach((tech, techIndex) => {
-          expect(tech.logo).toBe(projectEs.technologies[techIndex].logo);
-        });
-      });
-    });
-
-    it('should not have duplicate work entries', () => {
-      const enNames = worksEn.map(w => w.name.toLowerCase());
-      const esNames = worksEs.map(w => w.name.toLowerCase());
-
-      expect(new Set(enNames).size).toBe(enNames.length);
-      expect(new Set(esNames).size).toBe(esNames.length);
-    });
-
-    it('should not have duplicate project entries', () => {
-      const enNames = projectsEn.map(p => p.name.toLowerCase());
-      const esNames = projectsEs.map(p => p.name.toLowerCase());
-
-      expect(new Set(enNames).size).toBe(enNames.length);
-      expect(new Set(esNames).size).toBe(esNames.length);
-    });
-
-    it('should have non-empty required text fields in works', () => {
-      [...worksEn, ...worksEs].forEach((work) => {
-        expect(work.name.trim()).not.toBe('');
-        expect(work.time.trim()).not.toBe('');
-        expect(work.text.trim()).not.toBe('');
-        expect(work.workMethod.trim()).not.toBe('');
-        expect(work.largeText.length).toBeGreaterThan(0);
-
-        work.largeText.forEach((text) => {
-          expect(text.trim()).not.toBe('');
-        });
-      });
-    });
-
-    it('should have non-empty required text fields in projects', () => {
-      [...projectsEn, ...projectsEs].forEach((project) => {
-        expect(project.name.trim()).not.toBe('');
-        expect(project.time.trim()).not.toBe('');
-        expect(project.text.trim()).not.toBe('');
-      });
+    it('lists the same projects in the same order', () => {
+      const shape = (p: (typeof projectsEn)[number]) => [p.kind, 'github' in p ? p.github : undefined, p.technologies];
+      expect(projectsEs.map(shape)).toEqual(projectsEn.map(shape));
     });
   });
 });

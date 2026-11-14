@@ -1,0 +1,43 @@
+---
+import Mark from './Mark.astro';
+import { ui, languages, localePath, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  path: string;
+}
+
+const { lang, path } = Astro.props;
+const t = ui[lang];
+const home = localePath(lang, '/');
+const sections = ['experience', 'projects', 'about', 'contact'] as const;
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href={home} aria-label={t.home}>
+      <Mark />
+      <span>mauro<span class="dot">.</span>nievas</span>
+    </a>
+    <nav class="site-nav" aria-label={t.nav.label}>
+      <ul>
+        {sections.map((s) => (
+          <li><a href={`${home}#${s}`}>{t.nav[s]}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="lang" role="group" aria-label={t.language}>
+      {languages.map((l, i) => (
+        <>
+          {i > 0 && <span aria-hidden="true">/</span>}
+          <a
+            href={localePath(l, path)}
+            hreflang={l}
+            lang={l}
+            aria-current={l === lang ? 'page' : undefined}
+          >{l.toUpperCase()}</a>
+        </>
+      ))}
+    </div>
+  </div>
+</header>

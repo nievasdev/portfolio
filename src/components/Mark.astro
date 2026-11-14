@@ -1,0 +1,33 @@
+---
+// The logo mark: three braces around a gold dot.
+// `sprite` renders the <symbol> once (Layout); `animated` inlines the paths so
+// the hero can move them individually; the default references the symbol.
+interface Props {
+  sprite?: boolean;
+  animated?: boolean;
+}
+
+const { sprite = false, animated = false } = Astro.props;
+const brace = 'M-58.9,-34 L-50,-34 Q-42,-34 -42,-26 L-42,-8 Q-42,0 -34,0 Q-42,0 -42,8 L-42,26 Q-42,34 -50,34 L-58.9,34';
+const angles = [270, 30, 150];
+---
+
+{sprite ? (
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="mark" viewBox="-76 -76 152 152">
+      <g fill="none" stroke="currentColor" stroke-width="8" stroke-miterlimit="10">
+        {angles.map((a) => <path transform={`rotate(${a})`} d={brace} />)}
+      </g>
+      <circle r="8.5" fill="#C9A227" />
+    </symbol>
+  </svg>
+) : animated ? (
+  <svg class="mark" viewBox="-76 -76 152 152" aria-hidden="true">
+    <g>
+      {angles.map((a) => <path transform={`rotate(${a})`} d={brace} />)}
+    </g>
+    <circle r="8.5" />
+  </svg>
+) : (
+  <svg class="mark" aria-hidden="true"><use href="#mark" /></svg>
+)}

@@ -1,36 +1,41 @@
 [
   {
-    "name": "GESTOR DE STOCK",
-    "time": "2022",
-    "text": "Sistema de gestión de inventario para comercios: productos, marcas, stock e historial de ventas. Node.js + MongoDB.",
-    "largeText": [
-      "Proyecto full-stack construido con Node.js y MongoDB: catálogo de productos con marcas y tipos, control de stock e historial de ventas por comercio."
+    "kind": "featured",
+    "name": "Uruleyes",
+    "subtitle": "Búsqueda legal en lenguaje natural",
+    "text": "Buscador en lenguaje natural de la normativa uruguaya. Indexa legislación y fuentes oficiales (IMPO, Parlamento, MTSS, BPS, entre otras), clasifica los resultados por área del derecho y soporta alta concurrencia con hardware mínimo. Adoptado ampliamente por la comunidad jurídica uruguaya.",
+    "url": "https://uruleyes.com",
+    "screenshots": [
+      { "src": "/shots/uruleyes-results", "alt": "Resultados de Uruleyes para “despido por embarazo”: 58 leyes y decretos, cada uno con su área del derecho y el enlace al texto oficial en IMPO.", "width": 1200, "height": 750 }
     ],
-    "github": "https://github.com/Mauro-js/Meteor_practices",
-    "technologies": [
-      {
-        "name": "JavaScript",
-        "category": "language"
-      },
-      {
-        "name": "Node",
-        "category": "framework"
-      }
-    ]
+    "technologies": ["Node.js", "Docker"]
   },
   {
-    "name": "SISTEMA DE VOTACIÓN",
-    "time": "2023",
-    "text": "Sistema de votación online para la elección de autoridades de una comisión académica. Flask + PostgreSQL.",
-    "largeText": [
-      "Construido con Flask y PostgreSQL: registro de votantes, emisión segura de votos y conteo de resultados para la elección de la comisión."
+    "kind": "case",
+    "name": "Rediseño de la home de AntelTV",
+    "caseStudy": {
+      "role": "Desarrollo frontend, arquitectura de componentes, planificación y estimación de sprints en un proyecto de 8 semanas.",
+      "built": "Banner principal, carruseles de contenido, Top 10, navegación y buscador, como componentes reutilizables en React con Tailwind CSS."
+    },
+    "url": "https://www.anteltv.com.uy",
+    "screenshots": [
+      { "src": "/shots/anteltv-hero", "alt": "Home de AntelTV: banner principal a todo el ancho con la navegación y el indicador de diapositivas.", "width": 1200, "height": 750 },
+      { "src": "/shots/anteltv-rows", "alt": "Home de AntelTV: tarjetas “Hoy en AntelTV” en vivo y el carrusel de canales de AntelTV Premium.", "width": 1200, "height": 678 }
     ],
-    "github": "https://github.com/Mauro-js/test_python_flask",
-    "technologies": [
-      {
-        "name": "Python",
-        "category": "language"
-      }
-    ]
+    "technologies": ["React", "Next.js", "Tailwind CSS"]
+  },
+  {
+    "kind": "earlier",
+    "name": "Gestor de Stock",
+    "time": "2022",
+    "text": "Sistema de gestión de inventario para comercios: productos, marcas, stock e historial de ventas.",
+    "technologies": ["JavaScript", "Node.js", "MongoDB"]
+  },
+  {
+    "kind": "earlier",
+    "name": "Sistema de Votación",
+    "time": "2023",
+    "text": "Sistema de votación online para elegir las autoridades de una comisión académica.",
+    "technologies": ["Python", "Flask", "PostgreSQL"]
   }
 ]

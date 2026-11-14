@@ -1,187 +1,81 @@
 import { describe, it, expect } from 'vitest';
-import { z } from 'zod';
+import { workSchema, projectSchema } from '../content/schemas';
 
-// Import schemas from config
-const workSchema = z.object({
-  name: z.string(),
-  time: z.string(),
-  logo: z.string(),
-  text: z.string(),
-  largeText: z.array(z.string()),
-  workMethod: z.string(),
-  projects: z.array(z.object({
-    title: z.string(),
-    text: z.string(),
-  })),
-  technologies: z.array(z.object({
-    name: z.string(),
-    logo: z.string(),
-    category: z.string().optional(),
-  })),
-});
-
-const projectSchema = z.object({
-  name: z.string(),
-  time: z.string(),
-  logo: z.string(),
-  text: z.string(),
-  largeText: z.array(z.string()).optional(),
-  github: z.string(),
-  technologies: z.array(z.object({
-    name: z.string(),
-    logo: z.string(),
-    category: z.string().optional(),
-  })),
-});
+const validWork = {
+  slug: 'acme',
+  name: 'Acme',
+  role: 'Full-Stack Developer',
+  time: '2020 – 2021',
+  start: '2020-03',
+  end: '2021-06',
+  location: 'Uruguay',
+  logo: '/logo_acme.svg',
+  highlights: ['Shipped **things**.'],
+  technologies: ['Node.js'],
+  workMethod: 'Intro line.',
+  largeText: ['Context.'],
+  projects: [{ title: 'Thing', text: 'Did the thing.' }],
+};
 
 describe('Content Schema Validation', () => {
   describe('Work Schema', () => {
-    it('should validate a correct work entry', () => {
-      const validWork = {
-        name: 'Test Company',
-        time: '2020 - 2023',
-        logo: '/logo_test.png',
-        text: 'Short description',
-        largeText: ['Detail 1', 'Detail 2'],
-        workMethod: 'Agile methodology',
-        projects: [
-          { title: 'Project 1', text: 'Description' }
-        ],
-        technologies: [
-          { name: 'JavaScript', logo: '/logo_js.png', category: 'language' }
-        ]
-      };
-
-      expect(() => workSchema.parse(validWork)).not.toThrow();
+    it('accepts a correct work entry', () => {
+      expect(workSchema.safeParse(validWork).success).toBe(true);
     });
 
-    it('should reject work entry missing required fields', () => {
-      const invalidWork = {
-        name: 'Test Company',
-        time: '2020 - 2023',
-        // missing logo, text, largeText, etc.
-      };
-
-      expect(() => workSchema.parse(invalidWork)).toThrow();
+    it('accepts an optional via', () => {
+      expect(workSchema.safeParse({ ...validWork, via: 'via ITC' }).success).toBe(true);
     });
 
-    it('should reject work entry with wrong field types', () => {
-      const invalidWork = {
-        name: 'Test Company',
-        time: 2023, // should be string
-        logo: '/logo_test.png',
-        text: 'Short description',
-        largeText: ['Detail 1'],
-        workMethod: 'Agile',
-        projects: [],
-        technologies: []
-      };
-
-      expect(() => workSchema.parse(invalidWork)).toThrow();
+    it('rejects a missing required field', () => {
+      const { role, ...noRole } = validWork;
+      expect(workSchema.safeParse(noRole).success).toBe(false);
     });
 
-    it('should validate work with optional technology category', () => {
-      const validWork = {
-        name: 'Test Company',
-        time: '2020 - 2023',
-        logo: '/logo_test.png',
-        text: 'Short description',
-        largeText: ['Detail 1'],
-        workMethod: 'Agile',
-        projects: [],
-        technologies: [
-          { name: 'JavaScript', logo: '/logo_js.png' } // no category
-        ]
-      };
-
-      expect(() => workSchema.parse(validWork)).not.toThrow();
+    it('rejects a slug that is not kebab-case', () => {
+      expect(workSchema.safeParse({ ...validWork, slug: 'Acme Corp' }).success).toBe(false);
+      expect(workSchema.safeParse({ ...validWork, slug: 'gestion-total' }).success).toBe(true);
     });
 
-    it('should reject work with invalid projects array', () => {
-      const invalidWork = {
-        name: 'Test Company',
-        time: '2020 - 2023',
-        logo: '/logo_test.png',
-        text: 'Short description',
-        largeText: ['Detail 1'],
-        workMethod: 'Agile',
-        projects: [
-          { title: 'Project 1' } // missing text
-        ],
-        technologies: []
-      };
+    it('requires year-month dates', () => {
+      expect(workSchema.safeParse({ ...validWork, start: '2020' }).success).toBe(false);
+      expect(workSchema.safeParse({ ...validWork, end: '2021-13' }).success).toBe(false);
+      const { end, ...current } = validWork;
+      expect(workSchema.safeParse(current).success).toBe(true);
+    });
 
-      expect(() => workSchema.parse(invalidWork)).toThrow();
+    it('requires at least one highlight', () => {
+      expect(workSchema.safeParse({ ...validWork, highlights: [] }).success).toBe(false);
+    });
+
+    it('rejects technologies that are not plain names', () => {
+      expect(workSchema.safeParse({ ...validWork, technologies: [{ name: 'Node.js' }] }).success).toBe(false);
     });
   });
 
   describe('Project Schema', () => {
-    it('should validate a correct project entry', () => {
-      const validProject = {
-        name: 'Test Project',
-        time: '2023',
-        logo: '/logo_project.png',
-        text: 'Project description',
-        largeText: ['Detail 1', 'Detail 2'],
-        github: 'https://github.com/user/repo',
-        technologies: [
-          { name: 'React', logo: '/logo_react.png', category: 'framework' }
-        ]
-      };
+    const validProject = { kind: 'featured', name: 'Uruleyes', technologies: ['Node.js'] };
 
-      expect(() => projectSchema.parse(validProject)).not.toThrow();
+    it('accepts a minimal project', () => {
+      expect(projectSchema.safeParse(validProject).success).toBe(true);
     });
 
-    it('should validate project without optional largeText', () => {
-      const validProject = {
-        name: 'Test Project',
-        time: '2023',
-        logo: '/logo_project.png',
-        text: 'Project description',
-        github: 'https://github.com/user/repo',
-        technologies: []
-      };
-
-      expect(() => projectSchema.parse(validProject)).not.toThrow();
+    it('accepts a case study with partial fields', () => {
+      const p = { ...validProject, kind: 'case', caseStudy: { role: 'Frontend.' } };
+      expect(projectSchema.safeParse(p).success).toBe(true);
     });
 
-    it('should reject project missing required fields', () => {
-      const invalidProject = {
-        name: 'Test Project',
-        time: '2023',
-        // missing logo, text, github, technologies
-      };
-
-      expect(() => projectSchema.parse(invalidProject)).toThrow();
+    it('rejects an unknown kind', () => {
+      expect(projectSchema.safeParse({ ...validProject, kind: 'side' }).success).toBe(false);
     });
 
-    it('should reject project with wrong type for github field', () => {
-      const projectWithInvalidGithub = {
-        name: 'Test Project',
-        time: '2023',
-        logo: '/logo_project.png',
-        text: 'Project description',
-        github: 123, // should be string
-        technologies: []
-      };
-
-      expect(() => projectSchema.parse(projectWithInvalidGithub)).toThrow();
+    it('rejects links that are not URLs', () => {
+      expect(projectSchema.safeParse({ ...validProject, url: 'uruleyes' }).success).toBe(false);
+      expect(projectSchema.safeParse({ ...validProject, github: 123 }).success).toBe(false);
     });
 
-    it('should validate project with optional category in technologies', () => {
-      const validProject = {
-        name: 'Test Project',
-        time: '2023',
-        logo: '/logo_project.png',
-        text: 'Project description',
-        github: 'https://github.com/user/repo',
-        technologies: [
-          { name: 'Python', logo: '/logo_python.png' }, // no category
-          { name: 'Flask', logo: '/logo_flask.png', category: 'framework' }
-        ]
-      };
-
-      expect(() => projectSchema.parse(validProject)).not.toThrow();
+    it('treats github as optional', () => {
+      expect(projectSchema.safeParse(validProject).success).toBe(true);
     });
   });
 });

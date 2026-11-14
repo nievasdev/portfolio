@@ -1,0 +1,85 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ui, localePath, type Lang } from '../i18n/ui';
+import { rich, plain } from '../lib/rich';
+import type { Work } from '../content/schemas';
+
+interface Props {
+  lang: Lang;
+  work: Work;
+  others: Pick<Work, 'slug' | 'name'>[];
+}
+
+const { lang, work, others } = Astro.props;
+const t = ui[lang];
+const path = `/work/${work.slug}`;
+const home = `${localePath(lang, '/')}#experience`;
+
+// Company logos are inlined (fill="currentColor") so they follow the theme with no extra request.
+const rawLogos = import.meta.glob('../../public/logo_*.svg', { query: '?raw', import: 'default', eager: true });
+const logo = rawLogos[`../../public${work.logo}`] as string | undefined;
+---
+
+<Layout
+  lang={lang}
+  path={path}
+  title={`${work.name} — Mauro Nievas`}
+  description={`${work.role} · ${work.time}. ${plain(work.highlights[0])}`}
+>
+  <div class="hero row">
+    {logo ? <div class="co-logo" aria-hidden="true" set:html={logo} /> : <div />}
+    <div>
+      <a class="back" href={home}>{t.work.back}</a>
+      <p class="meta">{work.time}</p>
+      <h1>{work.name}</h1>
+      <p class="role">{work.role}{work.via && ` · ${work.via}`}</p>
+      <p class="lede">{work.workMethod}</p>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="h-overview">
+    <h2 id="h-overview" class="section-head">{t.work.overview}<span class="dot">.</span></h2>
+    <div class="entry row">
+      <span class="meta">{t.work.highlights}</span>
+      <ul class="points">
+        {work.highlights.map((h) => <li set:html={rich(h)} />)}
+      </ul>
+    </div>
+    {work.largeText.length > 0 && (
+      <div class="entry row">
+        <span class="meta">{t.work.context}</span>
+        <div class="prose">
+          {work.largeText.map((p) => <p set:html={rich(p)} />)}
+        </div>
+      </div>
+    )}
+  </section>
+
+  {work.projects.length > 0 && (
+    <section class="section" aria-labelledby="h-projects">
+      <h2 id="h-projects" class="section-head">{t.work.projects}<span class="dot">.</span></h2>
+      {work.projects.map((p) => (
+        <div class="entry tight row">
+          <span class="meta">{p.title}</span>
+          <p class="flush">{p.text}</p>
+        </div>
+      ))}
+    </section>
+  )}
+
+  <div class="section-foot">
+    <div class="entry tight row">
+      <span class="meta">{t.work.stack}</span>
+      <ul class="tags">
+        {work.technologies.map((tech) => <li>{tech}</li>)}
+      </ul>
+    </div>
+    <nav class="entry tight row" aria-label={t.work.more}>
+      <span class="meta">{t.work.more}</span>
+      <ul class="more">
+        {others.map((o) => <li><a href={localePath(lang, `/work/${o.slug}`)}>{o.name}</a></li>)}
+        <li><a href={home}>{t.work.back}</a></li>
+      </ul>
+    </nav>
+  </div>
+</Layout>

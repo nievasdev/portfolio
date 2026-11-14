@@ -1,193 +1,129 @@
 [
   {
+    "slug": "antel",
     "name": "Antel",
-    "time": "2022 - Current",
+    "via": "via ITC",
+    "role": "Senior Full-Stack Developer",
+    "time": "2022 – Present",
+    "start": "2022-04",
+    "location": "Montevideo, Uruguay",
     "logo": "/logo_ancel.svg",
-    "text": "Large-scale refactoring reduced deployment time by 40%. GitLab CI/CD pipeline with 85% test coverage in Jest.",
-    "tagline": "State telecom of Uruguay",
     "highlights": [
-      "Developed Node.js microservices handling up to 3.5M daily transactions, integrating SQLite databases and SFTP services.",
-      "Optimized internal processes across multiple applications, making responses 50% faster and reducing errors by 99.9%."
+      "Built and maintain Node.js microservices processing up to **3.5M transactions per day**, integrating SQL databases and SFTP-based services.",
+      "Led large-scale refactoring across Next.js and Node.js projects, **reducing deployment times by 40%**.",
+      "Redesigned internal processes across multiple applications while coordinating cross-functional teams: **50% faster response times** and a drastic reduction in operational errors.",
+      "Co-leading the **AntelTV home page redesign** (React, Next.js, Tailwind CSS): reusable UI components, sprint planning and phased rollout.",
+      "**85% test coverage** with Jest; GitLab CI/CD pipelines and Docker-based environments."
     ],
+    "technologies": ["Node.js", "TypeScript", "React", "Next.js", "MySQL", "Sequelize", "Docker", "Jest", "GitLab CI/CD", "Tailwind CSS"],
+    "workMethod": "Senior Full-Stack Developer on Antel's internal systems team, working through ITC.",
     "largeText": [
       "Antel, the National Telecommunications Administration, is a Uruguayan state-owned company responsible for providing telecommunications services in Uruguay. It is the country's main provider of fixed and mobile telephony, internet, and cable television. Founded in 1974, Antel plays a key role in Uruguay's communications infrastructure, offering services both nationally and internationally.",
       "I work in a team with a strong code review and peer mentorship culture, which deepened my expertise in microservices architecture."
     ],
-    "stats": [
-      {
-        "value": "3.5M",
-        "label": "daily transactions"
-      },
-      {
-        "value": "-99.9%",
-        "label": "errors"
-      },
-      {
-        "value": "50%",
-        "label": "faster response"
-      },
-      {
-        "value": "85%",
-        "label": "test coverage"
-      }
-    ],
-    "workMethod": "Full-Stack Developer on the internal systems team.",
     "projects": [
       {
-        "title": "CLIENT PORTAL",
-        "text": "Next.js + SQLite with login, validations, and SMS notifications."
+        "title": "Client portal",
+        "text": "Next.js + MySQL with login, validations, and SMS notifications."
       },
       {
-        "title": "SECURITY CODES SERVICE",
-        "text": "Node API with authentication and security code generation."
+        "title": "Security codes service",
+        "text": "Node.js API with authentication and security code generation."
       },
       {
-        "title": "JAVA TO NODE MIGRATION",
-        "text": "Migrated an IP management system from Java to Node, maintaining functional parity."
-      }
-    ],
-    "technologies": [
-      {
-        "name": "JavaScript",
-        "category": "language"
-      },
-      {
-        "name": "TypeScript",
-        "category": "language"
-      },
-      {
-        "name": "React",
-        "category": "framework"
-      },
-      {
-        "name": "NextJs",
-        "category": "framework"
-      },
-      {
-        "name": "Node",
-        "category": "framework"
+        "title": "Java to Node.js migration",
+        "text": "Migrated an IP management system from Java to Node.js, maintaining functional parity."
       }
     ]
   },
   {
+    "slug": "upshow",
     "name": "Upshow",
-    "time": "2021 - 2022",
+    "role": "Full-Stack Developer",
+    "time": "2021 – 2022",
+    "start": "2021-07",
+    "end": "2022-03",
+    "location": "Uruguay",
     "logo": "/logo_upshow.svg",
-    "text": "Built React dashboards consuming Node/Express APIs. Integrated GitHub & Jira for real-time cross-referenced reports. Agile/Scrum full lifecycle support.",
-    "tagline": "Interactive engagement platforms for venues",
     "highlights": [
-      "Built React dashboards on Node/Express APIs used for sprint planning and release tracking.",
-      "Integrated GitHub and Jira data for real-time cross-referenced reports."
+      "Built React dashboards on top of Node/Express APIs, integrating GitHub and Jira to deliver real-time reports that streamlined Agile workflows from planning to release."
     ],
+    "technologies": ["JavaScript", "React", "Node.js", "Express", "GraphQL", "Docker"],
+    "workMethod": "Full-Stack Developer on a Scrum team building venue engagement platforms.",
     "largeText": [
       "Upshow is a company specialized in technology and interactive platforms designed to enhance engagement and interaction at live events and public venues. It provides solutions that allow establishments and organizers to display user-generated content on screens and monitors, creating a more engaging experience for the audience and encouraging real-time participation.",
       "Continuous feedback and training there sharpened my ability to integrate multiple APIs into unified, real-time reporting tools."
     ],
-    "workMethod": "Full-Stack Developer on a Scrum team building venue engagement platforms.",
     "projects": [
       {
-        "title": "React feature",
-        "text": "Creation of small features for React projects."
+        "title": "React features",
+        "text": "Small features for the company's React applications."
       },
       {
-        "title": "Node, GitHub and Jira",
-        "text": "Data integration project between GitHub and Jira."
+        "title": "Node.js, GitHub and Jira",
+        "text": "Data integration between GitHub and Jira."
       },
       {
         "title": "Elasticsearch",
-        "text": "Automation project for data analysis in Elasticsearch."
+        "text": "Automation for data analysis in Elasticsearch."
       },
       {
-        "title": "Show services status",
-        "text": "Project that displays the status of our services day by day and hour by hour."
-      }
-    ],
-    "technologies": [
-      {
-        "name": "JavaScript",
-        "category": "language"
-      },
-      {
-        "name": "React",
-        "category": "framework"
-      },
-      {
-        "name": "Node",
-        "category": "framework"
+        "title": "Service status",
+        "text": "A dashboard showing the status of our services day by day and hour by hour."
       }
     ]
   },
   {
+    "slug": "hacknoid",
     "name": "Hacknoid",
-    "time": "2018 - 2021",
+    "role": "Full-Stack Developer, cybersecurity and automated pentesting",
+    "time": "2018 – 2021",
+    "start": "2018-04",
+    "end": "2021-07",
+    "location": "Uruguay",
     "logo": "/logo_hacknoid.svg",
-    "text": "Migrated frontend from Zend PHP to React.js, improving load time by 60%. Git branching strategies for releases. Optimized SQL queries, reducing response by 40%.",
-    "tagline": "Cybersecurity / automated pentesting",
     "highlights": [
-      "Migrated the frontend from Zend PHP to React.js, improving load time by 60%.",
-      "Optimized SQL queries, reducing response time by 40%."
+      "Led the frontend migration from Zend PHP to React: **60% faster perceived load time**.",
+      "Optimized SQL queries and developer tooling: **40% faster response times**; defined Git branching strategies for releases and hotfixes."
     ],
+    "technologies": ["JavaScript", "React", "Node.js", "Python", "PHP", "MariaDB"],
+    "workMethod": "Full-Stack Developer focused on frontend migration and pentesting tooling.",
     "largeText": [
       "Hacknoid is a cybersecurity-oriented company that has an automated pentesting application."
     ],
-    "workMethod": "Full-Stack Developer focused on frontend migration and pentesting tooling.",
     "projects": [
       {
-        "title": "Django, Python",
-        "text": "Creation of backend with Django Python."
+        "title": "Django backend",
+        "text": "Backend services built with Django and Python."
       },
       {
         "title": "Zend to React",
-        "text": "Migration of frontend from Zend Framework to React."
+        "text": "Migration of the frontend from Zend Framework to React."
       },
       {
         "title": "Automated pentesting",
-        "text": "Creation of modules for pentesting in Python."
-      }
-    ],
-    "technologies": [
-      {
-        "name": "python",
-        "category": "language"
-      },
-      {
-        "name": "JavaScript",
-        "category": "language"
-      },
-      {
-        "name": "React",
-        "category": "framework"
-      },
-      {
-        "name": "Node",
-        "category": "framework"
+        "text": "Pentesting modules written in Python."
       }
     ]
   },
   {
-    "name": "Gestion total",
-    "time": "2017 - 2018",
+    "slug": "gestion-total",
+    "name": "Gestión Total",
+    "role": "Full-Stack Developer, ERP solutions",
+    "time": "2017 – 2018",
+    "start": "2017-04",
+    "end": "2018-04",
+    "location": "Uruguay",
     "logo": "/logo_gestionTotal.svg",
-    "text": "Developed custom JavaScript modules for ERP system, tailoring workflows to client needs across diverse industries. Responsive UI with HTML5/CSS3.",
-    "tagline": "ERP solutions for business management",
     "highlights": [
-      "Developed custom JavaScript modules for ERPNext, tailoring workflows to client needs across diverse industries."
+      "Developed custom JavaScript modules and responsive UI for ERPNext, tailoring workflows to clients across diverse industries."
     ],
+    "technologies": ["JavaScript", "Python", "Docker"],
+    "workMethod": "Full-Stack Developer building ERP customizations for clients.",
     "largeText": [
-      "Gestion total sells features on an ERPNext which is focused on the administrative management of companies.",
+      "Gestión Total sells features on top of ERPNext, focused on the administrative management of companies.",
       "Solving day-to-day client requirements there built a strong foundation in adapting ERP systems to real business workflows."
     ],
-    "workMethod": "Full-Stack Developer building ERP customizations for clients.",
-    "projects": [],
-    "technologies": [
-      {
-        "name": "python",
-        "category": "language"
-      },
-      {
-        "name": "JavaScript",
-        "category": "language"
-      }
-    ]
+    "projects": []
   }
 ]

@@ -1,0 +1,35 @@
+---
+import { ui, localePath, type Lang } from '../i18n/ui';
+import { rich } from '../lib/rich';
+import type { Work } from '../content/schemas';
+
+interface Props {
+  lang: Lang;
+  works: Work[];
+}
+
+const { lang, works } = Astro.props;
+const t = ui[lang];
+---
+
+<section id="experience" class="section" aria-labelledby="h-experience">
+  <h2 id="h-experience" class="section-head">{t.sections.experience}<span class="dot">.</span></h2>
+  {works.map((work) => (
+    <article class="entry row">
+      <span class="meta">{work.time}</span>
+      <div>
+        <h3>
+          <a href={localePath(lang, `/work/${work.slug}`)}>{work.name}</a>
+          {work.via && <>{' '}<span class="via">({work.via})</span></>}
+        </h3>
+        <p class="sub">{work.role}</p>
+        <ul class="points">
+          {work.highlights.map((h) => <li set:html={rich(h)} />)}
+        </ul>
+        <ul class="tags">
+          {work.technologies.map((tech) => <li>{tech}</li>)}
+        </ul>
+      </div>
+    </article>
+  ))}
+</section>

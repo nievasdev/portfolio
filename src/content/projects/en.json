@@ -1,36 +1,41 @@
 [
   {
-    "name": "STOCK MANAGER",
-    "time": "2022",
-    "text": "Inventory management system for retail stores: products, brands, stock and sales history. Node.js + MongoDB.",
-    "largeText": [
-      "Full-stack project built with Node.js and MongoDB: product catalog with brands and types, stock control and sales history per store."
+    "kind": "featured",
+    "name": "Uruleyes",
+    "subtitle": "Natural-language search for Uruguayan law",
+    "text": "A natural-language search engine for Uruguayan law. It indexes legislation and official sources (IMPO, Parliament, MTSS, BPS and more), classifies results by legal practice area, and handles high concurrent load on minimal hardware. Adopted widely by Uruguay's legal community.",
+    "url": "https://uruleyes.com",
+    "screenshots": [
+      { "src": "/shots/uruleyes-results", "alt": "Uruleyes search results for “despido por embarazo”: 58 laws and decrees, each tagged by practice area with a link to the official text in IMPO.", "width": 1200, "height": 750 }
     ],
-    "github": "https://github.com/Mauro-js/Meteor_practices",
-    "technologies": [
-      {
-        "name": "JavaScript",
-        "category": "language"
-      },
-      {
-        "name": "Node",
-        "category": "framework"
-      }
-    ]
+    "technologies": ["Node.js", "Docker"]
   },
   {
-    "name": "VOTING SYSTEM",
-    "time": "2023",
-    "text": "Online voting system for electing the authorities of an academic committee. Flask + PostgreSQL.",
-    "largeText": [
-      "Built with Flask and PostgreSQL: voter registration, secure ballot casting and result tallying for the committee election."
+    "kind": "case",
+    "name": "AntelTV home redesign",
+    "caseStudy": {
+      "role": "Frontend development, component architecture, sprint planning and estimation across an 8-week, multi-sprint effort.",
+      "built": "Hero banner, content carousels, Top 10, navigation and search, as reusable React components with Tailwind CSS."
+    },
+    "url": "https://www.anteltv.com.uy",
+    "screenshots": [
+      { "src": "/shots/anteltv-hero", "alt": "AntelTV home: full-width hero banner with the main navigation and a slide indicator.", "width": 1200, "height": 750 },
+      { "src": "/shots/anteltv-rows", "alt": "AntelTV home: “Hoy en AntelTV” live-now cards and the AntelTV Premium channel carousel.", "width": 1200, "height": 678 }
     ],
-    "github": "https://github.com/Mauro-js/test_python_flask",
-    "technologies": [
-      {
-        "name": "python",
-        "category": "language"
-      }
-    ]
+    "technologies": ["React", "Next.js", "Tailwind CSS"]
+  },
+  {
+    "kind": "earlier",
+    "name": "Stock Manager",
+    "time": "2022",
+    "text": "Inventory management system for retail stores: products, brands, stock and sales history.",
+    "technologies": ["JavaScript", "Node.js", "MongoDB"]
+  },
+  {
+    "kind": "earlier",
+    "name": "Voting System",
+    "time": "2023",
+    "text": "Online voting system for electing the authorities of an academic committee.",
+    "technologies": ["Python", "Flask", "PostgreSQL"]
   }
 ]

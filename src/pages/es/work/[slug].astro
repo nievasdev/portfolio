@@ -1,0 +1,13 @@
+---
+import WorkDetail from '../../../components/WorkDetail.astro';
+import { getEntry } from 'astro:content';
+import { workPaths } from '../../../lib/paths';
+
+export async function getStaticPaths() {
+  return workPaths((await getEntry('works', 'es'))?.data ?? []);
+}
+
+const { work, others } = Astro.props;
+---
+
+<WorkDetail lang="es" work={work} others={others} />

@@ -1,0 +1,81 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+import type { Project } from '../content/schemas';
+
+interface Props {
+  lang: Lang;
+  projects: Project[];
+}
+
+const { lang, projects } = Astro.props;
+const t = ui[lang];
+const main = projects.filter((p) => p.kind !== 'earlier');
+const earlier = projects.filter((p) => p.kind === 'earlier');
+const caseKeys = ['problem', 'role', 'built', 'result'] as const;
+---
+
+<section id="projects" class="section" aria-labelledby="h-projects">
+  <h2 id="h-projects" class="section-head">{t.sections.projects}<span class="dot">.</span></h2>
+  {main.map((p) => (
+    <article class="entry row">
+      <span class="meta">{t.projects.kind[p.kind]}</span>
+      <div>
+        <h3>{p.name}</h3>
+        {p.subtitle && <p class="sub">{p.subtitle}</p>}
+        {p.text && <p class="body-text">{p.text}</p>}
+        {p.caseStudy && (
+          <dl class="pairs">
+            {caseKeys.filter((k) => p.caseStudy?.[k]).map((k) => (
+              <>
+                <dt>{t.projects.case[k]}</dt>
+                <dd>{p.caseStudy?.[k]}</dd>
+              </>
+            ))}
+          </dl>
+        )}
+        {p.screenshots && p.screenshots.length > 0 && (
+          <div class:list={['shots', { pair: p.screenshots.length > 1 }]}>
+            {p.screenshots.map((s) => (
+              <img
+                src={`${s.src}-1200.webp`}
+                srcset={`${s.src}-600.webp 600w, ${s.src}-1200.webp 1200w`}
+                sizes={p.screenshots!.length > 1 ? '(max-width: 52rem) 100vw, 23rem' : '(max-width: 52rem) 100vw, 46rem'}
+                width={s.width}
+                height={s.height}
+                alt={s.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            ))}
+          </div>
+        )}
+        {p.technologies.length > 0 && (
+          <ul class="tags">
+            {p.technologies.map((tech) => <li>{tech}</li>)}
+          </ul>
+        )}
+        {(p.url || p.caseStudyUrl) && (
+          <div class="links">
+            {p.url && <a href={p.url}>{t.projects.visit}</a>}
+            {p.caseStudyUrl && <a href={p.caseStudyUrl}>{t.projects.caseStudy}</a>}
+          </div>
+        )}
+      </div>
+    </article>
+  ))}
+
+  {earlier.length > 0 && (
+    <div class="entry row">
+      <span class="meta">{t.projects.kind.earlier}</span>
+      <p class="earlier">
+        {earlier.map((p, i) => (
+          <>
+            {i > 0 && ' · '}
+            {p.github ? <a href={p.github}>{p.name}</a> : p.name}
+            {p.time && ` (${p.time})`}
+          </>
+        ))}
+      </p>
+    </div>
+  )}
+</section>

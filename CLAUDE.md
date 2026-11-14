@@ -4,97 +4,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-### Essential Commands
 - `npm run build` - Build static site for production
 - `npm run dev` - Start development server
 - `npm run start` - Preview production build
-- `npm run lint` - Run Astro check
+- `npm test` - Run the Vitest suite (content, schema, routes, i18n parity)
+- `npm run lint` - Run Astro check (needs `@astrojs/check` installed)
 
-### Node.js Version
-- Requires Node.js 20+ 
-- Use `nvm use 20.0.0` to set correct version
+Requires Node.js 20+ (`nvm use 20.0.0`).
 
 ## Architecture Overview
 
-### Project Structure
-This is an **Astro 5 portfolio** featuring a **fully static** 3-column grid layout:
+Fully static **Astro 5** site for nievas.dev. Zero client-side JavaScript.
 
-- **Left Column**: Work experience (`WorksColumn`)
-- **Center Column**: Personal info (`MeSectionCompact`) with GitHub contributions
-- **Right Column**: Personal projects (`ProjectsColumn`)
+### Routes and languages
+- English at the root, Spanish under `/es`, each its own page (no client-side language switching).
+- `src/pages/index.astro` and `src/pages/es/index.astro` render `HomePage` with `lang`.
+- `src/pages/work/[slug].astro` and `src/pages/es/work/[slug].astro` render `WorkDetail`; paths come from `workPaths()` in `src/lib/paths.ts`, slugs from the `slug` field in the works JSON.
+- `Layout.astro` takes `lang` + a language-agnostic `path` and emits `<html lang>`, canonical and `hreflang` links (en, es, x-default). `localePath()` in `src/i18n/ui.ts` maps paths between languages.
 
-### Key Architectural Patterns
+### Content
+- Works: `src/content/works/{en,es}.json`. Projects: `src/content/projects/{en,es}.json` (`kind`: featured | case | earlier).
+- Zod schemas live in `src/content/schemas.ts` (imported by `config.ts` and by the tests).
+- Metrics in highlights are marked `**like this**` and rendered by `rich()` in `src/lib/rich.ts`.
+- UI strings (nav, hero, about, stack, contact, labels, meta) live in `src/i18n/ui.ts`; EN and ES must have identical keys.
+- Technology names must use the canonical spelling listed in `src/tests/data-integrity.test.ts`. Missing data is omitted, never shipped as `[placeholder]`.
 
-**Data Management**: Astro Content Collections for static data
-- Work experience data in `src/content/works/` (en.json, es.json)
-- Project data in `src/content/projects/` (en.json, es.json)
-- All data is loaded at build time and pre-rendered for optimal performance
+### Components (`src/components/`)
+`HomePage` composes `Hero`, `Experience`, `Projects`, `About`, `Contact`; `Header`/`Footer` come from `Layout`. `Mark` is the logo (sprite symbol, animated hero version, or `<use>` reference). `WorkDetail` is the per-company page.
 
-**Component Architecture**:
-- Astro components for optimal performance and zero JavaScript by default
-- Static site generation with NO client-side interactivity
-- Responsive design with CSS Grid and Tailwind CSS
-
-**Static GitHub Integration**:
-- No API calls - all GitHub activity is simulated with realistic patterns
-- Static contribution chart with proper visualization
-- No runtime dependencies on external services
-
-### Configuration Details
-
-**Build Configuration**:
-- Full static output (`output: 'static'` in `astro.config.mjs`)
-- Optimized for deployment on static hosting platforms
-- Inlined stylesheets for maximum performance
-
-**Styling System**:
-- Tailwind CSS v4 with `@tailwindcss/vite` plugin
-- Dark theme by default with custom CSS variables
-- Responsive typography and layouts
-- Custom scrollbar styling
-
-**Content Collections**:
-- TypeScript schema validation for content integrity
-- Multilingual support (English/Spanish)
-- JSON-based data structure for easy maintenance
-
-### Static Generation Benefits
-- **Zero JavaScript runtime** - Pure HTML/CSS delivery
-- **Lightning fast** load times
-- **SEO optimized** - All content pre-rendered
-- **Hosting flexibility** - Deploy to any static host
-- **Maximum security** - No server-side vulnerabilities
-
-### Data Types
-Core TypeScript interfaces defined in content schema:
-- `Work` - Work experience with projects and technologies
-- `Project` - Personal projects with GitHub links
-- All interfaces validated at build time
-
-### Theme Implementation
-- Dark theme with CSS custom properties
-- Consistent color palette throughout the application
-- Responsive design patterns
-- Optimized for both desktop and mobile viewing
-
-## Development Notes
-
-### Static-First Approach
-All functionality is implemented as static generation. No client-side JavaScript is used, ensuring maximum performance and compatibility.
-
-### Content Updates
-To update work experience or projects, modify the JSON files in `src/content/`. Changes are reflected immediately in development and included in the next build.
-
-### Responsive Behavior
-- Desktop: 3-column grid layout
-- Tablet/Mobile: Single column stacked layout
-- All layouts are CSS-based with no JavaScript dependencies
-
-### Performance Optimization
-- Static site generation for instant loading
-- Optimized images and assets
-- Minimal CSS with Tailwind's utility classes
-- No external runtime dependencies
-
-### Migration Notes
-This project was migrated from Next.js to Astro, converting all React components to Astro components and eliminating all client-side JavaScript while maintaining the same visual design and functionality.
+### Visual system
+- Palette from the logo: navy `#1E2A44`, cold white `#E6E9F0`, grays `#A9B0BF`/`#5B6478`, one gold accent `#C9A227` (decorative on light; `--gold-ink` `#8A6D12` for gold text on light).
+- Light/dark follows `prefers-color-scheme` (no toggle). Tokens in `src/styles/global.css`.
+- JetBrains Mono (self-hosted in `public/fonts/`) for name, headings, labels, tags; system sans for reading text.
+- Layout: a narrow label gutter + one reading column; single column under 52rem.
+- Company logos in `public/logo_*.svg` use `fill="currentColor"` and are inlined into the page.
+- Favicon `public/favicon.svg` switches stroke color with the system theme.

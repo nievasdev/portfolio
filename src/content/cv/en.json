@@ -1,0 +1,40 @@
+{
+  "headline": "Senior Full-Stack Developer · Node.js · TypeScript · React · Next.js",
+  "location": "Montevideo, Uruguay",
+  "phone": "+598 95 170 627",
+  "summary": "Full-Stack Developer with {years}+ years building production software for telecom, SaaS and enterprise clients. Strong in Node.js and TypeScript on the backend (REST APIs, microservices, performance) and React and Next.js on the frontend, with hands-on experience in Jest testing, Git workflows and GitLab CI/CD. Founder of Uruleyes, a legal search engine used by Uruguay's legal community.",
+  "labels": {
+    "summary": "Summary",
+    "experience": "Work experience",
+    "projects": "Projects",
+    "education": "Education",
+    "skills": "Skills",
+    "languages": "Languages",
+    "references": "Professional references",
+    "present": "Present"
+  },
+  "months": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  "projects": [
+    {
+      "name": "Uruleyes",
+      "role": "Founder and Developer",
+      "when": "Personal project · uruleyes.com",
+      "text": "Natural-language search engine for Uruguayan law, indexing official sources and classifying results by practice area."
+    }
+  ],
+  "education": [
+    {
+      "title": "B.S. in Information Systems",
+      "school": "Universidad ORT Uruguay",
+      "when": "In progress"
+    }
+  ],
+  "languages": ["Spanish (native)", "English (intermediate, B1+)"],
+  "references": [
+    { "name": "Rodrigo Robaina", "role": "Lead Developer, Antel", "email": "rrobaina@antel.net.uy", "phone": "+598 98 811 438" },
+    { "name": "Daniel Scandroglio", "role": "Front-End Developer, Antel", "email": "dscandroglio@antel.net.uy", "phone": "+598 95 222 085" },
+    { "name": "Gonzalo Rizzo", "role": "Software Engineer, Upshow", "email": "me@gonzalorizzo.com", "phone": "+598 95 572 448" },
+    { "name": "Nicolás Comerci", "role": "Sr Software Engineer, Hacknoid", "email": "nicocomerci@hotmail.com", "phone": "+598 92 075 329" },
+    { "name": "Gabriel Rodríguez Shaw", "role": "Hacknoid", "phone": "+598 93 830 884" }
+  ]
+}
