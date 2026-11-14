@@ -40,12 +40,11 @@ const en = {
     lede: 'I build backends that handle millions of daily transactions, and their interfaces.',
     facts: [
       { value: `${years}+`, label: 'years', href: null },
-      { value: '3.5M', label: 'transactions/day', href: '#flow-transactions' },
-      { value: '', label: 'Telecom · SaaS', href: null },
-      { value: 'Uruleyes', label: '· try it live ↓', href: '#project-uruleyes' },
+      { value: '3.5M', label: 'transactions/day ↓', href: '#flow-transactions' },
+      { value: 'Uruleyes', label: 'try it live ↓', href: '#project-uruleyes' },
     ],
     cta: 'Contact me',
-    cv: 'Download CV (PDF)',
+    cv: 'CV (PDF)',
   },
   statement: 'Every day, up to 3.5 million transactions run through Node.js services I built and maintain',
   flow: {
@@ -146,12 +145,11 @@ const es: Dictionary = {
     lede: 'Construyo backends que procesan millones de transacciones diarias, y sus interfaces.',
     facts: [
       { value: `+${years}`, label: 'años', href: null },
-      { value: '3,5M', label: 'transacciones/día', href: '#flow-transactions' },
-      { value: '', label: 'Telecomunicaciones · SaaS', href: null },
-      { value: 'Uruleyes', label: '· probalo en vivo ↓', href: '#project-uruleyes' },
+      { value: '3,5M', label: 'transacciones/día ↓', href: '#flow-transactions' },
+      { value: 'Uruleyes', label: 'probalo en vivo ↓', href: '#project-uruleyes' },
     ],
     cta: 'Contactarme',
-    cv: 'Descargar CV (PDF)',
+    cv: 'CV (PDF)',
   },
   statement: 'Cada día, hasta 3,5 millones de transacciones pasan por servicios en Node.js que construí y mantengo',
   flow: {

@@ -87,23 +87,27 @@ main{padding-bottom:var(--s-7)}
 
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
-/* hero */
-.hero{padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(2.5rem,5vw,3.5rem)}
-/* "mauro.nievas" starts on the reading column, so the whole hero sits on one axis.
-   12 mono glyphs ≈ 6.8em at this tracking: the min() keeps it on one line on phones. */
+/* hero: the text starts on the reading column, so the whole page sits on one axis; the mark,
+   large, closes the row on the right, its top on the name's */
+.hero{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(1.5rem,4vw,3.5rem);align-items:start;
+  padding:clamp(2.5rem,6vw,4.5rem) 0 clamp(2.5rem,5vw,3.5rem) calc(var(--gutter) + clamp(2rem,4vw,3.5rem));
+}
+.hero-main{container-type:inline-size}
+/* 12 mono glyphs ≈ 6.8em at this tracking: sized to its column, it always stays on one line */
 .hero-name{
-  font:600 min(calc((100vw - 2 * clamp(1rem,4vw,2.5rem)) / 6.8), 5rem)/.95 var(--display);
+  font:600 min(100cqi / 6.8, 5rem)/.95 var(--display);
   letter-spacing:-.045em;white-space:nowrap;text-wrap:nowrap;
-  margin:0 0 clamp(1.5rem,3.5vw,2.5rem) calc(var(--gutter) + clamp(2rem,4vw,3.5rem));
+  margin:0 0 clamp(1.5rem,3.5vw,2.5rem);
 }
 .hero-name .dot{display:inline-block}
-.hero .mark{width:7.5rem;height:7.5rem;margin-top:.4rem}
+.hero .mark{width:clamp(9rem,19vw,16rem);height:auto;aspect-ratio:1}
 .hero .mark g{fill:none;stroke:currentColor;stroke-width:8;stroke-miterlimit:10}
 .hero .mark circle{fill:var(--gold)}
 h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--display);letter-spacing:-.035em;margin:0;text-wrap:balance}
-.role{font:400 .9rem/1.6 var(--mono);color:var(--muted);margin:var(--s-3) 0 0}
+.role{font:400 .9rem/1.6 var(--mono);color:var(--muted);margin:var(--s-3) 0 0;text-wrap:balance}
 .lede{font-size:clamp(1.25rem,2.1vw,1.5rem);line-height:1.45;margin:var(--s-4) 0 0;max-width:44ch;text-wrap:pretty}
-.facts{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-4);margin:var(--s-4) 0 0;padding:0;list-style:none;font:400 .85rem var(--mono);color:var(--muted)}
+.facts{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-4);margin:var(--s-4) 0 0;padding:0;list-style:none;font:400 .85rem/1.5rem var(--mono);color:var(--muted)}
 .facts b{font-weight:600;color:var(--text)}
 .actions{display:flex;flex-wrap:wrap;align-items:center;gap:1.75rem;margin-top:var(--s-5);font:400 .9rem var(--mono)}
 .cta{display:inline-flex;align-items:center;gap:.6rem;padding:.75rem 1.25rem;background:var(--text);color:var(--bg);text-decoration:none;border-radius:3px;transition:gap .25s cubic-bezier(.16,1,.3,1)}
@@ -117,10 +121,10 @@ h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--display);letter-spacing:-.035em;
   .hero .mark path:nth-child(2){animation-delay:.12s}
   .hero .mark path:nth-child(3){animation-delay:.24s}
   .hero .mark circle{animation:dot-pop .6s .75s cubic-bezier(.34,1.56,.64,1) both}
-  .hero-body>div>*{animation:rise .7s cubic-bezier(.16,1,.3,1) both}
-  .hero-body>div>:nth-child(2){animation-delay:.08s}
-  .hero-body>div>:nth-child(3){animation-delay:.16s}
-  .hero-body>div>:nth-child(4){animation-delay:.24s}
+  .hero-main>:not(.hero-name){animation:rise .7s cubic-bezier(.16,1,.3,1) both}
+  .hero-main>:nth-child(3){animation-delay:.08s}
+  .hero-main>:nth-child(4){animation-delay:.16s}
+  .hero-main>:nth-child(5){animation-delay:.24s}
 }
 @keyframes brace-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes dot-pop{from{scale:0}}
@@ -358,7 +362,11 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0;color:var(--gold-ink)}
   .row{grid-template-columns:minmax(0,1fr)}
   .meta{padding-top:0;margin-bottom:var(--s-1)}
   .meta:empty{display:none}
-  .hero-name{margin-left:0}
+  /* phones: the mark first, then the text; the CTA alone, the other three on one line */
+  .hero{grid-template-columns:minmax(0,1fr);padding-left:0}
+  .hero .mark{order:-1;width:6rem;margin-bottom:var(--s-4)}
+  .actions{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;column-gap:1.5rem;row-gap:var(--s-3)}
+  .actions .cta{grid-column:1 / -1;justify-self:start}
   .statement-text{margin-left:0}
   .seg-name{display:none}
   .seg a{inset:-2.1rem 3px -.75rem 0}
@@ -369,8 +377,6 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0;color:var(--gold-ink)}
   .statement{padding-block:3.5rem}
   .flow .flow-wide{display:none}
   .flow .flow-tall{display:block}
-  .hero .mark{width:3.5rem;height:3.5rem;margin:0}
-  .hero-body .role{margin-top:var(--s-3)}
   .co-logo{margin:0 0 var(--s-4)}
   .co-logo svg{width:4rem;height:4rem}
   .shots.pair{grid-template-columns:1fr}

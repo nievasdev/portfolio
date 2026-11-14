@@ -18,18 +18,22 @@ describe('UI dictionary', () => {
     expect(homeSections).toEqual(['experience', 'projects', 'about', 'contact']);
   });
 
-  it('el dato de industrias es solo texto, sin número destacado ni link', () => {
-    expect(ui.en.hero.facts[2]).toEqual({ value: '', label: 'Telecom · SaaS', href: null });
-    expect(ui.es.hero.facts[2]).toEqual({ value: '', label: 'Telecomunicaciones · SaaS', href: null });
+  it('el hero tiene tres datos con el mismo formato: cifra y etiqueta; los enlaces terminan en «↓» (R-07, R-09)', () => {
+    [ui.en, ui.es].forEach((t) => {
+      expect(t.hero.facts).toHaveLength(3);
+      t.hero.facts.forEach((fact) => {
+        expect(fact.value).not.toBe('');
+        expect(fact.label.endsWith('↓')).toBe(fact.href !== null);
+      });
+    });
   });
 
-  it('has no empty strings except the label-only fact', () => {
+  it('has no empty strings', () => {
     const empty = (obj: unknown, path = ''): string[] =>
       obj && typeof obj === 'object'
         ? Object.entries(obj).flatMap(([k, v]) => empty(v, `${path}.${k}`))
         : obj === '' ? [path] : [];
-    const allowed = ['.hero.facts.2.value'];
-    expect(empty(ui.en).filter((p) => !allowed.includes(p))).toEqual([]);
-    expect(empty(ui.es).filter((p) => !allowed.includes(p))).toEqual([]);
+    expect(empty(ui.en)).toEqual([]);
+    expect(empty(ui.es)).toEqual([]);
   });
 });

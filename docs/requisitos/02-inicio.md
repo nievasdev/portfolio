@@ -4,16 +4,18 @@
 
 ### Hero
 
-- **R-07.** El hero muestra `mauro.nievas` con el punto dorado, el rol, la frase principal y los
-  datos: años de experiencia, transacciones por día, industrias (Telecom · SaaS) y el acceso a
-  Uruleyes.
+- **R-07.** El hero muestra `mauro.nievas` con el punto dorado, el rol, la frase principal y tres
+  datos con el mismo formato (cifra en negrita + etiqueta): años de experiencia, transacciones por
+  día y Uruleyes. El logo va grande a la derecha, con su arriba alineado con el del nombre, y se
+  dibuja al cargar; en pantallas chicas va arriba del nombre.
 - **R-08.** Los años de experiencia son los años completos desde el **1 de abril de 2017** a la
   fecha del build; el número sube con el primer build posterior a cada 1 de abril.
-- **R-09.** «3.5M transactions/day» lleva al diagrama de transacciones de Antel y «Uruleyes · try
-  it live» lleva al proyecto Uruleyes.
+- **R-09.** «3.5M transactions/day ↓» lleva al diagrama de transacciones de la banda y «Uruleyes try
+  it live ↓» lleva al proyecto Uruleyes; la flecha marca los datos que son enlace.
 - **R-10.** Las acciones del hero son: *Contact me* (a la sección de contacto), *Download CV (PDF)*
   (el CV del idioma de la página), GitHub (`github.com/nievasdev`) y LinkedIn
-  (`linkedin.com/in/mauronievasdev`).
+  (`linkedin.com/in/mauronievasdev`). En pantallas chicas *Contact me* va sola en su fila y las
+  otras tres juntas debajo; el enlace al CV dice «CV (PDF)».
 
 ### Frase-momento
 
@@ -79,10 +81,11 @@ Verificación: `src/tests/experience.test.ts`.
 **CA-09: accesos del hero** (R-09)
 
 - Dado el hero
-- Cuando el visitante toca «3.5M transactions/day» o «Uruleyes · try it live»
-- Entonces la página baja al diagrama de la banda o al proyecto Uruleyes
+- Cuando el visitante toca «3.5M transactions/day ↓» o «Uruleyes try it live ↓»
+- Entonces la página baja al diagrama de la banda o al proyecto Uruleyes; los tres datos tienen
+  cifra y solo los que son enlace terminan en «↓»
 
-Verificación: `src/tests/i18n.test.ts` (destinos) y navegador.
+Verificación: `src/tests/i18n.test.ts` (formato y destinos) y navegador.
 
 **CA-10: buscador de Uruleyes** (R-13)
 
