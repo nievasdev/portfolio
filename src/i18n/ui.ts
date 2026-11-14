@@ -88,7 +88,6 @@ const en = {
     kind: {
       featured: 'featured',
       case: 'case study',
-      earlier: 'earlier',
     },
     case: {
       problem: 'Problem',
@@ -195,7 +194,6 @@ const es: Dictionary = {
     kind: {
       featured: 'destacado',
       case: 'caso de estudio',
-      earlier: 'anteriores',
     },
     case: {
       problem: 'Problema',

@@ -27,8 +27,8 @@
   experiencia empieza por Antel; el reclutador ve primero los empleos). Uruleyes es el proyecto
   destacado: logo, descripción de una línea, diagrama de su arquitectura (que es el que muestra la
   prueba de carga), buscador «Try it», captura, stack y «Visit site». El rediseño de AntelTV es el
-  caso de estudio: rol y qué construí en una línea cada uno, dos capturas y «Visit site». Los
-  proyectos anteriores van en una sola línea.
+  caso de estudio: rol y qué construí en una línea cada uno, dos capturas y «Visit site». No hay
+  otros proyectos: solo se muestra trabajo propio y verificable.
 - **R-13.** El buscador «Try it» viene cargado con «despido por embarazo» y, al enviarlo, abre en
   otra pestaña `https://uruleyes.com/?q=<texto>`.
 - **R-14.** Un dato que falta no se muestra: nunca aparece un `[placeholder]` ni el dato no

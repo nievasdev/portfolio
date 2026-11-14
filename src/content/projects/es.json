@@ -26,19 +26,5 @@
       { "src": "/shots/anteltv-rows", "alt": "Home de AntelTV: tarjetas “Hoy en AntelTV” en vivo y el carrusel de canales de AntelTV Premium.", "width": 1200, "height": 678 }
     ],
     "technologies": ["React", "Next.js", "Tailwind CSS"]
-  },
-  {
-    "kind": "earlier",
-    "name": "Gestor de Stock",
-    "time": "2022",
-    "text": "Sistema de gestión de inventario para comercios: productos, marcas, stock e historial de ventas.",
-    "technologies": ["JavaScript", "Node.js", "MongoDB"]
-  },
-  {
-    "kind": "earlier",
-    "name": "Sistema de Votación",
-    "time": "2023",
-    "text": "Sistema de votación online para elegir las autoridades de una comisión académica.",
-    "technologies": ["Python", "Flask", "PostgreSQL"]
   }
 ]

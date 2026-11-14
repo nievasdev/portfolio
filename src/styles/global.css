@@ -191,7 +191,6 @@ h3 .via{font-weight:400;color:var(--muted)}
 .shot img{display:block;width:100%;height:auto;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .shot:hover img{transform:scale(1.025)}
 .flush{margin:0}
-.earlier{margin:0;color:var(--muted)}
 
 dl.pairs{display:grid;grid-template-columns:7.5rem 1fr;gap:var(--s-2) var(--s-4);margin:var(--s-3) 0 0}
 dl.pairs:first-child{margin-top:0}
@@ -315,14 +314,14 @@ main:has(.closing){padding-bottom:0}
 /* touch targets: every link outside running text is at least 24px tall (WCAG 2.5.8, R-39) */
 :is(.actions a:not(.cta), .links a, h3 a, .more a, .facts a, .back, .lang a){display:inline-block;line-height:1.5rem;min-width:1.5rem;text-align:center}
 :is(.actions a:not(.cta), .links a, h3 a, .more a, .facts a){text-align:start}
-:is(.actions a:not(.cta), .links a, h3 a, .more a, .earlier a, .mail, .facts a){
+:is(.actions a:not(.cta), .links a, h3 a, .more a, .mail, .facts a){
   text-decoration:none;padding-bottom:.08em;
   background:
     linear-gradient(var(--gold),var(--gold)) left bottom/0 var(--ul,1px) no-repeat,
     linear-gradient(var(--ul-base,var(--line)),var(--ul-base,var(--line))) left bottom/100% var(--ul,1px) no-repeat;
   transition:background-size .4s cubic-bezier(.16,1,.3,1);
 }
-:is(.actions a:not(.cta), .links a, h3 a, .more a, .earlier a, .mail, .facts a):hover{
+:is(.actions a:not(.cta), .links a, h3 a, .more a, .mail, .facts a):hover{
   background-size:100% var(--ul,1px),100% var(--ul,1px);
 }
 /* company names open their page: a resting underline and an arrow that steps forward on hover */
@@ -331,7 +330,7 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0;color:var(--gold-ink)}
 .cta{transition:gap .25s cubic-bezier(.16,1,.3,1),scale .12s ease-out}
 .cta:active{scale:.97}
 @media (prefers-reduced-motion:reduce){
-  :is(.actions a:not(.cta), .links a, h3 a, .more a, .earlier a, .mail, .facts a),.shot img,.cta,.theme-toggle,h3 a .go{transition:none}
+  :is(.actions a:not(.cta), .links a, h3 a, .more a, .mail, .facts a),.shot img,.cta,.theme-toggle,h3 a .go{transition:none}
 }
 
 /* work detail */

@@ -5,7 +5,7 @@
 | Colección | Archivos | Qué tiene |
 | --- | --- | --- |
 | `works` | `src/content/works/{en,es}.json` | Empresas: slug, fechas año-mes, rol, `keyPoints` (1–2, para la home), `highlights` (todos, para la página de la empresa y el CV) con `**métricas**`, tecnologías, logo, diagrama opcional |
-| `projects` | `src/content/projects/{en,es}.json` | Proyectos: tipo (`featured`, `case`, `earlier`), logo, capturas, búsqueda «Try it», diagrama |
+| `projects` | `src/content/projects/{en,es}.json` | Proyectos: tipo (`featured` o `case`), logo, capturas, búsqueda «Try it», diagrama |
 | `cv` | `src/content/cv/{en,es}.json` | Lo que solo usa el CV: titular, resumen con `{years}`, formación, idiomas, referencias |
 
 Los esquemas viven en `src/content/schemas.ts` (Zod) y los importan tanto `config.ts` como los

@@ -33,15 +33,13 @@ export const workSchema = z.object({
 });
 
 export const projectSchema = z.object({
-  kind: z.enum(['featured', 'case', 'earlier']),
+  kind: z.enum(['featured', 'case']),
   name: z.string().min(1),
   logo: z.string().startsWith('/').optional(),
   subtitle: z.string().optional(),
-  time: z.string().optional(),
   text: z.string().optional(),
   url: z.string().url().optional(),
   caseStudyUrl: z.string().url().optional(),
-  github: z.string().url().optional(),
   // A live architecture diagram (src/components/SearchFlow.astro).
   diagram: z.enum(['search']).optional(),
   // A real search box that sends the visitor to the product: GET <action>?<param>=<query>.

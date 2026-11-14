@@ -11,8 +11,6 @@ interface Props {
 
 const { lang, projects } = Astro.props;
 const t = ui[lang];
-const main = projects.filter((p) => p.kind !== 'earlier');
-const earlier = projects.filter((p) => p.kind === 'earlier');
 const caseKeys = ['problem', 'role', 'built', 'result'] as const;
 // "Uruleyes" → "project-uruleyes": the hero's "try it live" link lands here.
 const anchor = (name: string) =>
@@ -21,7 +19,7 @@ const anchor = (name: string) =>
 
 <section id="projects" class="section" aria-labelledby="h-projects">
   <h2 id="h-projects" class="section-head">{t.sections.projects}<span class="dot">.</span></h2>
-  {main.map((p) => (
+  {projects.map((p) => (
     <article class="entry row" id={anchor(p.name)}>
       <div class="meta">
         <span>{t.projects.kind[p.kind]}</span>
@@ -84,18 +82,4 @@ const anchor = (name: string) =>
     </article>
   ))}
 
-  {earlier.length > 0 && (
-    <div class="entry row">
-      <span class="meta">{t.projects.kind.earlier}</span>
-      <p class="earlier">
-        {earlier.map((p, i) => (
-          <>
-            {i > 0 && ' · '}
-            {p.github ? <a href={p.github}>{p.name}</a> : p.name}
-            {p.time && ` (${p.time})`}
-          </>
-        ))}
-      </p>
-    </div>
-  )}
 </section>

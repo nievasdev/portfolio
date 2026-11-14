@@ -100,9 +100,14 @@ describe('Content Schema Validation', () => {
       expect(projectSchema.safeParse({ ...validProject, kind: 'side' }).success).toBe(false);
     });
 
+    it('solo hay proyecto destacado y caso de estudio: nada de «anteriores» (R-12)', () => {
+      expect(projectSchema.safeParse({ ...validProject, kind: 'case' }).success).toBe(true);
+      expect(projectSchema.safeParse({ ...validProject, kind: 'earlier' }).success).toBe(false);
+    });
+
     it('rejects links that are not URLs', () => {
       expect(projectSchema.safeParse({ ...validProject, url: 'uruleyes' }).success).toBe(false);
-      expect(projectSchema.safeParse({ ...validProject, github: 123 }).success).toBe(false);
+      expect(projectSchema.safeParse({ ...validProject, caseStudyUrl: 'anteltv' }).success).toBe(false);
     });
 
     it('accepts a search box only with an https action', () => {
@@ -132,10 +137,6 @@ describe('Content Schema Validation', () => {
       expect(projectSchema.safeParse({ ...validProject, screenshots: [{ ...shot, src: '/img/uruleyes' }] }).success).toBe(false);
       const { alt, ...withoutAlt } = shot;
       expect(projectSchema.safeParse({ ...validProject, screenshots: [withoutAlt] }).success).toBe(false);
-    });
-
-    it('treats github as optional', () => {
-      expect(projectSchema.safeParse(validProject).success).toBe(true);
     });
   });
 });

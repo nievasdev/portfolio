@@ -26,19 +26,5 @@
       { "src": "/shots/anteltv-rows", "alt": "AntelTV home: “Hoy en AntelTV” live-now cards and the AntelTV Premium channel carousel.", "width": 1200, "height": 678 }
     ],
     "technologies": ["React", "Next.js", "Tailwind CSS"]
-  },
-  {
-    "kind": "earlier",
-    "name": "Stock Manager",
-    "time": "2022",
-    "text": "Inventory management system for retail stores: products, brands, stock and sales history.",
-    "technologies": ["JavaScript", "Node.js", "MongoDB"]
-  },
-  {
-    "kind": "earlier",
-    "name": "Voting System",
-    "time": "2023",
-    "text": "Online voting system for electing the authorities of an academic committee.",
-    "technologies": ["Python", "Flask", "PostgreSQL"]
   }
 ]

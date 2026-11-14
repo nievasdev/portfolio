@@ -69,12 +69,6 @@ describe('Data Integrity', () => {
     });
   });
 
-  it('has valid GitHub URLs where present', () => {
-    [...projectsEn, ...projectsEs].forEach((p) => {
-      if ('github' in p && p.github) expect(p.github).toMatch(/^https:\/\/github\.com\/[\w-]+\/[\w.-]+$/);
-    });
-  });
-
   it('cada punto clave de la home se lee de un vistazo: 15 palabras o menos (R-46)', () => {
     const MAX_WORDS = 15;
     [...worksEn, ...worksEs].flatMap((w) => w.keyPoints).forEach((point) => {
@@ -108,7 +102,7 @@ describe('Data Integrity', () => {
     });
 
     it('lists the same projects in the same order', () => {
-      const shape = (p: (typeof projectsEn)[number]) => [p.kind, 'github' in p ? p.github : undefined, p.technologies, 'search' in p ? p.search : undefined, 'diagram' in p ? p.diagram : undefined];
+      const shape = (p: (typeof projectsEn)[number]) => [p.kind, p.technologies, 'search' in p ? p.search : undefined, 'diagram' in p ? p.diagram : undefined];
       expect(projectsEs.map(shape)).toEqual(projectsEn.map(shape));
     });
   });
