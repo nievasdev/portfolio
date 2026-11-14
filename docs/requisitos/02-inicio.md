@@ -61,7 +61,10 @@
 ### Contenido
 
 - **R-19.** Cada tecnología se escribe siempre igual (Node.js, Next.js, GitLab CI/CD, Python…).
-- **R-20.** La home no presenta la ciberseguridad como industria propia.
+- **R-20.** La home no presenta la ciberseguridad como industria propia, ni como parte de un rol: el
+  de Hacknoid es «Full-Stack Developer» (el contexto de la empresa queda en su página).
+- **R-49.** En inglés, la etiqueta del buscador de Uruleyes avisa que se busca en español: «Try it
+  (in Spanish)».
 
 ## Criterios de aceptación
 
@@ -142,7 +145,7 @@ Verificación: `src/tests/data-integrity.test.ts`.
 
 **CA-16: sin ciberseguridad como industria** (R-20)
 
-- Dados el hero, about y la meta description
+- Dados el hero, about, la meta description y los roles de cada empresa
 - Cuando se buscan «cyber» o «ciber»
 - Entonces no aparecen
 

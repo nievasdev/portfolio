@@ -27,7 +27,7 @@ se expresan como requerimientos y criterios nuevos, modificados o eliminados sob
 | Archivo | Área | Requerimientos | Criterios |
 | --- | --- | --- | --- |
 | [01-estructura-e-idiomas.md](01-estructura-e-idiomas.md) | Rutas, idiomas, encabezado | R-01 a R-06 | CA-01 a CA-06 |
-| [02-inicio.md](02-inicio.md) | Página de inicio | R-07 a R-20, R-47 | CA-07 a CA-20, CA-46, CA-47 |
+| [02-inicio.md](02-inicio.md) | Página de inicio | R-07 a R-20, R-47, R-49 | CA-07 a CA-20, CA-46, CA-47 |
 | [03-paginas-de-empresa.md](03-paginas-de-empresa.md) | Página de cada empresa | R-21 a R-24 | CA-21 a CA-24 |
 | [04-cv-pdf.md](04-cv-pdf.md) | CV descargable | R-25 a R-30 | CA-25 a CA-30 |
 | [05-tema-y-movimiento.md](05-tema-y-movimiento.md) | Tema claro/oscuro, animaciones | R-31 a R-37 | CA-31 a CA-36 |

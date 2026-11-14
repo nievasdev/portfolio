@@ -67,7 +67,7 @@ const en = {
     rate: '1,500 searches/min · p95 46 ms',
   },
   search: {
-    label: 'Try it',
+    label: 'Try it (in Spanish)',
     button: 'Search',
     opens: '(opens in a new tab)',
   },

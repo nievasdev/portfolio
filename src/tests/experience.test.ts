@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { CAREER_START, yearsSince } from '../lib/experience';
 import { ui } from '../i18n/ui';
+import worksEn from '../content/works/en.json';
+import worksEs from '../content/works/es.json';
 
 describe('yearsSince', () => {
   it('counts from April 1, 2017', () => {
@@ -47,6 +49,10 @@ describe('home copy', () => {
 
   it('el About no repite los años del hero (R-17)', () => {
     [ui.en, ui.es].forEach((t) => expect(t.about.paragraphs.join(' ')).not.toMatch(/\d+\+? (years|años)/));
+  });
+
+  it('ningún rol de empresa nombra la ciberseguridad (R-20)', () => {
+    [...worksEn, ...worksEs].forEach((w) => expect(w.role, w.slug).not.toMatch(/cyber|ciber/i));
   });
 
   it('does not claim cybersecurity as an industry on the home page', () => {

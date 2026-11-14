@@ -1095,7 +1095,7 @@ exports[`renderCv: maquetación estable (CA-29) > dibuja el CV en español igual
   ],
   [
     "text",
-    "Desarrollador Full-Stack, ciberseguridad y pentesting automatizado",
+    "Desarrollador Full-Stack",
     50,
     392.7999999999999,
     {
@@ -3492,7 +3492,7 @@ exports[`renderCv: maquetación estable (CA-29) > dibuja el CV en inglés igual 
   ],
   [
     "text",
-    "Full-Stack Developer, cybersecurity and automated pentesting",
+    "Full-Stack Developer",
     50,
     392.7999999999999,
     {

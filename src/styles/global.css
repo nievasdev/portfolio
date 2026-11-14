@@ -185,7 +185,7 @@ h3 .via{font-weight:400;color:var(--muted)}
 .points li+li{margin-top:var(--s-2)}
 .points li::before{content:"";position:absolute;left:0;top:.8em;width:.55rem;height:1px;background:var(--muted)}
 .points b,.prose b{font-weight:600}
-.tags{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-3);list-style:none;margin:var(--s-3) 0 0;padding:0;font:400 .78rem/1.7 var(--mono);color:var(--muted)}
+.tags{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-3);list-style:none;margin:var(--s-3) 0 0;padding:0;font:400 .84rem/1.7 var(--mono);color:var(--muted)}
 .tags:first-child{margin-top:.15rem}
 .links{display:flex;flex-wrap:wrap;gap:var(--s-4);margin-top:var(--s-3);font:400 .85rem var(--mono)}
 .body-text{margin:var(--s-3) 0 0}
