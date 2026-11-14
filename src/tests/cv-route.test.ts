@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { setEntries } from './fakes/astro-content';
-import { cvResponse } from '../lib/cv-route';
+import { cvResponse, MissingCvContentError } from '../lib/cv-route';
 import cvEn from '../content/cv/en.json';
 import cvEs from '../content/cv/es.json';
 import worksEn from '../content/works/en.json';
@@ -29,6 +29,12 @@ describe('cvResponse: el CV se sirve como PDF (CA-30)', () => {
   it('sin experiencia cargada para el idioma, igual genera el CV', async () => {
     const body = await bodyOf(await cvResponse('es'));
     expect(body.subarray(0, PDF_SIGNATURE.length).toString()).toBe(PDF_SIGNATURE);
+  });
+
+  it('sin el contenido del CV falla con un error que dice qué falta', async () => {
+    setEntries({});
+    await expect(cvResponse('es')).rejects.toThrow(MissingCvContentError);
+    await expect(cvResponse('es')).rejects.toThrow('Falta el contenido del CV para "es" (src/content/cv/es.json)');
   });
 
   it('el CV con experiencia es más largo que el que no la tiene', async () => {

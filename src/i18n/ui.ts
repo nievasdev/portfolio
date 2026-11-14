@@ -7,7 +7,7 @@ export const links = {
   github: 'https://github.com/nievasdev',
   linkedin: 'https://www.linkedin.com/in/mauronievasdev/',
   email: 'mauro@nievas.dev',
-};
+} as const;
 
 // Maps a language-agnostic path ('/', '/work/antel') to its URL in `lang`.
 // English lives at the root, Spanish under /es.

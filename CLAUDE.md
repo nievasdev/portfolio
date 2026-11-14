@@ -41,13 +41,14 @@ cerrar el ciclo (después de la mutación y el navegador).
   `.layout-check/` para compararlas antes/después.
 - **Commit:** `feat|fix|test|refactor|docs|chore(alcance): …` en español, con los R/CA que cubre.
   `test:` es solo para tests que pasan desde el principio (caracterización o matar un mutante).
-  Antes de commitear, `npm test` y `npm run build` tienen que pasar.
+  Antes de commitear, `npm test`, `npm run typecheck` y `npm run build` tienen que pasar.
 
 Después de cada fase se para y se espera el OK, salvo que Mauro pida «hazlo completo».
 
 ### Clean code
 
-SOID (SOLID sin Liskov), KISS, DRY, YAGNI, POLA; nombres con intención (funciones con verbo, tipos
+SOID (SOLID sin Liskov), KISS, DRY, YAGNI, POLA; patrones solo donde encajan (hoy: Facade +
+lista de secciones en el CV, ver `docs/tecnica/04-cv-pdf.md`); nombres con intención (funciones con verbo, tipos
 con sustantivo); funciones chicas; más de 2 parámetros → un objeto; calcular o cambiar estado, no
 las dos cosas; sin números mágicos; comentarios solo para el porqué; tests como especificación
 (un comportamiento por test, Preparar / Actuar / Verificar).

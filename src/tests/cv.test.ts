@@ -35,8 +35,8 @@ describe('CV content', () => {
   });
 
   it('dates every work with ordered year-months', () => {
-    worksEn.forEach((w: Partial<Work>) => {
-      if (w.end) expect(w.end >= w.start!).toBe(true);
+    (worksEn as Work[]).forEach((work) => {
+      if (work.end) expect(work.end >= work.start).toBe(true);
     });
     expect(worksEs.map((w) => [w.start, 'end' in w ? w.end : undefined]))
       .toEqual(worksEn.map((w) => [w.start, 'end' in w ? w.end : undefined]));
