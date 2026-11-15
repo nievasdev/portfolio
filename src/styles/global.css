@@ -365,9 +365,11 @@ main:has(.closing){padding-bottom:0}
 :is(.actions a:not(.cta), .links a, h3 a, .more a, .mail, .facts a):hover{
   background-size:100% var(--ul,1px),100% var(--ul,1px);
 }
-/* company names open their page: a resting underline and an arrow that steps forward on hover */
-h3 a .go{display:inline-block;margin-left:.35em;color:var(--muted);font-weight:400;transition:translate .3s cubic-bezier(.16,1,.3,1),color .2s}
-h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0;color:var(--gold-ink)}
+/* company names open their page, and must read as links without hovering (phones can't): a 2px
+   underline always visible and a gold arrow; on hover the line fills gold and the arrow steps on */
+h3 a{--ul:2px;--ul-base:color-mix(in srgb,var(--muted) 55%,transparent)}
+h3 a .go{display:inline-block;margin-left:.35em;color:var(--gold-ink);font-weight:600;transition:translate .3s cubic-bezier(.16,1,.3,1)}
+h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0}
 .cta{transition:gap .25s cubic-bezier(.16,1,.3,1),scale .12s ease-out}
 .cta:active{scale:.97}
 @media (prefers-reduced-motion:reduce){

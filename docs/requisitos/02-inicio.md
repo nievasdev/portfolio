@@ -46,8 +46,9 @@
 - **R-15.** Arriba de la experiencia, una línea de tiempo de 2017 a hoy muestra cada empresa con un
   ancho proporcional a su duración, su logo y el punto dorado en «hoy». Cada segmento lleva a la
   entrada de esa empresa.
-- **R-16.** Cada empresa muestra logo, nombre (enlace a su página, con una flecha que indica que se
-  puede tocar), una línea con fechas y rol («2022 – Present · Senior Full-Stack Developer»), uno o dos puntos clave que empiezan por la métrica en negrita y
+- **R-16.** Cada empresa muestra logo, nombre (enlace a su página: siempre subrayado y con una
+  flecha dorada, así se lee como enlace sin pasar el mouse; al pasarlo, la línea se pinta de dorado
+  y la flecha avanza), una línea con fechas y rol («2022 – Present · Senior Full-Stack Developer»), uno o dos puntos clave que empiezan por la métrica en negrita y
   sus tres tecnologías principales. La lista completa de logros y tecnologías está en la página de
   la empresa y en el CV. El diagrama de Antel está en la banda (R-11) y en su página, no en su
   entrada de la home, y sus puntos clave no repiten los 3,5M.
