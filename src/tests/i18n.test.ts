@@ -28,6 +28,12 @@ describe('UI dictionary', () => {
     });
   });
 
+  it('el stack de la home no lista Python: Mauro ya no trabaja con eso (R-17)', () => {
+    [ui.en, ui.es].forEach((t) => {
+      expect(t.about.stack.map((group) => group.items).join(' · ')).not.toMatch(/Python/);
+    });
+  });
+
   it('has no empty strings', () => {
     const empty = (obj: unknown, path = ''): string[] =>
       obj && typeof obj === 'object'

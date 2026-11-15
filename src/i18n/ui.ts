@@ -106,7 +106,6 @@ const en = {
       { label: 'Frontend', items: 'React · Next.js · Tailwind CSS · SCSS' },
       { label: 'Data', items: 'MySQL · MariaDB · PostgreSQL · MongoDB · Sequelize' },
       { label: 'DevOps & tools', items: 'Docker · GitLab CI/CD · Git · Jest · Linux' },
-      { label: 'Also', items: 'Python' },
     ],
   },
   contact: {
@@ -213,7 +212,6 @@ const es: Dictionary = {
       { label: 'Frontend', items: 'React · Next.js · Tailwind CSS · SCSS' },
       { label: 'Datos', items: 'MySQL · MariaDB · PostgreSQL · MongoDB · Sequelize' },
       { label: 'DevOps y herramientas', items: 'Docker · GitLab CI/CD · Git · Jest · Linux' },
-      { label: 'También', items: 'Python' },
     ],
   },
   contact: {

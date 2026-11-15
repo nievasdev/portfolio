@@ -57,7 +57,7 @@
 ### Sobre mí y contacto
 
 - **R-17.** «About» tiene un párrafo, que no repite los años del hero, y el stack agrupado
-  (Backend, Frontend, Data, DevOps & tools, Also).
+  (Backend, Frontend, Data, DevOps & tools), solo con lo que Mauro usa hoy: Python ya no figura.
 - **R-18.** El cierre, en banda marina junto con el pie, muestra la invitación, el mail en grande,
   el CV, GitHub y LinkedIn.
 

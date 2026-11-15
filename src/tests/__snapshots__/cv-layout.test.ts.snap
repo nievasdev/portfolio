@@ -1975,52 +1975,6 @@ exports[`renderCv: maquetación estable (CA-29) > dibuja el CV en español igual
     0.25,
   ],
   [
-    "font",
-    "Mono",
-  ],
-  [
-    "fontSize",
-    8,
-  ],
-  [
-    "fillColor",
-    "#5B6478",
-  ],
-  [
-    "text",
-    "También",
-    50,
-    723.6000000000001,
-    {
-      "width": 110,
-    },
-  ],
-  [
-    "font",
-    "Helvetica",
-  ],
-  [
-    "fontSize",
-    9.5,
-  ],
-  [
-    "fillColor",
-    "#1E2A44",
-  ],
-  [
-    "text",
-    "Python",
-    170,
-    722.6000000000001,
-    {
-      "width": 375.28,
-    },
-  ],
-  [
-    "moveDown",
-    0.25,
-  ],
-  [
     "addPage",
   ],
   [
@@ -4363,52 +4317,6 @@ exports[`renderCv: maquetación estable (CA-29) > dibuja el CV en inglés igual 
     "Docker · GitLab CI/CD · Git · Jest · Linux",
     170,
     707.6000000000001,
-    {
-      "width": 375.28,
-    },
-  ],
-  [
-    "moveDown",
-    0.25,
-  ],
-  [
-    "font",
-    "Mono",
-  ],
-  [
-    "fontSize",
-    8,
-  ],
-  [
-    "fillColor",
-    "#5B6478",
-  ],
-  [
-    "text",
-    "Also",
-    50,
-    723.6000000000001,
-    {
-      "width": 110,
-    },
-  ],
-  [
-    "font",
-    "Helvetica",
-  ],
-  [
-    "fontSize",
-    9.5,
-  ],
-  [
-    "fillColor",
-    "#1E2A44",
-  ],
-  [
-    "text",
-    "Python",
-    170,
-    722.6000000000001,
     {
       "width": 375.28,
     },
