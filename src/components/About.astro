@@ -1,5 +1,4 @@
 ---
-import Braces from './Braces.astro';
 import { ui, type Lang } from '../i18n/ui';
 
 interface Props {
@@ -11,7 +10,6 @@ const t = ui[lang];
 ---
 
 <section id="about" class="section" aria-labelledby="h-about">
-  <Braces />
   <h2 id="h-about" class="section-head">{t.sections.about}<span class="dot">.</span></h2>
   <div class="entry row">
     <span class="meta"></span>

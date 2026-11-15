@@ -30,16 +30,6 @@ no la del glifo) y que todos compartan el eje.
 entrada tienen que empezar en la misma x (el título y la frase se miden por su primer texto, así
 una caja estirada con texto centrado también falla).
 
-## Llaves de sección (`Braces.astro`)
-
-Cada sección de la home empieza con `<Braces />`: dos `span` absolutos (`.brace-open`,
-`.brace-close`) centrados en el borde lateral de la página (`--wrap-pad`), del título al final de
-la sección. Cada llave son dos mitades; cada mitad dibuja con bordes y radios el gancho + la línea
-(`::before`) y media punta (`::after`); la mitad de abajo es la de arriba con `scale: 1 -1` y la
-`}` es la `{` con `scale: -1 1`. Con bordes (y no un SVG estirado) las curvas no se deforman a
-ningún alto y el color sale de `currentColor`, así en la banda marina se aclaran solas. La
-animación recorta cada mitad con `clip-path` atado a `--section`, desde la punta hacia afuera.
-
 ## Bandas marinas (`.band`)
 
 Redefinen los tokens dentro de la sección, así todo lo que contienen se adapta solo. El ancho

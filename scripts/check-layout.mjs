@@ -76,24 +76,6 @@ const AUDIT = `(() => {
       problems.push('logo de ' + id + ' fuera del eje de los logos (' + Math.round(x) + 'px, el eje está en ' + Math.round(centres[0].x) + 'px)');
     }
   }
-  // Desktop, section braces (R-53): every home section is bracketed { … }, the braces touch no
-  // text or logo, and both sit at the same distance from the section.
-  if (width > 832 && document.querySelector('.hero-main')) {
-    const content = [...document.querySelectorAll('main .section-head, main .entry, main .co-mini')].map((el) => el.getBoundingClientRect());
-    for (const section of document.querySelectorAll('main section.section')) {
-      const open = section.querySelector(':scope > .brace-open');
-      const close = section.querySelector(':scope > .brace-close');
-      if (!open || !close) { problems.push('la sección ' + section.id + ' no tiene sus llaves'); continue; }
-      const s = section.getBoundingClientRect();
-      const [o, c] = [open.getBoundingClientRect(), close.getBoundingClientRect()];
-      if (Math.abs((s.left - o.right) - (c.left - s.right)) > 1) problems.push('las llaves de ' + section.id + ' no son simétricas');
-      for (const b of [o, c]) {
-        if (content.some((r) => r.left < b.right && b.left < r.right && r.top < b.bottom && b.top < r.bottom)) {
-          problems.push('una llave de ' + section.id + ' pisa contenido');
-        }
-      }
-    }
-  }
   // Hero (R-07): each piece of the role stays whole, so no line starts with «·», and the three
   // figures share one line.
   for (const piece of document.querySelectorAll('.hero-main .role .nobr')) {
