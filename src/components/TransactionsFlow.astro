@@ -15,9 +15,9 @@ const [serviceA, ...serviceB] = t.service.split(' ');
 // desktop, viewBox 720x200: three lanes through the service box
 const wideLane = (y: number) => `M171,100 C223,100 223,${y} 275,${y} L445,${y} C497,${y} 497,100 549,100`;
 const wideLanes = [82, 100, 118];
-// phone, viewBox 300x440: the same flow top to bottom, aligned left like the text around it;
-// the lanes run on the left of the service box and its label sits on the right, clear of them
-const tallLane = (x: number) => `M105,60 C105,95 ${x},100 ${x},135 L${x},355 C${x},372 105,365 105,380`;
+// phone, viewBox 300x260: the same flow top to bottom, compact, aligned left like the text around
+// it; the lanes run on the left of the service box and its label sits on the right, clear of them
+const tallLane = (x: number) => `M105,44 C105,60 ${x},60 ${x},76 L${x},184 C${x},200 105,200 105,216`;
 const tallLanes = [83, 105, 127];
 ---
 
@@ -34,16 +34,16 @@ const tallLanes = [83, 105, 127];
     <text x="360" y="148" class="rate">{t.rate}</text>
   </svg>
 
-  <svg class="flow-tall" viewBox="0 0 300 440" aria-hidden="true">
-    <rect class="node" x="10" y="10" width="190" height="50" rx="4" />
-    <rect class="node node-service" x="10" y="120" width="280" height="250" rx="4" />
-    <rect class="node" x="10" y="380" width="190" height="50" rx="4" />
+  <svg class="flow-tall" viewBox="0 0 300 260" aria-hidden="true">
+    <rect class="node" x="10" y="4" width="190" height="40" rx="4" />
+    <rect class="node node-service" x="10" y="72" width="280" height="116" rx="4" />
+    <rect class="node" x="10" y="216" width="190" height="40" rx="4" />
     {tallLanes.map((x) => <path class="lane" d={tallLane(x)} />)}
     {tallLanes.map((x, i) => <path class="tx" d={tallLane(x)} style={`--lane:${i}`} />)}
-    <text x="105" y="40" class="label">{t.input}</text>
-    <text x="160" y="225" class="label start">{serviceA}</text>
-    <text x="160" y="245" class="label start">{serviceB.join(' ')}</text>
-    <text x="160" y="280" class="rate start">{t.rate}</text>
-    <text x="105" y="410" class="label">{t.store}</text>
+    <text x="105" y="29" class="label">{t.input}</text>
+    <text x="160" y="112" class="label start">{serviceA}</text>
+    <text x="160" y="132" class="label start">{serviceB.join(' ')}</text>
+    <text x="160" y="164" class="rate start">{t.rate}</text>
+    <text x="105" y="241" class="label">{t.store}</text>
   </svg>
 </figure>

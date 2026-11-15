@@ -109,6 +109,7 @@ main{padding-bottom:var(--s-7)}
 .home-hero .mark circle{fill:var(--gold)}
 h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--display);letter-spacing:-.035em;margin:0;text-wrap:balance}
 .role{font:400 .9rem/1.6 var(--mono);color:var(--muted);margin:var(--s-3) 0 0;text-wrap:balance}
+.nobr{white-space:nowrap}
 .lede{font-size:clamp(1.25rem,2.1vw,1.5rem);line-height:1.45;margin:var(--s-4) 0 0;max-width:44ch;text-wrap:pretty}
 /* the figures worth showing off: large, in the name's face, each label small underneath */
 .facts{display:flex;flex-wrap:wrap;gap:var(--s-3) clamp(1.75rem,4vw,3rem);margin:var(--s-5) 0 0;padding:0;list-style:none;font:400 .8rem/1.4 var(--mono);color:var(--muted)}
@@ -428,15 +429,26 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0}
   .row{grid-template-columns:[text] minmax(0,1fr)}
   .meta{padding-top:0;margin-bottom:var(--s-1)}
   .meta:empty{display:none}
-  /* phones: the mark first, then the text; the CTA alone, the other three on one line */
-  .hero-mark{justify-content:flex-start;padding-right:0;margin-bottom:var(--s-4)}
-  .home-hero .mark{width:6rem}
+  /* phones, hero: the header already shows the mark, so the hero starts with the name and the band
+     reaches the first screen; the three figures on one line; the CTA alone, the other three on
+     one line */
+  .hero-mark{display:none}
+  .facts{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;column-gap:1rem;font-size:.72rem}
+  .fig{font-size:1.4rem}
   .actions{display:grid;grid-template-columns:repeat(3,auto);justify-content:start;column-gap:1.5rem;row-gap:var(--s-3)}
   .actions .cta{grid-column:1 / -1;justify-self:start}
   .statement-text{margin-left:0}
-  .seg-name{display:none}
-  .seg a{inset:-2.1rem 3px -.75rem 0}
-  .seg-logo{--logo:1.25rem}
+  /* the timeline is the bar, the gold dot and the years: logos at 20px don't read */
+  .seg-name,.seg-logo{display:none}
+  .seg a{inset:-1rem 3px -.75rem 0}
+  .timeline{padding-top:1rem}
+  /* "Try it": the button under the field, so the example reads whole */
+  .try-field{flex-direction:column}
+  .try button{padding:.7rem 1rem}
+  /* an entry with a logo: logo | name and role, like a profile header; the body full width below */
+  .entry:has(>.meta>.co-mini){grid-template-columns:3rem [text] minmax(0,1fr);column-gap:.875rem}
+  .entry:has(>.meta>.co-mini)>.entry-body{grid-column:1 / -1}
+  .entry>.meta:has(.co-mini){display:flex;align-self:center;justify-content:center;margin:0}
   .row>.meta:has(.co-mini){display:flex;align-items:center;gap:.75rem;margin-bottom:var(--s-2)}
   .co-mini{--logo:2.5rem;margin:0}
   article.entry+article.entry{background-position:0 0;background-size:100% 1px}

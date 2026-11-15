@@ -20,7 +20,12 @@ const t = ui[lang];
       <span class="sr-only">Mauro Nievas</span>
       <span aria-hidden="true">mauro<span class="dot">.</span>nievas</span>
     </h1>
-    <p class="role">{t.hero.role}</p>
+    <!-- each piece stays whole and keeps its « ·», so a wrapped line never starts with the dot -->
+    <p class="role">
+      {t.hero.role.split(' · ').map((piece, i, pieces) => (
+        <>{i > 0 && ' '}<span class="nobr">{piece}{i < pieces.length - 1 && ' ·'}</span></>
+      ))}
+    </p>
     <p class="lede">{t.hero.lede}</p>
     <ul class="facts">
       {t.hero.facts.map((f) => {

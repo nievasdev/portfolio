@@ -76,6 +76,14 @@ const AUDIT = `(() => {
       problems.push('logo de ' + id + ' fuera del eje de los logos (' + Math.round(x) + 'px, el eje está en ' + Math.round(centres[0].x) + 'px)');
     }
   }
+  // Hero (R-07): each piece of the role stays whole, so no line starts with «·», and the three
+  // figures share one line.
+  for (const piece of document.querySelectorAll('.hero-main .role .nobr')) {
+    if (piece.getClientRects().length > 1) problems.push('el rol se corta dentro de «' + piece.textContent + '»');
+  }
+  if (document.querySelector('.hero-main .role') && !document.querySelector('.hero-main .role .nobr')) problems.push('el rol no está dividido en piezas');
+  const factTops = [...document.querySelectorAll('.facts > li')].map((li) => Math.round(li.getBoundingClientRect().top));
+  if (new Set(factTops).size > 1) problems.push('las cifras del hero ocupan más de una línea');
   const inText = (el) => el.closest('p, li:not(.seg), dd') && !el.closest('.actions, .links, .facts, .more, .lang');
   for (const el of document.querySelectorAll('a[href], button:not([hidden]), input')) {
     const r = el.getBoundingClientRect();

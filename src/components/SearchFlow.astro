@@ -14,8 +14,9 @@ const t = ui[lang].searchFlow;
 // desktop, viewBox 736x230: five stages in a row, enrichment above PostgreSQL
 const wideX = [1, 154, 306, 459, 611];
 const W = 124;
-// phone, viewBox 340x470: the stages stacked, enrichment beside PostgreSQL
-const tallY = [0, 92, 184, 276, 368];
+// phone, viewBox 340x330: the stages stacked close, enrichment as two lines beside PostgreSQL
+const tallY = [0, 62, 124, 186, 248];
+const TALL_H = 44;
 ---
 
 <figure class="flow flow-search" role="img" aria-label={t.label}>
@@ -36,20 +37,19 @@ const tallY = [0, 92, 184, 276, 368];
     <text x={wideX[3] + W / 2} y="208" class="rate">{t.rate}</text>
   </svg>
 
-  <svg class="flow-tall" viewBox="0 0 340 470" aria-hidden="true">
-    <path class="lane dashed" d="M200,213 L212,213" />
-    <path class="lane" d="M105,58 L105,368" />
-    <path class="tx" d="M105,58 L105,368" style="--lane:0" />
+  <svg class="flow-tall" viewBox="0 0 340 330" aria-hidden="true">
+    <path class="lane dashed" d={`M200,${tallY[2] + TALL_H / 2} L214,${tallY[2] + TALL_H / 2}`} />
+    <path class="lane" d={`M105,${TALL_H} L105,${tallY[4]}`} />
+    <path class="tx" d={`M105,${TALL_H} L105,${tallY[4]}`} style="--lane:0" />
     {tallY.map((y, i) => (
       <>
-        <rect class="node node-fill" x="10" y={y} width="190" height="58" rx="4" />
-        <text x="105" y={y + 26} class="label">{t.nodes[i][0]}</text>
-        <text x="105" y={y + 44} class="label muted">{t.nodes[i][1]}</text>
+        <rect class="node node-fill" x="10" y={y} width="190" height={TALL_H} rx="4" />
+        <text x="105" y={y + 19} class="label">{t.nodes[i][0]}</text>
+        <text x="105" y={y + 35} class="label muted">{t.nodes[i][1]}</text>
       </>
     ))}
-    <rect class="node node-fill" x="212" y="184" width="127" height="58" rx="4" />
-    <text x="275" y="210" class="label small">{t.enrich[0]}</text>
-    <text x="275" y="228" class="label small muted">{t.enrich[1]}</text>
-    <text x="10" y="456" class="rate start">{t.rate}</text>
+    <text x="220" y={tallY[2] + 18} class="label small start">{t.enrich[0]}</text>
+    <text x="220" y={tallY[2] + 34} class="label small start muted">{t.enrich[1]}</text>
+    <text x="10" y="318" class="rate start">{t.rate}</text>
   </svg>
 </figure>

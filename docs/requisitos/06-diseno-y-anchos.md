@@ -24,6 +24,16 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   alto más angosto): un cuadrado de 40 px, y de 28 px / 20 px en la línea de tiempo.
 - **R-50.** Todo el texto de una página arranca sobre el mismo eje vertical: el título, el «←
   volver», la frase de la banda y el texto de cada entrada.
+- **R-52.** En pantallas chicas (menos de 52rem):
+  - el hero arranca con el nombre, sin el logo grande (ya está en el encabezado), para que la
+    banda aparezca en la primera pantalla;
+  - las tres cifras van en una sola línea;
+  - el rol se corta solo entre piezas, nunca con un renglón que empiece en «·»;
+  - los diagramas verticales son compactos (menos de 400 px de alto cada uno) y en Uruleyes el
+    enriquecimiento va como texto al lado de PostgreSQL;
+  - el botón del buscador va debajo del campo, para que el ejemplo se lea entero;
+  - la línea de tiempo muestra solo la barra, el punto dorado y los años;
+  - el logo de cada empresa va a la izquierda del nombre y el rol, como un encabezado de perfil.
 - **R-51.** La grilla es simétrica (margen | columna | margen): desde 1280 px los dos márgenes miden
   lo mismo y la columna de texto queda centrada en la pantalla. Etiquetas y logos cuelgan en el
   margen izquierdo; el derecho queda libre y es el primero que se angosta en pantallas medianas.
@@ -39,7 +49,9 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   cada idioma, y cada punto clave de una empresa tiene 15 palabras o menos. El detalle va en las
   páginas de cada empresa.
 - **R-44.** La herramienta `npm run check:layout` recorre la home y una página de empresa en los dos
-  idiomas en todos los anchos de referencia y falla ante cualquier problema de R-38, R-39 o R-50.
+  idiomas en todos los anchos de referencia y falla ante cualquier problema de R-38, R-39 o R-50,
+  ante un logo de la home fuera de su zona o de su eje (R-41), un rol cortado dentro de una pieza o
+  cifras del hero en más de una línea (R-52).
 
 ## Criterios de aceptación
 

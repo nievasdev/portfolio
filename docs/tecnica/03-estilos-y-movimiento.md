@@ -65,7 +65,8 @@ contenido queda quieto y visible.
 ## Diagramas
 
 `TransactionsFlow.astro` (Antel) y `SearchFlow.astro` (Uruleyes) tienen dos SVG: horizontal para
-escritorio y vertical para pantallas chicas. En escritorio se salen de la columna de texto hacia el
+escritorio y vertical para pantallas chicas. Los verticales son compactos (viewBox 300×260 y
+340×330, cajas de 40–44 de alto) para no pasar de ~400 px en el celular. En escritorio se salen de la columna de texto hacia el
 margen (`--bleed`) para que las etiquetas se lean a ~16 px.
 
 En la home, el de Antel vive dentro de la banda marina (`Statement.astro`), debajo de la frase: toma
