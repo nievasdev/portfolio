@@ -13,6 +13,9 @@
   sus transacciones todo el tiempo, sin depender del scroll ni del navegador: un sistema en
   marcha.
 - **R-36.** Con «reducir movimiento» activado nada se anima y todo el contenido queda visible.
+- **R-56.** En el diagrama de Uruleyes, una consulta («query» / «consulta») recorre las cinco
+  etapas en un bucle de 8 s y se detiene arriba de cada una mientras esa etapa se ilumina en
+  dorado; en pantallas chicas solo se iluminan las etapas, una tras otra.
 - **R-55.** Al cargar, las cifras del hero que son número («9+», «3.5M»; «+9», «3,5M» en español)
   cuentan desde 0 hasta su valor en ~1,4 s, respetando el formato de cada idioma; las palabras
   («Uruleyes») se ven desde el principio. Solo se cuentan números con un decimal como máximo. El
@@ -66,6 +69,15 @@ Verificación: `npm run check:layout` (corre con movimiento reducido) y `npm run
   el principio
 
 Verificación: `src/tests/figures.test.ts` (`figureParts`) y `npm run check:motion`.
+
+**CA-49: una búsqueda recorre Uruleyes** (R-56, R-36)
+
+- Dada la home en escritorio, con las animaciones congeladas en la mitad de cada parada
+- Cuando se mira el diagrama de Uruleyes
+- Entonces la consulta está sobre la etapa 1, 2, 3, 4 y 5 en orden y solo esa etapa está
+  iluminada; con «reducir movimiento» no se ilumina ninguna
+
+Verificación: `npm run check:motion`.
 
 **CA-35: sin scripts de más** (R-37)
 

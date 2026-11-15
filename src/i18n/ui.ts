@@ -65,6 +65,7 @@ const en = {
     ],
     enrich: ['Gemini summaries', 'e5 embeddings'],
     rate: '1,500 searches/min · p95 46 ms',
+    query: 'query',
   },
   search: {
     label: 'Try it (in Spanish)',
@@ -171,6 +172,7 @@ const es: Dictionary = {
     ],
     enrich: ['Resúmenes Gemini', 'embeddings e5'],
     rate: '1.500 búsquedas/min · p95 46 ms',
+    query: 'consulta',
   },
   search: {
     label: 'Probalo',

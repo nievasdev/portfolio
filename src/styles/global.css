@@ -398,6 +398,22 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
   .flow .tx{animation:flow-move 6s linear infinite}
   .flow-search .tx{animation-name:flow-move-search}
 }
+/* Uruleyes: a query walks the pipeline in an 8 s loop, stopping 0.96 s on each stage (20 % per
+   stage) while that stage's border lights gold; on phones only the stages light up. The offsets
+   are the stage centres' distances in the wide diagram (153 user units apart). */
+.flow-search .query{display:none}
+.flow-search .query-pill{fill:var(--gold)}
+.flow-search .query-text{font:600 11px var(--mono);fill:#1E2A44;text-anchor:middle}
+@media (prefers-reduced-motion:no-preference){
+  .flow-search .flow-wide .query{display:inline;animation:query-walk 8s cubic-bezier(.65,0,.35,1) infinite}
+  .flow-search .stage{animation:stage-on 8s step-end infinite;animation-delay:calc(var(--i) * 1.6s)}
+}
+@keyframes query-walk{
+  0%,12%{translate:0 0} 20%,32%{translate:153px 0} 40%,52%{translate:305px 0}
+  60%,72%{translate:458px 0} 80%,92%{translate:610px 0;opacity:1} 96%{translate:610px 0;opacity:0}
+  97%{translate:0 0;opacity:0} 100%{translate:0 0;opacity:1}
+}
+@keyframes stage-on{0%{stroke:var(--gold)} 12%{stroke:color-mix(in srgb,var(--muted) 45%,transparent)}}
 @keyframes flow-move{to{stroke-dashoffset:calc(var(--lane) * -19px - 448.8px)}}
 @keyframes flow-move-search{to{stroke-dashoffset:calc(var(--lane) * -19px - 451.2px)}}
 

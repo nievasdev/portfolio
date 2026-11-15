@@ -46,6 +46,7 @@ de scroll y corre la banda.
 | Punto y línea de cada título | `view-timeline-name: --head` en `.section-head` |
 | Palabras de la frase-momento | una animación por palabra, rango desplazado por `--i` / `--n` |
 | Cifras del hero que cuentan | `figureParts()` (`lib/figures.ts`) separa «3,5M» en prefijo, entero, separador, decimal y sufijo; cada número es un `@property --n` entero animado de 0 a `--to` y mostrado con `counter()`. La copia que cuenta (`aria-hidden`) va encima del texto real y se intercambian al terminar con `visibility` en `step-end` |
+| Búsqueda que recorre Uruleyes | `.query` (píldora + texto en el SVG ancho) con `translate` por keyframes que paran 0,96 s en cada etapa (20 % de 8 s); cada `.stage` tiene `stage-on` en `step-end` con `animation-delay: calc(var(--i) * 1.6s)`. `check:motion` congela las animaciones (`currentTime`) en cada parada y compara colores pintándolos en un canvas, porque el navegador puede devolverlos en `oklab` |
 | Transacciones de los diagramas | `stroke-dasharray` punteado y `stroke-dashoffset` en bucle por tiempo (6 s), avanzando un número exacto de períodos del patrón para que no salte; funciona en todos los navegadores |
 | Nombre de empresa → título del detalle | View Transitions entre documentos (`@view-transition`) |
 

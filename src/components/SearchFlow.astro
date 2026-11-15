@@ -29,12 +29,17 @@ const TALL_H = 44;
     <text x="368" y="49" class="label muted">{t.enrich[1]}</text>
     {wideX.map((x, i) => (
       <>
-        <rect class="node node-fill" x={x} y="118" width={W} height="64" rx="4" />
+        <rect class="node node-fill stage" style={`--i:${i}`} x={x} y="118" width={W} height="64" rx="4" />
         <text x={x + W / 2} y="146" class="label">{t.nodes[i][0]}</text>
         <text x={x + W / 2} y="163" class="label muted">{t.nodes[i][1]}</text>
       </>
     ))}
     <text x={wideX[3] + W / 2} y="208" class="rate">{t.rate}</text>
+    <!-- a search walking the pipeline: it stops above each stage while that stage lights up -->
+    <g class="query">
+      <rect class="query-pill" x={wideX[0] + W / 2 - 34} y="88" width="68" height="20" rx="10" />
+      <text class="query-text" x={wideX[0] + W / 2} y="102">{t.query}</text>
+    </g>
   </svg>
 
   <svg class="flow-tall" viewBox="0 0 340 330" aria-hidden="true">
@@ -43,7 +48,7 @@ const TALL_H = 44;
     <path class="tx" d={`M105,${TALL_H} L105,${tallY[4]}`} style="--lane:0" />
     {tallY.map((y, i) => (
       <>
-        <rect class="node node-fill" x="10" y={y} width="190" height={TALL_H} rx="4" />
+        <rect class="node node-fill stage" style={`--i:${i}`} x="10" y={y} width="190" height={TALL_H} rx="4" />
         <text x="105" y={y + 19} class="label">{t.nodes[i][0]}</text>
         <text x="105" y={y + 35} class="label muted">{t.nodes[i][1]}</text>
       </>
