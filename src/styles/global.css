@@ -114,8 +114,22 @@ h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--display);letter-spacing:-.035em;
 /* the figures worth showing off: large, in the name's face, each label small underneath */
 .facts{display:flex;flex-wrap:wrap;gap:var(--s-3) clamp(1.75rem,4vw,3rem);margin:var(--s-5) 0 0;padding:0;list-style:none;font:400 .8rem/1.4 var(--mono);color:var(--muted)}
 .facts li>a,.facts li{display:block}
-.fig{display:block;font:600 clamp(1.9rem,3.6vw,2.6rem)/1 var(--display);letter-spacing:-.03em;color:var(--text)}
+.fig{display:grid;font:600 clamp(1.9rem,3.6vw,2.6rem)/1 var(--display);letter-spacing:-.03em;color:var(--text)}
 .fig-label{display:block;margin-top:.35rem}
+/* counting up on load: the counter copy sits on the real text and swaps with it when it ends.
+   Without motion, or without typed custom properties, the real text shows as it is. */
+.fig>*{grid-area:1 / 1}
+.fig-count{display:none}
+@property --n{syntax:"<integer>";inherits:false;initial-value:0}
+@media (prefers-reduced-motion:no-preference){
+  .fig-count{display:block;animation:fig-swap 1.4s .2s step-end both}
+  .fig:has(>.fig-count)>.fig-text{animation:fig-reveal 1.4s .2s step-end both}
+  .count{--n:var(--to);counter-reset:n var(--n);animation:count-up 1.4s .2s cubic-bezier(.16,1,.3,1) both}
+  .count::before{content:counter(n)}
+}
+@keyframes count-up{from{--n:0}}
+@keyframes fig-swap{to{visibility:hidden}}
+@keyframes fig-reveal{from{visibility:hidden}}
 .facts a:hover .fig-label{color:var(--text)}
 .actions{display:flex;flex-wrap:wrap;align-items:center;gap:1.75rem;margin-top:var(--s-5);font:400 .9rem var(--mono)}
 .cta{display:inline-flex;align-items:center;gap:.6rem;padding:.75rem 1.25rem;background:var(--text);color:var(--bg);text-decoration:none;border-radius:3px;transition:gap .25s cubic-bezier(.16,1,.3,1)}

@@ -13,6 +13,11 @@
   sus transacciones todo el tiempo, sin depender del scroll ni del navegador: un sistema en
   marcha.
 - **R-36.** Con «reducir movimiento» activado nada se anima y todo el contenido queda visible.
+- **R-55.** Al cargar, las cifras del hero que son número («9+», «3.5M»; «+9», «3,5M» en español)
+  cuentan desde 0 hasta su valor en ~1,4 s, respetando el formato de cada idioma; las palabras
+  («Uruleyes») se ven desde el principio. Solo se cuentan números con un decimal como máximo. El
+  valor real está siempre en el texto: es lo que leen los lectores de pantalla y lo que se ve sin
+  movimiento.
 - **R-37.** Fuera del botón de tema, el sitio no usa JavaScript.
 
 ## Criterios de aceptación
@@ -51,6 +56,16 @@ Verificación: navegador sobre `astro preview` (el minificador de CSS debe ser e
 
 Verificación: `npm run check:layout` (corre con movimiento reducido) y `npm run check:motion`
 (con movimiento reducido los diagramas quedan quietos).
+
+**CA-48: las cifras cuentan** (R-55)
+
+- Dada la home en inglés y en español
+- Cuando carga con movimiento, y cuando carga con «reducir movimiento»
+- Entonces con movimiento, a los 0,35 s las cifras muestran un valor menor al final, «Uruleyes»
+  está visible y a los 2,3 s queda el texto real; con movimiento reducido el texto real se ve desde
+  el principio
+
+Verificación: `src/tests/figures.test.ts` (`figureParts`) y `npm run check:motion`.
 
 **CA-35: sin scripts de más** (R-37)
 

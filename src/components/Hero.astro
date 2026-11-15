@@ -2,6 +2,7 @@
 import Mark from './Mark.astro';
 import ProfileLinks from './ProfileLinks.astro';
 import { ui, type Lang } from '../i18n/ui';
+import { figureParts } from '../lib/figures';
 
 interface Props {
   lang: Lang;
@@ -29,7 +30,18 @@ const t = ui[lang];
     <p class="lede">{t.hero.lede}</p>
     <ul class="facts">
       {t.hero.facts.map((f) => {
-        const body = <><b class="fig">{f.value}</b> <span class="fig-label">{f.label}</span></>;
+        // A number counts up from 0 (CSS counters) over the real text, which shows when it ends and is
+        // what screen readers and browsers without motion get.
+        const parts = figureParts(f.value);
+        const figure = (
+          <b class="fig">
+            <span class="fig-text">{f.value}</span>
+            {parts && (
+              <span class="fig-count" aria-hidden="true">{parts.prefix}<span class="count" style={`--to:${parts.integer}`}></span>{parts.fraction !== undefined && <>{parts.separator}<span class="count" style={`--to:${parts.fraction}`}></span></>}{parts.suffix}</span>
+            )}
+          </b>
+        );
+        const body = <>{figure} <span class="fig-label">{f.label}</span></>;
         return <li>{f.href ? <a href={f.href}>{body}</a> : body}</li>;
       })}
     </ul>

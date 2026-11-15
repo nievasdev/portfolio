@@ -28,6 +28,14 @@ async function connect() {
   return { chrome, ws, send, evaluate };
 }
 
+// The hero's counting figures: each counter's current and final value, and which copy shows.
+const FIGURES = `({
+  counts: [...document.querySelectorAll('.fig .count')].map((c) => ({ now: Number(getComputedStyle(c).getPropertyValue('--n')), to: Number(c.style.getPropertyValue('--to')) })),
+  textShown: [...document.querySelectorAll('.fig-text')].every((t) => getComputedStyle(t).visibility === 'visible'),
+  wordsShown: [...document.querySelectorAll('.fig:not(:has(.fig-count)) .fig-text')].every((t) => getComputedStyle(t).visibility === 'visible'),
+  countShown: [...document.querySelectorAll('.fig-count')].some((c) => getComputedStyle(c).display !== 'none' && getComputedStyle(c).visibility === 'visible'),
+})`;
+
 // The dash offset of every transaction stroke in the visible (wide) diagrams.
 const OFFSETS = `[...document.querySelectorAll('.flow-wide .tx')].map((p) => getComputedStyle(p).strokeDashoffset)`;
 
@@ -42,7 +50,17 @@ try {
     for (const page of PAGES) {
       const label = `${page.padEnd(4)} ${reduce ? 'reducir movimiento' : 'con movimiento'}`;
       await send('Page.navigate', { url: BASE + page });
-      await sleep(1500);
+      // Figures (R-55): counting right after load, the real text at the end; still with reduce.
+      await sleep(350);
+      const early = await evaluate(FIGURES);
+      await sleep(2000);
+      const done = await evaluate(FIGURES);
+      if (!early.counts.length) fail(`${label}: el hero no tiene cifras que cuenten`);
+      else if (!reduce && !(early.countShown && early.counts.some(({ now, to }) => now < to))) fail(`${label}: las cifras no están contando al cargar`);
+      else if (!early.wordsShown) fail(`${label}: un dato que no es número («Uruleyes») desaparece mientras las cifras cuentan`);
+      else if (reduce && (early.countShown || !early.textShown)) fail(`${label}: con movimiento reducido las cifras no muestran su valor desde el principio`);
+      else if (!done.textShown || done.countShown) fail(`${label}: al terminar no queda el valor real de las cifras`);
+      else console.log(`ok    ${label}: cifras`);
       const before = await evaluate(OFFSETS);
       await sleep(1000);
       const after = await evaluate(OFFSETS);
