@@ -13,9 +13,11 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   dibujo, y todos **se ven** igual de grandes: el tamaño de cada uno sale de su proporción y de
   cuánto de su caja está pintado (un logo casi todo pintado, como «UP», se dibuja más chico que
   uno liviano, como la «a» de Antel). En escritorio, los logos de la home van en el margen,
-  centrados sobre un mismo eje vertical; el que más lugar ocupa llena el alto del bloque que va del
-  nombre al final de la primera línea debajo del encabezado (el primer punto clave; en Uruleyes,
-  la descripción), y los demás quedan centrados en altura sobre ese bloque. Sin marcos ni cajas.
+  centrados sobre un mismo eje vertical. En experiencia, el que más lugar ocupa llena la zona que
+  va del nombre al final de los tags de una empresa con un solo punto clave (~135 px), y los demás
+  quedan centrados en altura sobre esa zona; todos llegan al menos al primer punto clave, así
+  cubren el texto de al lado. En Uruleyes la zona termina en la descripción, porque debajo viene
+  el diagrama. Sin marcos ni cajas.
   En la página de cada empresa el logo mide el alto del nombre más la línea del rol. Entre una
   empresa (o proyecto) y la siguiente hay una línea fina solo sobre la columna de texto. En pantallas chicas va arriba del nombre
   y, como en la línea de tiempo, todos ocupan la misma superficie (uno ancho queda más bajo, uno
@@ -63,7 +65,8 @@ Verificación: `npm run check:layout`.
 - Cuando se lee su `viewBox`
 - Entonces no es el lienzo cuadrado original sin recortar, y el tamaño con que se dibuja compensa
   la tinta: superficie × √(fracción pintada) es la misma para todos; en escritorio cada
-  logo de la home queda dentro de su bloque, centrado en altura, y todos sobre el mismo eje
+  logo de la home queda centrado en altura sobre su zona, llega al menos al final de la primera
+  línea debajo del encabezado, y todos comparten el mismo eje
 
 Verificación: `src/tests/data-integrity.test.ts`, `src/tests/logos.test.ts` (`logoShapes`),
 `npm run check:layout`.

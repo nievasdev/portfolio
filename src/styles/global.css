@@ -308,9 +308,14 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
      both. */
   .entry{
     --kind-h:0px;
-    --logo-h:calc(var(--kind-h) + 1.15rem * 1.35 + var(--s-1) + 1rem * 1.65 + var(--s-3) + 1rem * 1.65);
+    /* companies: the zone also takes the tags line, so even the lightest-looking logo ("UP")
+       reaches the first key point and the rest cover the text beside them */
+    --tags-h:calc(var(--s-3) + .84rem * 1.7);
+    --logo-h:calc(var(--kind-h) + 1.15rem * 1.35 + var(--s-1) + 1rem * 1.65 + var(--s-3) + 1rem * 1.65 + var(--tags-h));
     --logo-slot:9rem;
   }
+  /* projects: the diagram comes right after the description and bleeds into the margin */
+  #projects .entry{--tags-h:0px}
   .entry:has(.kind){--kind-h:calc(.8rem * 1.6 + var(--s-1))}
   .entry>.meta>.co-mini{
     flex:none;width:calc(var(--logo-h) * var(--lw));height:calc(var(--logo-h) * var(--lh));

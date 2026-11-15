@@ -45,23 +45,32 @@ const AUDIT = `(() => {
   for (const { el, left } of misaligned) {
     problems.push('fuera del eje de lectura (' + left + 'px, la columna empieza en ' + axis[axis.length - 1].left + 'px): ' + (el.className || el.tagName));
   }
-  // Desktop, entry logos (R-41): each one inside the block that runs from the name to the end of
-  // the body's first line and centred on it, and all of them on one vertical axis.
+  // Desktop, entry logos (R-41), per section: the zone starts at the name and is as tall as the
+  // tallest logo; every logo is centred on it and reaches at least the end of the first line under
+  // the head (so it covers the text beside it); all of them share one vertical axis.
   if (width > 832) {
     const centres = [];
-    for (const entry of document.querySelectorAll('.entry:has(> .meta > .co-mini)')) {
-      const logo = entry.querySelector('.co-mini').getBoundingClientRect();
-      // The first line's box: its element's top plus one line-height (glyph boxes are shorter).
-      const first = entry.querySelector('.entry-body > :first-child');
-      const line = first.querySelector('li') ?? first;
-      const bottom = line.getBoundingClientRect().top + parseFloat(getComputedStyle(line).lineHeight);
-      const top = entry.querySelector('.entry-head').getBoundingClientRect().top;
-      const inside = logo.top >= top - 1 && logo.bottom <= bottom + 2;
-      const centred = Math.abs((logo.top + logo.bottom) / 2 - (top + bottom) / 2) <= 1.5;
-      if (!inside || !centred) {
-        problems.push('logo de ' + entry.id + ' (' + Math.round(logo.top) + '–' + Math.round(logo.bottom) + 'px) no está dentro y centrado en su bloque (' + Math.round(top) + '–' + Math.round(bottom) + 'px)');
+    for (const section of document.querySelectorAll('main section')) {
+      const entries = [...section.querySelectorAll('.entry:has(> .meta > .co-mini)')].map((entry) => {
+        const first = entry.querySelector('.entry-body > :first-child');
+        const line = first.querySelector('li') ?? first;
+        return {
+          id: entry.id,
+          logo: entry.querySelector('.co-mini').getBoundingClientRect(),
+          top: entry.querySelector('.entry-head').getBoundingClientRect().top,
+          // The first line's box: its element's top plus one line-height (glyph boxes are shorter).
+          firstLineBottom: line.getBoundingClientRect().top + parseFloat(getComputedStyle(line).lineHeight),
+        };
+      });
+      const zone = Math.max(0, ...entries.map(({ logo }) => logo.height));
+      for (const { id, logo, top, firstLineBottom } of entries) {
+        const centred = Math.abs((logo.top + logo.bottom) / 2 - (top + zone / 2)) <= 1.5;
+        const covers = logo.bottom >= firstLineBottom - 1;
+        if (!centred || !covers) {
+          problems.push('logo de ' + id + ' (' + Math.round(logo.top) + '–' + Math.round(logo.bottom) + 'px): ' + (centred ? '' : 'no está centrado en su zona (' + Math.round(top) + '–' + Math.round(top + zone) + 'px) ') + (covers ? '' : 'no llega al final de la primera línea (' + Math.round(firstLineBottom) + 'px)'));
+        }
+        centres.push({ id, x: (logo.left + logo.right) / 2 });
       }
-      centres.push({ id: entry.id, x: (logo.left + logo.right) / 2 });
     }
     for (const { id, x } of centres.filter(({ x }) => Math.abs(x - centres[0].x) > 1)) {
       problems.push('logo de ' + id + ' fuera del eje de los logos (' + Math.round(x) + 'px, el eje está en ' + Math.round(centres[0].x) + 'px)');

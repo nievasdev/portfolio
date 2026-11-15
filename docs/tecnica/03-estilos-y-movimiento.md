@@ -88,8 +88,10 @@ correrlo si cambia un logo; un test exige que todos tengan su valor). `logoShape
 cada lado por tinta^(-1/4), estira según la proporción del `viewBox` (√proporción de ancho,
 1/√proporción de alto) y normaliza el conjunto para que el más alto mida 1. `logoStyles()` lo pasa
 como `--lw`/`--lh`, y `.co-mini` y `.seg-logo` los multiplican por el alto disponible. Así la «a»
-de Antel (34 % pintada) se dibuja más grande que «UP» (58 %) y pesan lo mismo. En la home, cada
-logo se centra en altura sobre su bloque y en un mismo eje vertical (`--logo-slot`). La proporción
+de Antel (34 % pintada) se dibuja más grande que «UP» (58 %) y pesan lo mismo. En la home, la zona
+del logo mide `--logo-h` (nombre + rol + primera línea + la línea de tags en experiencia,
+`--tags-h`; en proyectos sin tags porque sigue el diagrama); el más alto la llena, cada logo se
+centra en altura sobre ella y todos en un mismo eje vertical (`--logo-slot`). La proporción
 se lee con `split(' ')` porque SVGO escribe el `viewBox` con un solo espacio.
 
 ## Tipografías
