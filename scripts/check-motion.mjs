@@ -1,7 +1,8 @@
 // Browser acceptance check for motion (docs/requisitos/05-tema-y-movimiento.md).
 // Opens the home in headless Chrome, with and without «reduce motion», and fails when:
 //   - the diagrams' transactions don't flow on their own, without scrolling (R-35);
-//   - they move with «reduce motion» on (R-36).
+//   - they move with «reduce motion» on (R-36);
+//   - Uruleyes' search doesn't walk app → API → PostgreSQL → API → app, on desktop and phones (R-56).
 //
 // usage: npm run build && npx astro preview --port 4329 & node scripts/check-motion.mjs [baseUrl]
 import { spawn } from 'node:child_process';
@@ -36,26 +37,67 @@ const FIGURES = `({
   countShown: [...document.querySelectorAll('.fig-count')].some((c) => getComputedStyle(c).display !== 'none' && getComputedStyle(c).visibility === 'visible'),
 })`;
 
-// Uruleyes' search walk (R-56): with every animation frozen at a given time, where the query sits
-// (x, in the diagram's units) and which stages of the visible diagram are lit gold.
+// Uruleyes' search walk (R-56): with every animation frozen at a given time, in the visible
+// diagram: where the query pill sits (x, in the diagram's units), what it reads, and which stages
+// are lit — a lit gold outline over a stage, matched by position, so the check doesn't trust the
+// page's own idea of which stage each outline belongs to.
 const SEARCH_AT = (ms) => `(() => {
   const svg = [...document.querySelectorAll('.flow-search svg')].find((s) => getComputedStyle(s).display !== 'none');
-  const anims = svg ? svg.getAnimations({ subtree: true }) : [];
+  const anims = svg.getAnimations({ subtree: true });
   anims.forEach((a) => { a.pause(); a.currentTime = ${ms}; });
-  const query = svg?.querySelector('.query');
+  const shown = (el) => getComputedStyle(el).display !== 'none' && Number(getComputedStyle(el).opacity) > 0.5;
   // Colours come back in any CSS format (rgb, oklab…): paint each on a pixel and compare the RGB.
   const ctx = Object.assign(document.createElement('canvas'), { width: 1, height: 1 }).getContext('2d');
   const rgb = (colour) => { ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = colour; ctx.fillRect(0, 0, 1, 1); return [...ctx.getImageData(0, 0, 1, 1).data].slice(0, 3); };
   const gold = rgb(getComputedStyle(document.documentElement).getPropertyValue('--gold').trim());
   const isGold = (colour) => rgb(colour).every((c, i) => Math.abs(c - gold[i]) <= 3);
+  const stages = [...svg.querySelectorAll('.stage')];
+  const at = (r) => r.getAttribute('x') + ',' + r.getAttribute('y');
+  const query = svg.querySelector('.query');
   return {
     animated: anims.length,
-    x: query ? parseFloat(getComputedStyle(query).translate.split(' ')[0] || 0) : null,
-    lit: [...(svg?.querySelectorAll('.stage') ?? [])].map((r) => isGold(getComputedStyle(r).stroke)),
+    x: query && shown(query) ? parseFloat(getComputedStyle(query).translate.split(' ')[0] || 0) : null,
+    text: query && shown(query) ? [...query.querySelectorAll('text')].filter(shown).map((t) => t.textContent) : [],
+    lit: [...svg.querySelectorAll('.stage-lit')]
+      .filter((r) => shown(r) && isGold(getComputedStyle(r).stroke))
+      .map((r) => stages.findIndex((s) => at(s) === at(r))),
   };
 })()`;
-const STAGE_MS = 1600; // 8 s loop, one stage every 20 %
-const STAGE_X = [0, 153, 305, 458, 610]; // the query's offset at each stage (wide diagram)
+const STAGE_MS = 1600; // 8 s loop, one stop every 20 %
+// CA-49, stop by stop: the stage lit (stages: 0 sources, 1 scraping, 2 PostgreSQL, 3 API, 4 app),
+// the pill's offset in the wide diagram, and whether it reads «results» instead of «query».
+const STOPS = [
+  { stage: 4, x: 0, results: false },
+  { stage: 3, x: -152, results: false },
+  { stage: 2, x: -305, results: false },
+  { stage: 3, x: -152, results: true },
+  { stage: 4, x: 0, results: true },
+];
+const PILL = { '/': { query: 'query', results: 'results' }, '/es': { query: 'consulta', results: 'resultados' } };
+const VIEWPORTS = [
+  { name: 'escritorio', width: 1440, height: 900, mobile: false },
+  { name: 'celular', width: 390, height: 844, mobile: true },
+];
+
+// Problems with the search walk at one page, viewport and motion setting (empty when it's right).
+async function searchProblems({ page, viewport, reduce }) {
+  const stops = [];
+  for (let i = 0; i < STOPS.length; i++) stops.push(await evaluate(SEARCH_AT(i * STAGE_MS + 500)));
+  if (reduce) return stops.some((s) => s.animated > 0 || s.lit.length > 0) ? ['se anima con movimiento reducido'] : [];
+  return stops.flatMap((s, i) => {
+    const expected = STOPS[i];
+    const problems = [];
+    if (JSON.stringify(s.lit) !== JSON.stringify([expected.stage])) problems.push(`parada ${i + 1}: etapas iluminadas ${JSON.stringify(s.lit)}, debería ser [${expected.stage}]`);
+    if (viewport.mobile) {
+      if (s.x !== null) problems.push(`parada ${i + 1}: la píldora se ve en el celular`);
+    } else {
+      const word = PILL[page][expected.results ? 'results' : 'query'];
+      if (s.x === null || Math.abs(s.x - expected.x) > 1) problems.push(`parada ${i + 1}: la píldora está en x=${s.x}, debería estar en ${expected.x}`);
+      if (JSON.stringify(s.text) !== JSON.stringify([word])) problems.push(`parada ${i + 1}: la píldora dice ${JSON.stringify(s.text)}, debería decir «${word}»`);
+    }
+    return problems;
+  });
+}
 
 // The dash offset of every transaction stroke in the visible (wide) diagrams.
 const OFFSETS = `[...document.querySelectorAll('.flow-wide .tx')].map((p) => getComputedStyle(p).strokeDashoffset)`;
@@ -89,24 +131,22 @@ try {
       if (!reduce && moved !== before.length) fail(`${label}: ${before.length - moved} de ${before.length} transacciones quietas sin scroll`);
       else if (reduce && moved > 0) fail(`${label}: ${moved} transacciones se mueven`);
       else console.log(`ok    ${label}: diagramas`);
-      // Search walk: at the middle of each stop, the query is on that stage and only it is lit.
-      const stops = [];
-      for (let i = 0; i < STAGE_X.length; i++) stops.push(await evaluate(SEARCH_AT(i * STAGE_MS + 500)));
-      if (reduce) {
-        if (stops.some((s) => s.animated > 0 && s.lit.some(Boolean))) fail(`${label}: la búsqueda de Uruleyes se anima`);
-        else console.log(`ok    ${label}: búsqueda quieta`);
-      } else {
-        const wrong = stops.flatMap((s, i) => {
-          const problems = [];
-          if (s.x === null || Math.abs(s.x - STAGE_X[i]) > 1) problems.push(`etapa ${i + 1}: la consulta está en x=${s.x}, debería estar en ${STAGE_X[i]}`);
-          if (s.lit.length !== STAGE_X.length || s.lit.some((on, j) => on !== (j === i))) problems.push(`etapa ${i + 1}: iluminadas ${JSON.stringify(s.lit)}`);
-          return problems;
-        });
-        if (wrong.length) wrong.forEach((w) => fail(`${label}: búsqueda de Uruleyes, ${w}`));
-        else console.log(`ok    ${label}: búsqueda recorre las 5 etapas`);
+    }
+  }
+  // Search walk (CA-49): at the middle of each stop, on desktop and on phones.
+  for (const viewport of VIEWPORTS) {
+    const { name, ...metrics } = viewport;
+    await send('Emulation.setDeviceMetricsOverride', { ...metrics, deviceScaleFactor: 1 });
+    for (const reduce of [false, true]) {
+      await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: reduce ? 'reduce' : 'no-preference' }] });
+      for (const page of PAGES) {
+        const label = `${page.padEnd(4)} ${name.padEnd(10)} ${reduce ? 'reducir movimiento' : 'con movimiento'}`;
+        await send('Page.navigate', { url: BASE + page });
+        await sleep(500);
+        const problems = await searchProblems({ page, viewport, reduce });
+        if (problems.length) problems.forEach((p) => fail(`${label}: búsqueda de Uruleyes, ${p}`));
+        else console.log(`ok    ${label}: búsqueda ${reduce ? 'quieta' : 'app → API → PostgreSQL → API → app'}`);
       }
-      await send('Page.reload');
-      await sleep(500);
     }
   }
 } finally {

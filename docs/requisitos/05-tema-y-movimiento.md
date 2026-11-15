@@ -13,9 +13,12 @@
   sus transacciones todo el tiempo, sin depender del scroll ni del navegador: un sistema en
   marcha.
 - **R-36.** Con «reducir movimiento» activado nada se anima y todo el contenido queda visible.
-- **R-56.** En el diagrama de Uruleyes, una consulta («query» / «consulta») recorre las cinco
-  etapas en un bucle de 8 s y se detiene arriba de cada una mientras esa etapa se ilumina en
-  dorado; en pantallas chicas solo se iluminan las etapas, una tras otra.
+- **R-56.** En el diagrama de Uruleyes, una búsqueda hace el camino real de una consulta, no el de
+  la carga de datos: en un bucle de 8 s sale de la app como «query» / «consulta», pasa por la API
+  y llega a PostgreSQL; ahí se vuelve «results» / «resultados» y regresa por la API a la app. Se
+  detiene arriba de cada etapa mientras esa etapa se ilumina en dorado; las fuentes y el scraping
+  no se iluminan (los recorren los puntos de la carga). En pantallas chicas solo se iluminan las
+  etapas, en el mismo orden.
 - **R-55.** Al cargar, las cifras del hero que son número («9+», «3.5M»; «+9», «3,5M» en español)
   cuentan desde 0 hasta su valor en ~1,4 s, respetando el formato de cada idioma; las palabras
   («Uruleyes») se ven desde el principio. Solo se cuentan números con un decimal como máximo. El
@@ -72,10 +75,13 @@ Verificación: `src/tests/figures.test.ts` (`figureParts`) y `npm run check:moti
 
 **CA-49: una búsqueda recorre Uruleyes** (R-56, R-36)
 
-- Dada la home en escritorio, con las animaciones congeladas en la mitad de cada parada
+- Dada la home en escritorio y en celular, en inglés y en español, con las animaciones congeladas
+  en la mitad de cada una de las cinco paradas
 - Cuando se mira el diagrama de Uruleyes
-- Entonces la consulta está sobre la etapa 1, 2, 3, 4 y 5 en orden y solo esa etapa está
-  iluminada; con «reducir movimiento» no se ilumina ninguna
+- Entonces la etapa iluminada es, en orden, la app, la API, PostgreSQL, la API y la app, y solo
+  esa; en escritorio la píldora está sobre esa etapa y dice «query» / «consulta» en las tres
+  primeras paradas y «results» / «resultados» en las dos últimas; las fuentes y el scraping nunca
+  se iluminan; con «reducir movimiento» no se ilumina ninguna
 
 Verificación: `npm run check:motion`.
 

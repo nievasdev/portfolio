@@ -1,8 +1,11 @@
 ---
 // Uruleyes' search pipeline: sources → scraping → PostgreSQL (+ enrichment) → hybrid search API → app.
-// Same visual grammar as TransactionsFlow: the gold dots ride one scroll-driven dashed stroke,
+// Same visual grammar as TransactionsFlow: the gold dots (the data loading) ride one dashed stroke,
 // and the opaque boxes cover it, so the dots appear to pass through each stage.
+// A search walks its own path (SEARCH_WALK): app → API → PostgreSQL and back as results. Each stop
+// has a gold outline over its stage that lights during that stop, so a stage can light twice.
 import { ui, type Lang } from '../i18n/ui';
+import { SEARCH_WALK, walkOffsets } from '../lib/search-walk';
 
 interface Props {
   lang: Lang;
@@ -17,6 +20,10 @@ const W = 124;
 // phone, viewBox 340x330: the stages stacked close, enrichment as two lines beside PostgreSQL
 const tallY = [0, 62, 124, 186, 248];
 const TALL_H = 44;
+// the query pill starts above the first stop and moves by these offsets, one CSS variable per stop
+const PILL_W = 84;
+const pillX = wideX[SEARCH_WALK[0]] + W / 2;
+const pillOffsetVars = walkOffsets(wideX).map((dx, stop) => `--x${stop}:${dx}px`).join(';');
 ---
 
 <figure class="flow flow-search" role="img" aria-label={t.label}>
@@ -29,16 +36,18 @@ const TALL_H = 44;
     <text x="368" y="49" class="label muted">{t.enrich[1]}</text>
     {wideX.map((x, i) => (
       <>
-        <rect class="node node-fill stage" style={`--i:${i}`} x={x} y="118" width={W} height="64" rx="4" />
+        <rect class="node node-fill stage" x={x} y="118" width={W} height="64" rx="4" />
         <text x={x + W / 2} y="146" class="label">{t.nodes[i][0]}</text>
         <text x={x + W / 2} y="163" class="label muted">{t.nodes[i][1]}</text>
       </>
     ))}
+    {SEARCH_WALK.map((stage, stop) => <rect class="stage-lit" style={`--i:${stop}`} x={wideX[stage]} y="118" width={W} height="64" rx="4" />)}
     <text x={wideX[3] + W / 2} y="208" class="rate">{t.rate}</text>
-    <!-- a search walking the pipeline: it stops above each stage while that stage lights up -->
-    <g class="query">
-      <rect class="query-pill" x={wideX[0] + W / 2 - 34} y="88" width="68" height="20" rx="10" />
-      <text class="query-text" x={wideX[0] + W / 2} y="102">{t.query}</text>
+    <!-- a search walking its path: it stops above each stage while that stage lights up -->
+    <g class="query" style={pillOffsetVars}>
+      <rect class="query-pill" x={pillX - PILL_W / 2} y="88" width={PILL_W} height="20" rx="10" />
+      <text class="query-text query-ask" x={pillX} y="102">{t.query}</text>
+      <text class="query-text query-results" x={pillX} y="102">{t.results}</text>
     </g>
   </svg>
 
@@ -48,11 +57,12 @@ const TALL_H = 44;
     <path class="tx" d={`M105,${TALL_H} L105,${tallY[4]}`} style="--lane:0" />
     {tallY.map((y, i) => (
       <>
-        <rect class="node node-fill stage" style={`--i:${i}`} x="10" y={y} width="190" height={TALL_H} rx="4" />
+        <rect class="node node-fill stage" x="10" y={y} width="190" height={TALL_H} rx="4" />
         <text x="105" y={y + 19} class="label">{t.nodes[i][0]}</text>
         <text x="105" y={y + 35} class="label muted">{t.nodes[i][1]}</text>
       </>
     ))}
+    {SEARCH_WALK.map((stage, stop) => <rect class="stage-lit" style={`--i:${stop}`} x="10" y={tallY[stage]} width="190" height={TALL_H} rx="4" />)}
     <text x="220" y={tallY[2] + 18} class="label small start">{t.enrich[0]}</text>
     <text x="220" y={tallY[2] + 34} class="label small start muted">{t.enrich[1]}</text>
     <text x="10" y="318" class="rate start">{t.rate}</text>
