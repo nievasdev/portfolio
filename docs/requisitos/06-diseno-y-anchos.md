@@ -36,6 +36,11 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   - el logo de cada empresa va a la izquierda del nombre y el rol, como un encabezado de perfil,
     en una columna fija de 80 px (todos sobre el mismo eje), centrado en altura sobre ese
     encabezado; el más alto mide 80 px y los demás se ven igual de grandes (R-41).
+- **R-53.** En escritorio, cada sección de la home (experiencia, proyectos, sobre mí y contacto)
+  queda entre las llaves del logo: «{» en el borde izquierdo de la página y «}» en el derecho, del
+  título de la sección a su final, a la misma distancia del contenido y sin pisar texto ni logos.
+  Se dibujan desde la punta hacia afuera cuando la sección entra en pantalla (quietas con
+  «reducir movimiento»). En pantallas chicas no se muestran.
 - **R-51.** La grilla es simétrica (margen | columna | margen): desde 1280 px los dos márgenes miden
   lo mismo y la columna de texto queda centrada en la pantalla. Etiquetas y logos cuelgan en el
   margen izquierdo; el derecho queda libre y es el primero que se angosta en pantallas medianas.
@@ -53,7 +58,8 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
 - **R-44.** La herramienta `npm run check:layout` recorre la home y una página de empresa en los dos
   idiomas en todos los anchos de referencia y falla ante cualquier problema de R-38, R-39 o R-50,
   ante un logo de la home fuera de su zona o de su eje (R-41), un rol cortado dentro de una pieza o
-  cifras del hero en más de una línea (R-52).
+  cifras del hero en más de una línea (R-52), o una sección sin sus llaves, con llaves asimétricas
+  o que pisan contenido (R-53).
 
 ## Criterios de aceptación
 
