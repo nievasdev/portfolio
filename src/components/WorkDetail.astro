@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import TransactionsFlow from './TransactionsFlow.astro';
 import { ui, localePath, type Lang } from '../i18n/ui';
 import { rich, plain } from '../lib/rich';
-import { logoStyle, logoSvg } from '../lib/logos';
+import { logoStyles, logoSvg } from '../lib/logos';
 import type { Work } from '../content/schemas';
 
 interface Props {
@@ -36,7 +36,7 @@ const logo = logoSvg(work.logo);
     </div>
     <div class="row">
       <div class="meta">
-        {logo && <div class="co-mini" style={logoStyle(work.logo)} aria-hidden="true" set:html={logo} />}
+        {logo && <div class="co-mini" style={logoStyles([work.logo]).get(work.logo)} aria-hidden="true" set:html={logo} />}
       </div>
       <header class="entry-head">
         <h1 style={`view-transition-name: work-${work.slug}; view-transition-class: work-name`}>{work.name}</h1>

@@ -1,6 +1,8 @@
 // Logos live in public/logo_*.svg (fill="currentColor", so they follow the theme).
 // Pages reference them from one sprite, /logos.svg, with <use>: the HTML stays small and the
 // sprite is cached like any image. A page's lead logo may still be inlined with `logoSvg`.
+import ink from './logo-ink.json';
+
 const PUBLIC_PREFIX = '../../public';
 const FILE_PREFIX = '/logo_';
 const FILE_EXTENSION = '.svg';
@@ -32,23 +34,42 @@ export interface LogoShape {
   height: number;
 }
 
+// Fraction of each logo's box that is painted, measured by scripts/measure-logos.mjs.
+export const LOGO_INK: Record<string, number> = ink;
+
+// A logo looks as big as its area times the square root of its ink: a mostly painted box ("UP")
+// weighs more than a light glyph (Antel's "a") of the same size, but not proportionally more.
+// Equal weight for every logo means scaling each side by ink^(-1/4).
+const INK_WEIGHT_EXPONENT = -0.25;
+
 const roundTo3 = (n: number) => Math.round(n * 1000) / 1000;
 
-// Size of a logo relative to a square of side 1, keeping its proportions and that square's area:
-// a wide logo gets shorter and a tall one narrower, so no logo looks bigger than the rest.
-export function logoShape(path: string): LogoShape | undefined {
+// Size before normalizing: area 1 at full ink, stretched to the logo's proportions.
+function weightedShape(path: string): LogoShape | undefined {
   const svg = logoSvg(path);
   if (!svg) return undefined;
   // SVGO writes the viewBox with single spaces
   const [, , width, height] = viewBoxOf(svg).split(' ').map(Number);
   const stretch = Math.sqrt(width / height);
-  return { width: roundTo3(stretch), height: roundTo3(1 / stretch) };
+  const size = LOGO_INK[path] ** INK_WEIGHT_EXPONENT;
+  return { width: size * stretch, height: size / stretch };
 }
 
-// The shape as CSS custom properties; `.co-mini` and `.seg-logo` multiply them by their --logo side.
-export function logoStyle(path: string): string | undefined {
-  const shape = logoShape(path);
-  return shape && `--lw:${shape.width}; --lh:${shape.height}`;
+// Sizes for a set of logos shown together, so they all look equally big: relative to the tallest,
+// which measures 1 (CSS multiplies by the height each place has, e.g. the text beside them).
+// Files that don't exist are left out.
+export function logoShapes(paths: string[]): Map<string, LogoShape> {
+  const shapes = paths.flatMap((path) => {
+    const shape = weightedShape(path);
+    return shape ? [[path, shape] as const] : [];
+  });
+  const tallest = Math.max(...shapes.map(([, shape]) => shape.height));
+  return new Map(shapes.map(([path, { width, height }]) => [path, { width: roundTo3(width / tallest), height: roundTo3(height / tallest) }]));
+}
+
+// The same, as the CSS custom properties `.co-mini` and `.seg-logo` read (--lw, --lh).
+export function logoStyles(paths: string[]): Map<string, string> {
+  return new Map([...logoShapes(paths)].map(([path, { width, height }]) => [path, `--lw:${width}; --lh:${height}`]));
 }
 
 // Turns a logo file into a <symbol> so it can be drawn many times with <use>.

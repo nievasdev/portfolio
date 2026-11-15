@@ -25,6 +25,7 @@
 
   /* margin column (dates, labels) + reading column */
   --gutter:11rem;
+  --col-gap:clamp(2rem,4vw,3.5rem); /* between the margin and the text column */
   --measure:46rem;
   color-scheme:light dark;
 }
@@ -66,7 +67,7 @@ a:hover{text-decoration-color:var(--gold)}
    margin, the right one stays empty. On narrower screens the right margin gives way first. */
 .wrap{max-width:80rem;margin:0 auto;padding:0 clamp(1rem,4vw,2.5rem)}
 main{padding-bottom:var(--s-7)}
-.row{display:grid;grid-template-columns:var(--gutter) [text] minmax(0,var(--measure)) [text-end] minmax(0,1fr);column-gap:clamp(2rem,4vw,3.5rem)}
+.row{display:grid;grid-template-columns:var(--gutter) [text] minmax(0,var(--measure)) [text-end] minmax(0,1fr);column-gap:var(--col-gap)}
 
 /* header */
 .site-header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
@@ -181,6 +182,11 @@ h1{font:600 clamp(2.6rem,6vw,4.5rem)/1.02 var(--display);letter-spacing:-.035em;
 .entry.row>:nth-child(2){margin-top:0}
 .section-foot{margin-top:var(--s-6);padding-top:var(--s-5);border-top:1px solid var(--line)}
 .entry+.entry{margin-top:var(--s-5)}
+/* one company or project from the next: a hairline over the text column only, not the margin */
+article.entry+article.entry{
+  padding-top:var(--s-5);
+  background:linear-gradient(var(--line),var(--line)) calc(var(--gutter) + var(--col-gap)) 0 / min(var(--measure), 100% - var(--gutter) - var(--col-gap)) 1px no-repeat;
+}
 .entry.tight+.entry.tight{margin-top:var(--s-4)}
 .meta{font:400 .8rem/1.6 var(--mono);color:var(--muted);padding-top:.2rem}
 h3{font:600 1.15rem/1.35 var(--sans);margin:0;letter-spacing:-.01em}
@@ -245,7 +251,7 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 /* the tall version stops growing at phone-ish sizes, so tablets don't get giant labels */
 @media (max-width:52rem){.statement .flow{max-width:24rem}}
 .statement-text{
-  margin:0 0 0 calc(var(--gutter) + clamp(2rem,4vw,3.5rem));max-width:21em;
+  margin:0 0 0 calc(var(--gutter) + var(--col-gap));max-width:21em;
   font:600 clamp(1.75rem,4.2vw,3.4rem)/1.18 var(--sans);letter-spacing:-.025em;text-wrap:balance;
 }
 @supports (animation-timeline:view()){
@@ -279,8 +285,8 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 .seg-logo{--logo:1.75rem;position:absolute;left:0;bottom:1.8rem;width:calc(var(--logo) * var(--lw,1));height:calc(var(--logo) * var(--lh,1));color:var(--muted);transition:color .2s}
 .seg a:hover .seg-logo,.seg a:focus-visible .seg-logo,.seg.current .seg-logo{color:var(--text)}
 
-/* company and project logos: --logo is the side of the square every logo matches in area;
-   --lw/--lh (logoShape) stretch it to each logo's proportions */
+/* company and project logos: --lw/--lh (logoStyles) are each logo's size relative to the tallest
+   of its set, chosen so they all look equally big; --logo is the tallest one's height */
 .co-mini{--logo:3.25rem;display:block;width:calc(var(--logo) * var(--lw,1));height:calc(var(--logo) * var(--lh,1));color:var(--text)}
 .co-mini>svg{display:block;width:100%;height:100%}
 
@@ -294,17 +300,27 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 @media (min-width:52.01rem){
   .row>.meta:has(.co-mini){display:flex;flex-direction:column;align-items:flex-end;padding:0 var(--s-5) 0 0}
   .row>.meta>.co-mini{flex:1 1 0;min-height:0;width:auto;height:auto;aspect-ratio:calc(var(--lw) / var(--lh))}
-  /* home entries: every logo the same height, from the name to the end of the first line under
-     the head, built from the text's own measures (h3 1.15rem/1.35, role and body 1rem/1.65, the
-     label .8rem/1.6) so it follows them if they change. check:layout verifies it. */
+  /* home entries: the block beside the logo runs from the name to the end of the first line under
+     the head; --logo-h is its height, built from the text's own measures (h3 1.15rem/1.35, role and
+     body 1rem/1.65, the label .8rem/1.6) so it follows them if they change. The tallest logo of the
+     set fills it; the others, sized to look as big, sit centred on it. All of them share one
+     vertical axis: the middle of a slot as wide as the widest logo can get. check:layout verifies
+     both. */
   .entry{
     --kind-h:0px;
     --logo-h:calc(var(--kind-h) + 1.15rem * 1.35 + var(--s-1) + 1rem * 1.65 + var(--s-3) + 1rem * 1.65);
+    --logo-slot:9rem;
   }
   .entry:has(.kind){--kind-h:calc(.8rem * 1.6 + var(--s-1))}
-  .entry>.meta>.co-mini{flex:none;height:var(--logo-h)}
+  .entry>.meta>.co-mini{
+    flex:none;width:calc(var(--logo-h) * var(--lw));height:calc(var(--logo-h) * var(--lh));
+    margin-top:calc(var(--logo-h) * (1 - var(--lh)) / 2);
+  }
   /* the logo's cell spans head and body, so a logo taller than the head doesn't push the body down */
-  .entry>.meta:has(.co-mini){grid-row:span 2}
+  .entry>.meta:has(.co-mini){
+    grid-row:span 2;justify-self:end;width:var(--logo-slot);align-items:center;
+    padding:0;margin-right:var(--s-4);
+  }
 }
 
 /* ---- Antel's transaction flow (TransactionsFlow.astro) ---- */
@@ -313,7 +329,7 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 /* desktop: diagrams break out of the text column into the margin, so their labels read at ~16px */
 @media (min-width:52.01rem){
   .flow{
-    --bleed:calc(var(--gutter) + clamp(2rem,4vw,3.5rem));
+    --bleed:calc(var(--gutter) + var(--col-gap));
     width:calc(100% + var(--bleed));margin:var(--s-5) 0 var(--s-4) calc(-1 * var(--bleed));
   }
 }
@@ -418,6 +434,7 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0}
   .seg-logo{--logo:1.25rem}
   .row>.meta:has(.co-mini){display:flex;align-items:center;gap:.75rem;margin-bottom:var(--s-2)}
   .co-mini{--logo:2.5rem;margin:0}
+  article.entry+article.entry{background-position:0 0;background-size:100% 1px}
   .statement{padding-block:3.5rem}
   .flow .flow-wide{display:none}
   .flow .flow-tall{display:block}

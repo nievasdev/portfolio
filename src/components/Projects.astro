@@ -1,7 +1,7 @@
 ---
 import SearchFlow from './SearchFlow.astro';
 import { ui, type Lang } from '../i18n/ui';
-import { logoHref, logoStyle } from '../lib/logos';
+import { logoHref, logoStyles } from '../lib/logos';
 import type { Project } from '../content/schemas';
 
 interface Props {
@@ -12,6 +12,7 @@ interface Props {
 const { lang, projects } = Astro.props;
 const t = ui[lang];
 const caseKeys = ['problem', 'role', 'built', 'result'] as const;
+const logoStyleOf = logoStyles(projects.flatMap((p) => (p.logo ? [p.logo] : [])));
 // "Uruleyes" → "project-uruleyes": the hero's "try it live" link lands here.
 const anchor = (name: string) =>
   'project-' + name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -22,12 +23,12 @@ const anchor = (name: string) =>
   {projects.map((p) => (
     <article class="entry row" id={anchor(p.name)}>
       <div class="meta">
-        {p.logo && logoStyle(p.logo)
-          ? <svg class="co-mini" style={logoStyle(p.logo)} aria-hidden="true"><use href={logoHref(p.logo)} /></svg>
+        {p.logo && logoStyleOf.has(p.logo)
+          ? <svg class="co-mini" style={logoStyleOf.get(p.logo)} aria-hidden="true"><use href={logoHref(p.logo)} /></svg>
           : <span>{t.projects.kind[p.kind]}</span>}
       </div>
       <header class="entry-head">
-        {p.logo && logoStyle(p.logo) && <p class="kind">{t.projects.kind[p.kind]}</p>}
+        {p.logo && logoStyleOf.has(p.logo) && <p class="kind">{t.projects.kind[p.kind]}</p>}
         <h3>{p.name}</h3>
         {p.subtitle && <p class="sub">{p.subtitle}</p>}
       </header>

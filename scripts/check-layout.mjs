@@ -45,18 +45,26 @@ const AUDIT = `(() => {
   for (const { el, left } of misaligned) {
     problems.push('fuera del eje de lectura (' + left + 'px, la columna empieza en ' + axis[axis.length - 1].left + 'px): ' + (el.className || el.tagName));
   }
-  // Desktop: every entry logo spans from the name to the end of the body's first line (R-41).
+  // Desktop, entry logos (R-41): each one inside the block that runs from the name to the end of
+  // the body's first line and centred on it, and all of them on one vertical axis.
   if (width > 832) {
+    const centres = [];
     for (const entry of document.querySelectorAll('.entry:has(> .meta > .co-mini)')) {
       const logo = entry.querySelector('.co-mini').getBoundingClientRect();
       // The first line's box: its element's top plus one line-height (glyph boxes are shorter).
       const first = entry.querySelector('.entry-body > :first-child');
       const line = first.querySelector('li') ?? first;
-      const lineBottom = line.getBoundingClientRect().top + parseFloat(getComputedStyle(line).lineHeight);
+      const bottom = line.getBoundingClientRect().top + parseFloat(getComputedStyle(line).lineHeight);
       const top = entry.querySelector('.entry-head').getBoundingClientRect().top;
-      if (Math.abs(logo.top - top) > 1 || Math.abs(logo.bottom - lineBottom) > 2) {
-        problems.push('logo de ' + entry.id + ' (' + Math.round(logo.top) + '–' + Math.round(logo.bottom) + 'px) no cubre del nombre a la primera línea (' + Math.round(top) + '–' + Math.round(lineBottom) + 'px)');
+      const inside = logo.top >= top - 1 && logo.bottom <= bottom + 2;
+      const centred = Math.abs((logo.top + logo.bottom) / 2 - (top + bottom) / 2) <= 1.5;
+      if (!inside || !centred) {
+        problems.push('logo de ' + entry.id + ' (' + Math.round(logo.top) + '–' + Math.round(logo.bottom) + 'px) no está dentro y centrado en su bloque (' + Math.round(top) + '–' + Math.round(bottom) + 'px)');
       }
+      centres.push({ id: entry.id, x: (logo.left + logo.right) / 2 });
+    }
+    for (const { id, x } of centres.filter(({ x }) => Math.abs(x - centres[0].x) > 1)) {
+      problems.push('logo de ' + id + ' fuera del eje de los logos (' + Math.round(x) + 'px, el eje está en ' + Math.round(centres[0].x) + 'px)');
     }
   }
   const inText = (el) => el.closest('p, li:not(.seg), dd') && !el.closest('.actions, .links, .facts, .more, .lang');

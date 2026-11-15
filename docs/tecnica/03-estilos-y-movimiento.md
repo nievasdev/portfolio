@@ -81,12 +81,16 @@ sprite, `/logos.svg`, generado en el build desde esos mismos archivos (`logoSpri
 el color del tema y no pesan en el HTML. El logo grande de cada página de empresa sí va incrustado,
 porque está arriba de todo.
 
-Tamaño óptico: `logoShape()` toma la proporción del `viewBox` y devuelve ancho y alto relativos a un
-cuadrado de lado 1 con la misma superficie (ancho = √proporción, alto = 1/√proporción).
-`logoStyle()` lo pasa como `--lw`/`--lh`, y `.co-mini` y `.seg-logo` los multiplican por su
-`--logo`, el lado del cuadrado de cada contexto. Así «UP», que es ancho, y la «a» de Antel, que es
-alta, pesan lo mismo. La proporción se lee con `split(' ')` porque SVGO escribe el `viewBox` con un
-solo espacio.
+Tamaño óptico: un logo se ve tan grande como su superficie por la raíz de su tinta (la fracción
+de su caja que está pintada). `scripts/measure-logos.mjs` mide esa tinta una vez, dibujando cada
+SVG en un canvas de Chrome sin interfaz, y la guarda en `src/lib/logo-ink.json` (hay que volver a
+correrlo si cambia un logo; un test exige que todos tengan su valor). `logoShapes(paths)` escala
+cada lado por tinta^(-1/4), estira según la proporción del `viewBox` (√proporción de ancho,
+1/√proporción de alto) y normaliza el conjunto para que el más alto mida 1. `logoStyles()` lo pasa
+como `--lw`/`--lh`, y `.co-mini` y `.seg-logo` los multiplican por el alto disponible. Así la «a»
+de Antel (34 % pintada) se dibuja más grande que «UP» (58 %) y pesan lo mismo. En la home, cada
+logo se centra en altura sobre su bloque y en un mismo eje vertical (`--logo-slot`). La proporción
+se lee con `split(' ')` porque SVGO escribe el `viewBox` con un solo espacio.
 
 ## Tipografías
 

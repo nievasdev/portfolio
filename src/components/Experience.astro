@@ -2,7 +2,7 @@
 import { ui, localePath, type Lang } from '../i18n/ui';
 import { rich } from '../lib/rich';
 import { timelineSegments } from '../lib/timeline';
-import { logoHref, logoStyle } from '../lib/logos';
+import { logoHref, logoStyles } from '../lib/logos';
 import type { Work } from '../content/schemas';
 
 interface Props {
@@ -16,9 +16,11 @@ const timeline = timelineSegments(works);
 // The home is for scanning: key points and the main technologies; the rest is on each company page.
 const HOME_TECHNOLOGIES = 3;
 // Logos come from the shared sprite (/logos.svg), in the timeline and beside each entry.
-// Each logo is sized to the same area as the others (logoStyle); CSS sets the side of that square.
+// The logos are sized together so they all look equally big (logoStyles); CSS sets the height of
+// the tallest one.
+const styles = logoStyles(works.map((w) => w.logo));
 const logoOf = new Map(works.flatMap((w) => {
-  const style = logoStyle(w.logo);
+  const style = styles.get(w.logo);
   return style ? [[w.slug, { href: logoHref(w.logo), style }] as const] : [];
 }));
 ---

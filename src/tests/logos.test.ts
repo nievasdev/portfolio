@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { LOGO_SPRITE_URL, logoHref, logoId, logoShape, logoSprite, logoStyle, logoSvg, logoSymbol } from '../lib/logos';
+import { LOGO_INK, LOGO_SPRITE_URL, logoHref, logoId, logoShapes, logoSprite, logoStyles, logoSvg, logoSymbol } from '../lib/logos';
 
 const URULEYES = '/logo_uruleyes.svg';
 const MISSING = '/logo_does-not-exist.svg';
@@ -28,30 +28,57 @@ describe('logoSymbol: logo reutilizable con <use> (CA-14)', () => {
   });
 });
 
-describe('logoShape: todos los logos pesan lo mismo a la vista (R-41, CA-39)', () => {
-  const COMPANY_LOGOS = ['/logo_ancel.svg', '/logo_gestionTotal.svg', '/logo_hacknoid.svg', '/logo_upshow.svg', URULEYES];
+describe('logoShapes: todos los logos se ven igual de grandes (R-41, CA-39)', () => {
+  const ANTEL = '/logo_ancel.svg';
+  const UPSHOW = '/logo_upshow.svg';
+  const COMPANIES = [ANTEL, '/logo_gestionTotal.svg', '/logo_hacknoid.svg', UPSHOW];
+  const ratio = (path: string) => {
+    const [, , w, h] = logoSvg(path)!.match(/viewBox="([^"]+)"/)![1].split(' ').map(Number);
+    return w / h;
+  };
 
-  it('da el ancho y el alto, relativos a un cuadrado de lado 1, con su proporción', () => {
-    // Uruleyes: viewBox 331 × 286, más ancho que alto
-    expect(logoShape(URULEYES)).toEqual({ width: 1.076, height: 0.93 });
-    // Antel: viewBox 232 × 275.3, más alto que ancho
-    expect(logoShape('/logo_ancel.svg')).toEqual({ width: 0.918, height: 1.089 });
+  it('un logo solo llena el alto y conserva la proporción de su viewBox', () => {
+    // Uruleyes: viewBox 331 × 286
+    expect(logoShapes([URULEYES]).get(URULEYES)).toEqual({ width: 1.157, height: 1 });
   });
 
-  it('todos ocupan la misma superficie que el cuadrado', () => {
-    COMPANY_LOGOS.forEach((path) => {
-      const { width, height } = logoShape(path)!;
-      expect(width * height, path).toBeCloseTo(1, 2);
+  it('en un conjunto, el más alto mide 1 y cada uno conserva su proporción', () => {
+    const shapes = logoShapes(COMPANIES);
+    expect(Math.max(...[...shapes.values()].map((s) => s.height))).toBe(1);
+    COMPANIES.forEach((path) => {
+      const { width, height } = shapes.get(path)!;
+      expect(width / height, path).toBeCloseTo(ratio(path), 2);
     });
   });
 
-  it('devuelve undefined si el archivo no existe', () => {
-    expect(logoShape(MISSING)).toBeUndefined();
+  it('pesan lo mismo: superficie × √tinta es igual para todos', () => {
+    const shapes = logoShapes(COMPANIES);
+    const weight = (path: string) => shapes.get(path)!.width * shapes.get(path)!.height * Math.sqrt(LOGO_INK[path]);
+    COMPANIES.forEach((path) => expect(weight(path), path).toBeCloseTo(weight(ANTEL), 2));
+  });
+
+  it('el liviano se dibuja más grande que el pintado: la «a» de Antel más alta que «UP»', () => {
+    const shapes = logoShapes(COMPANIES);
+    expect(shapes.get(ANTEL)!.height).toBe(1);
+    expect(shapes.get(UPSHOW)!.height).toBeLessThan(0.75);
+  });
+
+  it('deja afuera los archivos que no existen', () => {
+    expect([...logoShapes([URULEYES, MISSING]).keys()]).toEqual([URULEYES]);
   });
 
   it('se lo pasa al CSS como --lw y --lh', () => {
-    expect(logoStyle(URULEYES)).toBe('--lw:1.076; --lh:0.93');
-    expect(logoStyle(MISSING)).toBeUndefined();
+    expect(logoStyles([URULEYES, MISSING])).toEqual(new Map([[URULEYES, '--lw:1.157; --lh:1']]));
+  });
+});
+
+describe('tinta de los logos (scripts/measure-logos.mjs)', () => {
+  it('cada logo tiene su fracción pintada medida, entre 0 y 1', () => {
+    logoSprite().match(/id="logo-[^"]+"/g)!.forEach((id) => {
+      const path = `/logo_${id.slice('id="logo-'.length, -1)}.svg`;
+      expect(LOGO_INK[path], path).toBeGreaterThan(0);
+      expect(LOGO_INK[path], path).toBeLessThan(1);
+    });
   });
 });
 

@@ -10,11 +10,14 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   que se pueda tocar sin errar.
 - **R-40.** Las bandas marinas ocupan exactamente el ancho de la pantalla, sin corrimientos.
 - **R-41.** Los logos se ven del mismo tamaño aparente entre sí: cada SVG está recortado a su
-  dibujo. En escritorio, el logo de cada entrada de la home va en el margen, pegado a la columna;
-  todos miden el mismo alto, del nombre al final de la primera línea debajo del encabezado (el
-  primer punto clave; en Uruleyes, la descripción, porque arriba lleva la etiqueta «featured»), y
-  el ancho sale de su proporción. En la página de cada empresa el logo mide el alto del nombre más
-  la línea del rol. En pantallas chicas va arriba del nombre
+  dibujo, y todos **se ven** igual de grandes: el tamaño de cada uno sale de su proporción y de
+  cuánto de su caja está pintado (un logo casi todo pintado, como «UP», se dibuja más chico que
+  uno liviano, como la «a» de Antel). En escritorio, los logos de la home van en el margen,
+  centrados sobre un mismo eje vertical; el que más lugar ocupa llena el alto del bloque que va del
+  nombre al final de la primera línea debajo del encabezado (el primer punto clave; en Uruleyes,
+  la descripción), y los demás quedan centrados en altura sobre ese bloque. Sin marcos ni cajas.
+  En la página de cada empresa el logo mide el alto del nombre más la línea del rol. Entre una
+  empresa (o proyecto) y la siguiente hay una línea fina solo sobre la columna de texto. En pantallas chicas va arriba del nombre
   y, como en la línea de tiempo, todos ocupan la misma superficie (uno ancho queda más bajo, uno
   alto más angosto): un cuadrado de 40 px, y de 28 px / 20 px en la línea de tiempo.
 - **R-50.** Todo el texto de una página arranca sobre el mismo eje vertical: el título, el «←
@@ -58,10 +61,12 @@ Verificación: `npm run check:layout`.
 
 - Dado cualquier logo de empresa o proyecto
 - Cuando se lee su `viewBox`
-- Entonces no es el lienzo cuadrado original sin recortar, y el ancho por el alto con que se dibuja
-  es el mismo para todos
+- Entonces no es el lienzo cuadrado original sin recortar, y el tamaño con que se dibuja compensa
+  la tinta: superficie × √(fracción pintada) es la misma para todos; en escritorio cada
+  logo de la home queda dentro de su bloque, centrado en altura, y todos sobre el mismo eje
 
-Verificación: `src/tests/data-integrity.test.ts`, `src/tests/logos.test.ts` (`logoShape`).
+Verificación: `src/tests/data-integrity.test.ts`, `src/tests/logos.test.ts` (`logoShapes`),
+`npm run check:layout`.
 
 **CA-40: diagrama vertical en móvil** (R-42)
 
