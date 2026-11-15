@@ -32,3 +32,4 @@ se expresan como requerimientos y criterios nuevos, modificados o eliminados sob
 | [04-cv-pdf.md](04-cv-pdf.md) | CV descargable | R-25 a R-30 | CA-25 a CA-30 |
 | [05-tema-y-movimiento.md](05-tema-y-movimiento.md) | Tema claro/oscuro, animaciones | R-31 a R-37, R-55 a R-58 | CA-31 a CA-36, CA-48 a CA-51 |
 | [06-diseno-y-anchos.md](06-diseno-y-anchos.md) | Diseño en todos los anchos, peso y lectura | R-38 a R-46, R-50 a R-52 | CA-37 a CA-45 |
+| [07-contacto.md](07-contacto.md) | Formulario de contacto (en implementación) | R-59 a R-67 | CA-52 a CA-60 |
