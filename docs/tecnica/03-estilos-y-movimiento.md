@@ -45,7 +45,7 @@ de scroll y corre la banda.
 | Punto del nombre que cae | `animation-timeline: view()` en el rango de salida |
 | Punto y línea de cada título | `view-timeline-name: --head` en `.section-head` |
 | Palabras de la frase-momento | una animación por palabra, rango desplazado por `--i` / `--n` |
-| Transacciones de los diagramas | `stroke-dasharray` punteado y `stroke-dashoffset` atado al scroll |
+| Transacciones de los diagramas | `stroke-dasharray` punteado y `stroke-dashoffset` en bucle por tiempo (6 s), avanzando un número exacto de períodos del patrón para que no salte; funciona en todos los navegadores |
 | Nombre de empresa → título del detalle | View Transitions entre documentos (`@view-transition`) |
 
 Todo lo atado al scroll está dentro de `@supports (animation-timeline: view())` y de

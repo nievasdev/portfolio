@@ -9,8 +9,9 @@
   `#5B6478`, y un único acento dorado `#C9A227`.
 - **R-34.** Al cargar, las llaves del logo se dibujan y aparece el punto dorado.
 - **R-35.** Con el scroll: el punto del nombre cae, el punto de cada título de sección aterriza y su
-  línea se dibuja, las palabras de la frase-momento se encienden de a una y los diagramas mueven
-  sus transacciones.
+  línea se dibuja y las palabras de la frase-momento se encienden de a una. Los diagramas mueven
+  sus transacciones todo el tiempo, sin depender del scroll ni del navegador: un sistema en
+  marcha.
 - **R-36.** Con «reducir movimiento» activado nada se anima y todo el contenido queda visible.
 - **R-37.** Fuera del botón de tema, el sitio no usa JavaScript.
 
@@ -36,9 +37,11 @@ Verificación: navegador.
 
 - Dado el build de producción
 - Cuando se inspecciona la frase-momento, los títulos y los diagramas
-- Entonces tienen animaciones activas atadas al scroll
+- Entonces la frase y los títulos tienen animaciones atadas al scroll, y las transacciones de los
+  diagramas se mueven solas: sin scroll, cambian de posición de un segundo al siguiente
 
-Verificación: navegador sobre `astro preview` (el minificador de CSS debe ser esbuild).
+Verificación: navegador sobre `astro preview` (el minificador de CSS debe ser esbuild);
+`npm run check:motion` para los diagramas.
 
 **CA-34: reducir movimiento** (R-36)
 
@@ -46,7 +49,8 @@ Verificación: navegador sobre `astro preview` (el minificador de CSS debe ser e
 - Cuando se recorre la home
 - Entonces no hay animaciones y todo el texto está visible
 
-Verificación: `npm run check:layout` (corre con movimiento reducido).
+Verificación: `npm run check:layout` (corre con movimiento reducido) y `npm run check:motion`
+(con movimiento reducido los diagramas quedan quietos).
 
 **CA-35: sin scripts de más** (R-37)
 

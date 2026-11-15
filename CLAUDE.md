@@ -72,6 +72,7 @@ las dos cosas; sin números mágicos; comentarios solo para el porqué; tests co
 - `npm test` - Run the Vitest suite (content, schema, routes, i18n parity)
 - `npm run mutation` - Stryker mutation testing (must stay at 100 %)
 - `npm run check:layout` - Browser check at every reference width (needs `astro preview` on :4329)
+- `npm run check:motion` - Browser check of the animations, with and without reduced motion (same preview)
 - `npm run lint` - Run Astro check (needs `@astrojs/check` installed)
 
 Requires Node.js 20+ (`nvm use 20.0.0`).

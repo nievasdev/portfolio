@@ -375,11 +375,17 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
     .timeline-row{view-timeline-name:--tl}
     .timeline-bar{transform-origin:left;animation:rule-draw both cubic-bezier(.16,1,.3,1);animation-timeline:--tl;animation-range:entry 10% cover 40%}
     .seg.current::after{animation:dot-land both cubic-bezier(.16,1,.3,1);animation-timeline:--tl;animation-range:cover 30% cover 45%}
-    .flow{view-timeline-name:--flow}
-    .flow .tx{animation:flow-move linear both;animation-timeline:--flow;animation-range:cover 0% cover 100%}
   }
 }
-@keyframes flow-move{to{stroke-dashoffset:calc(var(--lane) * -19px - 448px)}}
+/* the diagrams run all the time, on a clock, not on scroll: a live system, in every browser. Each
+   loop moves the dashes an exact number of pattern periods (.1px dot + gap), so it never jumps:
+   8 × 56.1px for Antel's lanes, 32 × 14.1px for Uruleyes' pipeline. */
+@media (prefers-reduced-motion:no-preference){
+  .flow .tx{animation:flow-move 6s linear infinite}
+  .flow-search .tx{animation-name:flow-move-search}
+}
+@keyframes flow-move{to{stroke-dashoffset:calc(var(--lane) * -19px - 448.8px)}}
+@keyframes flow-move-search{to{stroke-dashoffset:calc(var(--lane) * -19px - 451.2px)}}
 
 /* the close: contact and footer read as one navy section */
 .band.closing{padding-bottom:var(--s-6);margin-top:var(--s-6)}

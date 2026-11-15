@@ -17,6 +17,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json --types node",
     "mutation": "stryker run",
     "check:layout": "node scripts/check-layout.mjs",
+    "check:motion": "node scripts/check-motion.mjs",
     "check:size": "node scripts/check-size.mjs"
   },
   "dependencies": {
