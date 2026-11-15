@@ -17,9 +17,13 @@ Todo en `src/styles/global.css`, incrustado en cada página.
 minmax(0, 1fr)`. Con `.wrap` a 80rem, el resto mide lo mismo que el margen y la columna queda en el
 centro de la pantalla; en pantallas medianas el `1fr` se achica primero y la columna no se toca.
 El cuerpo de una entrada se ubica con `grid-column: text` (la línea con nombre sirve igual con una
-columna en el celular). Cada entrada es `logo | encabezado` arriba y el cuerpo debajo: así, en
-escritorio, el logo (`flex: 1 1 0` + `aspect-ratio` desde `--lw/--lh`) mide exactamente el alto
-del encabezado. El logo grande del hero usa la misma fila, en el margen.
+columna en el celular). Cada entrada es `logo | encabezado` arriba y el cuerpo debajo. En la home,
+el logo mide `--logo-h`, armado con las medidas del propio texto (línea del nombre + rol + espacio
++ primera línea del cuerpo, más la etiqueta si la hay); su celda ocupa las dos filas
+(`grid-row: span 2`) para no empujar el cuerpo hacia abajo. En la página de cada empresa el logo
+(`flex: 1 1 0` + `aspect-ratio` desde `--lw/--lh`) toma el alto de su fila, el encabezado. El
+logo grande del hero usa la misma fila, en el margen. `check:layout` verifica que cada logo de la
+home vaya del nombre al final de la primera línea (por la caja de la línea, no la del glifo).
 
 `npm run check:layout` verifica el eje: título, «← volver», frase de la banda y texto de cada
 entrada tienen que empezar en la misma x (el título y la frase se miden por su primer texto, así

@@ -45,6 +45,20 @@ const AUDIT = `(() => {
   for (const { el, left } of misaligned) {
     problems.push('fuera del eje de lectura (' + left + 'px, la columna empieza en ' + axis[axis.length - 1].left + 'px): ' + (el.className || el.tagName));
   }
+  // Desktop: every entry logo spans from the name to the end of the body's first line (R-41).
+  if (width > 832) {
+    for (const entry of document.querySelectorAll('.entry:has(> .meta > .co-mini)')) {
+      const logo = entry.querySelector('.co-mini').getBoundingClientRect();
+      // The first line's box: its element's top plus one line-height (glyph boxes are shorter).
+      const first = entry.querySelector('.entry-body > :first-child');
+      const line = first.querySelector('li') ?? first;
+      const lineBottom = line.getBoundingClientRect().top + parseFloat(getComputedStyle(line).lineHeight);
+      const top = entry.querySelector('.entry-head').getBoundingClientRect().top;
+      if (Math.abs(logo.top - top) > 1 || Math.abs(logo.bottom - lineBottom) > 2) {
+        problems.push('logo de ' + entry.id + ' (' + Math.round(logo.top) + '–' + Math.round(logo.bottom) + 'px) no cubre del nombre a la primera línea (' + Math.round(top) + '–' + Math.round(lineBottom) + 'px)');
+      }
+    }
+  }
   const inText = (el) => el.closest('p, li:not(.seg), dd') && !el.closest('.actions, .links, .facts, .more, .lang');
   for (const el of document.querySelectorAll('a[href], button:not([hidden]), input')) {
     const r = el.getBoundingClientRect();

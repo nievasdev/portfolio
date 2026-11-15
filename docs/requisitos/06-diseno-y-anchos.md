@@ -10,9 +10,11 @@ Anchos de referencia: **360, 390, 420, 769, 1080, 1200, 1400, 1440 y 1920 px**. 
   que se pueda tocar sin errar.
 - **R-40.** Las bandas marinas ocupan exactamente el ancho de la pantalla, sin corrimientos.
 - **R-41.** Los logos se ven del mismo tamaño aparente entre sí: cada SVG está recortado a su
-  dibujo. En escritorio, el logo de cada entrada (y el de la página de cada empresa) va en el
-  margen, pegado a la columna, y mide exactamente el alto del encabezado que tiene al lado (nombre
-  + línea de fecha y rol); el ancho sale de su proporción. En pantallas chicas va arriba del nombre
+  dibujo. En escritorio, el logo de cada entrada de la home va en el margen, pegado a la columna;
+  todos miden el mismo alto, del nombre al final de la primera línea debajo del encabezado (el
+  primer punto clave; en Uruleyes, la descripción, porque arriba lleva la etiqueta «featured»), y
+  el ancho sale de su proporción. En la página de cada empresa el logo mide el alto del nombre más
+  la línea del rol. En pantallas chicas va arriba del nombre
   y, como en la línea de tiempo, todos ocupan la misma superficie (uno ancho queda más bajo, uno
   alto más angosto): un cuadrado de 40 px, y de 28 px / 20 px en la línea de tiempo.
 - **R-50.** Todo el texto de una página arranca sobre el mismo eje vertical: el título, el «←

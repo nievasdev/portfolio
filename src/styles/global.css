@@ -289,11 +289,22 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
 .entry-body>:first-child{margin-top:var(--s-3)}
 .kind{margin:0 0 var(--s-1);font:400 .8rem/1.6 var(--mono);color:var(--muted)}
 
-/* desktop: the logo leans on the head it belongs to, at the right edge of the margin, and is
-   exactly as tall as that head (its row); the width follows the logo's proportions */
+/* desktop: the logo leans on the text it belongs to, at the right edge of the margin; the width
+   follows the logo's proportions. On a company page it is as tall as the head (its row). */
 @media (min-width:52.01rem){
   .row>.meta:has(.co-mini){display:flex;flex-direction:column;align-items:flex-end;padding:0 var(--s-5) 0 0}
   .row>.meta>.co-mini{flex:1 1 0;min-height:0;width:auto;height:auto;aspect-ratio:calc(var(--lw) / var(--lh))}
+  /* home entries: every logo the same height, from the name to the end of the first line under
+     the head, built from the text's own measures (h3 1.15rem/1.35, role and body 1rem/1.65, the
+     label .8rem/1.6) so it follows them if they change. check:layout verifies it. */
+  .entry{
+    --kind-h:0px;
+    --logo-h:calc(var(--kind-h) + 1.15rem * 1.35 + var(--s-1) + 1rem * 1.65 + var(--s-3) + 1rem * 1.65);
+  }
+  .entry:has(.kind){--kind-h:calc(.8rem * 1.6 + var(--s-1))}
+  .entry>.meta>.co-mini{flex:none;height:var(--logo-h)}
+  /* the logo's cell spans head and body, so a logo taller than the head doesn't push the body down */
+  .entry>.meta:has(.co-mini){grid-row:span 2}
 }
 
 /* ---- Antel's transaction flow (TransactionsFlow.astro) ---- */
