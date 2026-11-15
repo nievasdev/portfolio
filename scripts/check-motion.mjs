@@ -3,7 +3,8 @@
 //   - the diagrams' transactions don't flow on their own, without scrolling (R-35);
 //   - they move with «reduce motion» on (R-36);
 //   - Uruleyes' search doesn't walk app → API → PostgreSQL → API → app, on desktop and phones (R-56);
-//   - Uruleyes' loading dots don't go from scraping to the sources and from scraping to the app (R-57).
+//   - Uruleyes' loading dots don't go from scraping to the sources and to PostgreSQL (R-57), or the
+//     dots between PostgreSQL and the app don't follow the search out and back (R-58).
 //
 // usage: npm run build && npx astro preview --port 4329 & node scripts/check-motion.mjs [baseUrl]
 import { spawn } from 'node:child_process';
@@ -80,43 +81,59 @@ const VIEWPORTS = [
   { name: 'celular', width: 390, height: 844, mobile: true },
 ];
 
-// Uruleyes' loading dots (R-57): for every dotted stroke in the visible diagram, frozen at two
-// times, which way its dots travel (a unit step along the diagram's axis: -1 towards the sources,
-// +1 towards the app, 0 still) and whether it sits between the sources and scraping boxes. The
+// Uruleyes' dots (R-57, R-58): for every dotted stroke in the visible diagram, frozen at `ms` and
+// 300 ms later, which way its dots travel (a unit step along the diagram's axis: -1 towards the
+// sources, +1 towards the app, 0 still) and its zone, by where its middle falls: «pedido» between
+// the sources and scraping boxes, «carga» before PostgreSQL's centre, «búsqueda» after it. The
 // direction comes from the stroke's own geometry, so drawing a stroke backwards is caught.
-const LOADING_DOTS = `(() => {
+const DOTS_AT = (ms) => `(() => {
   const svg = [...document.querySelectorAll('.flow-search svg')].find((s) => getComputedStyle(s).display !== 'none');
   const wide = svg.classList.contains('flow-wide');
   const along = (p) => (wide ? p.x : p.y);
-  const [sources, scraping] = [...svg.querySelectorAll('.stage')].map((r) => r.getBBox());
+  const [sources, scraping, postgres] = [...svg.querySelectorAll('.stage')].map((r) => r.getBBox());
   const gap = wide ? [sources.x + sources.width, scraping.x] : [sources.y + sources.height, scraping.y];
+  const postgresCentre = wide ? postgres.x + postgres.width / 2 : postgres.y + postgres.height / 2;
   const anims = svg.getAnimations({ subtree: true });
-  const offsetsAt = (ms) => {
-    anims.forEach((a) => { a.pause(); a.currentTime = ms; });
+  const offsetsAt = (t) => {
+    anims.forEach((a) => { a.pause(); a.currentTime = t; });
     return [...svg.querySelectorAll('.tx')].map((p) => parseFloat(getComputedStyle(p).strokeDashoffset));
   };
-  const [before, after] = [offsetsAt(1000), offsetsAt(1500)];
+  const [before, after] = [offsetsAt(${ms}), offsetsAt(${ms} + 300)];
   return [...svg.querySelectorAll('.tx')].map((p, i) => {
     const [start, end] = [p.getPointAtLength(0), p.getPointAtLength(p.getTotalLength())];
     const middle = (along(start) + along(end)) / 2;
     // a falling dash offset moves the dots from the stroke's start towards its end
     const travel = Math.sign(before[i] - after[i]) * Math.sign(along(end) - along(start));
-    return { inGap: middle >= gap[0] && middle <= gap[1], travel };
+    const zone = middle >= gap[0] && middle <= gap[1] ? 'pedido' : middle < postgresCentre ? 'carga' : 'búsqueda';
+    return { zone, travel };
   });
 })()`;
+// CA-50 and CA-51: at the middle of the query's way out and of the results' way back, where each
+// zone's dots must travel (-1 towards the sources and PostgreSQL, +1 towards the app).
+const DOT_MOMENTS = [
+  { name: 'ida de la consulta', ms: 2000, travel: { pedido: -1, carga: 1, búsqueda: -1 } },
+  { name: 'vuelta de los resultados', ms: 5500, travel: { pedido: -1, carga: 1, búsqueda: 1 } },
+];
 
-const towards = (travel) => (travel < 0 ? 'las fuentes' : travel > 0 ? 'la app' : 'ningún lado');
+const towards = (travel) => (travel < 0 ? 'el lado de las fuentes' : travel > 0 ? 'el lado de la app' : 'ningún lado');
 
-// Problems with the loading dots at one page, viewport and motion setting (empty when they're right).
-async function loadingProblems({ reduce }) {
-  const strokes = await evaluate(LOADING_DOTS);
-  if (reduce) return strokes.some((s) => s.travel !== 0) ? ['los puntos se mueven con movimiento reducido'] : [];
+// Problems with the dots at one page, viewport and motion setting (empty when they're right).
+async function dotsProblems({ reduce }) {
   const problems = [];
-  if (!strokes.some((s) => s.inGap)) problems.push('no hay puntos entre las fuentes y el scraping');
-  strokes.forEach((s, i) => {
-    const expected = s.inGap ? -1 : 1;
-    if (s.travel !== expected) problems.push(`trazo ${i + 1}: los puntos van hacia ${towards(s.travel)}, deberían ir hacia ${towards(expected)}`);
-  });
+  for (const moment of DOT_MOMENTS) {
+    const strokes = await evaluate(DOTS_AT(moment.ms));
+    if (reduce) {
+      if (strokes.some((s) => s.travel !== 0)) problems.push(`${moment.name}: los puntos se mueven con movimiento reducido`);
+      continue;
+    }
+    for (const zone of Object.keys(moment.travel)) {
+      if (!strokes.some((s) => s.zone === zone)) problems.push(`${moment.name}: no hay puntos de ${zone}`);
+    }
+    strokes.forEach((s) => {
+      const expected = moment.travel[s.zone];
+      if (s.travel !== expected) problems.push(`${moment.name}: los puntos de ${s.zone} van hacia ${towards(s.travel)}, deberían ir hacia ${towards(expected)}`);
+    });
+  }
   return problems;
 }
 
@@ -187,9 +204,9 @@ try {
         const problems = await searchProblems({ page, viewport, reduce });
         if (problems.length) problems.forEach((p) => fail(`${label}: búsqueda de Uruleyes, ${p}`));
         else console.log(`ok    ${label}: búsqueda ${reduce ? 'quieta' : 'app → API → PostgreSQL → API → app'}`);
-        const loading = await loadingProblems({ reduce });
-        if (loading.length) loading.forEach((p) => fail(`${label}: carga de Uruleyes, ${p}`));
-        else console.log(`ok    ${label}: carga ${reduce ? 'quieta' : 'scraping → fuentes, scraping → app'}`);
+        const dots = await dotsProblems({ reduce });
+        if (dots.length) dots.forEach((p) => fail(`${label}: puntos de Uruleyes, ${p}`));
+        else console.log(`ok    ${label}: puntos ${reduce ? 'quietos' : 'scraping → fuentes y PostgreSQL; la búsqueda va y vuelve'}`);
       }
     }
   }

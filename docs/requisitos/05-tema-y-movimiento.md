@@ -21,9 +21,13 @@
   etapas, en el mismo orden.
 - **R-57.** En el diagrama de Uruleyes, los puntos de la carga de datos muestran quién actúa: el
   scraping va a buscar las leyes, así que entre las fuentes (Parlamento, IMPO, TCA) y el scraping
-  los puntos van del scraping hacia las fuentes; del scraping en adelante (hacia PostgreSQL, la API
-  y la app) siguen hacia la app. En pantallas chicas, igual: entre fuentes y scraping suben hacia
-  las fuentes, y del scraping en adelante bajan.
+  los puntos van del scraping hacia las fuentes, y del scraping a PostgreSQL van hacia PostgreSQL,
+  donde termina la carga. En pantallas chicas, igual: entre fuentes y scraping suben hacia las
+  fuentes, y del scraping a PostgreSQL bajan.
+- **R-58.** Entre PostgreSQL y la app, los puntos acompañan a la búsqueda de R-56: mientras la
+  consulta va de la app a PostgreSQL corren hacia PostgreSQL, y mientras los resultados vuelven
+  corren hacia la app, con el mismo reloj de 8 s. En pantallas chicas, igual: suben con la consulta
+  y bajan con los resultados.
 - **R-55.** Al cargar, las cifras del hero que son número («9+», «3.5M»; «+9», «3,5M» en español)
   cuentan desde 0 hasta su valor en ~1,4 s, respetando el formato de cada idioma; las palabras
   («Uruleyes») se ven desde el principio. Solo se cuentan números con un decimal como máximo. El
@@ -95,7 +99,17 @@ Verificación: `npm run check:motion`.
 - Dada la home en escritorio y en celular, con movimiento
 - Cuando se miran los puntos del diagrama de Uruleyes durante un segundo, sin scroll
 - Entonces en el tramo entre las fuentes y el scraping avanzan hacia las fuentes, y en el tramo del
-  scraping a la app avanzan hacia la app; con «reducir movimiento» no se mueven
+  scraping a PostgreSQL avanzan hacia PostgreSQL; con «reducir movimiento» no se mueven
+
+Verificación: `npm run check:motion`.
+
+**CA-51: los puntos acompañan a la búsqueda** (R-58, R-36)
+
+- Dada la home en escritorio y en celular, con movimiento
+- Cuando se congelan las animaciones a mitad de la ida de la consulta y a mitad de la vuelta de los
+  resultados
+- Entonces en el tramo de PostgreSQL a la app los puntos avanzan hacia PostgreSQL a la ida y hacia
+  la app a la vuelta; con «reducir movimiento» no se mueven
 
 Verificación: `npm run check:motion`.
 

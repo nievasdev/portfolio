@@ -1,9 +1,11 @@
 ---
 // Uruleyes' search pipeline: sources → scraping → PostgreSQL (+ enrichment) → hybrid search API → app.
 // Same visual grammar as TransactionsFlow: the gold dots (the data loading) ride dashed strokes,
-// and the opaque boxes cover them, so the dots appear to pass through each stage. Both strokes start
-// at scraping, the actor (R-57): one goes to the sources (it fetches the laws), the other on to the
-// app; the dots always travel towards a stroke's end.
+// and the opaque boxes cover them, so the dots appear to pass through each stage. Two strokes start
+// at scraping, the actor (R-57): one goes to the sources (it fetches the laws), the other to
+// PostgreSQL (it stores them); their dots travel towards the stroke's end. The third, PostgreSQL →
+// app (.tx-search), follows the search instead (R-58): towards PostgreSQL with the query, back
+// towards the app with the results.
 // A search walks its own path (SEARCH_WALK): app → API → PostgreSQL and back as results. Each stop
 // has a gold outline over its stage that lights during that stop, so a stage can light twice.
 import { ui, type Lang } from '../i18n/ui';
@@ -33,7 +35,8 @@ const pillOffsetVars = walkOffsets(wideX).map((dx, stop) => `--x${stop}:${dx}px`
     <path class="lane dashed" d="M368,64 L368,118" />
     <path class="lane" d="M125,150 L611,150" />
     <path class="tx" d={`M${wideX[1]},150 L${wideX[0] + W},150`} style="--lane:0" />
-    <path class="tx" d={`M${wideX[1]},150 L${wideX[4]},150`} style="--lane:0" />
+    <path class="tx" d={`M${wideX[1]},150 L${wideX[2]},150`} style="--lane:0" />
+    <path class="tx tx-search" d={`M${wideX[2]},150 L${wideX[4]},150`} style="--lane:0" />
     <rect class="node node-fill" x="306" y="10" width={W} height="54" rx="4" />
     <text x="368" y="33" class="label">{t.enrich[0]}</text>
     <text x="368" y="49" class="label muted">{t.enrich[1]}</text>
@@ -58,7 +61,8 @@ const pillOffsetVars = walkOffsets(wideX).map((dx, stop) => `--x${stop}:${dx}px`
     <path class="lane dashed" d={`M200,${tallY[2] + TALL_H / 2} L214,${tallY[2] + TALL_H / 2}`} />
     <path class="lane" d={`M105,${TALL_H} L105,${tallY[4]}`} />
     <path class="tx" d={`M105,${tallY[1]} L105,${TALL_H}`} style="--lane:0" />
-    <path class="tx" d={`M105,${tallY[1]} L105,${tallY[4]}`} style="--lane:0" />
+    <path class="tx" d={`M105,${tallY[1]} L105,${tallY[2]}`} style="--lane:0" />
+    <path class="tx tx-search" d={`M105,${tallY[2]} L105,${tallY[4]}`} style="--lane:0" />
     {tallY.map((y, i) => (
       <>
         <rect class="node node-fill stage" x="10" y={y} width="190" height={TALL_H} rx="4" />

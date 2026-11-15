@@ -413,7 +413,12 @@ dl.pairs.wide{grid-template-columns:10rem 1fr}
   .flow-search .query-ask{animation:pill-ask 8s step-end infinite}
   .flow-search .query-results{animation:pill-results 8s step-end infinite}
   .flow-search .stage-lit{animation:stage-on 8s step-end infinite;animation-delay:calc(var(--i) * 1.6s)}
+  .flow-search .tx-search{animation:search-dots 8s linear infinite}
 }
+/* the dots between PostgreSQL and the app ride with the search: a rising offset carries them back
+   to PostgreSQL while the query goes out (until it leaves PostgreSQL, 52 %), a falling one to the
+   app while the results come back (until they arrive, 92 %); 22 dash periods (14.1px) each way. */
+@keyframes search-dots{0%,92%,100%{stroke-dashoffset:0} 52%{stroke-dashoffset:310.2px}}
 @keyframes query-walk{
   0%,12%{translate:0 0} 20%,32%{translate:var(--x1) 0} 40%,52%{translate:var(--x2) 0}
   60%,72%{translate:var(--x3) 0} 80%,92%{translate:var(--x4) 0;opacity:1} 96%{translate:var(--x4) 0;opacity:0}

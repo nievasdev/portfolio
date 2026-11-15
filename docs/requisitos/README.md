@@ -30,5 +30,5 @@ se expresan como requerimientos y criterios nuevos, modificados o eliminados sob
 | [02-inicio.md](02-inicio.md) | Página de inicio | R-07 a R-20, R-47, R-49 | CA-07 a CA-20, CA-46, CA-47 |
 | [03-paginas-de-empresa.md](03-paginas-de-empresa.md) | Página de cada empresa | R-21 a R-24 | CA-21 a CA-24 |
 | [04-cv-pdf.md](04-cv-pdf.md) | CV descargable | R-25 a R-30 | CA-25 a CA-30 |
-| [05-tema-y-movimiento.md](05-tema-y-movimiento.md) | Tema claro/oscuro, animaciones | R-31 a R-37, R-55 a R-57 | CA-31 a CA-36, CA-48 a CA-50 |
+| [05-tema-y-movimiento.md](05-tema-y-movimiento.md) | Tema claro/oscuro, animaciones | R-31 a R-37, R-55 a R-58 | CA-31 a CA-36, CA-48 a CA-51 |
 | [06-diseno-y-anchos.md](06-diseno-y-anchos.md) | Diseño en todos los anchos, peso y lectura | R-38 a R-46, R-50 a R-52 | CA-37 a CA-45 |
