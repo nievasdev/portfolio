@@ -445,12 +445,15 @@ h3 a:hover .go,h3 a:focus-visible .go{translate:.25em 0}
   /* "Try it": the button under the field, so the example reads whole */
   .try-field{flex-direction:column}
   .try button{padding:.7rem 1rem}
-  /* an entry with a logo: logo | name and role, like a profile header; the body full width below */
-  .entry:has(>.meta>.co-mini){grid-template-columns:3rem [text] minmax(0,1fr);column-gap:.875rem}
-  .entry:has(>.meta>.co-mini)>.entry-body{grid-column:1 / -1}
-  .entry>.meta:has(.co-mini){display:flex;align-self:center;justify-content:center;margin:0}
   .row>.meta:has(.co-mini){display:flex;align-items:center;gap:.75rem;margin-bottom:var(--s-2)}
   .co-mini{--logo:2.5rem;margin:0}
+  /* an entry with a logo: logo | name and role, like a profile header; the body full width below.
+     One scale for every logo (the tallest of the set 5rem, the rest smaller so they look as big),
+     each centred on its head, in a fixed column so they share one axis. */
+  .entry:has(>.meta>.co-mini){grid-template-columns:5rem [text] minmax(0,1fr);column-gap:1rem}
+  .entry:has(>.meta>.co-mini)>.entry-body{grid-column:1 / -1}
+  .entry>.meta:has(.co-mini){display:grid;place-items:center;align-self:center;margin:0}
+  .entry>.meta>.co-mini{--logo:5rem;max-width:100%;height:auto;aspect-ratio:calc(var(--lw) / var(--lh))}
   article.entry+article.entry{background-position:0 0;background-size:100% 1px}
   .statement{padding-block:3.5rem}
   .flow .flow-wide{display:none}
