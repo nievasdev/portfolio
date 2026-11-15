@@ -1,0 +1,22 @@
+---
+// CV, GitHub and LinkedIn, each with its icon (from IconSprite): in the hero and in the contact.
+import { ui, links, localePath, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const items = [
+  { href: localePath(lang, '/cv.pdf'), label: t.hero.cv, icon: 'i-download', download: 'Mauro-Nievas-CV.pdf' },
+  { href: links.github, label: 'GitHub', icon: 'i-github' },
+  { href: links.linkedin, label: 'LinkedIn', icon: 'i-linkedin' },
+];
+---
+
+{items.map(({ href, label, icon, download }) => (
+  <a class="icon-link" href={href} download={download}>
+    <svg class="icon" aria-hidden="true"><use href={`#${icon}`} /></svg>{label}
+  </a>
+))}

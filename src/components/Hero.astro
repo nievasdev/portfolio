@@ -1,6 +1,7 @@
 ---
 import Mark from './Mark.astro';
-import { ui, links, localePath, type Lang } from '../i18n/ui';
+import ProfileLinks from './ProfileLinks.astro';
+import { ui, type Lang } from '../i18n/ui';
 
 interface Props {
   lang: Lang;
@@ -29,9 +30,7 @@ const t = ui[lang];
     </ul>
     <div class="actions">
       <a class="cta" href="#contact">{t.hero.cta} <span class="pip" aria-hidden="true"></span></a>
-      <a href={localePath(lang, '/cv.pdf')} download="Mauro-Nievas-CV.pdf">{t.hero.cv}</a>
-      <a href={links.github}>GitHub</a>
-      <a href={links.linkedin}>LinkedIn</a>
+      <ProfileLinks lang={lang} />
     </div>
   </div>
 </div>

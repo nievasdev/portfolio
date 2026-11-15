@@ -6,6 +6,7 @@ import Experience from './Experience.astro';
 import Projects from './Projects.astro';
 import About from './About.astro';
 import Contact from './Contact.astro';
+import IconSprite from './IconSprite.astro';
 import { getEntry } from 'astro:content';
 import { ui, type Lang } from '../i18n/ui';
 
@@ -20,6 +21,7 @@ const projects = (await getEntry('projects', lang))?.data ?? [];
 ---
 
 <Layout lang={lang} path="/" title={t.meta.title} description={t.meta.description} bandFooter>
+  <IconSprite />
   <Hero lang={lang} />
   <Statement lang={lang} />
   <Experience lang={lang} works={works} />

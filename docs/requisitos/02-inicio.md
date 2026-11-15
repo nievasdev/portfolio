@@ -16,7 +16,8 @@
 - **R-10.** Las acciones del hero son: *Contact me* (a la sección de contacto), *Download CV (PDF)*
   (el CV del idioma de la página), GitHub (`github.com/nievasdev`) y LinkedIn
   (`linkedin.com/in/mauronievasdev`). En pantallas chicas *Contact me* va sola en su fila y las
-  otras tres juntas debajo; el enlace al CV dice «CV (PDF)».
+  otras tres juntas debajo; el enlace al CV dice «CV (PDF)». CV, GitHub y LinkedIn llevan su ícono
+  a la izquierda (una flecha de descarga, el gato de GitHub y el «in»), en el hero y en el contacto.
 
 ### Frase-momento
 

@@ -14,7 +14,8 @@ src/
   pages/          rutas (envoltorios finos): index, es/index, work/[slug], es/work/[slug],
                   cv.pdf.ts, es/cv.pdf.ts, logos.svg.ts (sprite de logos)
   components/     HomePage, Hero, Statement, Projects, Experience, About, Contact,
-                  WorkDetail, Header, Footer, Mark, ThemeToggle, TransactionsFlow, SearchFlow
+                  WorkDetail, Header, Footer, Mark, ThemeToggle, TransactionsFlow, SearchFlow,
+                  ProfileLinks (CV/GitHub/LinkedIn con ícono), IconSprite (sus símbolos, solo home)
   layouts/        Layout.astro: <head> (hreflang, canonical, meta, tema), header y footer
   content/        works/, projects/, cv/ (JSON por idioma), schemas.ts, config.ts
   i18n/ui.ts      textos fijos por idioma, links, localePath()
