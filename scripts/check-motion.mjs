@@ -2,7 +2,8 @@
 // Opens the home in headless Chrome, with and without «reduce motion», and fails when:
 //   - the diagrams' transactions don't flow on their own, without scrolling (R-35);
 //   - they move with «reduce motion» on (R-36);
-//   - Uruleyes' search doesn't walk app → API → PostgreSQL → API → app, on desktop and phones (R-56).
+//   - Uruleyes' search doesn't walk app → API → PostgreSQL → API → app, on desktop and phones (R-56);
+//   - Uruleyes' loading dots don't go from scraping to the sources and from scraping to the app (R-57).
 //
 // usage: npm run build && npx astro preview --port 4329 & node scripts/check-motion.mjs [baseUrl]
 import { spawn } from 'node:child_process';
@@ -79,6 +80,46 @@ const VIEWPORTS = [
   { name: 'celular', width: 390, height: 844, mobile: true },
 ];
 
+// Uruleyes' loading dots (R-57): for every dotted stroke in the visible diagram, frozen at two
+// times, which way its dots travel (a unit step along the diagram's axis: -1 towards the sources,
+// +1 towards the app, 0 still) and whether it sits between the sources and scraping boxes. The
+// direction comes from the stroke's own geometry, so drawing a stroke backwards is caught.
+const LOADING_DOTS = `(() => {
+  const svg = [...document.querySelectorAll('.flow-search svg')].find((s) => getComputedStyle(s).display !== 'none');
+  const wide = svg.classList.contains('flow-wide');
+  const along = (p) => (wide ? p.x : p.y);
+  const [sources, scraping] = [...svg.querySelectorAll('.stage')].map((r) => r.getBBox());
+  const gap = wide ? [sources.x + sources.width, scraping.x] : [sources.y + sources.height, scraping.y];
+  const anims = svg.getAnimations({ subtree: true });
+  const offsetsAt = (ms) => {
+    anims.forEach((a) => { a.pause(); a.currentTime = ms; });
+    return [...svg.querySelectorAll('.tx')].map((p) => parseFloat(getComputedStyle(p).strokeDashoffset));
+  };
+  const [before, after] = [offsetsAt(1000), offsetsAt(1500)];
+  return [...svg.querySelectorAll('.tx')].map((p, i) => {
+    const [start, end] = [p.getPointAtLength(0), p.getPointAtLength(p.getTotalLength())];
+    const middle = (along(start) + along(end)) / 2;
+    // a falling dash offset moves the dots from the stroke's start towards its end
+    const travel = Math.sign(before[i] - after[i]) * Math.sign(along(end) - along(start));
+    return { inGap: middle >= gap[0] && middle <= gap[1], travel };
+  });
+})()`;
+
+const towards = (travel) => (travel < 0 ? 'las fuentes' : travel > 0 ? 'la app' : 'ningún lado');
+
+// Problems with the loading dots at one page, viewport and motion setting (empty when they're right).
+async function loadingProblems({ reduce }) {
+  const strokes = await evaluate(LOADING_DOTS);
+  if (reduce) return strokes.some((s) => s.travel !== 0) ? ['los puntos se mueven con movimiento reducido'] : [];
+  const problems = [];
+  if (!strokes.some((s) => s.inGap)) problems.push('no hay puntos entre las fuentes y el scraping');
+  strokes.forEach((s, i) => {
+    const expected = s.inGap ? -1 : 1;
+    if (s.travel !== expected) problems.push(`trazo ${i + 1}: los puntos van hacia ${towards(s.travel)}, deberían ir hacia ${towards(expected)}`);
+  });
+  return problems;
+}
+
 // Problems with the search walk at one page, viewport and motion setting (empty when it's right).
 async function searchProblems({ page, viewport, reduce }) {
   const stops = [];
@@ -146,6 +187,9 @@ try {
         const problems = await searchProblems({ page, viewport, reduce });
         if (problems.length) problems.forEach((p) => fail(`${label}: búsqueda de Uruleyes, ${p}`));
         else console.log(`ok    ${label}: búsqueda ${reduce ? 'quieta' : 'app → API → PostgreSQL → API → app'}`);
+        const loading = await loadingProblems({ reduce });
+        if (loading.length) loading.forEach((p) => fail(`${label}: carga de Uruleyes, ${p}`));
+        else console.log(`ok    ${label}: carga ${reduce ? 'quieta' : 'scraping → fuentes, scraping → app'}`);
       }
     }
   }

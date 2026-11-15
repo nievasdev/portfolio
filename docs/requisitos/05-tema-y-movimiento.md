@@ -19,6 +19,11 @@
   detiene arriba de cada etapa mientras esa etapa se ilumina en dorado; las fuentes y el scraping
   no se iluminan (los recorren los puntos de la carga). En pantallas chicas solo se iluminan las
   etapas, en el mismo orden.
+- **R-57.** En el diagrama de Uruleyes, los puntos de la carga de datos muestran quién actúa: el
+  scraping va a buscar las leyes, así que entre las fuentes (Parlamento, IMPO, TCA) y el scraping
+  los puntos van del scraping hacia las fuentes; del scraping en adelante (hacia PostgreSQL, la API
+  y la app) siguen hacia la app. En pantallas chicas, igual: entre fuentes y scraping suben hacia
+  las fuentes, y del scraping en adelante bajan.
 - **R-55.** Al cargar, las cifras del hero que son número («9+», «3.5M»; «+9», «3,5M» en español)
   cuentan desde 0 hasta su valor en ~1,4 s, respetando el formato de cada idioma; las palabras
   («Uruleyes») se ven desde el principio. Solo se cuentan números con un decimal como máximo. El
@@ -82,6 +87,15 @@ Verificación: `src/tests/figures.test.ts` (`figureParts`) y `npm run check:moti
   esa; en escritorio la píldora está sobre esa etapa y dice «query» / «consulta» en las tres
   primeras paradas y «results» / «resultados» en las dos últimas; las fuentes y el scraping nunca
   se iluminan; con «reducir movimiento» no se ilumina ninguna
+
+Verificación: `npm run check:motion`.
+
+**CA-50: el scraping va a buscar las leyes** (R-57, R-36)
+
+- Dada la home en escritorio y en celular, con movimiento
+- Cuando se miran los puntos del diagrama de Uruleyes durante un segundo, sin scroll
+- Entonces en el tramo entre las fuentes y el scraping avanzan hacia las fuentes, y en el tramo del
+  scraping a la app avanzan hacia la app; con «reducir movimiento» no se mueven
 
 Verificación: `npm run check:motion`.
 
